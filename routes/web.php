@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app.landing-page');
+});
+Route::get('/myaccounts', function () {
+    return view('app.myaccounts');
+});
+Route::get('/listofaccounts', function () {
+    return view('app.listofaccounts');
+});
+Route::get('/transaction', function () {
+    return view('app.transaction');
 });
