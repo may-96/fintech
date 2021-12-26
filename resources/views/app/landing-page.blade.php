@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('dashheadr')
+@section('headr')
 
 
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 bg-soft-primary">
-        <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
+    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
+        <div class="container pb-19 pt-md-14 pb-md-20 text-center">
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
@@ -26,266 +26,254 @@
     </section>
     <!-- /section -->
 @endsection
-@section('section')
-    <section class="wrapper mt-22 bg-light">
-        <div class="container pb-14 pb-md-16">
-            <div class="row">
-                <div class="col-lg-10 mx-auto">
-                    <div class="blog single mt-n17">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="classic-view">
-                                    <article class="post">
-                                        <div class="post-content mb-5">
-                                            <h2 class="h1 fs-46 text-center mb-4">Get rid of traditional banking</h2>
-                                            <div class="row g-6 mt-3 mb-10 light-gallery-wrapper">
+@section('content')
+    <section class="wrapper bg-soft-ash">
+        <div class="container">
+            <div class="card mx-10 py-5 my-15 bg-pale-purple">
+                <div class="row m-auto text-center">
+                    <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
+                        <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
+                        <h3 class="display-6 mb-9">The service we offer is specifically designed to meet your needs.</h3>
+                    </div>
+                    <!-- /column -->
+                </div>
+                <!-- /.row -->
+                <div class="row bg-gradient-navy gx-md-2 gx-xl-10 gy-8  mb-md-16 text-center m-auto">
+                    <div class="col-md-4">
+                        <div class="icon btn btn-block btn-lg btn-soft-yellow disabled mb-5"> <i class="uil uil-dollar-alt"></i> </div>
 
-                                                <div class="mt-20 col-md-12">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
+                        <h4>Hedge Funds</h4>
+                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
+                        <a href="#hedge" class="more hover link-yellow">Learn More</a>
+                    </div>
+                    <!--/column -->
+                    <div class="col-md-4">
+                        <div class="icon btn btn-block btn-lg btn-soft-blue disabled mb-5"> <i class="uil uil-atm-card"></i> </div>
+                        <h4>Credit Worthiness</h4>
+                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
+                        <a href="#" class="more hover link-blue">Learn More</a>
+                    </div>
+                    <!--/column -->
+                    <div class="col-md-4">
+                        <div class="icon btn btn-block btn-lg btn-soft-green disabled mb-5"> <i class="uil uil-shield-exclamation"></i> </div>
+                        <h4>Secure Payments</h4>
+                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
+                        <a href="#" class="more hover link-green">Learn More</a>
+                    </div>
+                    <!--/column -->
 
-                                                        <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
-                                                            <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">My Accounts.</h3>
-                                                            <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
-                                                        </div>
-                                                        <!--/column -->
-                                                    </div>
-                                                </div>
-                                                <!--/column -->
+                </div>
+                <!--/.row -->
+            </div>
 
+            <div class="card shadow-none my-n15 my-lg-n17 mb-25 bg-transparent">
+                <div class="card-body py-12 py-lg-14 px-lg-11 py-xl-16 px-xl-13">
 
-                                                <div class="col-md-6">
-                                                    <div class="d-flex align-items-center hover-scale bg-overlay rounded bg-overlay-100" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pt-md-8 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
-                                                            <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Shared Accounts</h3>
-                                                            <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
-                                                        </div>
-                                                        <!--/column -->
-                                                        <div class="col-lg-6 mt-20 mx-14">
-                                                            <p>this is div</p>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-                                                <!--/column -->
-
-                                                <div class="col-md-6">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-10 col-xl-9 col-xxl-5 text-start ">
-                                                            <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Link your Accounts</h3>
-                                                            <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
-                                                        </div>
-                                                        <!--/column -->
-                                                    </div>
-                                                </div>
-                                                <!--/column -->
-                                                <div class="mt-20">
-                                                    <div class="post-category text-center">
-                                                        <a href="#" class="hover text-center">Rent House</a>
-                                                    </div>
-                                                    <h2 class="h1 fs-46 text-center mb-4">Get an afd letter</h2>
-                                                    <p class="lead fs-23 lh-sm mb-7 text-center text-indigo animated-caption">Get your credit score, an affordability letter to rent a house</p>
-
-                                                </div>
-                                                <div class="mt-15 col-md-12">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
-                                                            <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">My Accounts.</h3>
-                                                            <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
-                                                        </div>
-                                                        <!--/column -->
-                                                    </div>
-                                                </div>
-                                                <!--/column -->
-                                            </div>
-                                            <!-- /.row -->
-                                        </div>
-                                        <!-- /.post-content -->
-                                    </article>
-                                    <!-- /.post -->
+                    <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">
+                        <div class="col-lg-6">
+                            <h2 class="fs-15 text-uppercase text-muted mb-3">How to</h2>
+                            <h3 class="display-4 mb-5">3 working steps to organize our business projects.</h3>
+                            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod eget. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam quis risus.</p>
+                            <p class="mb-6">Nullam id dolor id nibh ultricies vehicula ut id elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum consectetur.</p>
+                            <a href="#" class="btn btn-primary rounded-pill mb-0">Learn More</a>
+                        </div>
+                        <!--/column -->
+                        <div class="col-lg-6">
+                            <div class="card ms-15 p-5 my-15 bg-white">
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <span class="icon btn btn-block btn-lg btn-soft-purple disabled mt-1 me-5"><span class="number fs-22">01</span></span>
                                 </div>
-                                <!-- /.classic-view -->
-
-
-                                <!-- /.social -->
-                                <hr/>
-                                <h3 class="mb-6">You Might Also Like</h3>
-                                <div class="carousel owl-carousel blog grid-view mb-16" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "2"}}'>
-                                    <div class="item">
-                                        <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b4.jpg')}}" alt=""/></a>
-                                                <figcaption>
-                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="post-header">
-                                                <div class="post-category text-line">
-                                                    <a href="#" class="hover" rel="category">Coding</a>
-                                                </div>
-                                                <!-- /.post-category -->
-                                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">Ligula tristique quis risus</a></h2>
-                                            </div>
-                                            <!-- /.post-header -->
-                                            <div class="post-footer">
-                                                <ul class="post-meta mb-0">
-                                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>14 Apr 2021</span></li>
-                                                    <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>4</a></li>
-                                                </ul>
-                                                <!-- /.post-meta -->
-                                            </div>
-                                            <!-- /.post-footer -->
-                                        </article>
-                                        <!-- /article -->
-                                    </div>
-                                    <!-- /.item -->
-                                    <div class="item">
-                                        <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b5.jpg')}}" alt=""/></a>
-                                                <figcaption>
-                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="post-header">
-                                                <div class="post-category text-line">
-                                                    <a href="#" class="hover" rel="category">Workspace</a>
-                                                </div>
-                                                <!-- /.post-category -->
-                                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">Nullam id dolor elit id nibh</a></h2>
-                                            </div>
-                                            <!-- /.post-header -->
-                                            <div class="post-footer">
-                                                <ul class="post-meta mb-0">
-                                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>29 Mar 2021</span></li>
-                                                    <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>3</a></li>
-                                                </ul>
-                                                <!-- /.post-meta -->
-                                            </div>
-                                            <!-- /.post-footer -->
-                                        </article>
-                                        <!-- /article -->
-                                    </div>
-                                    <!-- /.item -->
-                                    <div class="item">
-                                        <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b6.jpg')}}" alt=""/></a>
-                                                <figcaption>
-                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="post-header">
-                                                <div class="post-category text-line">
-                                                    <a href="#" class="hover" rel="category">Meeting</a>
-                                                </div>
-                                                <!-- /.post-category -->
-                                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">Ultricies fusce porta elit</a></h2>
-                                            </div>
-                                            <!-- /.post-header -->
-                                            <div class="post-footer">
-                                                <ul class="post-meta mb-0">
-                                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>26 Feb 2021</span></li>
-                                                    <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>6</a></li>
-                                                </ul>
-                                                <!-- /.post-meta -->
-                                            </div>
-                                            <!-- /.post-footer -->
-                                        </article>
-                                        <!-- /article -->
-                                    </div>
-                                    <!-- /.item -->
-                                    <div class="item">
-                                        <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b7.jpg')}}" alt=""/></a>
-                                                <figcaption>
-                                                    <h5 class="from-top mb-0">Read More</h5>
-                                                </figcaption>
-                                            </figure>
-                                            <div class="post-header">
-                                                <div class="post-category text-line">
-                                                    <a href="#" class="hover" rel="category">Business Tips</a>
-                                                </div>
-                                                <!-- /.post-category -->
-                                                <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="./blog-post.html">Morbi leo risus porta eget</a></h2>
-                                            </div>
-                                            <div class="post-footer">
-                                                <ul class="post-meta mb-0">
-                                                    <li class="post-date"><i class="uil uil-calendar-alt"></i><span>7 Jan 2021</span></li>
-                                                    <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>2</a></li>
-                                                </ul>
-                                                <!-- /.post-meta -->
-                                            </div>
-                                            <!-- /.post-footer -->
-                                        </article>
-                                        <!-- /article -->
-                                    </div>
-                                    <!-- /.item -->
+                                <div>
+                                    <h4 class="mb-1">Collect Ideas</h4>
+                                    <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Fusce dapibus, tellus ac cursus commodo.</p>
                                 </div>
-                                <!-- /.owl-carousel -->
-
-
-                                <hr/>
-
-
-                                <div class="container">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8 col-lg-6 position-relative">
-                                            <div class="shape rounded bg-soft-secondary rellax d-md-block" data-rellax-speed="0" style="bottom: -1.8rem; right: -1.5rem; width: 85%; height: 90%; "></div>
-                                            <figure class="rounded"><img src="{{asset('images/photos/device.png')}}" srcset="{{asset('images/photos/about7@2x.jpg 2x')}}" alt=""/></figure>
-                                        </div>
-                                        <!--/column -->
-                                        <div class="col-lg-6 col-xl-4 offset-lg-1">
-                                            <h2 class="h1 mb-3">How It Works?</h2>
-                                            <div class="d-flex flex-row mb-6">
-                                                <div>
-                                                    <span class="icon btn btn-circle btn-secondary disabled me-5"><span class="number fs-18">1</span></span>
-                                                </div>
-                                                <div>
-                                                    <h4 class="mb-1">step 1</h4>
-                                                    <p class="mb-0">this is 1.</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row mb-6">
-                                                <div>
-                                                    <span class="icon btn btn-circle btn-secondary disabled me-5"><span class="number fs-18">2</span></span>
-                                                </div>
-                                                <div>
-                                                    <h4 class="mb-1">step 2</h4>
-                                                    <p class="mb-0">this is 2</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row">
-                                                <div>
-                                                    <span class="icon btn btn-circle btn-secondary disabled me-5"><span class="number fs-18">3</span></span>
-                                                </div>
-                                                <div>
-                                                    <h4 class="mb-1">step 3</h4>
-                                                    <p class="mb-0">this is 3</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/column -->
-                                    </div>
-                                    <!--/.row -->
+                            </div>
+                            <div class="d-flex flex-row mt-8 ms-lg-10">
+                                <div>
+                                    <span class="icon btn btn-block btn-lg btn-soft-green disabled mt-1 me-5"><span class="number fs-22">02</span></span>
                                 </div>
-                                <!-- /.container -->
+                                <div>
+                                    <h4 class="mb-1">Data Analysis</h4>
+                                    <p class="mb-0">Vivamus sagittis lacus vel augue laoreet tortor mauris condimentum fermentum.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row mt-8">
+                                <div>
+                                    <span class="icon btn btn-block btn-lg btn-soft-orange disabled mt-1 me-5"><span class="number fs-22">03</span></span>
+                                </div>
+                                <div>
+                                    <h4 class="mb-1">Finalize Product</h4>
+                                    <p class="mb-0">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <!--/column -->
+                    </div>
+                    <!--/.row -->
+                    <hr class="my-14 my-md-16" />
 
 
-                                <hr/>
+                    <hr class="my-14 my-md-16" />
+                    <div class="row gx-lg-8 gx-xl-12 gy-10 mb-14 mb-md-17 align-items-center">
+                        <div class="col-md-8 col-lg-6 order-lg-2">
 
+                                <div  style="background-color: #2d3e50" class="card ms-15 p-5 my-15">
+                                    <div class="d-flex flex-row">
+                                        <div>
+                                           <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+
+                                        </div>
+                                        <div>
+                                            <h4 class="mb-1 text-white">Manage Cash Flow</h4>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row mt-8 ms-lg-1">
+
+                                        <div>
+                                            <h4 class="mb-1 text-white">Manage Cash Flow</h4>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                        <div>
+                                            <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row mt-8">
+                                        <div>
+                                            <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+
+                                        </div>
+                                        <div>
+                                            <h4 class="mb-1 text-white">Finalize Product</h4>
+                                            <p class="mb-0 text-white">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
+                                        </div>
+                                    </div>
 
                             </div>
-                            <!-- /.card-body -->
+                            <!--/column -->
                         </div>
-                        <!-- /.card -->
+                        <!--/column -->
+                        <div class="col-lg-6">
+                            <h2 class="fs-15 text-uppercase text-muted mb-3"  id="hedge"  >Use Cases</h2>
+                            <h3 class="display-4 mb-5">Transparent Hedge Funds.</h3>
+                            <p class="mb-6"> 'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank account to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
+                            <div class="row gy-3 gx-xl-8">
+                                <div class="col-xl-6">
+                                    <ul class="icon-list bullet-bg bullet-soft-primary mb-0">
+                                        <li><span><i class="uil uil-check"></i></span><span>Efficient way to manage the cash flow.</span></li>
+                                        <li class="mt-3"><span><i class="uil uil-check"></i></span><span>Hedge Fund Manager can add notes to each transaction.</span></li>
+                                    </ul>
+                                </div>
+                                <!--/column -->
+                                <div class="col-xl-6">
+                                    <ul class="icon-list bullet-bg bullet-soft-primary mb-0">
+                                        <li><span><i class="uil uil-check"></i></span><span>Share bank account transaction data with investors.</span></li>
+                                        <li class="mt-3"><span><i class="uil uil-check"></i></span><span>Real-time audit of a transparent hedge fund based on bank account transaction data.</span></li>
+                                    </ul>
+                                </div>
+                                <!--/column -->
+                            </div>
+                            <!--/.row -->
+                        </div>
+                        <!--/column -->
                     </div>
-                    <!-- /.blog -->
-                </div>
-                <!-- /column -->
+                    <!--/.row -->
+                    <div class="row gy-10 gx-8 gx-lg-12 mb-14 mb-md-16 align-items-center">
+                        <div class="col-md-8 col-lg-6">
+
+                            <div class="card ms-1 p-5 my-15">
+                                <div class="d-flex flex-row">
+                                    <div class="hover-scale">
+                                        <img style="max-height: 6em" class="mx-2" class="hover-scale" src="{{asset('images/landingpage/house.jpg')}}">
+
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 text-light">Manage Cash Flow</h4>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mt-8 ms-lg-1">
+                                    <div>
+                                        <span class="icon btn btn-block btn-lg btn-soft-green disabled mt-1 me-5"><span class="number fs-22">02</span></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1">Share Funds Transactions</h4>
+                                        <p class="mb-0">Vivamus sagittis lacus vel augue laoreet tortor mauris condimentum fermentum.</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mt-8">
+                                    <div>
+                                        <span class="icon btn btn-block btn-lg btn-soft-orange disabled mt-1 me-5"><span class="number fs-22">03</span></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1">Finalize Product</h4>
+                                        <p class="mb-0">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/column -->
+                        </div>
+                        <!--/column -->
+                        <!--/column -->
+                        <div class="col-lg-6">
+                            <h2 class="fs-15 text-uppercase text-muted mb-3">Why Choose Us?</h2>
+                            <h3 class="display-4 mb-7">A few reasons why our valued customers choose us.</h3>
+                            <div class="accordion accordion-wrapper" id="accordionExample">
+                                <div class="card plain accordion-item">
+                                    <div class="card-header" id="headingOne">
+                                        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> Professional Design </button>
+                                    </div>
+                                    <!--/.card-header -->
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.accordion-collapse -->
+                                </div>
+                                <!--/.accordion-item -->
+                                <div class="card plain accordion-item">
+                                    <div class="card-header" id="headingTwo">
+                                        <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"> Top-Notch Support </button>
+                                    </div>
+                                    <!--/.card-header -->
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.accordion-collapse -->
+                                </div>
+                                <!--/.accordion-item -->
+                                <div class="card plain accordion-item">
+                                    <div class="card-header" id="headingThree">
+                                        <button class="collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> Header and Slider Options </button>
+                                    </div>
+                                    <!--/.card-header -->
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                        </div>
+                                        <!--/.card-body -->
+                                    </div>
+                                    <!--/.accordion-collapse -->
+                                </div>
+                                <!--/.accordion-item -->
+                            </div>
+                            <!--/.accordion -->
+                        </div>
+                        <!--/column -->
+                    </div>
+                    <!--/.row -->
+
             </div>
-            <!-- /.row -->
+            <!--/.card -->
         </div>
         <!-- /.container -->
     </section>
