@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('dashheadr')
+@section('headr')
 
 
     <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 bg-soft-primary">
@@ -26,7 +26,7 @@
     </section>
     <!-- /section -->
 @endsection
-@section('section')
+@section('content')
     <section class="wrapper mt-22 bg-light">
         <div class="container pb-14 pb-md-16">
             <div class="row">

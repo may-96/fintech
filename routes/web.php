@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,14 +15,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('app.landing-page');
-});
-Route::get('/myaccounts', function () {
-    return view('app.myaccounts');
-});
-Route::get('/listofaccounts', function () {
-    return view('app.listofaccounts');
-});
-Route::get('/transaction', function () {
+    return view('app.landing_page');
+})->name('index');
+
+Route::get('/dashboard', function () {
+    return view('app.dashboard');
+})->name('dashboard');
+
+Route::get('/my_accounts', function () {
+    return view('app.my_accounts');
+})->name('my.accounts');
+
+Route::get('/list_of_accounts', function () {
+    return view('app.list_of_accounts');
+})->name('list.accounts');;
+
+Route::get('transaction', function () {
     return view('app.transaction');
+})->name('list.transaction');
+
+Route::get('/login', function () {
+    return view('auth.login');
 });
+
+Auth::routes();

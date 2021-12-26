@@ -10,12 +10,9 @@
 </head>
 <body>
     <x-topbar></x-topbar>
-    @yield('headr')
-
-    @yield('content')
-    <div class="content-wrapper">
-        @yield('dashheadr')
-        @yield('section')
+    <div class="content-wrapper bg-soft-ash">
+        @yield('headr')
+        @yield('content')
     </div>
     <x-footer></x-footer>
     <x-js></x-js>
