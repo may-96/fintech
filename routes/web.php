@@ -15,23 +15,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('app.landing-page');
-});
+    return view('app.landing_page');
+})->name('index');
+
 Route::get('/dashboard', function () {
     return view('app.dashboard');
-});
+})->name('dashboard');
 
 Route::get('/my_accounts', function () {
-    return view('app.myaccounts');
-})->name('auth.accounts');
+    return view('app.my_accounts');
+})->name('my.accounts');
+
 Route::get('/list_of_accounts', function () {
-    return view('app.listofaccounts');
-});
+    return view('app.list_of_accounts');
+})->name('list.accounts');;
+
 Route::get('transaction', function () {
     return view('app.transaction');
-});
+})->name('list.transaction');
+
 Route::get('/login', function () {
     return view('auth.login');
 });
-Auth::routes();
 
+Auth::routes();
