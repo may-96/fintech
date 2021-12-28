@@ -181,7 +181,7 @@
                             <div class="card ms-1 p-5 my-15">
                                 <div class="d-flex flex-row">
                                     <div class="hover-scale">
-                                        <img style="max-height: 6em" class="mx-2" class="hover-scale" src="{{asset('images/landingpage/house.jpg')}}">
+                                        <img style="max-height: 6em" class="mx-2" class="hover-scale" src="{{asset('images/landingpage/house.png')}}">
 
                                     </div>
                                     <div>
