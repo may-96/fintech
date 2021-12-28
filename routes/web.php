@@ -37,12 +37,8 @@ Route::get('transaction', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
-<<<<<<< HEAD
 Route::get('/register', function () {
     return view('auth.register');
 });
 Auth::routes();
-=======
->>>>>>> a6ec2d97da3655f13ec3f98bb2691f5ff6e0d5b9
 
-Auth::routes();

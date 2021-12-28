@@ -1,5 +1,5 @@
 <header class="wrapper mb-1">
-    <nav class="navbar navbar-expand-lg center-nav transparent nvb navbar-light caret-none">
+    <nav class="navbar navbar-expand-lg center-nav transparent navbar-light caret-none">
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand w-100">
                 <a href="./index.html">
@@ -11,26 +11,21 @@
                     <a href="./index.html"><img src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="" /></a>
                     <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                 </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link dropdown-toggle" href="{{url('/landing-page')}}">Home</a>
+                <ul class="navbar-nav nvb">
+                    <li class="nav-item"><a class="nav-link " href="{{url('/landing-page')}}">Home</a>
 
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a>
 
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{url('/dashboard')}}">Dashboard</a>
+                    <li class="nav-item"><a class="nav-link " href="{{url('/dashboard')}}">Dashboard</a>
 
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="{{url('/myaccounts')}}">My Accounts</a>
+                    <li class="nav-item"><a class="nav-link dropdown-toggle" href="{{url('/myaccounts')}}">My Accounts</a>
 
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#!">Blocks</a>
-
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="./docs/index.html">Documentation</a>
-
-                    </li>
+                    
                 </ul>
                 <!-- /.navbar-nav -->
             </div>

@@ -70,15 +70,12 @@
                 <div class="card-body py-12 py-lg-14 px-lg-11 py-xl-16 px-xl-13">
 
                     <div class="row gx-md-8 gx-xl-12 gy-10 align-items-center">
-                        <div class="col-lg-6">
-                            <h2 class="fs-15 text-uppercase text-muted mb-3">How to</h2>
-                            <h3 class="display-4 mb-5">3 working steps to organize our business projects.</h3>
-                            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Etiam porta sem malesuada magna mollis euismod eget. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam quis risus.</p>
-                            <p class="mb-6">Nullam id dolor id nibh ultricies vehicula ut id elit. Vestibulum id ligula porta felis euismod semper. Aenean lacinia bibendum consectetur.</p>
-                            <a href="#" class="btn btn-primary rounded-pill mb-0">Learn More</a>
+                        <div class="col-lg-12 align-items-center">
+                            <h2 class="fs-15 text-uppercase text-muted text-center mb-3">How to</h2>
+                            <h3 class="display-4 mb-5 text-center">3 working steps to organize our business projects.</h3>
                         </div>
                         <!--/column -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="card ms-15 p-5 my-15 bg-white">
                             <div class="d-flex flex-row">
                                 <div>
