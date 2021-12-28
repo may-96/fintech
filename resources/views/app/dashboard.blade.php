@@ -56,7 +56,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="d-flex align-items-center hover-scale bg-overlay rounded bg-overlay-100" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pt-md-8 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
+                                                        <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-6 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Shared Accounts</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
                                                             <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
@@ -73,7 +73,7 @@
 
                                                 <div class="col-md-6">
                                                     <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-10 col-xl-9 col-xxl-5 text-start ">
+                                                        <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-3 pb-sm-3 col-lg-10 col-sm-12 col-md-10 col-xl-9 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Link your Accounts</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
                                                             <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
@@ -92,7 +92,7 @@
                                                 </div>
                                                 <div class="mt-15 col-md-12">
                                                     <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
-                                                        <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
+                                                        <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-6 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">My Accounts.</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
                                                             <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>

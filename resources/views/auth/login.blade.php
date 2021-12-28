@@ -1,29 +1,29 @@
 @extends('layouts.auth')
 
 @section('content')
-    <section class="vh-100">
-        <div class="container h-100">
-            <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="row-cols-lg-12 text-center">
-                    <h1 class="text-primary text-center">Revolut</h1>
+
+        <div class="container-fluid px-10">
+            <div class="row">
+                <div class="cols-md-12 pt-3 mb-10 text-start offset-xl-1">
+                    <h1 class="text-primary">Revolut</h1>
                 </div>
-                <div class="col-md-8 col-lg-7 col-xl-6">
+                <div class="d-none d-lg-block col-md-8 col-lg-7 col-xl-6 offset-xl-1">
                     <img src="{{asset('/images/login/login.png')}}" class="img-fluid" alt="Phone image">
                 </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                <div class="col-lg-5 col-xl-5">
                     <form>
                         <!-- Email input -->
                         <div class="text-muted">
                             <h1>Sign In</h1>
                         </div>
                         <div class="form-outline mb-4">
-                            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+                            <input type="email" id="form1Example13" class="form-control" />
                             <label class="form-label" for="form1Example13">Email address</label>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <input type="password" id="form1Example23" class="form-control form-control-lg" />
+                            <input type="password" id="form1Example23" class="form-control" />
                             <label class="form-label" for="form1Example23">Password</label>
                         </div>
 
@@ -43,7 +43,10 @@
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-purple btn-lg">Sign in</button>
+                        <button type="submit" class="btn btn-purple col-12 btn-lg">Sign in</button>
+                        <p class="text-center mt-2">or</p>
+
+                        <p class="mt-1"><a class="underline" href="{{url('/register')}}"> Sign Up</a>.If you don't have an account</p>
 
 
 
@@ -51,5 +54,5 @@
                 </div>
             </div>
         </div>
-    </section>
+
 @endsection

@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
-                        <div class="post-category text-line">
+                      <!--  <div class="post-category text-line">
                             <a href="#" class="hover" rel="category">Teamwork</a>
-                        </div>
+                        </div>-->
                         <!-- /.post-category -->
                         <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
                         <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
@@ -29,7 +29,7 @@
 @section('content')
     <section class="wrapper bg-soft-ash">
         <div class="container">
-            <div class="card mx-10 py-5 my-15 bg-pale-purple">
+            <div class="card mx-10 py-5 my-15 bg-white">
                 <div class="row m-auto text-center">
                     <div class="col-lg-9 col-xl-8 col-xxl-7 mx-auto">
                         <h2 class="fs-15 text-uppercase text-muted mb-3">What We Do?</h2>
@@ -38,7 +38,7 @@
                     <!-- /column -->
                 </div>
                 <!-- /.row -->
-                <div class="row bg-gradient-navy gx-md-2 gx-xl-10 gy-8  mb-md-16 text-center m-auto">
+                <div class="row bg-white gx-md-2 gx-xl-10 gy-8  mb-md-16 text-center m-auto">
                     <div class="col-md-4">
                         <div class="icon btn btn-block btn-lg btn-soft-yellow disabled mb-5"> <i class="uil uil-dollar-alt"></i> </div>
 
@@ -112,10 +112,7 @@
                         <!--/column -->
                     </div>
                     <!--/.row -->
-                    <hr class="my-14 my-md-16" />
 
-
-                    <hr class="my-14 my-md-16" />
                     <div class="row gx-lg-8 gx-xl-12 gy-10 mb-14 mb-md-17 align-items-center">
                         <div class="col-md-8 col-lg-6 order-lg-2">
 
@@ -152,7 +149,7 @@
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
                             <!--/column -->
                         </div>
                         <!--/column -->

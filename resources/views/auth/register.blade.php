@@ -1,77 +1,58 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+    <div class="container-fluid px-10" id="sm">
+         <div class="row">
+                <p class="text-primary fs-38 font-weight-bold">Revolut</p>
+            <div class="d-none d-lg-block col-md-8 col-lg-7 col-xl-6 offset-xl-1">
+                <img src="{{asset('/images/login/login.png')}}" class="img-fluid" alt="Phone image">
+            </div>
+            <div class="col-lg-5 col-sm-9 col-xl-4">
+                <form>
+                    <!-- Email input -->
+                    <div class="text-muted">
+                        <h1>Sign Up</h1>
+                    </div>
+                    <div class="form-outline mb-4 d-sm-flex d-md-flex d-lg-flex">
+                        <input type="text" id="FirstName" placeholder="First Name" class="form-control me-2" />
+                        <input type="text" id="LastName" placeholder="Last Name" class="form-control" />
+                    </div>
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" placeholder="Email Address" class="form-control " />
+                    </div>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" placeholder="New Password" id="pass" class="form-control" />
+                    </div>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="form-outline mb-1">
+                        <input type="password" placeholder="Confirm Password" id="confirm" class="form-control" />
+                    </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
+                    <div class="d-flex mb-2">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="form1Example3"
+                            checked
+                        />
+                        <p class="text-muted ms-1 fs-14">I agree, to your<a href="#" class="fst-normal"> Terms </a>,<a href="#" class="fst-normal">Privacy Policy </a> and <a href="#" class="fst-normal">Cookie Policy</a></p>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                    </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-purple col-12">Sign up</button>
+                    <p class="mt-2">if you already've an account? <a href="{{url('/login')}}"> Sign In</a></p>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
+
 @endsection
