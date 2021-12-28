@@ -77,79 +77,23 @@
                         <!--/column -->
                         <div class="col-lg-4">
                             <div class="card ms-15 p-5 my-15 bg-white">
-                            <div class="d-flex flex-row">
-                                <div>
-                                    <span class="icon btn btn-block btn-lg btn-soft-purple disabled mt-1 me-5"><span class="number fs-22">01</span></span>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1">Collect Ideas</h4>
-                                    <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Fusce dapibus, tellus ac cursus commodo.</p>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row mt-8 ms-lg-10">
-                                <div>
-                                    <span class="icon btn btn-block btn-lg btn-soft-green disabled mt-1 me-5"><span class="number fs-22">02</span></span>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1">Data Analysis</h4>
-                                    <p class="mb-0">Vivamus sagittis lacus vel augue laoreet tortor mauris condimentum fermentum.</p>
+                                <div class="d-flex flex-row">
+                                    <div>
+                                       <span class="icon btn btn-block btn-lg btn-soft-purple disabled mt-1 me-5"><span class="number fs-22">01</span></span>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1">Collect Ideas</h4>
+                                        <p class="mb-0"></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex flex-row mt-8">
-                                <div>
-                                    <span class="icon btn btn-block btn-lg btn-soft-orange disabled mt-1 me-5"><span class="number fs-22">03</span></span>
-                                </div>
-                                <div>
-                                    <h4 class="mb-1">Finalize Product</h4>
-                                    <p class="mb-0">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
-                                </div>
-                            </div>
-                        </div>
                         </div>
                         <!--/column -->
                     </div>
                     <!--/.row -->
 
                     <div class="row gx-lg-8 gx-xl-12 gy-10 mb-14 mb-md-17 align-items-center">
-                        <div class="col-md-8 col-lg-6 order-lg-2">
 
-                                <div  style="background-color: #2d3e50" class="card ms-15 p-5 my-15">
-                                    <div class="d-flex flex-row">
-                                        <div>
-                                           <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
-
-                                        </div>
-                                        <div>
-                                            <h4 class="mb-1 text-white">Manage Cash Flow</h4>
-                                            <p class="mb-0"></p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row mt-8 ms-lg-1">
-
-                                        <div>
-                                            <h4 class="mb-1 text-white">Manage Cash Flow</h4>
-                                            <p class="mb-0"></p>
-                                        </div>
-                                        <div>
-                                            <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
-
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row mt-8">
-                                        <div>
-                                            <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
-
-                                        </div>
-                                        <div>
-                                            <h4 class="mb-1 text-white">Finalize Product</h4>
-                                            <p class="mb-0 text-white">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            <!--/column -->
-                        </div>
-                        <!--/column -->
                         <div class="col-lg-6">
                             <h2 class="fs-15 text-uppercase text-muted mb-3"  id="hedge"  >Use Cases</h2>
                             <h3 class="display-4 mb-5">Transparent Hedge Funds.</h3>
@@ -173,29 +117,62 @@
                             <!--/.row -->
                         </div>
                         <!--/column -->
-                    </div>
-                    <!--/.row -->
-                    <div class="row gy-10 gx-8 gx-lg-12 mb-14 mb-md-16 align-items-center">
-                        <div class="col-md-8 col-lg-6">
-
-                            <div class="card ms-1 p-5 my-15">
+                        <div class="col-md-12 col-lg-6 col-sm-12">
+                            <div  style="background-color: #2d3e50" class="card ms-15 p-5 my-15">
                                 <div class="d-flex flex-row">
-                                    <div class="hover-scale">
-                                        <img style="max-height: 6em" class="mx-2" class="hover-scale" src="{{asset('images/landingpage/house.png')}}">
-
+                                    <div>
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
                                     </div>
                                     <div>
-                                        <h4 class="mb-1 text-light">Manage Cash Flow</h4>
+                                        <h4 class="mb-1 text-white">Manage Cash Flow</h4>
                                         <p class="mb-0"></p>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row mt-8 ms-lg-1">
                                     <div>
-                                        <span class="icon btn btn-block btn-lg btn-soft-green disabled mt-1 me-5"><span class="number fs-22">02</span></span>
+                                        <h4 class="mb-1 text-white">Manage Cash Flow</h4>
+                                        <p class="mb-0"></p>
                                     </div>
                                     <div>
-                                        <h4 class="mb-1">Share Funds Transactions</h4>
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row mt-8">
+                                    <div>
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 text-white">Finalize Product</h4>
+                                        <p class="mb-0 text-white">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/column -->
+                        </div>
+                        <!--/column -->
+                    </div>
+                    <!--/.row -->
+                    <div class="row gy-10 gx-8 gx-lg-12 mb-14 mb-md-16 align-items-center">
+                        <div class="col-md-8 col-lg-6">
+
+                            <div class="card bg-gray p-5 my-15">
+                                <div class="d-flex card shadow-lg flex-row">
+                                    <div class="hover-scale">
+                                        <img style="max-height: 6em"  class="hover-scale" src="{{asset('images/landingpage/house.png')}}">
+
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-1 ">Want to rent a house</h4>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex card flex-row mt-8 ms-lg-1">
+                                    <div>
+                                        <h4 class="mb-1">Link your account with us</h4>
                                         <p class="mb-0">Vivamus sagittis lacus vel augue laoreet tortor mauris condimentum fermentum.</p>
+                                    </div>
+                                    <div>
+                                        <span class="icon btn btn-block btn-lg btn-soft-green disabled mt-1 me-5"><span class="number fs-22">02</span></span>
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row mt-8">
@@ -203,7 +180,7 @@
                                         <span class="icon btn btn-block btn-lg btn-soft-orange disabled mt-1 me-5"><span class="number fs-22">03</span></span>
                                     </div>
                                     <div>
-                                        <h4 class="mb-1">Finalize Product</h4>
+                                        <h4 class="mb-1">Get Credit Worthiness Report</h4>
                                         <p class="mb-0">Cras mattis consectetur purus sit amet massa justo sit amet risus consectetur magna elit.</p>
                                     </div>
                                 </div>
@@ -214,8 +191,8 @@
                         <!--/column -->
                         <!--/column -->
                         <div class="col-lg-6">
-                            <h2 class="fs-15 text-uppercase text-muted mb-3">Why Choose Us?</h2>
-                            <h3 class="display-4 mb-7">A few reasons why our valued customers choose us.</h3>
+                            <h2 class="fs-15 text-uppercase text-muted mb-3">Use Case 2</h2>
+                            <h3 class="display-4 mb-7">Get Credit Worthiness Report.</h3>
                             <div class="accordion accordion-wrapper" id="accordionExample">
                                 <div class="card plain accordion-item">
                                     <div class="card-header" id="headingOne">

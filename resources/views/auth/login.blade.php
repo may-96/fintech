@@ -5,7 +5,7 @@
         <div class="container-fluid px-10">
             <div class="row">
                 <div class="cols-md-12 pt-3 mb-10 text-start offset-xl-1">
-                    <h1 class="text-primary">Revolut</h1>
+                    <h1 class="text-primary fw-bold fs-28">Revolut</h1>
                 </div>
                 <div class="d-none d-lg-block col-md-8 col-lg-7 col-xl-6 offset-xl-1">
                     <img src="{{asset('/images/login/login.png')}}" class="img-fluid" alt="Phone image">
