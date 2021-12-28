@@ -2,15 +2,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
-    <div class="container-fluid px-10" id="sm">
-         <div class="row">
-             <div class="cols-md-12 pt-3 mb-10 text-start offset-xl-1">
-                 <h1 class="text-primary fw-bold fs-28">Revolut</h1>
-             </div>
-            <div class="d-none d-lg-block col-md-8 col-lg-7 col-xl-6 offset-xl-1">
-                <img src="{{asset('/images/login/login.png')}}" class="img-fluid" alt="Phone image">
-=======
     <div class="container-fluid px-10 d-flex justify-content-center vh-100" id="sm">
          <div class="row d-flex justify-content-center" style="width: 80rem;">
                 <div class="mt-6"><p class="text-primary fs-28 fw-bold">Revolut</p></div>
@@ -18,7 +9,6 @@
                 <div class="d-flex justify-content-center">
                     <img src="{{asset('/images/login/login.png')}}" class="img img-fluid" alt="Register Image">
                 </div>
->>>>>>> origin/landingpage
             </div>
             <div class="col-12 col-md-6">
                 <form class="m-auto" style="max-width: 25rem;">
