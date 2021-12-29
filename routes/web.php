@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Login;
+use App\Http\Livewire\Register;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,11 +36,5 @@ Route::get('transaction', function () {
     return view('app.transaction');
 })->name('list.transaction');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
-Route::get('/register', function () {
-    return view('auth.register');
-});
-Auth::routes();
+Auth::routes(['verify' => true]);
 

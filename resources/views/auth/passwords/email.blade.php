@@ -1,47 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+@section('css')
+
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="container-fluid px-10 d-flex justify-content-center vh-100">
+        <div class="row d-flex justify-content-center" style="width: 80rem;">
+            <div class="mt-6">
+                <p class="text-primary fs-28 fw-bold"><a href="{{ route('index') }}">{{ config('app.name') }}</a></p>
+            </div>
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('/images/auth/forgot_password.png') }}" style="max-width: 18rem" class="img img-fluid" alt="Password Reset Image">
                 </div>
+            </div>
+            <div class="col-12">
+                <form class="m-auto" style="max-width: 25rem;" method="POST" action="{{ route('password.email') }}">
+                    @csrf
+                    <!-- Email input -->
+                    <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Forgot Password!</div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Enter Your Email Address" required autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-purple col-12">Sent Password Reset Link</button>
+                    <p class="mt-3 text-center">Already have an account? <a href="{{ route('login') }}"> Sign In</a></p>
+                </form>
+            </div>
+            <div class="align-self-end text-center">
+                <p class="m-0">&copy; Revolut 2021</p>
+                <small>All Rights Reserved</small>
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@section('js')
+
+@endsection
+
