@@ -36,5 +36,9 @@ Route::get('transaction', function () {
     return view('app.transaction');
 })->name('list.transaction');
 
+Route::get('/email/verified', function () {
+    return view('auth.verified');
+})->name('verification.verified');
+
 Auth::routes(['verify' => true]);
 

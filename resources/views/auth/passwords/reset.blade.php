@@ -54,6 +54,7 @@
             </div>
         </div>
     </div>
+    <x-toast></x-toast>
 @endsection
 
 @section('js')
