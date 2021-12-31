@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('css')
     @endsection
-@section('headr')
+@section('header')
     <div class="modal fade" id="modal-01" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content text-center">

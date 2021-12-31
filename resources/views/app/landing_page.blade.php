@@ -1,30 +1,17 @@
 @extends('layouts.app')
-@section('headr')
-
-
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
-        <div class="container pb-19 pt-md-14 pb-md-20 text-center">
+@section('header')
+    <section class="wrapper py-22">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-md-10 col-xl-8 mx-auto">
-                    <div class="post-header">
-                      <!--  <div class="post-category text-line">
-                            <a href="#" class="hover" rel="category">Teamwork</a>
-                        </div>-->
-                        <!-- /.post-category -->
+                <div class="col-12">
+                    <div class="post-header text-capitalize">
                         <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
-
-                        <!-- /.post-meta -->
+                        <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
                     </div>
-                    <!-- /.post-header -->
                 </div>
-                <!-- /column -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container -->
     </section>
-    <!-- /section -->
 @endsection
 @section('content')
     <section class="wrapper bg-soft-ash">
@@ -79,7 +66,7 @@
                             <div class="card ms-15 p-5 my-15 bg-white">
                                 <div class="d-flex flex-row">
                                     <div>
-                                       <span class="icon btn btn-block btn-lg btn-soft-purple disabled mt-1 me-5"><span class="number fs-22">01</span></span>
+                                        <span class="icon btn btn-block btn-lg btn-soft-purple disabled mt-1 me-5"><span class="number fs-22">01</span></span>
                                     </div>
                                     <div>
                                         <h4 class="mb-1">Collect Ideas</h4>
@@ -95,9 +82,10 @@
                     <div class="row gx-lg-8 gx-xl-12 gy-10 mb-14 mb-md-17 align-items-center">
 
                         <div class="col-lg-6">
-                            <h2 class="fs-15 text-uppercase text-muted mb-3"  id="hedge"  >Use Cases</h2>
+                            <h2 class="fs-15 text-uppercase text-muted mb-3" id="hedge">Use Cases</h2>
                             <h3 class="display-4 mb-5">Transparent Hedge Funds.</h3>
-                            <p class="mb-6"> 'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank account to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
+                            <p class="mb-6"> 'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank
+                                account to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
                             <div class="row gy-3 gx-xl-8">
                                 <div class="col-xl-6">
                                     <ul class="icon-list bullet-bg bullet-soft-primary mb-0">
@@ -118,10 +106,10 @@
                         </div>
                         <!--/column -->
                         <div class="col-md-12 col-lg-6 col-sm-12">
-                            <div  style="background-color: #2d3e50" class="card ms-15 p-5 my-15">
+                            <div style="background-color: #2d3e50" class="card ms-15 p-5 my-15">
                                 <div class="d-flex flex-row">
                                     <div>
-                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{ asset('images/landingpage/hedge.jpg') }}">
                                     </div>
                                     <div>
                                         <h4 class="mb-1 text-white">Manage Cash Flow</h4>
@@ -134,12 +122,12 @@
                                         <p class="mb-0"></p>
                                     </div>
                                     <div>
-                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{ asset('images/landingpage/hedge.jpg') }}">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row mt-8">
                                     <div>
-                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{asset('images/landingpage/hedge.jpg')}}">
+                                        <img style="max-height: 6em" class="mx-1 rounded" src="{{ asset('images/landingpage/hedge.jpg') }}">
                                     </div>
                                     <div>
                                         <h4 class="mb-1 text-white">Finalize Product</h4>
@@ -158,7 +146,7 @@
                             <div class="card bg-gray p-5 my-15">
                                 <div class="d-flex card shadow-lg flex-row">
                                     <div class="hover-scale">
-                                        <img style="max-height: 6em"  class="hover-scale" src="{{asset('images/landingpage/house.png')}}">
+                                        <img style="max-height: 6em" class="hover-scale" src="{{ asset('images/landingpage/house.png') }}">
 
                                     </div>
                                     <div>
@@ -201,7 +189,8 @@
                                     <!--/.card-header -->
                                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna,
+                                                vel.</p>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
@@ -215,7 +204,8 @@
                                     <!--/.card-header -->
                                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna,
+                                                vel.</p>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
@@ -229,7 +219,8 @@
                                     <!--/.card-header -->
                                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div class="card-body">
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna, vel.</p>
+                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus magna,
+                                                vel.</p>
                                         </div>
                                         <!--/.card-body -->
                                     </div>
@@ -243,10 +234,10 @@
                     </div>
                     <!--/.row -->
 
+                </div>
+                <!--/.card -->
             </div>
-            <!--/.card -->
-        </div>
-        <!-- /.container -->
+            <!-- /.container -->
     </section>
     <!-- /section -->
 @endsection

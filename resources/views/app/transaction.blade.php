@@ -1,24 +1,18 @@
 @extends('layouts.app')
-@section('headr')
-
-
-
-    <section class="wrapper bg-soft-primary">
-        <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
-            <div class="row">
-                <div class="col-md-8 col-lg-7 col-xl-6 col-xxl-5 mx-auto mb-11">
-                    <h1 class="display-1 mb-3">Link your Bank Account</h1>
-                    <p class="lead px-lg-7 px-xl-7 px-xxl-6">We're not a bank. <span>We're </span> better.</p>
+@section('header')
+<section class="wrapper py-22">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="post-header text-capitalize">
+                    <h1 class="display-1 fs-66 mb-4">Link your Bank Account</h1>
+                    <p class="lead fs-23 lh-sm text-indigo animated-caption">We're not a bank. <span>We're </span> better.</p>
                 </div>
-                <!-- /column -->
+                <a href="#" class="btn btn-navy rounded-pill">Get Started</a>
             </div>
-            <a href="#" class="btn btn-navy rounded-pill">Get Started</a>
-            <!-- /.row -->
         </div>
-        <!-- /.container -->
-    </section>
-
-
+    </div>
+</section>
 @endsection
 @section('content')
 
