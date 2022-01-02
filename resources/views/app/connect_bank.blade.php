@@ -1,38 +1,34 @@
 @extends('layouts.app')
-@section('headr')
+@section('css')
+    <link href="{{ asset('css/select2.css') }}" rel="stylesheet" />
+    @livewireStyles
+@endsection
 
-
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
-        <div class="container pb-19 pt-md-14 pb-md-20 text-center">
+@section('header')
+    <section class="wrapper py-22 hero_section_bg" style="background-image: url({{ asset('images/background/Hexagon.svg') }})">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-md-10 col-xl-8 mx-auto">
-                    <div class="post-header">
-                        <!--  <div class="post-category text-line">
-                              <a href="#" class="hover" rel="category">Teamwork</a>
-                          </div>-->
-                        <!-- /.post-category -->
-                        <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
-
-                        <!-- /.post-meta -->
+                <div class="col-12">
+                    <div class="post-header text-capitalize">
+                        <h1 class="display-1 fs-66 mb-4">Link your Bank Account</h1>
+                        <p class="lead fs-23 lh-sm text-indigo animated-caption">We're not a bank. <span>We're </span> better.</p>
                     </div>
-                    <!-- /.post-header -->
+                    <a href="#" class="btn btn-navy rounded-pill">Connect Your Bank</a>
                 </div>
-                <!-- /column -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container -->
     </section>
-    <!-- /section -->
 @endsection
 @section('content')
+    @section('content')
+        <livewire:connect />
+    @endsection
     <section class="wrapper bg-light">
         <div class="container py-14 py-md-16">
             <h2 class="display-4 mb-3">Connect your bank?</h2>
             <p class="lead fs-lg mb-8">We make this process smooth and easy for you.</p>
             <div class="row gx-lg-8 gx-xl-12 gy-6 process-wrapper line">
-                <div class="col-md-6 col-lg-3"> <a href="#"  id="selectbank" class="icon btn btn-circle btn-lg btn-soft-primary  mb-4"><span class="number">01</span></a>
+                <div class="col-md-6 col-lg-3"> <a href="#" id="selectbank" class="icon btn btn-circle btn-lg btn-soft-primary  mb-4"><span class="number">01</span></a>
                     <h4 class="mb-1">Select Region</h4>
                     <p class="mb-0">Nulla vitae elit libero elit non porta gravida eget metus cras. Aenean eu leo quam. Pellentesque ornare.</p>
                 </div>
@@ -352,4 +348,9 @@
             <!-- /.row -->
         </div>
     </section>
-    @endsection
+@endsection
+@section('js')
+    <script src="{{ asset('js/select2.js') }}"></script>
+    @livewireScripts
+    @stack('scripts')
+@endsection

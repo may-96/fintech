@@ -1,30 +1,20 @@
 @extends('layouts.app')
-@section('headr')
-
-
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 bg-soft-primary">
-        <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
-            <div class="row">
-                <div class="col-md-10 col-xl-8 mx-auto">
-                    <div class="post-header">
-                        <div class="post-category text-line">
-                            <a href="#" class="hover" rel="category">Teamwork</a>
-                        </div>
-                        <!-- /.post-category -->
-                        <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
-
-                        <!-- /.post-meta -->
+@section('header')
+<section class="wrapper py-22 hero_section_bg" style="background-image: url({{asset('images/background/Meteor.svg')}})">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="post-header text-capitalize">
+                    <div class="post-category text-line">
+                        <a href="#" class="hover" rel="category">Teamwork</a>
                     </div>
-                    <!-- /.post-header -->
+                    <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
+                    <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
                 </div>
-                <!-- /column -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container -->
-    </section>
-    <!-- /section -->
+    </div>
+</section>
 @endsection
 @section('content')
     <section class="wrapper mt-22 bg-light">
@@ -41,12 +31,14 @@
                                             <div class="row g-6 mt-3 mb-10 light-gallery-wrapper">
 
                                                 <div class="mt-20 col-md-12">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
+                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000"
+                                                         style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg') }}');">
 
                                                         <div class="col-md-10 offset-0 pt-15 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">My Accounts.</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
+                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read
+                                                                    More</a></div>
                                                         </div>
                                                         <!--/column -->
                                                     </div>
@@ -55,11 +47,13 @@
 
 
                                                 <div class="col-md-6">
-                                                    <div class="d-flex align-items-center hover-scale bg-overlay rounded bg-overlay-100" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
+                                                    <div class="d-flex align-items-center hover-scale bg-overlay rounded bg-overlay-100"
+                                                         style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg') }}');">
                                                         <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-6 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Shared Accounts</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
+                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read
+                                                                    More</a></div>
                                                         </div>
                                                         <!--/column -->
                                                         <div class="col-lg-6 mt-20 mx-14">
@@ -72,11 +66,13 @@
                                                 <!--/column -->
 
                                                 <div class="col-md-6">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
+                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000"
+                                                         style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg') }}');">
                                                         <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-3 pb-sm-3 col-lg-10 col-sm-12 col-md-10 col-xl-9 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">Link your Accounts</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
+                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read
+                                                                    More</a></div>
                                                         </div>
                                                         <!--/column -->
                                                     </div>
@@ -91,11 +87,13 @@
 
                                                 </div>
                                                 <div class="mt-15 col-md-12">
-                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000" style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg')}}');">
+                                                    <div class="d-flex align-items-center bg-overlay rounded bg-overlay-1000"
+                                                         style=" background-size: cover;height: 100%; background-image: url('{{ url('images/dashboard/sharedaccnt1.jpg') }}');">
                                                         <div class="col-md-10 offset-0 pt-lg-15 pt-md-8 pt-sm-6 pb-5 col-lg-10 col-sm-12 col-md-4 col-xl-6 col-xxl-5 text-start ">
                                                             <h3 class="fs-36 mb-7 offset-1 text-start text-white animated-caption">My Accounts.</h3>
                                                             <p class="display-1 lead offset-1 fs-23 lh-sm mb-7 text-indigo animated-caption">Smart Manager.</p>
-                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read More</a></div>
+                                                            <div class="animated-caption pt-17 offset-1" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Read
+                                                                    More</a></div>
                                                         </div>
                                                         <!--/column -->
                                                     </div>
@@ -112,12 +110,13 @@
 
 
                                 <!-- /.social -->
-                                <hr/>
+                                <hr />
                                 <h3 class="mb-6">You Might Also Like</h3>
-                                <div class="carousel owl-carousel blog grid-view mb-16" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000" data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "2"}}'>
+                                <div class="carousel owl-carousel blog grid-view mb-16" data-margin="30" data-dots="true" data-autoplay="false" data-autoplay-timeout="5000"
+                                     data-responsive='{"0":{"items": "1"}, "768":{"items": "2"}, "992":{"items": "2"}, "1200":{"items": "2"}}'>
                                     <div class="item">
                                         <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b4.jpg')}}" alt=""/></a>
+                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{ asset('images/photos/b4.jpg') }}" alt="" /></a>
                                                 <figcaption>
                                                     <h5 class="from-top mb-0">Read More</h5>
                                                 </figcaption>
@@ -144,7 +143,7 @@
                                     <!-- /.item -->
                                     <div class="item">
                                         <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b5.jpg')}}" alt=""/></a>
+                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{ asset('images/photos/b5.jpg') }}" alt="" /></a>
                                                 <figcaption>
                                                     <h5 class="from-top mb-0">Read More</h5>
                                                 </figcaption>
@@ -171,7 +170,7 @@
                                     <!-- /.item -->
                                     <div class="item">
                                         <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b6.jpg')}}" alt=""/></a>
+                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{ asset('images/photos/b6.jpg') }}" alt="" /></a>
                                                 <figcaption>
                                                     <h5 class="from-top mb-0">Read More</h5>
                                                 </figcaption>
@@ -198,7 +197,7 @@
                                     <!-- /.item -->
                                     <div class="item">
                                         <article>
-                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{asset('images/photos/b7.jpg')}}" alt=""/></a>
+                                            <figure class="overlay overlay1 hover-scale rounded mb-5"><a href="#"> <img src="{{ asset('images/photos/b7.jpg') }}" alt="" /></a>
                                                 <figcaption>
                                                     <h5 class="from-top mb-0">Read More</h5>
                                                 </figcaption>
@@ -226,14 +225,14 @@
                                 <!-- /.owl-carousel -->
 
 
-                                <hr/>
+                                <hr />
 
 
                                 <div class="container">
                                     <div class="row align-items-center">
                                         <div class="col-md-8 col-lg-6 position-relative">
                                             <div class="shape rounded bg-soft-secondary rellax d-md-block" data-rellax-speed="0" style="bottom: -1.8rem; right: -1.5rem; width: 85%; height: 90%; "></div>
-                                            <figure class="rounded"><img src="{{asset('images/photos/device.png')}}" srcset="{{asset('images/photos/about7@2x.jpg 2x')}}" alt=""/></figure>
+                                            <figure class="rounded"><img src="{{ asset('images/photos/device.png') }}" srcset="{{ asset('images/photos/about7@2x.jpg 2x') }}" alt="" /></figure>
                                         </div>
                                         <!--/column -->
                                         <div class="col-lg-6 col-xl-4 offset-lg-1">
@@ -273,7 +272,7 @@
                                 <!-- /.container -->
 
 
-                                <hr/>
+                                <hr />
 
 
                             </div>

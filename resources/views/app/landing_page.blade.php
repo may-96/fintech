@@ -1,30 +1,17 @@
 @extends('layouts.app')
-@section('headr')
-
-
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
-        <div class="container pb-19 pt-md-14 pb-md-20 text-center">
+@section('header')
+    <section class="wrapper py-22 hero_section_bg" style="background-image: url({{asset('images/background/Sprinkle.svg')}})">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-md-10 col-xl-8 mx-auto">
-                    <div class="post-header">
-                      <!--  <div class="post-category text-line">
-                            <a href="#" class="hover" rel="category">Teamwork</a>
-                        </div>-->
-                        <!-- /.post-category -->
+                <div class="col-12">
+                    <div class="post-header text-capitalize">
                         <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
-
-                        <!-- /.post-meta -->
+                        <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
                     </div>
-                    <!-- /.post-header -->
                 </div>
-                <!-- /column -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container -->
     </section>
-    <!-- /section -->
 @endsection
 @section('content')
     <section class="wrapper bg-soft-ash mb-2 mb-sm-20">

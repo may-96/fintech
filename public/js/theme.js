@@ -9,7 +9,7 @@
      * Do not forget to remove dependency from src/js/vendor/ and recompile it.
     */
     init: () => {
-      theme.stickyHeader();
+      // theme.stickyHeader();
       theme.dropdownAnimation();
       theme.headerButtons();
       theme.isotope();

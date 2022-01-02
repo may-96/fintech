@@ -1,58 +1,59 @@
-<header class="wrapper mb-1">
-    <nav class="navbar navbar-expand-lg center-nav transparent navbar-light caret-none">
+<header class="wrapper">
+    <nav class="navbar navbar-expand-lg center-nav transparent navbar-light caret-none navbar-custom-style">
         <div class="container flex-lg-row flex-nowrap align-items-center">
-            <div class="navbar-brand w-100">
-                <a href="./index.html">
+            <div class="navbar-brand me-4">
+                <a href="{{ route('index') }}">
                     <p class="text-primary fs-28 fw-bold mb-0">Revolut</p>
                 </a>
             </div>
             <div class="navbar-collapse offcanvas-nav">
                 <div class="offcanvas-header d-lg-none d-xl-none">
-                    <a href="./index.html"><img src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="" /></a>
+                    <a href="{{ route('index') }}"><img src="./assets/img/logo-light.png" srcset="./assets/img/logo-light@2x.png 2x" alt="" /></a>
                     <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                 </div>
                 <ul class="navbar-nav nvb">
-                    <li class="nav-item"><a class="nav-link " href="{{ url('/landing-page') }}">Home</a>
-
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a>
-
-                    </li>
-                    <li class="nav-item"><a class="nav-link " href="{{ url('/dashboard') }}">Dashboard</a>
-
-                    </li>
-                    <li class="nav-item"><a class="nav-link dropdown-toggle" href="{{ url('/myaccounts') }}">My Accounts</a>
-
-                    </li>
-
-
+                    <li class="nav-item"><a class="nav-link" href="#">Connect Bank</a></li>
+                    @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('my.accounts') }}">My Accounts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Shared Accounts</a></li>
+                        <li class="nav-item d-block d-xs-none"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="nav-item d-block d-xs-none"><a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">Logout</a></li>
+                    @endauth
+                    @guest
+                        <li class="nav-item d-block d-xs-none"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                        <li class="nav-item d-block d-xs-none"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    @endguest
                 </ul>
                 <!-- /.navbar-nav -->
             </div>
             <!-- /.navbar-collapse -->
-            <div class="navbar-other w-100 d-flex ms-auto">
+            <div class="navbar-other d-flex ms-auto">
                 <ul class="navbar-nav flex-row align-items-center ms-auto" data-sm-skip="true">
+
                     @auth
-                        <li class="nav-item">
-                            <nav class="nav social social-muted justify-content-end text-end">
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();" class="btn btn-danger btn-group-sm">Logout</a>
+                        <li class="nav-item d-none d-xs-block">
+                            <nav class="nav social soihboardal-muted justify-content-end text-end">
+                                <a href="{{ route('dashboard') }}" class="btn btn-outline-dark">Dashboard</a>
                             </nav>
-                            <!-- /.social -->
+                        </li>
+                        <li class="nav-item d-none d-xs-block">
+                            <nav class="nav social social-muted justify-content-end text-end">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();" class="btn bg-white btn-circle me-2"><i class="uil uil-power text-red"></i></a>
+                            </nav>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
                     @endauth
+
                     @guest
-                        <li class="nav-item">
+                        <li class="nav-item d-none d-xs-block">
                             <nav class="nav social social-muted justify-content-end text-end">
-                                <a href="{{ route('login') }}" class="btn btn-purple btn-group-sm">Sign in</a>
+                                <a href="{{ route('login') }}" class="btn btn-white">Login</a>
                             </nav>
-                            <!-- /.social -->
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item d-none d-xs-block">
                             <nav class="nav social social-muted justify-content-end text-end">
-                                <a href="{{ route('register') }}" class="btn btn-purple btn-group-sm">Register</a>
+                                <a href="{{ route('register') }}" class="btn btn-dark">Register</a>
                             </nav>
-                            <!-- /.social -->
                         </li>
                     @endguest
 
