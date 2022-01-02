@@ -1,55 +1,73 @@
 @extends('layouts.auth')
+@section('css')
+
+@endsection
 
 @section('content')
-    <section class="vh-100">
-        <div class="container h-100">
-            <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="row-cols-lg-12 text-center">
-                    <h1 class="text-primary text-center">Revolut</h1>
-                </div>
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="{{asset('/images/login/login.png')}}" class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <form>
-                        <!-- Email input -->
-                        <div class="text-muted">
-                            <h1>Sign In</h1>
-                        </div>
-                        <div class="form-outline mb-4">
-                            <input type="email" id="form1Example13" class="form-control form-control-lg" />
-                            <label class="form-label" for="form1Example13">Email address</label>
-                        </div>
-
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="form1Example23" class="form-control form-control-lg" />
-                            <label class="form-label" for="form1Example23">Password</label>
-                        </div>
-
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <!-- Checkbox -->
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    value=""
-                                    id="form1Example3"
-                                    checked
-                                />
-                                <label class="form-check-label" for="form1Example3"> Remember me </label>
-                            </div>
-                            <a href="#!">Forgot password?</a>
-                        </div>
-
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-purple btn-lg">Sign in</button>
-
-
-
-                    </form>
+    <div class="container-fluid px-10 d-flex justify-content-center vh-100">
+        <div class="row d-flex justify-content-center" style="width: 80rem;">
+            <div class="mt-6">
+                <p class="text-primary fs-28 fw-bold"><a href="{{ route('index') }}">{{ config('app.name') }}</a></p>
+            </div>
+            <div class="d-flex d-none d-md-block col-md-6 align-self-center">
+                <div class="d-flex justify-content-center">
+                    <img src="{{ asset('/images/auth/login.png') }}" class="img img-fluid" alt="Login Image">
                 </div>
             </div>
+            <div class="col-12 col-md-6 align-self-center">
+                <form class="m-auto" style="max-width: 25rem;" method="POST" action="{{route('login')}}">
+                    @csrf
+                    <!-- Email input -->
+                    <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Access Your Account</div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" name="email" required value="{{ old('email') }}" placeholder="Email Address" autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" name="password" required placeholder="Password" autocomplete="password" class="form-control @error('password') is-invalid @enderror" />
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <!-- Checkbox -->
+                        <div class="form-check">
+                            <input type="checkbox" id="remember" name="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }} />
+                            <label class="form-check-label" for="remember">Remember Me</label>
+                        </div>
+
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-purple col-12">Login</button>
+
+                    <div class="text-end mt-2"><a href="{{route('password.request')}}">Forgot password?</a></div>
+                    <p class="mt-3">If you don't have an account, <a class="underline" href="{{ route('register') }}"> Register here!</a></p>
+                </form>
+            </div>
+            <div class="align-self-end text-center">
+                <p class="m-0">&copy; Revolut 2021</p>
+                <small>All Rights Reserved</small>
+            </div>
         </div>
-    </section>
+    </div>
 @endsection
+
+@section('js')
+
+@endsection
+<div class="col-lg-6">
+
+    <!--/.row -->
+</div>
+<!--/column -->
+
