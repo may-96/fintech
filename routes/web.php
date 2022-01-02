@@ -23,6 +23,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('app.dashboard');
 })->name('dashboard');
+Route::get('/connect_bank', function () {
+    return view('app.connect_bank');
+})->name('connectbank');
+
 
 Route::get('/my_accounts', function () {
     return view('app.my_accounts');

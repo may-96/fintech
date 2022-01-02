@@ -44,7 +44,7 @@
                             <input type="checkbox" id="remember" name="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }} />
                             <label class="form-check-label" for="remember">Remember Me</label>
                         </div>
-                        
+
                     </div>
 
                     <!-- Submit button -->
@@ -65,3 +65,9 @@
 @section('js')
 
 @endsection
+<div class="col-lg-6">
+
+    <!--/.row -->
+</div>
+<!--/column -->
+
