@@ -12,8 +12,10 @@
                     <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                 </div>
                 <ul class="navbar-nav nvb">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('my.accounts') }}">My Accounts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Connect Bank</a></li>
                     @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('my.accounts') }}">My Accounts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Shared Accounts</a></li>
                         <li class="nav-item d-block d-xs-none"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
                         <li class="nav-item d-block d-xs-none"><a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">Logout</a></li>
                     @endauth

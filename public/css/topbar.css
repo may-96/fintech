@@ -1,5 +1,5 @@
 header.wrapper {
-    min-height: calc(100% - 912px);
+    max-height: calc(100% - 912px);
 }
 
 .navbar-custom-style {

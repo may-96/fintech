@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('header')
-    <section class="wrapper py-22">
+    <section class="wrapper py-22 hero_section_bg" style="background-image: url({{asset('images/background/Sprinkle.svg')}})">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
