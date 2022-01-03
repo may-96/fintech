@@ -3,7 +3,7 @@
         <div class="container flex-lg-row flex-nowrap align-items-center">
             <div class="navbar-brand me-4">
                 <a href="{{ route('index') }}">
-                    <p class="text-primary fs-28 fw-bold mb-0">Revolut</p>
+                    <p class="text-primary fs-28 fw-bold mb-0">{{ config('app.name') }}</p>
                 </a>
             </div>
             <div class="navbar-collapse offcanvas-nav">

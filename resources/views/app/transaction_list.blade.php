@@ -11,7 +11,7 @@
 </style>
 @endsection
 @section('header')
-    <section class="wrapper py-22 hero_section_bg" style="background-image: url({{asset('images/background/Wave.svg')}})">
+    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{asset('images/background/Wave.svg')}})">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
