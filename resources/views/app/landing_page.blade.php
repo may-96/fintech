@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row gy-10 gy-sm-13 gx-lg-3 align-items-center mb-14 mb-md-17 mb-lg-19">
                 <div class="col-md-8 col-lg-6 position-relative">
-                    <figure class="rounded img-fluid"><img src="{{asset('images/landingpage/startup.svg')}}" srcset="{{asset('images/landingpage/startup.svg 2x')}}" alt="" /></figure>
+                    <figure class="rounded img-fluid"><img src="{{asset('images/landingpage/Startup_SVG.svg')}}" srcset="{{asset('images/landingpage/Startup_SVG.svg 2x')}}" alt="" /></figure>
                 </div>
                 <!--/column -->
                 <div class="col-lg-5 col-xl-4 offset-lg-1">
@@ -175,7 +175,7 @@
                         <p class="mb-6">'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank account
                         to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
                     </div>
-                    
+
                     <div class="row gy-3">
                         <div class="col-xl-6">
                             <ul class="icon-list bullet-bg bullet-soft-success mb-0">
