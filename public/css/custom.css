@@ -3,3 +3,13 @@
     background-position: center;
     background-size: cover;
 }
+
+.bullet-soft-warning.bullet-bg i {
+    background-color: #fef3e4;
+    color: #fab758;
+}
+
+.bullet-soft-success.bullet-bg i {
+    background-color: #e7f5f0;
+    color: #6bbea3;
+}
