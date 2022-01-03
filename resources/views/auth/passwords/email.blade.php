@@ -34,7 +34,7 @@
                 </form>
             </div>
             <div class="align-self-end text-center">
-                <p class="m-0">&copy; Revolut 2021</p>
+                <p class="m-0">&copy; {{ config('app.name') }} 2021</p>
                 <small>All Rights Reserved</small>
             </div>
         </div>

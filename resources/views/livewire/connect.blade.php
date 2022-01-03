@@ -1,13 +1,5 @@
-
-
-@push('styles')
-
-@endpush
-
 <section>
-
-
-    <section class="wrapper">
+    <section class="wrapper mt-18">
         <div class="container">
             <div class="d-flex">
                 <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">

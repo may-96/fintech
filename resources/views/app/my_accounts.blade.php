@@ -2,10 +2,7 @@
 @section('css')
     @endsection
 @section('header')
-
-
-
-    <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
+    <section class="wrapper vh-100 d-flex align-items-center">
         <div class="container pb-19 pt-md-14 pb-md-20 text-center">
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
