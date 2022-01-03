@@ -56,42 +56,48 @@
 
     <section class="wrapper bg-soft-ash mt-20">
         <div class="container">
-            <div class="col-lg-12 mb-15 align-items-center">
-                <h2 class="fs-15 text-uppercase text-muted text-center mb-3">How to</h2>
-                <h3 class="display-4 text-center">3 working steps to organize our business projects.</h3>
+            <div class="row gy-10 gy-sm-13 gx-lg-3 align-items-center mb-14 mb-md-17 mb-lg-19">
+                <div class="col-md-8 col-lg-6 position-relative">
+                    <figure class="rounded img-fluid"><img src="{{asset('images/landingpage/Startup_SVG.svg')}}" srcset="{{asset('images/landingpage/Startup_SVG.svg 2x')}}" alt="" /></figure>
+                </div>
+                <!--/column -->
+                <div class="col-lg-5 col-xl-4 offset-lg-1">
+                    <h2 class="display-4 mb-3">How It Works?</h2>
+                    <p class="lead fs-lg mb-6">So here are three working steps why our valued customers choose us.</p>
+                    <div class="d-flex flex-row mb-6">
+                        <div class="col-3">
+                            <img class="img img-fluid" src="{{asset('images/landingpage/connect-bank.svg')}}" srcset="{{asset('images/landingpage/connect-bank.svg 2x')}}" alt="" />
+                        </div>
+                        <div>
+                            <h4 class="mb-1">Collect Ideas</h4>
+                            <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Praesent commodo cursus.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row mb-6">
+                        <div class="col-3">
+
+                            <img class="img img-fluid" src="{{asset('images/landingpage/registeraccount.svg')}}" srcset="{{asset('images/landingpage/registeraccount.svg 2x')}}" alt="" />
+                        </div>
+
+                        <div>
+                            <h4 class="mb-1">Data Analysis</h4>
+                            <p class="mb-0">Vivamus sagittis lacus vel augue laoreet. Etiam porta sem malesuada magna.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="col-3">
+                            <img class="img img-fluid" src="{{asset('images/landingpage/reports.svg')}}" srcset="{{asset('images/landingpage/reports.svg 2x')}}" alt="" />
+                        </div>
+
+                        <div>
+                            <h4 class="mb-1">Finalize Product</h4>
+                            <p class="mb-0">Cras mattis consectetur purus sit amet. Aenean lacinia bibendum nulla sed.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--/column -->
             </div>
-            <!--/column -->
-            <div class="d-flex flex-sm-row flex-column justify-content-evenly">
-                <div class="d-flex flex-sm-column flex-column-reverse col-10 col-sm-4 col-md-3">
-                    <figure class="p-4 hover-scale rounded"><a href="{{ route('register') }}"> <img class="" src="{{ asset('images/landingpage/registeraccount.svg') }}" alt="" /></a>
-
-                    </figure>
-
-                    <p class="fs-15 fw-bold"> <span class="icon btn btn-circle btn-lg btn-soft-primary disabled me-4"><span class="number">01</span></span>Register your account</p>
-
-
-                </div>
-                <div class="d-flex flex-sm-column flex-column-reverse col-10 col-sm-4 col-md-3 mt-2">
-                    <figure class=" hover-scale p-4 rounded"><a href="#"> <img class="img-fluid" src="{{ asset('images/landingpage/connect-bank.svg') }}" alt="" /></a>
-
-                    </figure>
-
-
-                    <p class="fs-15 fw-bold"> <span class="icon btn btn-circle btn-lg btn-soft-primary disabled me-4"><span class="number">02</span></span>Connect your Bank</p>
-
-
-
-                </div>
-                <div class="d-flex flex-sm-column flex-column-reverse mt-2 col-10 col-sm-4 col-md-3">
-                    <figure class="p-4 hover-scale rounded"><a href="#"> <img class="img-fluid" src="{{ asset('images/landingpage/reports.svg') }}" alt="" /></a>
-
-                    </figure>
-
-                    <p class="fs-15 fw-bold"> <span class="icon btn btn-circle btn-lg btn-soft-primary disabled me-4"><span class="number">03</span></span>Manage Transactions</p>
-
-                </div>
-            </div>
-
+            <!--/.row -->
 
             <!--card -->
         </div>
@@ -169,7 +175,7 @@
                         <p class="mb-6">'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank account
                         to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
                     </div>
-                    
+
                     <div class="row gy-3">
                         <div class="col-xl-6">
                             <ul class="icon-list bullet-bg bullet-soft-success mb-0">
