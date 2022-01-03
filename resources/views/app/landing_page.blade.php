@@ -58,7 +58,7 @@
         <div class="container">
             <div class="row gy-12">
                 <div class="col-md-8 col-lg-6 col-xl-5 m-auto position-relative">
-                    <img class="img img-fluid" src="https://fintech.cc/images/landingpage/Startup_SVG.svg" srcset="https://fintech.cc/images/landingpage/Startup_SVG.svg 2x" alt="">
+                    <img class="img img-fluid" src="{{asset('images/landingpage/Startup_SVG.svg')}}" srcset="{{asset('images/landingpage/Startup_SVG.svg')}} 2x" alt="">
                 </div>
                 <!--/column -->
                 <div class="offset-lg-1 col-lg-5 offset-xl-1 col-xl-6 ">
@@ -66,7 +66,7 @@
                     <p class="lead mb-6">So here are three working steps why our valued customers choose us.</p>
                     <div class="card p-2 d-flex flex-row mb-6">
                         <div class="col-3 pe-3 d-flex">
-                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/connect-bank.svg" srcset="https://fintech.cc/images/landingpage/connect-bank.svg 2x" alt="">
+                            <img class="img img-fluid" src="{{asset('images/landingpage/connect-bank.svg')}}" srcset="{{asset('images/landingpage/connect-bank.svg')}} 2x" alt="">
                         </div>
                         <div class="col-9">
                             <h4 class="mb-1">Collect Ideas</h4>
@@ -76,7 +76,7 @@
                     <div class="card p-2 d-flex flex-row mb-6">
                         <div class="col-3 pe-3 d-flex">
 
-                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/registeraccount.svg" srcset="https://fintech.cc/images/landingpage/registeraccount.svg 2x" alt="">
+                            <img class="img img-fluid" src="{{asset('images/landingpage/registeraccount.svg')}}" srcset="{{asset('images/landingpage/registeraccount.svg')}} 2x" alt="">
                         </div>
 
                         <div class="col-9">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="card p-2 d-flex flex-row mb-6">
                         <div class="col-3 pe-3 d-flex">
-                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/reports.svg" srcset="https://fintech.cc/images/landingpage/reports.svg 2x" alt="">
+                            <img class="img img-fluid" src="{{asset('images/landingpage/reports.svg')}}" srcset="{{asset('images/landingpage/reports.svg')}} 2x" alt="">
                         </div>
 
                         <div class="col-9">
@@ -152,7 +152,7 @@
                 </div>
                 <div class="d-flex align-items-center justify-content-center col-12 col-lg-6">
                     <figure class="hover-scale">
-                        <img class="img img-fluid p-4" src="https://fintech.cc/images/landingpage/hedgefunds.png" alt="">
+                        <img class="img img-fluid p-4" src="{{asset('images/landingpage/hedgefunds.png')}}" alt="">
                     </figure>
                 </div>
             </div>
