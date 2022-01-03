@@ -54,42 +54,42 @@
         </div>
     </section>
 
-    <section class="wrapper bg-soft-ash mt-20">
+    <section class="wrapper mt-20">
         <div class="container">
-            <div class="row gy-10 gy-sm-13 gx-lg-3 align-items-center mb-14 mb-md-17 mb-lg-19">
-                <div class="col-md-8 col-lg-6 position-relative">
-                    <figure class="rounded img-fluid"><img src="{{asset('images/landingpage/Startup_SVG.svg')}}" srcset="{{asset('images/landingpage/Startup_SVG.svg 2x')}}" alt="" /></figure>
+            <div class="row gy-12">
+                <div class="col-md-8 col-lg-6 col-xl-5 m-auto position-relative">
+                    <img class="img img-fluid" src="https://fintech.cc/images/landingpage/Startup_SVG.svg" srcset="https://fintech.cc/images/landingpage/Startup_SVG.svg 2x" alt="">
                 </div>
                 <!--/column -->
-                <div class="col-lg-5 col-xl-4 offset-lg-1">
-                    <h2 class="display-4 mb-3">How It Works?</h2>
-                    <p class="lead fs-lg mb-6">So here are three working steps why our valued customers choose us.</p>
-                    <div class="d-flex flex-row mb-6">
-                        <div class="col-3">
-                            <img class="img img-fluid" src="{{asset('images/landingpage/connect-bank.svg')}}" srcset="{{asset('images/landingpage/connect-bank.svg 2x')}}" alt="" />
+                <div class="offset-lg-1 col-lg-5 offset-xl-1 col-xl-6 ">
+                    <h2 class="display-4 mb-5">How It Works?</h2>
+                    <p class="lead mb-6">So here are three working steps why our valued customers choose us.</p>
+                    <div class="card p-2 d-flex flex-row mb-6">
+                        <div class="col-3 pe-3 d-flex">
+                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/connect-bank.svg" srcset="https://fintech.cc/images/landingpage/connect-bank.svg 2x" alt="">
                         </div>
-                        <div>
+                        <div class="col-9">
                             <h4 class="mb-1">Collect Ideas</h4>
                             <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Praesent commodo cursus.</p>
                         </div>
                     </div>
-                    <div class="d-flex flex-row mb-6">
-                        <div class="col-3">
+                    <div class="card p-2 d-flex flex-row mb-6">
+                        <div class="col-3 pe-3 d-flex">
 
-                            <img class="img img-fluid" src="{{asset('images/landingpage/registeraccount.svg')}}" srcset="{{asset('images/landingpage/registeraccount.svg 2x')}}" alt="" />
+                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/registeraccount.svg" srcset="https://fintech.cc/images/landingpage/registeraccount.svg 2x" alt="">
                         </div>
 
-                        <div>
+                        <div class="col-9">
                             <h4 class="mb-1">Data Analysis</h4>
                             <p class="mb-0">Vivamus sagittis lacus vel augue laoreet. Etiam porta sem malesuada magna.</p>
                         </div>
                     </div>
-                    <div class="d-flex flex-row">
-                        <div class="col-3">
-                            <img class="img img-fluid" src="{{asset('images/landingpage/reports.svg')}}" srcset="{{asset('images/landingpage/reports.svg 2x')}}" alt="" />
+                    <div class="card p-2 d-flex flex-row mb-6">
+                        <div class="col-3 pe-3 d-flex">
+                            <img class="img img-fluid" src="https://fintech.cc/images/landingpage/reports.svg" srcset="https://fintech.cc/images/landingpage/reports.svg 2x" alt="">
                         </div>
 
-                        <div>
+                        <div class="col-9">
                             <h4 class="mb-1">Finalize Product</h4>
                             <p class="mb-0">Cras mattis consectetur purus sit amet. Aenean lacinia bibendum nulla sed.</p>
                         </div>
@@ -172,8 +172,9 @@
                 <div class="d-flex col-12 col-lg-6 flex-column">
                     <div class="col-12">
                         <h3 class="display-4 mb-5">Credit Worthiness Report.</h3>
-                        <p class="mb-6">'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank account
-                        to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
+                        <p class="mb-6">'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank
+                            account
+                            to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
                     </div>
 
                     <div class="row gy-3">
@@ -199,7 +200,8 @@
                                     <span>
                                         <i class="uil uil-check"></i>
                                     </span>
-                                    <span>Share bank account transaction data with investors.</span></li>
+                                    <span>Share bank account transaction data with investors.</span>
+                                </li>
                                 <li class="mt-3">
                                     <span>
                                         <i class="uil uil-check"></i>
