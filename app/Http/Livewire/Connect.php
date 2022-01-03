@@ -9,7 +9,7 @@ class Connect extends Component
 {
     public $countries;
     public $selected;
-    
+
     public function render()
     {
         $this->countries = Country::all();
@@ -19,4 +19,6 @@ class Connect extends Component
     public function format(){
         $this->selected = strtolower($this->selected);
     }
+
+
 }
