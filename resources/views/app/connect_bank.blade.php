@@ -30,25 +30,28 @@
 @endsection
 
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{ asset('images/background/Hexagon.svg') }})">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-12">
-                    <div class="post-header text-capitalize">
-                        <h1 class="display-1 fs-66 mb-4">Link your Bank Account</h1>
-                        <p class="lead fs-23 lh-sm text-indigo animated-caption">We're not a bank. <span>We're </span> better.</p>
-                    </div>
-                    <a href="#" class="btn btn-navy rounded-pill">Connect Your Bank</a>
-                </div>
-            </div>
-        </div>
+    <section id="particles-js" class="wrapper vh-100 d-flex align-items-center hero_section_bg" >
+
     </section>
+    <div style="top: 40%;" class="position-absolute text-center w-100 ">
+
+
+        <div class=" text-capitalize">
+            <h1 class="display-1 fs-66 mb-4">Link your bank </h1>
+            <p class="lead fs-23 lh-sm text-indigo animated-caption">Link your bank and manage all your accounts under one platform</p>
+        </div>
+
+
+    </div>
+
 @endsection
 @section('content')
     <livewire:connect />
 @endsection
 @section('js')
+
     <script src="{{ asset('js/select2.js') }}"></script>
+
     @livewireScripts
     @stack('scripts')
 @endsection

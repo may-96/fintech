@@ -1,21 +1,23 @@
 @extends('layouts.app')
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{ asset('images/background/Sprinkle.svg') }})">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-12">
-                    <div class="post-header text-capitalize">
-                        <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="particles-js" class="wrapper vh-100 d-flex align-items-center hero_section_bg">
+
     </section>
+
+    <div style="position: absolute;top: 40%;left: 0;text-align: center;width: 100%;" class="">
+
+
+        <div class=" text-capitalize">
+            <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
+            <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
+        </div>
+
+
+    </div>
 @endsection
 @section('content')
 
-    <section class="wrapper mt-20">
+    <section class="wrapper mt-sm-20 mt-10">
         <div class="container">
             <div class="card py-12 bg-white">
                 <div class="row m-auto text-center">
@@ -54,7 +56,7 @@
         </div>
     </section>
 
-    <section class="wrapper mt-20">
+    <section class="wrapper mt-sm-20 mt-15">
         <div class="container">
             <div class="row gy-12">
                 <div class="col-md-8 col-lg-6 col-xl-5 m-auto position-relative">
@@ -64,34 +66,34 @@
                 <div class="offset-lg-1 col-lg-5 offset-xl-1 col-xl-6 ">
                     <h2 class="display-4 mb-5">How It Works?</h2>
                     <p class="lead mb-6">So here are three working steps why our valued customers choose us.</p>
-                    <div class="card p-2 d-flex flex-row mb-6">
-                        <div class="col-3 pe-3 d-flex">
+                    <div class="card p-3 d-flex flex-row mb-3">
+                        <div class="col-sm-3 col-5 pe-3 d-flex">
                             <img class="img img-fluid" src="{{asset('images/landingpage/connect-bank.svg')}}" srcset="{{asset('images/landingpage/connect-bank.svg')}} 2x" alt="">
                         </div>
-                        <div class="col-9">
-                            <h4 class="mb-1">Collect Ideas</h4>
-                            <p class="mb-0">Nulla vitae elit libero pharetra augue dapibus. Praesent commodo cursus.</p>
+                        <div class="col-sm-9 col-7">
+                            <h5 class="mb-1">Register your Account</h5>
+                            <p class="mb-0 fs-14">Register yourself with us and get access to our features.</p>
                         </div>
                     </div>
-                    <div class="card p-2 d-flex flex-row mb-6">
-                        <div class="col-3 pe-3 d-flex">
+                    <div class="card p-3 d-flex flex-row mb-3">
+                        <div class="col-sm-3 col-5 pe-3 d-flex">
 
                             <img class="img img-fluid" src="{{asset('images/landingpage/registeraccount.svg')}}" srcset="{{asset('images/landingpage/registeraccount.svg')}} 2x" alt="">
                         </div>
 
-                        <div class="col-9">
-                            <h4 class="mb-1">Data Analysis</h4>
-                            <p class="mb-0">Vivamus sagittis lacus vel augue laoreet. Etiam porta sem malesuada magna.</p>
+                        <div class="col-sm-9 col-7">
+                            <h5 class="mb-1">Link your Bank</h5>
+                            <p class="mb-0 fs-14">Connect your bank with us and manage all your accounts under one platform</p>
                         </div>
                     </div>
-                    <div class="card p-2 d-flex flex-row mb-6">
-                        <div class="col-3 pe-3 d-flex">
+                    <div class="card p-3 d-flex flex-row mb-6">
+                        <div class="col-sm-3 col-5 pe-3 d-flex">
                             <img class="img img-fluid" src="{{asset('images/landingpage/reports.svg')}}" srcset="{{asset('images/landingpage/reports.svg')}} 2x" alt="">
                         </div>
 
-                        <div class="col-9">
-                            <h4 class="mb-1">Finalize Product</h4>
-                            <p class="mb-0">Cras mattis consectetur purus sit amet. Aenean lacinia bibendum nulla sed.</p>
+                        <div class="col-sm-9 col-7">
+                            <h5 class="mb-1">Manage Cash Flow & Reports</h5>
+                            <p class="mb-0 fs-14">Manage your hedge funds or request analysis on your transactions to get Credit Score Report</p>
                         </div>
                     </div>
                 </div>
@@ -105,7 +107,7 @@
     </section>
 
     <!--Use Cases Section -->
-    <section class="wrapper mt-20">
+    <section class="wrapper mt-sm-20 mt-10">
         <div class="container">
             <div class="d-flex px-sm-10 px-1 flex-column flex-lg-row">
                 <div class="d-flex col-12 col-lg-6 flex-column">
@@ -160,7 +162,7 @@
     </section>
 
     <!--Use Cases Section -->
-    <section class="wrapper my-20">
+    <section class="wrapper my-sm-20 my-10">
         <div class="container">
             <div class="d-flex flex-sm-column-reverse flex-column-reverse flex-lg-row">
                 <div class="d-flex align-items-center justify-content-center col-12 col-lg-6">
