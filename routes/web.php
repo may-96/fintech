@@ -29,13 +29,21 @@ Route::get('/my_accounts', function () {
     return view('app.my_accounts');
 })->name('my.accounts');
 
+Route::get('/shared_accounts', function () {
+    return view('app.shared_accounts');
+})->name('shared.accounts');
+
 Route::get('/list_of_accounts', function () {
     return view('app.list_of_accounts');
 })->name('list.accounts');;
 
-Route::get('transaction', function () {
-    return view('app.transaction');
+Route::get('transactions', function () {
+    return view('app.transaction_list');
 })->name('list.transaction');
+
+Route::get('transaction_timeline', function () {
+    return view('app.transaction_timeline');
+})->name('timeline.transaction');
 
 Auth::routes(['verify' => true]);
 
