@@ -72,7 +72,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-purple col-12">Sign up</button>
+                    <button type="submit" id="action_btn" class="btn btn-purple col-12">Sign up <x-loading id="loader" class="d-none" /></button>
                     <p class="mt-2">Already have an account? <a href="{{ route('login') }}"> Sign In</a></p>
                 </form>
             </div>
@@ -85,5 +85,10 @@
 @endsection
 
 @section('js')
-
+<script>
+    $('#action_btn').on('click', () => {
+        document.querySelector('#loader').classList.remove('d-none');
+        document.querySelector('#loader').classList.add('d-inline-block');
+    });
+</script>
 @endsection

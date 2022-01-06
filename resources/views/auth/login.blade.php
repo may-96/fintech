@@ -48,7 +48,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-purple col-12">Login</button>
+                    <button type="submit" id="action_btn" class="btn btn-purple col-12">Login <x-loading id="loader" class="d-none" /></button>
 
                     <div class="text-end mt-2"><a href="{{route('password.request')}}">Forgot password?</a></div>
                     <p class="mt-3">If you don't have an account, <a class="underline" href="{{ route('register') }}"> Register here!</a></p>
@@ -63,5 +63,10 @@
 @endsection
 
 @section('js')
-
+<script>
+    $('#action_btn').on('click', () => {
+        document.querySelector('#loader').classList.remove('d-none');
+        document.querySelector('#loader').classList.add('d-inline-block');
+    });
+</script>
 @endsection

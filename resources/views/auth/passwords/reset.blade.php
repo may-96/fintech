@@ -45,7 +45,7 @@
                     <input type="hidden" name="token" value="{{ $token }}">
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-purple col-12">Reset Password</button>
+                    <button type="submit" class="btn btn-purple col-12" id="action_btn">Reset Password <x-loading id="loader" class="d-none" /></button>
                 </form>
             </div>
             <div class="align-self-end text-center">
@@ -58,5 +58,10 @@
 @endsection
 
 @section('js')
-
+<script>
+    $('#action_btn').on('click', () => {
+        document.querySelector('#loader').classList.remove('d-none');
+        document.querySelector('#loader').classList.add('d-inline-block');
+    });
+</script>
 @endsection

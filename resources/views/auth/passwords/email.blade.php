@@ -29,7 +29,7 @@
                     </div>
 
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-purple col-12">Sent Password Reset Link</button>
+                    <button type="submit" id="action_btn" class="btn btn-purple col-12">Send Password Reset Link <x-loading id="loader" class="d-none" /></button>
                     <p class="mt-3 text-center">Already have an account? <a href="{{ route('login') }}"> Sign In</a></p>
                 </form>
             </div>
@@ -42,6 +42,11 @@
 @endsection
 
 @section('js')
-
+<script>
+    $('#action_btn').on('click', () => {
+        document.querySelector('#loader').classList.remove('d-none');
+        document.querySelector('#loader').classList.add('d-inline-block');
+    });
+</script>
 @endsection
 
