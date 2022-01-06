@@ -160,12 +160,13 @@ class Connect extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
-                'redirect' => "https://fintech.cc/connect/status/" . $this->reference_id,
+                'redirect' => "https://fintech.itsuzair.xyz/connect/status/" . $this->reference_id,
                 'institution_id' => $this->sandbox_id,
                 'reference' => "" . $this->reference_id,
                 'agreement' => $this->agreement_id,
                 'user_language' => 'EN',
             ]
+            
         );
         $data = $response->json();
 
