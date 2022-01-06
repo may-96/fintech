@@ -46,6 +46,6 @@ class VerificationController extends Controller
     {
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect(route('verification.verified'))->with('verified', true);
+                    : view('auth.verified')->with('verified', true);
     }
 }
