@@ -12,7 +12,7 @@
                     <button type="button" class="btn-close btn-close-white offcanvas-close offcanvas-nav-close" aria-label="Close"></button>
                 </div>
                 <ul class="navbar-nav nvb">
-                    <li class="nav-item"><a class="nav-link" href="#">Connect Bank</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('connect_bank')}}">Connect Bank</a></li>
                     @auth
                         <li class="nav-item"><a class="nav-link" href="{{ route('my.accounts') }}">My Accounts</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Shared Accounts</a></li>
