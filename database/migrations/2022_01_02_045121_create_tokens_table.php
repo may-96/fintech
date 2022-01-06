@@ -15,9 +15,9 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
-            $table->string('access', 512);
+            $table->string('access', 1024);
             $table->unsignedInteger('access_expires');
-            $table->string('refresh',512);
+            $table->string('refresh',1024);
             $table->unsignedInteger('refresh_expires');
             $table->unsignedTinyInteger('status')->default(1)->comment("0 - Expired\n1 - Active\n2 - New");
             $table->timestamps();

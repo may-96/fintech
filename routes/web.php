@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RequisitionController;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Register;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('app.dashboard');
 })->name('dashboard');
-Route::get('/connect_bank', function () {
-    return view('app.connect_bank');
-})->name('connectbank');
-
 
 Route::get('/my_accounts', function () {
     return view('app.my_accounts');
@@ -42,3 +39,8 @@ Route::get('transaction', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/connect_bank', function () {
+    return view('app.connect_bank');
+})->middleware(['auth','token'])->name('connect_bank');
+
+Route::get('/connect/status/{reference_id}', [RequisitionController::class, 'redirect'])->middleware(['auth'])->name('requisition.redirect');

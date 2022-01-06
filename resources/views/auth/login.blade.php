@@ -65,9 +65,3 @@
 @section('js')
 
 @endsection
-<div class="col-lg-6">
-
-    <!--/.row -->
-</div>
-<!--/column -->
-

@@ -1,23 +1,17 @@
 @extends('layouts.app')
 @section('header')
     <section id="particles-js" class="wrapper vh-100 d-flex align-items-center hero_section_bg">
-
     </section>
-
-    <div style="position: absolute;top: 40%;left: 0;text-align: center;width: 100%;" class="">
-
-
+    <div style="top: 40%;" class="position-absolute text-center w-100 ">
         <div class=" text-capitalize">
             <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
             <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
         </div>
-
-
     </div>
 @endsection
 @section('content')
 
-    <section class="wrapper mt-sm-20 mt-10">
+    <section class="wrapper mt-20">
         <div class="container">
             <div class="card py-12 bg-white">
                 <div class="row m-auto text-center">
@@ -56,14 +50,13 @@
         </div>
     </section>
 
-    <section class="wrapper mt-sm-20 mt-15">
+    <section class="wrapper mt-20">
         <div class="container">
-            <div class="row gy-12">
+            <div class="row gx-12">
                 <div class="col-md-8 col-lg-6 col-xl-5 m-auto position-relative">
                     <img class="img img-fluid" src="{{asset('images/landingpage/Startup_SVG.svg')}}" srcset="{{asset('images/landingpage/Startup_SVG.svg')}} 2x" alt="">
                 </div>
-                <!--/column -->
-                <div class="offset-lg-1 col-lg-5 offset-xl-1 col-xl-6 ">
+                <div class="col-lg-6 col-xl-6 ">
                     <h2 class="display-4 mb-5">How It Works?</h2>
                     <p class="lead mb-6">So here are three working steps why our valued customers choose us.</p>
                     <div class="card p-3 d-flex flex-row mb-3">
@@ -97,17 +90,12 @@
                         </div>
                     </div>
                 </div>
-                <!--/column -->
             </div>
-            <!--/.row -->
-
-            <!--card -->
         </div>
-        <!--container -->
     </section>
 
     <!--Use Cases Section -->
-    <section class="wrapper mt-sm-20 mt-10">
+    <section class="wrapper mt-20">
         <div class="container">
             <div class="d-flex px-sm-10 px-1 flex-column flex-lg-row">
                 <div class="d-flex col-12 col-lg-6 flex-column">
@@ -162,7 +150,7 @@
     </section>
 
     <!--Use Cases Section -->
-    <section class="wrapper my-sm-20 my-10">
+    <section class="wrapper my-20">
         <div class="container">
             <div class="d-flex flex-sm-column-reverse flex-column-reverse flex-lg-row">
                 <div class="d-flex align-items-center justify-content-center col-12 col-lg-6">
