@@ -16,7 +16,7 @@ class Agreement extends Model
     }
 
     public function institution(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Institution::class);
     }
 
     public function requisition(){
