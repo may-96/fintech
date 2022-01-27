@@ -4,8 +4,8 @@
     </section>
     <div style="top: 40%;" class="position-absolute text-center w-100 ">
         <div class=" text-capitalize">
-            <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-            <p class="lead fs-23 lh-sm text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
+            <h1 class="display-1 fs-66 mb-4">Open Banking Account <br> Transparency In EEA+UK</h1>
+            <p class="lead fs-23 lh-sm text-indigo animated-caption">Connect Your European Bank Account And Share Your Cash Flow Data Transparently</p>
         </div>
     </div>
 @endsection
@@ -25,25 +25,25 @@
                         <div class="icon btn btn-block btn-lg btn-soft-yellow mb-5">
                             <i class="uil uil-dollar-alt"></i>
                         </div>
-                        <h4>Hedge Funds</h4>
-                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
+                        <h4>Transparent Hedge Funds</h4>
+                        <p class="mb-3">Share bank account statement data on how invested money is spent and what the actual returns on investments are in real-time.</p>
                         <a href="#hedge" class="more hover link-yellow">Learn More</a>
                     </div>
                     <div class="col-lg-4">
-                        <div class="icon btn btn-block btn-lg btn-soft-blue mb-5">
+                        <div class="icon btn btn-block btn-lg btn-soft-green mb-5">
                             <i class="uil uil-atm-card"></i>
                         </div>
-                        <h4>Credit Worthiness</h4>
-                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
-                        <a href="#" class="more hover link-blue">Learn More</a>
+                        <h4>Credit Worthiness Analysis</h4>
+                        <p class="mb-3"> Analyse Credit Worthiness of clients based on real bank account transaction data.</p>
+                        <a href="#credit" class="more hover link-green">Learn More</a>
                     </div>
                     <div class="col-lg-4">
-                        <div class="icon btn btn-block btn-lg btn-soft-green mb-5">
+                        <div class="icon btn btn-block btn-lg btn-soft-blue mb-5">
                             <i class="uil uil-shield-exclamation"></i>
                         </div>
-                        <h4>Secure Payments</h4>
-                        <p class="mb-3">Fusce dapibus tellus cursus porta tortor condimentum euismod massa justo vehicula sit amet et risus cras.</p>
-                        <a href="#" class="more hover link-green">Learn More</a>
+                        <h4>Real-Time Audits</h4>
+                        <p class="mb-3">Enabling real-time bank account transaction audits for enhanced transparency and trust.</p>
+                        <a href="#" class="more hover link-blue">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 
                         <div class="col-sm-9 col-7">
                             <h5 class="mb-1">Manage Cash Flow & Reports</h5>
-                            <p class="mb-0 fs-14">Manage your hedge funds or request analysis on your transactions to get Credit Score Report</p>
+                            <p class="mb-0 fs-14">Manage your hedge funds or request an analysis on your potential client’s bank account transactions to get a Credit Worthiness Report</p>
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
     </section>
 
     <!--Use Cases Section -->
-    <section class="wrapper my-20">
+    <section class="wrapper my-20" id="credit">
         <div class="container">
             <div class="d-flex flex-sm-column-reverse flex-column-reverse flex-lg-row">
                 <div class="d-flex align-items-center justify-content-center col-12 col-lg-6">
@@ -162,9 +162,7 @@
                 <div class="d-flex col-12 col-lg-6 flex-column">
                     <div class="col-12">
                         <h3 class="display-4 mb-5">Credit Worthiness Report.</h3>
-                        <p class="mb-6">'Hedge Fund Managers' can have a webpage where they can share their bank account transaction data to investors.Investors who want to invest in the fund would be able to link their own bank
-                            account
-                            to the fund, so the fund manager can see how much money is on the bank account of the investors in real-time when they do a "capital call" for investors to invest their money into the fund.</p>
+                        <p class="mb-6">Analyse creditworthiness of potential clients based on real cashflow data from their bank accounts</p>
                     </div>
 
                     <div class="row gy-3">
@@ -174,13 +172,13 @@
                                     <span>
                                         <i class="uil uil-check"></i>
                                     </span>
-                                    <span>Efficient way to manage the cash flow.</span>
+                                    <span>Analyse monthly income.</span>
                                 </li>
                                 <li class="mt-3">
                                     <span>
                                         <i class="uil uil-check"></i>
                                     </span>
-                                    <span>Hedge Fund Manager can add notes to each transaction.</span>
+                                    <span>Calculate affordability.</span>
                                 </li>
                             </ul>
                         </div>
@@ -190,13 +188,13 @@
                                     <span>
                                         <i class="uil uil-check"></i>
                                     </span>
-                                    <span>Share bank account transaction data with investors.</span>
+                                    <span>Analyse consistency of monthly payments.</span>
                                 </li>
                                 <li class="mt-3">
                                     <span>
                                         <i class="uil uil-check"></i>
                                     </span>
-                                    <span>Real-time audit of hedge funds based on bank transaction data.</span>
+                                    <span>Custom GDPR compatible privacy settings.</span>
                                 </li>
                             </ul>
                         </div>

@@ -1,24 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
+
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="{{ asset ('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset ('css/plugins.css') }}">
+    <title>Fintech</title>
+
+    <link href="{{asset('css/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
+    <link href="{{asset('css/css/animate.css')}}" rel="stylesheet">
+    <link href="{{asset('css/css/style.css')}}" rel="stylesheet">
 
 </head>
+
 <body>
-@yield('topbr')
-@yield('slider')
-<section class="wrapper bg-light wrapper-border">
+<x-topbar></x-topbar>
+
 @yield('content')
-    <div class="container d-flex ">
-@yield('sharedaccounts')
-    @yield('linkaccount')
-    </div>
-    </section>
+
 <x-footer></x-footer>
-<x-js></x-js>
+
 @yield('js')
 </body>
