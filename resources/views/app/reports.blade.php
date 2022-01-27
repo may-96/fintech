@@ -14,7 +14,7 @@
                         <p>Credit Score based on the analysis of your last 24 months</p>
                     </div>
                     <hr/>
-                    <div class="col-lg-3 mh-100">
+                    <div class="col-lg-3 col-sm-6 mh-100">
                         <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
                                 <h3 class="d-flex justify-content-between fs-28 text-navy"><span>10</span><i class="uil uil-atm-card fs-20 text-navy bg-white border rounded-full px-2 py-1 "></i></h3>
@@ -23,7 +23,7 @@
                             
                         </div>
                     </div>
-                    <div class="col-lg-3 mh-100">
+                    <div class="col-lg-3 col-sm-6 mh-100">
                         <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
                                 <h3 class="d-flex justify-content-between fs-28 text-red"><span>10</span><i class="uil uil-bill fs-20 text-red bg-white border rounded-full px-2 py-1"></i></h3>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 mh-100">
+                    <div class="col-lg-3 col-sm-6 mh-100">
                         <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
                                 <h3 class="d-flex justify-content-between fs-28 text-navy"><span>1</span><i class="uil uil-briefcase fs-20 text-navy border bg-white rounded-full px-2 py-1"></i></h3>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 mh-100">
+                    <div class="col-lg-3 col-sm-6 mh-100">
                         <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
                                 <h3 class="d-flex justify-content-between fs-28 text-orange"><span>$5000</span><i class="uil uil-money-bill fs-20 text-orange bg-white border rounded-full px-2 py-1"></i></h3>
