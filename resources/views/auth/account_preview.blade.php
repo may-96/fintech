@@ -9,14 +9,15 @@
             <div class="mt-6">
                 <p class="text-primary fs-28 fw-bold"><a href="{{route('index')}}">Revolut</a></p>
             </div>
-            <div class="row gy-4 d-flex justify-content-center">
+            <div class="row gy-4 justify-content-center">
                 <div class="text-center display-6">Following @if(count($accounts) > 1) Accounts have @else Account has @endif been Linked</div>
                 
                 @foreach ($accounts as $account)
-                <div class="d-flex col-sm-12 col-md-6 col-lg-4 align-self-center">
+                <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="card p-3 w-100">
+                        
                         <div>
-                            <h5 class="fs-16 lh-1 mb-0">@if(isset($account->iban)) {{$account->iban}} @else {{$account->bban}} @endif</h5>
+                            <h5 class="fs-16 lh-1 mb-0">@if(isset($account->iban)) {{$account->iban}} @elseif(isset($account->bban)) {{$account->bban}} @else {{$account->resource_id}} @endif</h5>
                             <small class="text-muted">@if(isset($account->bic)) {{$account->bic}} @else {{$account->msisdn}} @endif</small>
                             <p class="mb-6 text-primary">@if(isset($account->owner_name)) {{$account->owner_name}} @else {{$account->display_naem}} @endif</p>
                         </div>
@@ -32,7 +33,7 @@
                 @endforeach
 
                 <div class="text-center">
-                    <a href="#" class="btn btn-primary">Open My Accounts</a>
+                    <a href="{{route('my.accounts')}}" class="btn btn-primary">Open My Accounts</a>
                 </div>
             </div>
 

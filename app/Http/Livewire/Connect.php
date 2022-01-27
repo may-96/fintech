@@ -52,9 +52,14 @@ class Connect extends Component
 
     public $link_generated = false;
 
+    public $user;
+
 
     public function render()
     {
+        /** @var \App\Models\User */
+        $this->user = Auth::user();
+
         $this->countries = Country::all();
         return view('livewire.connect');
     }
@@ -69,18 +74,29 @@ class Connect extends Component
             'https://ob.nordigen.com/api/v2/institutions/',
             ['country' => $this->country_code,]
         );
-        $data = $response->json();
+
         if ($response->successful())
         {
-            $this->banks = $data;
-            $this->country_selected = true;
+            $data = $response->json();
+            if ($response->successful())
+            {
+                $this->banks = $data;
+                $this->country_selected = true;
+            }
+            else
+            {
+                $this->status_message = "Error raised while fetching the banks for the selected country. ";
+                $this->banks = [];
+                $this->country_selected = false;
+                $this->bank_selected = false;
+            }
+
+            $this->user->update_error_code("institution_error_code", null);
         }
         else
         {
-            $this->status_message = "Error raised while fetching the banks for the selected country. ";
-            $this->banks = [];
-            $this->country_selected = false;
-            $this->bank_selected = false;
+            $this->user->update_error_code("institution_error_code", $response->status());
+            
         }
     }
 
@@ -139,19 +155,28 @@ class Connect extends Component
                 'access_scope' => $this->access_scope
             ]
         );
-        $data = $response->json();
 
-        $this->agreement_id = $data['id'];
-        $this->agreement_created = $data['created'];
-        $this->agreement_accepted = $data['accepted'];
+        if ($response->successful())
+        {
+            $data = $response->json();
 
-        $this->create_link = true;
+            $this->agreement_id = $data['id'];
+            $this->agreement_created = $data['created'];
+            $this->agreement_accepted = $data['accepted'];
+
+            $this->create_link = true;
+
+            $this->user->update_error_code("agreement_error_code", null);
+        }
+        else{
+            $this->user->update_error_code("agreement_error_code", $response->status());
+        }
     }
 
     public function createLink()
     {
 
-        $this->reference_id = uniqid("" . Auth::user()->id, true);
+        $this->reference_id = uniqid("" . $this->user->id, true);
 
         $response = Http::withHeaders([
             'accept' => 'application/json',
@@ -160,21 +185,29 @@ class Connect extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
-                'redirect' => env('APP_URL')."/connect/status/" . $this->reference_id,
+                'redirect' => env('APP_URL') . "/connect/status/" . $this->reference_id,
                 'institution_id' => $this->sandbox_id,
                 'reference' => "" . $this->reference_id,
                 'agreement' => $this->agreement_id,
                 'user_language' => 'EN',
             ]
-            
+
         );
-        $data = $response->json();
 
-        $this->requisition_id = $data['id'];
-        $this->requisition_status = $data['status'];
-        $this->requisition_link = $data['link'];
+        if($response->successful()){
+            $data = $response->json();
 
-        $this->link_generated = true;
+            $this->requisition_id = $data['id'];
+            $this->requisition_status = $data['status'];
+            $this->requisition_link = $data['link'];
+
+            $this->link_generated = true;
+
+            $this->user->update_error_code("requisition_create_error_code", null);
+        }
+        else{
+            $this->user->update_error_code("requisition_create_error_code", $response->status());
+        }
     }
 
     public function redirectToLink()
@@ -191,7 +224,7 @@ class Connect extends Component
         );
 
         $agreement = new Agreement([
-            'user_id' => Auth::user()->id,
+            'user_id' => $this->user->id,
             'agreement_id' => $this->agreement_id,
             'agreement_date' => $this->agreement_created,
             'balances_scope' => $this->balances_access_scope,

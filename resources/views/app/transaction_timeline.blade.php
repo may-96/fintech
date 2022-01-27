@@ -5,19 +5,16 @@
             resize: none;
             height: 28px;
         }
-
         .note_para,
         .note_textarea {
             line-height: 1.3;
         }
-
         .note_textarea_timeline {
             background: #f5f5f5;
             border: 1px solid #dfe3e7
         }
-
+        
         .timeline_date {}
-
         .timeline_date::before {
             content: "\A";
             position: absolute;
@@ -30,9 +27,7 @@
             height: 12px;
             margin-top: 1.5rem;
         }
-
         .timeline_transaction {}
-
         .timeline_transaction::before {
             content: "";
             position: absolute;
@@ -43,13 +38,9 @@
             height: -moz-available;
             height: fill-available;
         }
-
         .transaction_danger {}
-
         .transaction_success {}
-
         .timeline_details {}
-
         .transaction_success.timeline_details::before,
         .transaction_danger.timeline_details::before {
             left: -1rem;
@@ -59,11 +50,9 @@
             height: 3px;
             margin-top: 0.65rem;
         }
-
         .transaction_success.timeline_details::before {
             background: #6fc0a5;
         }
-
         .transaction_danger.timeline_details::before {
             background: #e2626b ;
         }
@@ -297,7 +286,6 @@
             </div>
         </section>
     </div>
-
 @endsection
 
 @section('js')

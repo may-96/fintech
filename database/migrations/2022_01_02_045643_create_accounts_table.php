@@ -36,11 +36,13 @@ class CreateAccountsTable extends Migration
             $table->string('resource_id')->nullable()->comment("The account id of the given account in the financial institution");
             $table->string('product_name')->nullable()->comment("Product Name of the Bank for this account, proprietary definition");
             $table->string('details',512)->nullable();
+            $table->double('credit_score',10,2,true)->nullable(true);
+            $table->string('nickname',100)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('requisition_id')->references('id')->on('requisitions')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('requisition_id')->references('id')->on('requisitions')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

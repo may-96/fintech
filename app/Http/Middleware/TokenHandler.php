@@ -6,6 +6,7 @@ use App\Helpers\Functions;
 use App\Models\Token;
 use Carbon\Carbon;
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
@@ -66,14 +67,17 @@ class TokenHandler
             'secret_id' => config('services.nordigen.id'),
             'secret_key' => config('services.nordigen.key'),
         ]);
-        $data = $response->json();
-        $token = Token::create([
-            'access' => Crypt::encryptString($data['access']),
-            'access_expires' => $data['access_expires'],
-            'refresh' => Crypt::encryptString($data['refresh']),
-            'refresh_expires' => $data['refresh_expires'],
-        ]);
-        return $token;
+        if($response->successful()){
+            $data = $response->json();
+            $token = Token::create([
+                'access' => Crypt::encryptString($data['access']),
+                'access_expires' => $data['access_expires'],
+                'refresh' => Crypt::encryptString($data['refresh']),
+                'refresh_expires' => $data['refresh_expires'],
+            ]);
+            return $token;
+        }
+        throw new Exception("Error while Generating Token", 500);
     }
 
     private function refresh_token($token)
@@ -83,10 +87,13 @@ class TokenHandler
         ])->post('https://ob.nordigen.com/api/v2/token/refresh/', [
             'refresh' => Crypt::decryptString($token->refresh),
         ]);
-        $data = $response->json();
-        $token->access =  $data['access'];
-        $token->access_expires = $data['access_expires'];
-        $token->save();
-        return $token;
+        if($response->successful()){
+            $data = $response->json();
+            $token->access =  Crypt::encryptString($data['access']);
+            $token->access_expires = $data['access_expires'];
+            $token->save();
+            return $token;
+        }
+        throw new Exception("Error while Refreshing Token", 500);
     }
 }

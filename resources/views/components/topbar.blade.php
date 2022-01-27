@@ -15,7 +15,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('connect_bank')}}">Connect Bank</a></li>
                     @auth
                         <li class="nav-item"><a class="nav-link" href="{{ route('my.accounts') }}">My Accounts</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Shared Accounts</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('shared.accounts')}}">Shared Accounts</a></li>
                         <li class="nav-item d-block d-xs-none"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
                         <li class="nav-item d-block d-xs-none"><a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();">Logout</a></li>
                     @endauth
@@ -32,13 +32,18 @@
 
                     @auth
                         <li class="nav-item d-none d-xs-block">
-                            <nav class="nav social soihboardal-muted justify-content-end text-end">
+                            <nav class="nav social justify-content-end text-end">
                                 <a href="{{ route('dashboard') }}" class="btn btn-outline-dark">Dashboard</a>
                             </nav>
                         </li>
                         <li class="nav-item d-none d-xs-block">
                             <nav class="nav social social-muted justify-content-end text-end">
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();" class="btn bg-white btn-circle me-2"><i class="uil uil-power text-red"></i></a>
+                                <a title="Logout" href="{{ route('logout') }}" onclick="event.preventDefault(); $('#logout-form').submit();" class="btn bg-white btn-circle me-2"><i class="uil uil-power text-red"></i></a>
+                            </nav>
+                        </li>
+                        <li class="nav-item d-block ms-0">
+                            <nav class="nav social social-muted justify-content-end text-end">
+                                <a data-toggle="offcanvas-info" class="btn btn-soft-ash btn-circle me-2"><i class="uil uil-bell text-navy"></i> <small class="fs-10 text-navy">3</small></a> {{-- btn-soft-yellow border-warning --}}
                             </nav>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
@@ -64,6 +69,7 @@
                 <!-- /.navbar-nav -->
             </div>
             <!-- /.navbar-other -->
+            <x-notifications />
         </div>
         <!-- /.container -->
     </nav>

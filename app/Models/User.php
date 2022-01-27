@@ -50,4 +50,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function agreements(){
         return $this->hasMany(Account::class);
     }
+
+    public function shared_accounts(){
+        return $this->belongsToMany(Account::class)->withTimestamps()->with(["id","nickname"]);
+    }
+
+    public function update_error_code($error_field, $code){
+        $this->$error_field = $code;
+        $this->save();
+    }
 }
