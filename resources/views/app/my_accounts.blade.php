@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('css')
     <style>
-        .share_icon{
+        .share_icon {
             cursor: pointer;
             padding: 0.10rem !important;
         }
 
-        .remove_icon{
+        .remove_icon {
             cursor: pointer;
         }
 
@@ -45,7 +45,6 @@
             </div>
         </div>
     </section>
-
 @endsection
 
 @section('content')
@@ -62,9 +61,10 @@
                 <div class="post-category text-line @if (!$loop->first) mt-12 @endif">
                     <a href="#" class="hover" rel="category">{{ $institution->name }}</a>
                     @foreach ($account as $temp)
-                        @if($loop->first)
-                            <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="$('#modal_remove_btn').attr('data-id',{{$temp->requisition_id}})" data-bs-target="#remove_bank_access_modal" title="Remove Account"><i class="uil uil-times-circle"></i></a>
-                            <form class="d-none" id="remove_bank_access_{{$temp->requisition_id}}" action="{{route('remove.bank', $temp->requisition_id)}}" method="POST">@csrf</form>
+                        @if ($loop->first)
+                            <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="$('#modal_remove_btn').attr('data-id',{{ $temp->requisition_id }})" data-bs-target="#remove_bank_access_modal" title="Remove Account"><i
+                                   class="uil uil-times-circle"></i></a>
+                            <form class="d-none" id="remove_bank_access_{{ $temp->requisition_id }}" action="{{ route('remove.bank', $temp->requisition_id) }}" method="POST">@csrf</form>
                         @else
                             @break
                         @endif
@@ -79,8 +79,7 @@
                                     <div class="d-flex align-items-center justify-content-between fs-16 fw-bold lh-1 mb-0">
                                         <span>@if (isset($a->iban)) {{ $a->iban }} @elseif(isset($a->bban)) {{ $a->bban }} @else {{ $a->resource_id }} @endif</span>
                                         <span>
-                                            <a class="share_icon fs-18" title="Share"><i class="uil uil-share-alt"></i></a>
-                                            
+                                            <a data-bs-toggle="modal" data-bs-target="#shareform" data-toggle="tooltip" data-placement="top" title="Share" class="share_icon fs-18"><i class="uil uil-share-alt"></i></a>
                                         </span>
                                     </div>
                                     <p class="mb-6 text-primary">@if (isset($a->owner_name)) {{ $a->owner_name }} @else {{ $a->display_naem }} @endif</p>
@@ -98,24 +97,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modal fade" id="remove_bank_access_modal" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered modal-md">
-                                <div class="modal-content text-center">
-                                    <div class="modal-body">
-                                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="fs-96 lh-1 mb-0"><i class="uil uil-question-circle"></i></p>
-                                                <p>Are you sure you want to remove access to this bank</p>
-                                                <button id="modal_remove_btn" data-id="" class="btn btn-sm btn-soft-red" onclick="$('#remove_bank_access_'+($('#modal_remove_btn').attr('data-id'))).submit()" type="button">Yes</button>
-                                                <button class="btn btn-sm btn-soft-blue" type="button" data-bs-dismiss="modal" aria-label="Close">No</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     @endforeach
                 </div>
             @empty
@@ -124,18 +105,52 @@
                         No accounts has yet been connected! Connected Accounts will appear here.
                     </div>
                 </div>
-            @endforelse()
+            @endforelse
 
-
-        </div>
-        <!-- /.container -->
+            @if(count($accounts) > 0)
+            <div class="modal fade" id="remove_bank_access_modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-md">
+                    <div class="modal-content text-center">
+                        <div class="modal-body">
+                            <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="row">
+                                <div class="col-12">
+                                    <p class="fs-96 lh-1 mb-0"><i class="uil uil-question-circle"></i></p>
+                                    <p>Are you sure you want to remove access to this bank</p>
+                                    <button id="modal_remove_btn" data-id="" class="btn btn-sm btn-soft-red" onclick="$('#remove_bank_access_'+($('#modal_remove_btn').attr('data-id'))).submit()" type="button">Yes</button>
+                                    <button class="btn btn-sm btn-soft-blue" type="button" data-bs-dismiss="modal" aria-label="Close">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="shareform">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content text-center">
+                        <div class="modal-body">
+                            <button class="btn-close" data-bs-dismiss="modal"></button>
+                            <h5 class="text-start"> Share with people</h5>
+                            <form class="text-start mb-3">
+                                <div class=" d-flex">
+                                    <input type="email" id="textarea" class="p-1 form-control" placeholder="Email" id="user">
+                                    <button id="addUserBtn" class="btn-sm bg-navy py-0 mx-3"><i class="uil p-0 uil-user-plus text-white"></i></button>
+                                </div>
+                                <p class="text-muted border-bottom fs-11 ms-2">Shared with</p>
+                                <div id="listuser" class="d-block">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
     </section>
     <!-- /section -->
-
 @endsection
 @section('js')
 
-    <script src="{{asset('js/my_accounts.js')}}"></script>
+    <script src="{{ asset('js/my_accounts.js') }}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
 @endsection
