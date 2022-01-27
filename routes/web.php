@@ -33,10 +33,11 @@ Route::get('/shared_accounts', function () {
 
 Route::get('/list_of_accounts', function () {
     return view('app.list_of_accounts');
-})->name('list.accounts');;
+})->name('list.accounts');
+
 Route::get('/reports', function () {
     return view('app.reports');
-})->name('credit.report');;
+})->name('credit.report');
 
 // Route::get('transactions', function () {
 //     return view('app.transaction_list');
