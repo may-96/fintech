@@ -7,6 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <x-css></x-css>
     <link rel="stylesheet" href="{{ asset('css/topbar.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/reports.css') }}">
+
+
     @yield('css')
 </head>
 

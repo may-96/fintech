@@ -29,13 +29,16 @@ Route::get('/my_accounts', function () {
     return view('app.my_accounts');
 })->name('my.accounts');
 
-Route::get('/shared_accounts', function () {
-    return view('app.shared_accounts');
-})->name('shared.accounts');
+Route::get('/accounts_shared', function () {
+    return view('app.accounts_shared');
+})->name('accounts.shared');
 
 Route::get('/list_of_accounts', function () {
     return view('app.list_of_accounts');
 })->name('list.accounts');;
+Route::get('/reports', function () {
+    return view('app.reports');
+})->name('credit.report');;
 
 Route::get('transactions', function () {
     return view('app.transaction_list');
