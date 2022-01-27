@@ -11,44 +11,40 @@
                 <div class="row g-3 my-2">
                     <div class="col-12 mt-10 text-center">
                     <h1>Credit Worthiness Analysis</h1>
-
                         <p>Credit Score based on the analysis of your last 24 months</p>
                     </div>
                     <hr/>
                     <div class="col-lg-3 mh-100">
-                        <div class="p-3 bg-gradient-dark shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <div class="col-8">
-                                <h3 class="fs-18 text-navy">10</h3>
-                                <p class="fs-26">Total Accounts</p>
+                        <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="col-12">
+                                <h3 class="d-flex justify-content-between fs-28 text-navy"><span>10</span><i class="uil uil-atm-card fs-20 text-navy bg-white border rounded-full px-2 py-1 "></i></h3>
+                                <p class="fs-16">Total Accounts</p>
                             </div>
-                            <i class="uil uil-atm-card fs-20 text-navy bg-white border rounded-full px-2 py-1 "></i>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 mh-100">
-                        <div class="p-3 bg-gradient-dark shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <div class="col-8">
-                                <h3 class="fs-18 text-red">10</h3>
-                                <p class="fs-26">Delayed Bills</p>
+                        <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="col-12">
+                                <h3 class="d-flex justify-content-between fs-28 text-red"><span>10</span><i class="uil uil-bill fs-20 text-red bg-white border rounded-full px-2 py-1"></i></h3>
+                                <p class="fs-16">Delayed Bills</p>
                             </div>
-                            <i class="uil uil-bill fs-20 text-red bg-white border rounded-full px-2 py-1"></i>
                         </div>
                     </div>
                     <div class="col-lg-3 mh-100">
-                        <div class="p-3 bg-gradient-dark shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <div class="col-8">
-                                <h3 class="fs-18 text-navy">1</h3>
-                                <p class="fs-26">Mortgage payment</p>
+                        <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="col-12">
+                                <h3 class="d-flex justify-content-between fs-28 text-navy"><span>1</span><i class="uil uil-briefcase fs-20 text-navy border bg-white rounded-full px-2 py-1"></i></h3>
+                                <p class="fs-16">Mortgage payment</p>
                             </div>
-                            <i class="uil uil-briefcase fs-20 text-navy border bg-white rounded-full px-2 py-1"></i>
                         </div>
                     </div>
                     <div class="col-lg-3 mh-100">
-                        <div class="p-3 bg-gradient-dark shadow-sm d-flex justify-content-around align-items-center rounded">
-                            <div class="col-8">
-                                <h3 class="fs-18 text-orange">5000$</h3>
-                                <p class="fs-26">Average Income</p>
+                        <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="col-12">
+                                <h3 class="d-flex justify-content-between fs-28 text-orange"><span>$5000</span><i class="uil uil-money-bill fs-20 text-orange bg-white border rounded-full px-2 py-1"></i></h3>
+                                <p class="fs-16">Average Income</p>
                             </div>
-                            <i class="uil uil-money-bill fs-20 text-orange bg-white border rounded-full px-2 py-1"></i>
                         </div>
                     </div>
                 </div>
