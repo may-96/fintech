@@ -33,6 +33,7 @@ return [
     'nordigen' => [
         'id' => env('NORDIGEN_ID'),
         'key' => env('NORDIGEN_KEY'),
-    ]
+        'account' => env('NORDIGEN_ACCOUNT_TYPE', 'free'),
+    ],
 
 ];

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AccountConnected;
+use App\Helpers\Functions;
 use App\Models\Account;
 use App\Models\Institution;
 use App\Models\Requisition;
@@ -24,7 +26,11 @@ class RequisitionController extends Controller
             $requisition = Requisition::where('reference_id', $reference_id)->get()->first();
             $agreement = $requisition->agreement;
             $institution = $agreement->institution;
+
+            /** @var \App\Models\User */
             $user = Auth::user();
+
+            $return_array = [];
 
             $response = Http::withHeaders([
                 'accept' => 'application/json',
@@ -32,49 +38,73 @@ class RequisitionController extends Controller
             ])->get(
                 'https://ob.nordigen.com/api/v2/requisitions/' . $requisition->requisition_id . '/'
             );
-            $data = $response->json();
 
-            $accounts = $data['accounts'];
-            $return_array = [];
-            foreach ($accounts as $account_id)
+            if ($response->successful())
             {
-                $account_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
-                ])->get(
-                    'https://ob.nordigen.com/api/v2/accounts/' . $account_id . '/details/'
-                );
-                $account_data = $account_response->json();
 
-                $account = Account::updateOrCreate(
-                    [
-                        'account_id' => $account_id,
-                        'user_id' => $user->id,
-                        'institution_id' => $institution->id
-                    ],
-                    [
-                        'requisition_id' => $requisition->id,
-                        'currency' => isset($account_data["account"]['currency']) ? $account_data["account"]['currency'] : null,
-                        'bic' => isset($account_data["account"]['bic']) ? $account_data["account"]['bic'] : null,
-                        'iban' => isset($account_data["account"]['iban']) ? $account_data["account"]['iban'] : null,
-                        'bban' => isset($account_data["account"]['bban']) ? $account_data["account"]['bban'] : null,
-                        'msisdn' => isset($account_data["account"]['msisdn']) ? $account_data["account"]['msisdn'] : null,
-                        'account_name' => isset($account_data["account"]['name']) ? $account_data["account"]['name'] : null,
-                        'display_name' => isset($account_data["account"]['displayName']) ? $account_data["account"]['displayName'] : null,
-                        'owner_name' => isset($account_data["account"]['ownerName']) ? $account_data["account"]['ownerName'] : null,
-                        'address' => isset($account_data["account"]['ownerAddressUnstructured']) ? $account_data["account"]['ownerAddressUnstructured'] : null,
-                        'type' => isset($account_data["account"]['cashAccountType']) ? $account_data["account"]['cashAccountType'] : null,
-                        'type_string' => isset($account_data["account"]['cashAccountType']) ? $this->getAccountTypeString($account_data["account"]['cashAccountType']) : null,
-                        'status' => isset($account_data["account"]['status']) ? $account_data["account"]['status'] : null,
-                        'usage' => isset($account_data["account"]['usage']) ? $account_data["account"]['usage'] : null,
-                        'linked_accounts' => isset($account_data["account"]['linkedAccounts']) ? $account_data["account"]['linkedAccounts'] : null,
-                        'resource_id' => isset($account_data["account"]['resourceId']) ? $account_data["account"]['resourceId'] : null,
-                        'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
-                        'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
-                    ]
-                );
 
-                $return_array[] = $account;
+                $data = $response->json();
+                $accounts = $data['accounts'];
+
+                foreach ($accounts as $account_id)
+                {
+                    $account_response = Http::withHeaders([
+                        'accept' => 'application/json',
+                        'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
+                    ])->get(
+                        'https://ob.nordigen.com/api/v2/accounts/' . $account_id . '/details/'
+                    );
+
+                    if ($account_response->successful())
+                    {
+                        $account_data = $account_response->json();
+
+                        $account = Account::updateOrCreate(
+                            [
+                                'account_id' => $account_id,
+                                'user_id' => $user->id,
+                                'institution_id' => $institution->id
+                            ],
+                            [
+                                'requisition_id' => $requisition->id,
+                                'currency' => isset($account_data["account"]['currency']) ? $account_data["account"]['currency'] : null,
+                                'bic' => isset($account_data["account"]['bic']) ? $account_data["account"]['bic'] : null,
+                                'iban' => isset($account_data["account"]['iban']) ? $account_data["account"]['iban'] : null,
+                                'bban' => isset($account_data["account"]['bban']) ? $account_data["account"]['bban'] : null,
+                                'msisdn' => isset($account_data["account"]['msisdn']) ? $account_data["account"]['msisdn'] : null,
+                                'account_name' => isset($account_data["account"]['name']) ? $account_data["account"]['name'] : null,
+                                'display_name' => isset($account_data["account"]['displayName']) ? $account_data["account"]['displayName'] : null,
+                                'owner_name' => isset($account_data["account"]['ownerName']) ? $account_data["account"]['ownerName'] : null,
+                                'address' => isset($account_data["account"]['ownerAddressUnstructured']) ? $account_data["account"]['ownerAddressUnstructured'] : null,
+                                'type' => isset($account_data["account"]['cashAccountType']) ? $account_data["account"]['cashAccountType'] : null,
+                                'type_string' => isset($account_data["account"]['cashAccountType']) ? $this->getAccountTypeString($account_data["account"]['cashAccountType']) : null,
+                                'status' => isset($account_data["account"]['status']) ? $account_data["account"]['status'] : null,
+                                'usage' => isset($account_data["account"]['usage']) ? $account_data["account"]['usage'] : null,
+                                'linked_accounts' => isset($account_data["account"]['linkedAccounts']) ? $account_data["account"]['linkedAccounts'] : null,
+                                'resource_id' => isset($account_data["account"]['resourceId']) ? $account_data["account"]['resourceId'] : null,
+                                'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
+                                'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
+                            ]
+                        );
+
+                        $return_array[] = $account;
+
+                        if(Functions::can_fetch_transaction($user)){
+                            event(new AccountConnected($user, $account));
+                        }
+
+                        $user->update_error_code("account_error_code", null);
+                    }
+                    else
+                    {
+                        $user->update_error_code("account_error_code", $account_response->status());
+                    }
+                }
+
+                $user->update_error_code("requisition_fetch_error_code", null);
+            }
+            else{
+                $user->update_error_code("requisition_fetch_error_code", $response->status());
             }
 
             return view('auth.account_preview', ['accounts' => $return_array]);
@@ -132,6 +162,40 @@ class RequisitionController extends Controller
                 return "Cash Trading";
             default:
                 return "";
+        }
+    }
+
+    public function destroy(Request $request, Requisition $requisition)
+    {
+        try
+        {
+            /** @var \App\Models\User */
+            $user = Auth::user();
+
+            $requisition_delete_response = Http::withHeaders([
+                'accept' => 'application/json',
+                'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
+            ])->delete(
+                'https://ob.nordigen.com/api/v2/requisitions/' . $requisition->requisition_id
+            );
+
+            if($requisition_delete_response->successful()){
+                $requisition->delete();
+                $user->update_error_code("requisition_delete_error_code", null);
+                return redirect(route('my.accounts'))->with('success','Access to the Bank Accounts has been Removed.');
+            }
+            else{
+                $user->update_error_code("requisition_delete_error_code", $requisition_delete_response->status());
+                $error_json = $requisition_delete_response->json();
+                Log::error($error_json);
+                return redirect(route('my.accounts'))->with('danger','Error Raised while Removing Bank Account Access. Please try again later');
+            }
+            
+        }
+        catch (Exception $e)
+        {
+            Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+            abort(500, $e->getMessage());
         }
     }
 }

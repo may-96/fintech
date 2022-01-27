@@ -23,5 +23,15 @@ class Account extends Model
         return $this->belongsTo(Requisition::class);
     }
 
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
 
+    public function balances(){
+        return $this->hasMany(Balance::class);
+    }
+
+    public function shared_with(){
+        return $this->belongsToMany(User::class)->withTimestamps()->with(["id","nickname"]);
+    }
 }

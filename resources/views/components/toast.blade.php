@@ -37,7 +37,7 @@
 @endif
 
 @if (isset($message) && trim($message) != '' && $message != null)
-    <div class="toast toast-container position-absolute top-0 end-0 p-3" role="alert" data-bs-autohide="true" data-bs-delay="15000" aria-live="assertive" aria-atomic="true">
+    <div class="toast toast-container position-absolute end-0 p-3" style="top: 65px;" role="alert" data-bs-autohide="true" data-bs-delay="15000" aria-live="assertive" aria-atomic="true">
         <div class="align-items-center p-2 border rounded {{ $class }}">
             <div class="d-flex toast-body align-items-center">
                 {!! $icon !!} <span class="ms-1">{!! $message !!}</span>

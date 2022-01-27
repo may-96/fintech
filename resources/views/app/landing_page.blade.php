@@ -155,7 +155,7 @@
             <div class="d-flex flex-sm-column-reverse flex-column-reverse flex-lg-row">
                 <div class="d-flex align-items-center justify-content-center col-12 col-lg-6">
                     <figure class="hover-scale">
-                        <img class="img img-fluid p-4" src="{{ asset('images/landingpage/UT.png') }}" />
+                        <img class="img img-fluid p-4" src="{{ asset('images/dashboard/report_2.svg') }}" />
                     </figure>
 
                 </div>

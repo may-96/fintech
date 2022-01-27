@@ -24,7 +24,9 @@
                                 <h3 class="fs-36 text-start">My Accounts</h3>
                                 <p class="display-2 lead fs-14">Smart Manager</p>
                             </div>
-                            <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">Open My Accounts</a></div>
+                            <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
+                                <a href="{{route('my.accounts')}}" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Accounts</a>
+                            </div>
                         </div>
                         <div class="d-none col-4 d-md-flex hover-scale justify-content-around">
                             <img class="img img-fluid w-75" src="{{asset('images/dashboard/c.png')}}" alt="">
@@ -40,7 +42,7 @@
                             <p class="display-2 lead fs-14 ">All the accounts you shared or shared with you</p>
                         </div>
                         <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
-                            <a href="#" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Shared Accounts</a>
+                            <a href="{{route('shared.accounts')}}" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Shared Accounts</a>
                         </div>
                     </div>
                 </div>
@@ -78,7 +80,7 @@
                             </div>
                         </div>
                         <!--/column -->
-                        <div class="d-none col-4 d-md-flex hover-scale justify-content-around">
+                        <div class="d-none p-2 col-4 d-md-flex hover-scale justify-content-around">
                             <img class="img img-fluid w-75" src="{{ asset('images/dashboard/report_2.svg') }}" alt="">
                         </div>
                     </div>
@@ -100,7 +102,9 @@
                             <h3 class="fs-36 text-start">Notifications</h3>
                             <p class="display-2 lead fs-14 ">Check and Manage All Your Notifications</p>
                         </div>
-                        <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000"><a href="#" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Notifications</a></div>
+                        <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
+                            <a data-toggle="offcanvas-info" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Notifications</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 pb-4">
