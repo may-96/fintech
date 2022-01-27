@@ -30,6 +30,16 @@
             text-decoration: underline;
         }
 
+        .w-max-content{
+            width: max-content !important;
+        }
+
+        #listuser {
+            max-height: 15em;
+            overflow-y: auto;
+            margin: 0;
+        }
+
     </style>
 @endsection
 @section('header')
@@ -131,15 +141,14 @@
                         <div class="modal-body">
                             <button class="btn-close" data-bs-dismiss="modal"></button>
                             <h5 class="text-start"> Share with people</h5>
-                            <form class="text-start mb-3">
+
                                 <div class=" d-flex">
                                     <input type="email" id="textarea" class="p-1 form-control" placeholder="Email" id="user">
-                                    <button id="addUserBtn" class="btn-sm bg-navy py-0 mx-3"><i class="uil p-0 uil-user-plus text-white"></i></button>
+                                    <button id="addUserBtn" type="button" class="btn btn-sm btn-dark border-0 rounded-pill py-0 ms-3"><i class="uil p-0 uil-user-plus text-white"></i></button>
                                 </div>
-                                <p class="text-muted border-bottom fs-11 ms-2">Shared with</p>
+                                <p class="text-muted text-start border-bottom fs-11 mt-4">Shared with</p>
                                 <div id="listuser" class="d-block">
                                 </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -149,8 +158,6 @@
     <!-- /section -->
 @endsection
 @section('js')
-
     <script src="{{ asset('js/my_accounts.js') }}"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
 @endsection

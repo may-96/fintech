@@ -40603,22 +40603,16 @@ a:hover, a:focus {
         margin-bottom: 1em;
     }
     #sm{
-        margin-start: 2em;
+        margin-left: 2em;
     }
 }
 
 
 #particles-js {
     height: 100%;
-    background: #fffff;
+    background: #ffffff;
 }
 
-#listuser {
-    max-height: 10em;
-    overflow-y: auto;
-    margin: 1em;
-    margin-left: 0.5em!important;
-}
 body::-webkit-scrollbar {
     width: 12px;               /* width of the entire scrollbar */
 }

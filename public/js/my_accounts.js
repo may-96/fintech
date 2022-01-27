@@ -1,6 +1,7 @@
 let emails = [];
 
-function adduser(e) {
+function adduser(e)
+{
     e.preventDefault();
     var email_textarea = document.getElementById("textarea");
     var value = email_textarea.value.trim();
@@ -11,25 +12,26 @@ function adduser(e) {
 }
 
 
-function renderList() {
+function renderList()
+{
     let container = document.querySelector("#listuser");
     let input = document.querySelector("#textarea");
     container.innerHTML = "";
     input.value = "";
-    emails.forEach(email => container.innerHTML += `<div class="d-flex justify-content-between border-bottom my-1 p-0"><div class="d-flex"><img class="h-5 me-1 rounded-circle" src='https://ui-avatars.com/api/?name=${email}.jpg'/> <p>${email}</p></div> <a href="#" class="float-end text-danger" onclick="remove('${email}')"> -- </a></div>`);
+    emails.forEach(email => container.innerHTML += `<div class="d-flex justify-content-between rounded bg-soft-ash m-1 p-2"><div class="d-flex"><img class="h-5 me-1 rounded-circle" src='https://ui-avatars.com/api/?name=${email}.jpg'/> <p class="m-0">${email}</p></div> <a href="#" class="float-end text-danger ms-2" onclick="remove('${email}')"><i class="uil uil-minus"></i></a></div>`);
 }
 
-function clear() {
+function clear()
+{
     emails = [];
     renderList();
 }
 
-function remove(email){
-emails=emails.filter(item => item != email);
-renderList();
+function remove(email)
+{
+    emails = emails.filter(item => item != email);
+    renderList();
 }
 
-document.getElementById("some").addEventListener("click", clear);
+// document.getElementById("some").addEventListener("click", clear);
 document.querySelector("#addUserBtn").addEventListener("click", adduser);
-
-
