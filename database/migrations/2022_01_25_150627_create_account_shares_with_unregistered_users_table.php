@@ -15,7 +15,7 @@ class CreateAccountSharesWithUnregisteredUsersTable extends Migration
     {
         Schema::create('account_shares_with_unregistered_users', function (Blueprint $table) {
             $table->id();
-            $table->string("email");
+            $table->string("email",128);
             $table->unsignedBigInteger('account_id');
             $table->unsignedTinyInteger("notes_shared")->default(0);
             $table->timestamps();
