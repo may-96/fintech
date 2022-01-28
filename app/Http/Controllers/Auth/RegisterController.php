@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -66,11 +67,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        
+        $user = User::create([
             'fname' => $data['fname'],
             'lname' => $data['lname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $shares = DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->get();
+        foreach($shares as $share){
+            $user->shared_accounts()->attach($share->account_id, ['notes_shared' => $share->notes_shared]);
+        }
+        DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->delete();
+        return $user;
     }
 }

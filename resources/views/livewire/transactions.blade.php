@@ -265,7 +265,7 @@
         document.addEventListener('scroll', function(e) {
             let win = $(window).scrollTop() + $(window).innerHeight();
             let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
-            if (!@this.all_loaded && !@this.transactions_loading && (win >= elem + 150)) {
+            if (!@this.all_loaded && !@this.transactions_loading && (win >= elem + 50)) {
                 if (!ticking) {
                     ticking = true
                     @this.set('transactions_loading', true);
@@ -276,7 +276,7 @@
                         setTimeout(() => {
                             Array.from(document.querySelectorAll('i[data-bs-toggle="tooltip"]')).forEach(tooltipNode => new bootstrap.Tooltip(tooltipNode));
                         }, 300);
-                    }, 1000);
+                    }, 500);
                 }
             }
         });

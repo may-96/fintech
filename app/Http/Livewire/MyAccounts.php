@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\ShareWithUnregisteredUsers;
 use App\Models\Account;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class MyAccounts extends Component
@@ -107,6 +110,10 @@ class MyAccounts extends Component
                             "created_at" =>  Carbon::now()->toDateTimeString(),
                             "updated_at" => Carbon::now()->toDateTimeString()
                         ]);
+
+                        $account = Account::find($this->selected_account_id);
+
+                        Mail::to($this->email)->send( new ShareWithUnregisteredUsers(Auth::user(), $account) );
                     }
                     catch(Exception $e){
 
