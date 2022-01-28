@@ -11,8 +11,6 @@ class ShareWithUnregisteredUsers extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-
-    public $queue = "mail_queue";
     public $tries = 3;
 
     public $user;
@@ -20,7 +18,8 @@ class ShareWithUnregisteredUsers extends Mailable implements ShouldQueue
     
     public function __construct($user, $account)
     {
-        $this->$user = $user;
+        $this->queue = "mail_queue";
+        $this->user = $user;
         $this->account = $account;
     }
 
