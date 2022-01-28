@@ -32,6 +32,6 @@ class Account extends Model
     }
 
     public function shared_with(){
-        return $this->belongsToMany(User::class)->withTimestamps()->with(["id","nickname"]);
+        return $this->belongsToMany(User::class)->withTimestamps()->withPivot(["id","nickname"]);
     }
 }

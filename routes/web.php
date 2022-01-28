@@ -27,9 +27,7 @@ Route::get('/dashboard', function () {
     return view('app.dashboard');
 })->name('dashboard');
 
-Route::get('/shared_accounts', function () {
-    return view('app.shared_accounts');
-})->name('shared.accounts');
+
 
 Route::get('/list_of_accounts', function () {
     return view('app.list_of_accounts');
@@ -58,9 +56,12 @@ Route::get('/connect_bank', function () {
 })->middleware(['auth','token'])->name('connect_bank');
 
 Route::get('/transactions/{account_id}', [TransactionController::class, 'my_account_transactions_view'])->middleware(['auth','token'])->name('my.transactions');
+Route::get('/shared/transactions/{account_id}', [TransactionController::class, 'shared_account_transactions_view'])->middleware(['auth'])->name('shared.transactions');
 
 Route::get('/connect/status/{reference_id}', [RequisitionController::class, 'redirect'])->middleware(['auth', 'token'])->name('requisition.redirect');
 
 Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['auth', 'token'])->name('my.accounts');
+
+Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->middleware(['auth'])->name('shared.accounts');
 
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');

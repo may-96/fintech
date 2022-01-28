@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function shared_accounts(){
-        return $this->belongsToMany(Account::class)->withTimestamps()->with(["id","nickname"]);
+        return $this->belongsToMany(Account::class)->withTimestamps()->withPivot(["id","nickname"]);
     }
 
     public function update_error_code($error_field, $code){

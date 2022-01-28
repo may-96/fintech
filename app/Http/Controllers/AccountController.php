@@ -17,8 +17,23 @@ class AccountController extends Controller
             /** @var \App\Models\User */
             $user = Auth::user();
             
-            $accounts = $user->accounts()->withCount('shared_with')->get()->groupBy('institution_id');
+            $accounts = $user->accounts()->select(['id','institution_id','requisition_id','account_id','iban','bban','resource_id','owner_name','display_name','account_name','currency','type_string'])->withCount('shared_with')->get()->flatten();
             return view('app.my_accounts', ["accounts" => $accounts]);
+        }
+        catch (Exception $e)
+        {
+            Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+            abort(500, $e->getMessage());
+        }
+    }
+
+    public function shared_index(Request $request)
+    {
+        try
+        {
+            /** @var \App\Models\User */
+            $user = Auth::user();
+            return view('app.shared_accounts');
         }
         catch (Exception $e)
         {

@@ -4,7 +4,7 @@
             <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
 
                 @if (!empty($balances))
-                    <div class="row mb-6 gy-4">
+                    <div class="row mb-6 gy-4 justify-content-center">
                         @foreach ($balances as $balance)
                             @if ($balance->type == 'expected')
                                 <div class="col-sm-6 col-md-6 col-lg-3">
@@ -254,7 +254,6 @@
         $(document).ready(function() {
             $("body").on('click', ".year_links", function(e) {
                 let year = e.target.getAttribute("href");
-                console.log(year);
                 $('html,body').animate({
                         scrollTop: ($(year).offset().top - 61)
                     },
