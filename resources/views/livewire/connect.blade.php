@@ -67,9 +67,12 @@
                                 </div>
 
                                 <div class="col-md-6 ps-md-4">
-                                    <div class="form-floating mb-4">
+                                    <div class="form-floating">
                                         <input id="maxdays" name="maxdays" min="30" max="{{ $bank_ttd }}" type="number" class="form-control" wire:model="max_historical_days" placeholder="select no of days" value="90" required>
                                         <label for="maxdays">Max Data Historical Days *</label>
+                                    </div>
+                                    <div class="mb-4">
+                                        <small class="text-info">Between 30 and {{$bank_ttd}}</small> - <small>Varies from Bank to Bank</small>
                                     </div>
                                 </div>
                             </div>

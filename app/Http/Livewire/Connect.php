@@ -82,6 +82,9 @@ class Connect extends Component
             {
                 $this->banks = $data;
                 $this->country_selected = true;
+                $this->bank_selected = false;
+                $this->create_link = false;
+                $this->link_generated = false;
             }
             else
             {
@@ -89,6 +92,8 @@ class Connect extends Component
                 $this->banks = [];
                 $this->country_selected = false;
                 $this->bank_selected = false;
+                $this->create_link = false;
+                $this->link_generated = false;
             }
 
             $this->user->update_error_code("institution_error_code", null);
@@ -103,6 +108,8 @@ class Connect extends Component
     public function updateBank()
     {
         $this->bank_selected = true;
+        $this->create_link = false;
+        $this->link_generated = false;
     }
 
     public function createAgreement()
@@ -116,12 +123,12 @@ class Connect extends Component
             $this->agreement_error_message = "Please Enter Access Valid for Days greater than or equal to 30";
             return;
         }
-        if ($this->max_historical_days < 30)
+        if ((int) $this->max_historical_days < 30)
         {
             $this->agreement_error_message = "Please Enter Max Data Historical Days greater than or equal to 30";
             return;
         }
-        if ($this->max_historical_days > $this->bank_ttd)
+        if ((int) $this->max_historical_days > (int) $this->bank_ttd)
         {
             $this->agreement_error_message = "Please Enter Max Data Historical Days less than or equal to " . $this->bank_ttd;
             return;
@@ -165,6 +172,7 @@ class Connect extends Component
             $this->agreement_accepted = $data['accepted'];
 
             $this->create_link = true;
+            $this->link_generated = false;
 
             $this->user->update_error_code("agreement_error_code", null);
         }
@@ -175,7 +183,7 @@ class Connect extends Component
 
     public function createLink()
     {
-
+        $this->link_generated = false;
         $this->reference_id = uniqid("" . $this->user->id, true);
 
         $response = Http::withHeaders([
