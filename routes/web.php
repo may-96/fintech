@@ -64,4 +64,8 @@ Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['au
 
 Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->middleware(['auth'])->name('shared.accounts');
 
+Route::get('request_report', function () {
+    return view('app.request_report');
+})->middleware(['auth'])->name('request.report');
+
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');

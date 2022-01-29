@@ -76,7 +76,8 @@
                                 <p class="display-2 lead fs-14">Put your request to get credit score based on your bank transactions for last one year.</p>
                             </div>
                             <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
-                                <a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Request...</a>
+                                <a href="{{route('request.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="Request Report using Email ID">Request Report</a>
+                                <a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="Generate Your Account Report">Generate Report</a>
                             </div>
                         </div>
                         <!--/column -->
