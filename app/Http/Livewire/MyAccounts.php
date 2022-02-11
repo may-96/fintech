@@ -111,10 +111,10 @@ class MyAccounts extends Component
                         ]);
 
                         SendNotification::dispatch($user, $notification);
-                        // event(new SendNotification($user, $notification));
+                        event(new SendNotification($user, $notification));
                     }
                     catch(Exception $e){
-
+                        Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
                     }
                     $this->success = "Account has been Successfully Shared with the User.";
                 }

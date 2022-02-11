@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -18,5 +19,6 @@ use Illuminate\Support\Facades\Broadcast;
 // });
 
 Broadcast::channel('notification.broadcast.{user_id}', function ($user, $user_id) {
-    return $user->id === $user_id;
+    return Auth::check();
+    // return $user->id === $user_id;
 });
