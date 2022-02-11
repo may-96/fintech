@@ -2,13 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\SendNotification;
 use App\Mail\ShareWithUnregisteredUsers;
 use App\Models\Account;
+use App\Models\Notification;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
@@ -92,9 +95,23 @@ class MyAccounts extends Component
                 $this->error = "Account has already been shared with this user";
             }
             else{
+                $account = Account::find($this->selected_account_id);
                 if($user != null){
                     try{
                         $user->shared_accounts()->attach($this->selected_account_id , ['notes_shared' => $this->share_notes ? 1 : 0]);
+
+                        $authenticated_user = Auth::user();
+                        $message = $authenticated_user->fname . ' ' . $authenticated_user->lname . ' has shared an Account of '. $account->institution->name;
+
+                        $notification = Notification::create([
+                            'type' => 'account_share',
+                            'data' => $account->account_id,
+                            'user_id' => $user->id,
+                            'message' => $message,
+                        ]);
+
+                        
+                        broadcast(new SendNotification($user, $notification));
                     }
                     catch(Exception $e){
 
@@ -110,8 +127,6 @@ class MyAccounts extends Component
                             "created_at" =>  Carbon::now()->toDateTimeString(),
                             "updated_at" => Carbon::now()->toDateTimeString()
                         ]);
-
-                        $account = Account::find($this->selected_account_id);
 
                         Mail::to($this->email)->send( new ShareWithUnregisteredUsers(Auth::user(), $account) );
                     }

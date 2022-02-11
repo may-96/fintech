@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <form class="m-auto" style="max-width: 25rem;" method="POST" action="{{ route('password.email') }}">
+                <form class="m-auto" id="reset_pass_form" style="max-width: 25rem;" method="POST" action="{{ route('password.email') }}">
                     @csrf
                     <!-- Email input -->
                     <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Forgot Password!</div>
@@ -43,7 +43,7 @@
 
 @section('js')
 <script>
-    $('#action_btn').on('click', () => {
+    $('#reset_pass_form').on('submit', () => {
         document.querySelector('#loader').classList.remove('d-none');
         document.querySelector('#loader').classList.add('d-inline-block');
     });

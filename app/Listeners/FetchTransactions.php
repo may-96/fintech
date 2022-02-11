@@ -34,6 +34,7 @@ class FetchTransactions implements ShouldQueue
         try
         {
             $token = Token::where('status', 1)->get()->first();
+            $query = [];
 
             $baseURL = 'https://ob.nordigen.com/api/v2/accounts/';
             if (config('services.nordigen.account') == "premium")
@@ -41,7 +42,6 @@ class FetchTransactions implements ShouldQueue
                 $baseURL .= 'premium/';
             }
 
-            $query = [];
             if (!is_null($df))
             {
                 $query["date_from"] = $df;

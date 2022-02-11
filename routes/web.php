@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Livewire\Login;
@@ -49,6 +50,8 @@ Route::get('transaction_timeline_2', function () {
     return view('app.transaction_timeline_2');
 })->name('timeline.transaction.2');
 
+
+
 Auth::routes(['verify' => true]);
 
 Route::get('/connect_bank', function () {
@@ -69,3 +72,8 @@ Route::get('request_report', function () {
 })->middleware(['auth'])->name('request.report');
 
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');
+
+Route::post('/notification/fetch', [NotificationController::class, 'index'])->middleware(['auth'])->name('fetch.notifications');
+Route::post('/notification/read/{notification}', [NotificationController::class, 'read'])->middleware(['auth'])->name('read.notification');
+Route::post('/notification/unread/{notification}', [NotificationController::class, 'unread'])->middleware(['auth'])->name('unread.notification');
+Route::post('/notification/destroy/{notification}', [NotificationController::class, 'destroy'])->middleware(['auth'])->name('destroy.notification');

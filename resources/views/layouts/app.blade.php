@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @auth
+        <meta name="user-id" content="{{ Auth::user()->id }}">
+    @endauth
+    
     <x-css></x-css>
     <link rel="stylesheet" href="{{ asset('css/topbar.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/reports.css') }}">
 
-
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     @yield('css')
 </head>
 

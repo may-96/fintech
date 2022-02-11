@@ -55,6 +55,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Account::class)->withTimestamps()->withPivot(["id","nickname"]);
     }
 
+    public function notifications(){
+        return $this->hasMany(Notification::class);
+    }
+
     public function update_error_code($error_field, $code){
         $this->$error_field = $code;
         $this->save();

@@ -41,8 +41,6 @@ class RequisitionController extends Controller
 
             if ($response->successful())
             {
-
-
                 $data = $response->json();
                 $accounts = $data['accounts'];
 

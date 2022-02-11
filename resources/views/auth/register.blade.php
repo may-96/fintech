@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 align-self-center">
-                <form method="POST" action="{{ route('register') }}" class="m-auto" style="max-width: 25rem;">
+                <form method="POST" id="register_form" action="{{ route('register') }}" class="m-auto" style="max-width: 25rem;">
                     @csrf
                     <!-- Email input -->
                     <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Create an Account</div>
@@ -86,7 +86,7 @@
 
 @section('js')
 <script>
-    $('#action_btn').on('click', () => {
+    $('#register_form').on('submit', () => {
         document.querySelector('#loader').classList.remove('d-none');
         document.querySelector('#loader').classList.add('d-inline-block');
     });

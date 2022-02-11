@@ -38,9 +38,11 @@ class CreateTransactionsTable extends Migration
             $table->string("bank_transaction_code")->nullable();
             $table->string("status",20)->default('pending')->comment("- booked\n- pending");
             $table->string("notes",1024)->nullable()->comment("User Notes");
+            $table->unsignedBigInteger('category_id')->nullable()->comment('Our own cateogories');
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

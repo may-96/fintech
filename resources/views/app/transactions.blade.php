@@ -117,6 +117,37 @@
         .big_border_bottom{
             border-bottom: 4px solid;
         }
+        .dropdown-toggle::after{
+            font-size: unset;
+        }
+        .dropdown-item{
+            color: #9499a3;
+        }
+        .navbar-dark:not(.fixed) .dropdown-toggle:after, .navbar-bg-dark .dropdown-toggle:after, .btn.dropdown-toggle:after{
+            color: #3f78e0;
+        }
+        .dropdown-menu{
+            scrollbar-color: #b6b8bd #f7f7f8;
+            scrollbar-width: thin;
+        }
+        .dropdown-menu::-webkit-scrollbar {
+            width: 6px;               /* width of the entire scrollbar */
+        }
+        .dropdown-menu::-webkit-scrollbar-track {
+            background: #f7f7f8;        /* color of the tracking area */
+        }
+        .dropdown-menu::-webkit-scrollbar-thumb {
+            background-color: #b6b8bd;    /* color of the scroll thumb */
+            /* border-radius: 20px; */      /* roundness of the scroll thumb */
+            /* border: 3px solid silver; */  /* creates padding around scroll thumb */
+        }
+        .dropdown-list-item:hover {
+            background: #e7e9ee;
+            cursor: pointer;
+        }
+        .dropdown-list-item:hover > .dropdown-item{
+            color: #3f78e0;
+        }
 </style>
 @endsection
 @section('header')
@@ -141,6 +172,5 @@
 @section('js')
     <script src="{{asset('js/save_transactions.js')}}"></script>
     @livewireScripts
-    <script src="{{ asset('js/alpine.js') }}"></script>
     @stack('scripts')
 @endsection

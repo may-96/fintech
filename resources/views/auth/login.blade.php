@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 align-self-center">
-                <form class="m-auto" style="max-width: 25rem;" method="POST" action="{{route('login')}}">
+                <form class="m-auto" style="max-width: 25rem;" id="login_form" method="POST" action="{{route('login')}}">
                     @csrf
                     <!-- Email input -->
                     <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Access Your Account</div>
@@ -64,7 +64,7 @@
 
 @section('js')
 <script>
-    $('#action_btn').on('click', () => {
+    $('#login_form').on('submit', () => {
         document.querySelector('#loader').classList.remove('d-none');
         document.querySelector('#loader').classList.add('d-inline-block');
     });
