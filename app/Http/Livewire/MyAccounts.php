@@ -110,8 +110,8 @@ class MyAccounts extends Component
                             'message' => $message,
                         ]);
 
-                        
-                        broadcast(new SendNotification($user, $notification));
+                        SendNotification::dispatch($user, $notification);
+                        // event(new SendNotification($user, $notification));
                     }
                     catch(Exception $e){
 
