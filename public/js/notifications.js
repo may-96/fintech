@@ -1,7 +1,7 @@
 Pusher.logToConsole = true;
 
 var pusher = new Pusher('89723c45f605cf554606', {
-    encrypted: false,
+    encrypted: true,
     cluster: 'us2'
 });
 

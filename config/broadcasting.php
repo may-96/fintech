@@ -37,8 +37,8 @@ return [
             'app_id' => env('PUSHER_APP_ID', '1345668'),
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER', 'us2'),
-                'useTLS' => false,
-                'encrypted' => false,
+                'useTLS' => true,
+                'encrypted' => true,
             ],
         ],
 
