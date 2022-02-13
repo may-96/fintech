@@ -69,3 +69,7 @@ Route::get('request_report', function () {
 })->middleware(['auth'])->name('request.report');
 
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');
+
+Route::get('/print_report', function () {
+    return view('app.report_print');
+})->name('print-pdf');
