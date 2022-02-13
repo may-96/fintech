@@ -39,98 +39,104 @@ function toggle_class(elem, class_to_remove, class_to_add)
 
 
 
+
+
 var options = {
-    series: [75],
+    series: [44, 55, 41, 17, 15],
     chart: {
-        height: 350,
-        type: 'radialBar',
-        toolbar: {
-            show: true
-        }
+        width: 380,
+        type: 'donut',
     },
     plotOptions: {
-        radialBar: {
-            startAngle: -135,
-            endAngle: 225,
-            hollow: {
-                margin: 0,
-                size: '70%',
-                background: '#fff',
-                image: undefined,
-                imageOffsetX: 0,
-                imageOffsetY: 0,
-                position: 'front',
-                dropShadow: {
-                    enabled: true,
-                    top: 3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.24
-                }
-            },
-            track: {
-                background: '#fff',
-                strokeWidth: '67%',
-                margin: 0, // margin is in pixels
-                dropShadow: {
-                    enabled: true,
-                    top: -3,
-                    left: 0,
-                    blur: 4,
-                    opacity: 0.35
-                }
-            },
-
-            dataLabels: {
-                show: true,
-                name: {
-                    offsetY: -10,
-                    show: true,
-                    color: '#888',
-                    fontSize: '17px'
-                },
-                value: {
-                    formatter: function (val) {
-                        return parseInt(val);
-                    },
-                    color: '#111',
-                    fontSize: '36px',
-                    show: true,
-                }
-            }
+        pie: {
+            startAngle: -90,
+            endAngle: 270
         }
+    },
+    dataLabels: {
+        enabled: false
     },
     fill: {
         type: 'gradient',
-        gradient: {
-            shade: 'dark',
-            type: 'horizontal',
-            shadeIntensity: 0.5,
-            gradientToColors: ['#ABE5A1'],
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100]
+    },
+    legend: {
+        formatter: function(val, opts) {
+            return val + " - " + opts.w.globals.series[opts.seriesIndex]
         }
     },
-    stroke: {
-        lineCap: 'round'
+    title: {
+        text: ''
     },
-    labels: ['Credit Score'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }]
 };
 
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-chart.render();
+var chart1 = new ApexCharts(document.querySelector("#Incomechart"), options);
+chart1.render();
+
+
+var options = {
+    series: [44, 55, 41, 17, 15],
+    chart: {
+        width: 380,
+        type: 'donut',
+    },
+    plotOptions: {
+        pie: {
+            startAngle: -90,
+            endAngle: 270
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    fill: {
+        type: 'gradient',
+    },
+    legend: {
+        formatter: function(val, opts) {
+            return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        }
+    },
+    title: {
+        text: ''
+    },
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'top'
+            }
+        }
+    }]
+};
+
+var chart2 = new ApexCharts(document.querySelector("#Expensechart"), options);
+chart2.render();
+
+
+
+
 
 var options2 = {
     series: [{
-        name: 'Mortgage Payments',
-        data: [34, 54, 65, 44, 55, 57, 56, 61, 58, 63, 60, 66]
-    }, {
-        name: 'Bills',
+        name: 'Cash Out',
+        color: 'red',
         data: [76, 21, 22, 34, 85, 101, 98, 87, 105, 91, 114, 94]
     }, {
-        name: 'Cash Flow',
+        name: 'Cash In',
         data: [35, 41, 36, 26, 43, 65, 56, 45, 48, 52, 53, 41]
     }],
     chart: {
@@ -140,7 +146,7 @@ var options2 = {
     plotOptions: {
         bar: {
             horizontal: false,
-            columnWidth: '55%',
+            columnWidth: '80%',
             endingShape: 'rounded'
         },
     },
@@ -172,5 +178,5 @@ var options2 = {
     }
 };
 
-var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
-chart2.render();
+var chart3 = new ApexCharts(document.querySelector("#cashflowchart"), options2);
+chart3.render();
