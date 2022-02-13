@@ -108,10 +108,11 @@ class MyAccounts extends Component
                             'data' => $account->account_id,
                             'user_id' => $user->id,
                             'message' => $message,
+                            'read' => 0
                         ]);
 
                         SendNotification::dispatch($user, $notification);
-                        event(new SendNotification($user, $notification));
+                        // event(new SendNotification($user, $notification));
                     }
                     catch(Exception $e){
                         Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());

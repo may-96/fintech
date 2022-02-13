@@ -235,6 +235,7 @@ return [
 
     'settings' => [
         'transaction_fetch_wait_time' => 10, // In Minutes
+        'report_currency' => 'USD',
     ]
 
 ];
