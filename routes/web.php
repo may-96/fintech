@@ -5,6 +5,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use App\Http\Livewire\Login;
 use App\Http\Livewire\Register;
 use App\Models\User;
@@ -55,16 +56,17 @@ Route::get('transaction_timeline_2', function () {
 Route::get('contact_us', function () {
     return view('app.contact_us');
 })->name('contact.us');
-Route::get('settings', function () {
-    return view('app.settings');
-})->name('settings');
 
 Route::get('shared_reports', function () {
     return view('app.shared_reports');
 })->name('shared.reports');
 
-
 Auth::routes(['verify' => true]);
+
+Route::get('settings', [UserController::class, 'show'])->middleware(['auth'])->name('settings');
+Route::post('settings/basic', [UserController::class, 'basic_settings'])->middleware(['auth'])->name('basic.settings');
+Route::post('settings/contact', [UserController::class, 'contact_settings'])->middleware(['auth'])->name('contact.settings');
+Route::post('settings/security', [UserController::class, 'security_settings'])->middleware(['auth'])->name('security.settings');
 
 Route::get('/connect_bank', function () { return view('app.connect_bank'); })->middleware(['auth','token'])->name('connect_bank');
 
