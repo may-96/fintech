@@ -28,41 +28,9 @@ Route::get('/', function () {
     return view('app.landing_page');
 })->name('index');
 
-// Route::get('/dashboard', function () {
-//     return view('app.dashboard');
-// })->name('dashboard');
-
-// Route::get('/list_of_accounts', function () {
-//     return view('app.list_of_accounts');
-// })->name('list.accounts');
-
-// Route::get('/reports', function () {
-//     return view('app.reports');
-// })->name('credit.report');
-
-// Route::get('transactions', function () {
-//     return view('app.transaction_list');
-// })->name('list.transaction');
-
-// Route::get('transaction_timeline', function () {
-//     return view('app.transaction_timeline');
-// })->name('timeline.transaction');
-
-// Route::get('transaction_timeline_2', function () {
-//     return view('app.transaction_timeline_2');
-// })->name('timeline.transaction.2');
-
 Route::get('contact_us', function () { return view('app.contact_us'); })->name('contact.us');
 
 Route::post('contact/query', [ContactController::class, 'queryHandler'])->name('submit.contact.query');
-
-Route::get('contact_us', function () {
-    return view('app.contact_us');
-})->name('contact.us');
-
-Route::get('shared_reports', function () {
-    return view('app.shared_reports');
-})->name('shared.reports');
 
 Auth::routes(['verify' => true]);
 
