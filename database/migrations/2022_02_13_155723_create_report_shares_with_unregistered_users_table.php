@@ -23,7 +23,7 @@ class CreateReportSharesWithUnregisteredUsersTable extends Migration
             $table->unsignedTinyInteger('view_email')->default(0);
             $table->unsignedTinyInteger('view_contact')->default(0);
             $table->unsignedTinyInteger('view_credit_score')->default(0);
-            $table->string('token')->unique()->nullable(false);
+            $table->string('token')->nullable(false);
             $table->timestamps();
 
             $table->unique(['email', 'user_id']);
