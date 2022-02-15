@@ -161,8 +161,8 @@
                     </div>
                     <div class="col-6">
                         @if ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_credit_score'] == 1))
-                            <p class="m-0 text-end"><span class="fw-bold">Credit Score:</span> <span class="text-muted fs-20">70</span></p>
-                            <p class="text-end">Good</p>
+                            <p class="m-0 text-end"><span class="fw-bold">Credit Score:</span> <span class="text-muted fs-20">{{ round($report_data[8], 0) }}</span></p>
+                            <p class="text-end fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</p>
                         @endif
                         @if ($report_data[11] > 0)
                             <p class="m-0 text-end"><span class="">Saving per Month:</span> <span>{{ config('app.settings.report_currency_symbol') . round($report_data[11], 2) }}</span></p>
