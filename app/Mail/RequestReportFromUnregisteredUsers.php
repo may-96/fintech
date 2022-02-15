@@ -24,7 +24,7 @@ class RequestReportFromUnregisteredUsers extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->subject($this->user->fname." Requested Your Credit Report")
-        ->markdown('emails.share_report', [
+        ->markdown('emails.request_report', [
             'user'=> $this->user,
         ]);
     }

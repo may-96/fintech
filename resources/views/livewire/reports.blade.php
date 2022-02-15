@@ -141,18 +141,20 @@
                 </div>
                 <div class="row my-10">
                     <div class="col-6">
-                        <p class="m-0 clearfix"><span class="float-start">Name:</span> <span class="float-end fw-bold text-dark">Muhammad Shahzad</span></p>
-
-                        @if ($company_name != '')
-                            <p class="m-0 clearfix"><span class="float-start">Company:</span> <span class="float-end fw-bold text-dark">Jan 2015</span></p>
+                        @if (App\Helpers\Functions::not_empty($report_user_name))
+                        <p class="m-0 clearfix"><span class="float-start">Name:</span> <span class="float-end fw-bold text-dark">{{$report_user_name}}</span></p>
                         @endif
 
-                        @if ($email_addr != '' && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_email'] == 1)))
+                        @if (App\Helpers\Functions::not_empty($company_name))
+                            <p class="m-0 clearfix"><span class="float-start">Company:</span> <span class="float-end fw-bold text-dark">{{$company_name}}</span></p>
+                        @endif
+
+                        @if (App\Helpers\Functions::not_empty($email_addr) && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_email'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Email:</span> <span class="float-end fw-bold text-dark">{{$email_addr}}</span></p>
                         @endif
 
-                        @if ($contact_num != '' && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_contact'] == 1)))
-                            <p class="m-0 clearfix"><span class="float-start">Contact #:</span> <span class="float-end fw-bold text-dark">Jan 2015</span></p>
+                        @if (App\Helpers\Functions::not_empty($contact_num) && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_contact'] == 1)))
+                            <p class="m-0 clearfix"><span class="float-start">Contact #:</span> <span class="float-end fw-bold text-dark">{{$contact_num}}</span></p>
                         @endif
 
                         <p class="m-0 clearfix"><span class="float-start">Generated At:</span> <span class="float-end fw-bold text-dark" id="time_span"></span></p>

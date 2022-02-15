@@ -19,7 +19,8 @@ use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
-    public function show(Request $request){
+    public function show(Request $request)
+    {
 
         /** @var \App\Models\User */
         $user = Auth::user();
@@ -38,15 +39,19 @@ class ReportController extends Controller
         /** @var \App\Models\User */
         $user = Auth::user();
 
-        if(Functions::is_empty($token)){
+        if (Functions::is_empty($token))
+        {
             $data = ['self'];
         }
-        else{
+        else
+        {
             $shared_user = $user->shared_reports_with()->wherePivot('token', $token)->first();
-            if(Functions::not_empty($shared_user)){
+            if (Functions::not_empty($shared_user))
+            {
                 $data = ['shared', $shared_user->pivot];
             }
-            else{
+            else
+            {
                 abort(404);
             }
         }
@@ -54,11 +59,12 @@ class ReportController extends Controller
         return view('app.reports', ['data' => $data]);
     }
 
-    public function requestReport(Request $request){
+    public function requestReport(Request $request)
+    {
 
         $emails = $request->emails;
-        $emails_formatted = str_replace("\r\n", ",", str_replace(" ", ",", str_replace("  ",",",$emails)));
-        $emails_array = array_values(array_filter(explode(",",$emails_formatted)));
+        $emails_formatted = str_replace("\r\n", ",", str_replace(" ", ",", str_replace("  ", ",", $emails)));
+        $emails_array = array_values(array_filter(explode(",", $emails_formatted)));
         $invalid_emails = 0;
         $my_email = 0;
         $already_shared = 0;
@@ -67,25 +73,31 @@ class ReportController extends Controller
         /** @var \App\Models\User */
         $auth_user = Auth::user();
 
-        foreach($emails_array as $email){
+        foreach ($emails_array as $email)
+        {
             if ($this->check_email($email))
             {
-                if($email == $auth_user->email){
+                if ($email == $auth_user->email)
+                {
                     $my_email = 1;
                     continue;
                 }
                 $user = User::where('email', $email)->first();
-                if($this->check_already_requested($auth_user->id, $email, $user)){
+                if ($this->check_already_requested($auth_user->id, $email, $user))
+                {
                     $already_shared += 1;
                     continue;
                 }
-                else{
+                else
+                {
                     $token = (string) Str::orderedUuid();
-                    if($user != null){
-                        try{
-                            
-                            $user->report_requested_from()->attach($auth_user->id , []);
-                            
+                    if ($user != null)
+                    {
+                        try
+                        {
+
+                            $user->report_requested_from()->attach($auth_user->id, []);
+
                             $message = $auth_user->fname . ' ' . $auth_user->lname . ' has requested you to share your Credit Report.';
 
                             $notification = Notification::create([
@@ -101,13 +113,15 @@ class ReportController extends Controller
 
                             $requested_success += 1;
                         }
-                        catch(Exception $e){
+                        catch (Exception $e)
+                        {
                             Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
                         }
-                        
                     }
-                    else{
-                        try{
+                    else
+                    {
+                        try
+                        {
                             DB::table('report_requested_from_unregistered_users')->insert([
                                 'user_id' => $auth_user->id,
                                 'email' => $email,
@@ -115,44 +129,52 @@ class ReportController extends Controller
                                 "updated_at" => Carbon::now()->toDateTimeString()
                             ]);
 
-                            Mail::to($email)->send( new RequestReportFromUnregisteredUsers($auth_user) );
+                            Mail::to($email)->send(new RequestReportFromUnregisteredUsers($auth_user));
 
                             $requested_success += 1;
                         }
-                        catch(Exception $e){
-
+                        catch (Exception $e)
+                        {
                         }
                     }
                 }
             }
-            else{
+            else
+            {
                 $invalid_emails += 1;
             }
         }
         $message = "";
-        if($requested_success > 0){
+        if ($requested_success > 0)
+        {
             $message = "New Request Sent to " . $requested_success . " Users.";
         }
-        if($invalid_emails > 0){
-            if($message != ""){
+        if ($invalid_emails > 0)
+        {
+            if ($message != "")
+            {
                 $message .= "\n\n";
             }
-            $message .= "Invalid Emails: ". $invalid_emails;
+            $message .= "Invalid Emails: " . $invalid_emails;
         }
-        if($already_shared > 0){
-            if($message != ""){
+        if ($already_shared > 0)
+        {
+            if ($message != "")
+            {
                 $message .= "\n\n";
             }
-            $message .= "You've already requested report from ". $already_shared . " Users.";
+            $message .= "You've already requested report from " . $already_shared . " Users.";
         }
-        if($my_email > 0){
-            if($message != ""){
+        if ($my_email > 0)
+        {
+            if ($message != "")
+            {
                 $message .= "\n\n";
             }
             $message .= "You cannot send report request to yourself.";
         }
-                
-        return redirect()->route('request.report')->with('info',$message);
+
+        return redirect()->route('request.report')->with('info', $message);
     }
 
     private function check_email($email)
@@ -167,13 +189,16 @@ class ReportController extends Controller
     private function check_already_requested($id, $email, $user = null)
     {
         $exists = false;
-        if($user != null){
+        if ($user != null)
+        {
             $exists = $user->report_requested_from()->newPivotStatementForId($id)->exists();
         }
-        
-        if(!$exists){
-            $other_exists = DB::table('report_requested_from_unregistered_users')->where('user_id', $id)->where('email',$email)->count();
-            if($other_exists > 0){
+
+        if (!$exists)
+        {
+            $other_exists = DB::table('report_requested_from_unregistered_users')->where('user_id', $id)->where('email', $email)->count();
+            if ($other_exists > 0)
+            {
                 return true;
             }
             return false;
@@ -181,19 +206,26 @@ class ReportController extends Controller
         return true;
     }
 
-    public function grantAccess(Request $request){
-         /** @var \App\Models\User */
-         $user = Auth::user();
+    public function grantAccess(Request $request)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
 
-         $shared_with = $request->shared_with;
-         $shared_user = User::find($shared_with);
+        if($user->accounts->count() == 0){
+            return "Please connect your Bank Account before sharing the Credit Report.";
+        }
+
+        $shared_with = $request->shared_with;
+        $shared_user = User::find($shared_with);
 
         $check = $user->report_requested_from()->wherePivot('user_id', $shared_with)->count();
-        if($check == 1){
+        if ($check == 1)
+        {
             $check2 = $user->shared_reports()->wherePivot('shared_with', $shared_with)->count();
-            if($check2 == 0 && $shared_user){
+            if ($check2 == 0 && $shared_user)
+            {
                 $token = (string) Str::orderedUuid();
-                $shared_user->shared_reports_with()->attach($user->id , [
+                $shared_user->shared_reports_with()->attach($user->id, [
                     'view_cash_flow' => $request->view_cash_flow ? 1 : 0,
                     'view_expense' => $request->view_expense ? 1 : 0,
                     'view_income' => $request->view_income ? 1 : 0,
@@ -220,8 +252,18 @@ class ReportController extends Controller
             $user->report_requested_from()->detach($shared_with);
             return "Report has already been Shared with this User";
         }
-        else{
+        else
+        {
             return "No such Report Request Exist.";
         }
+    }
+
+    public function sharedReports(Request $request)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        $data = $user->shared_reports_with()->select(['fname', 'lname'])->get()->flatten();
+
+        return view('app.shared_reports', ['data' => $data]);
     }
 }

@@ -74,13 +74,13 @@ class Reports extends Component
         }
         
         $this->report_user_name = $temp->fname . " " . $temp->lname;
-        // $this->company_name = $temp->company_name;
+        $this->company_name = $temp->company;
         if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_email'] == 1))){
             $this->email_addr = $temp->email;
         }
-        // if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_contact'] == 1))){
-        //     $this->contact_num = $temp->contact;
-        // }
+        if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_contact'] == 1))){
+            $this->contact_num = $temp->contact;
+        }
 
         $this->report_data = Functions::cash_flow_stats($temp);
         if($this->report_data != 0){

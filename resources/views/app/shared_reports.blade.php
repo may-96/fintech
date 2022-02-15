@@ -30,7 +30,7 @@
             text-decoration: underline;
         }
 
-        .w-max-content{
+        .w-max-content {
             width: max-content !important;
         }
 
@@ -63,42 +63,38 @@
                 <h2 class="fs-15 text-uppercase text-muted text-center mt-15 mb-3">Shared Reports</h2>
                 <h3 class="display-4 text-center">List of all the Shared Reports.</h3>
             </div>
-                <!-- /.post-header -->
-                <div class="row gy-4">
-                            <div class="col-sm-12 col-md-6 col-xl-4">
-                                <div class="card p-3 w-100">
-                                    <div>
-                                        <div class="d-flex align-items-center justify-content-between fs-16 fw-bold lh-1 mb-0">
-                                            <span>John Doe</span>
-                                            <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="" data-bs-target="#remove_bank_access_modal" title="Remove Account">
-                                                <i class="uil uil-times-circle"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <p class="m-0 lh-1 fs-14"></p>
-                                        <div class="d-flex flex-row justify-content-between align-items-center mt-2">
-                                            <small class="text-navy float-start">Company: <span class="text-share fw-bold"> Users</span></small>
-                                            <a class="btn small btn-sm btn-soft-ash rounded-pill px-4 py-0 float-end" href="">View Report</a>
-                                        </div>
-                                    </div>
+            <!-- /.post-header -->
+            <div class="row gy-4">
+                @forelse ($data as $shared_reports)
+                    <div class="col-sm-12 col-md-6 col-xl-4">
+                        <div class="card p-3 w-100">
+                            <div>
+                                <div class="d-flex align-items-center justify-content-between fs-16 fw-bold lh-1 mb-0">
+                                    <span>{{$shared_reports->fname}} {{$shared_reports->lname}}</span>
+                                    <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="" data-bs-target="#remove_report_modal" title="Remove Report">
+                                        <i class="uil uil-times-circle"></i>
+                                    </a>
                                 </div>
                             </div>
-
-                </div>
-                <div class="row">
+                            <div>
+                                <p class="m-0 lh-1 fs-14"></p>
+                                <div class="d-flex flex-row justify-content-between align-items-center mt-2">
+                                    @if(App\Helpers\Functions::not_empty($shared_reports->company))<small class="text-navy float-start">Company: <span class="text-share fw-bold text-capitalize"> $shared_reports->company</span></small>@else<small class="float-start"></small>@endif
+                                    <a class="btn small btn-sm btn-soft-ash rounded-pill px-4 py-0 float-end" href="{{route('get.report',$shared_reports->pivot->token)}}">View Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
                     <div class="col-12">
                         No Credit Reports has been shared with you! Shared Reports will appear here.
                     </div>
-                </div>
-
+                @endforelse
+            </div>
         </div>
-
-
     </section>
 @endsection
 @section('js')
-
     <script src="{{ asset('js/my_accounts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
     <script src="{{ asset('js/alpine.js') }}"></script>

@@ -13,7 +13,7 @@
                     <nav class="nav justify-content-center social social-white" style="">
                         <a href="#">Terms of Services</a>
                         <a href="#">Privacy Policy</a>
-                        <a href="#">Contact Us</a>
+                        <a href="{{route('contact.us')}}">Contact Us</a>
                     </nav>
                 </div>
             </div>

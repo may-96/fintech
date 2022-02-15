@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RequisitionController;
@@ -26,15 +27,13 @@ Route::get('/', function () {
     return view('app.landing_page');
 })->name('index');
 
-Route::get('/dashboard', function () {
-    return view('app.dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('app.dashboard');
+// })->name('dashboard');
 
-
-
-Route::get('/list_of_accounts', function () {
-    return view('app.list_of_accounts');
-})->name('list.accounts');
+// Route::get('/list_of_accounts', function () {
+//     return view('app.list_of_accounts');
+// })->name('list.accounts');
 
 // Route::get('/reports', function () {
 //     return view('app.reports');
@@ -44,27 +43,26 @@ Route::get('/list_of_accounts', function () {
 //     return view('app.transaction_list');
 // })->name('list.transaction');
 
-Route::get('transaction_timeline', function () {
-    return view('app.transaction_timeline');
-})->name('timeline.transaction');
+// Route::get('transaction_timeline', function () {
+//     return view('app.transaction_timeline');
+// })->name('timeline.transaction');
 
-Route::get('transaction_timeline_2', function () {
-    return view('app.transaction_timeline_2');
-})->name('timeline.transaction.2');
+// Route::get('transaction_timeline_2', function () {
+//     return view('app.transaction_timeline_2');
+// })->name('timeline.transaction.2');
 
-Route::get('contact_us', function () {
-    return view('app.contact_us');
-})->name('contact.us');
+Route::get('contact_us', function () { return view('app.contact_us'); })->name('contact.us');
+
+Route::post('contact/query', [ContactController::class, 'queryHandler'])->name('submit.contact.query');
+
 Route::get('settings', function () {
     return view('app.settings');
 })->name('settings');
 
-Route::get('shared_reports', function () {
-    return view('app.shared_reports');
-})->name('shared.reports');
-
 
 Auth::routes(['verify' => true]);
+
+Route::get('/dashboard', function () { return view('app.dashboard'); })->middleware(['auth'])->name('dashboard');
 
 Route::get('/connect_bank', function () { return view('app.connect_bank'); })->middleware(['auth','token'])->name('connect_bank');
 
@@ -80,6 +78,8 @@ Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->midd
 Route::get('request_report', [ReportController::class, 'show'])->middleware(['auth'])->name('request.report');
 Route::post('request_report', [ReportController::class, 'requestReport'])->middleware(['auth'])->name('request.report.submit');
 Route::post('report/grant_access', [ReportController::class, 'grantAccess'])->middleware(['auth'])->name('report.grant.access');
+
+Route::get('shared_reports', [ReportController::class, 'sharedReports'])->middleware(['auth'])->name('shared.reports');
 
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');
 
