@@ -14,7 +14,7 @@
                         <div class="row gx-4">
                             <div class="col-md-6">
                                 <div class="form-floating mb-4">
-                                    <input id="full_name" type="text" name="full_name" class="form-control" placeholder="Jane Doe" required>
+                                    <input id="full_name" type="text" value="{{old('full_name')}}" name="full_name" class="form-control" placeholder="Jane Doe" required>
                                     <label for="full_name">Full Name *</label>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -29,7 +29,7 @@
                             <!-- /column -->
                             <div class="col-md-6">
                                 <div class="form-floating mb-4">
-                                    <input id="email_address" type="email" name="email_address" class="form-control" placeholder="jane.doe@example.com" required>
+                                    <input id="email_address" type="email" value="{{old('email_address')}}" name="email_address" class="form-control" placeholder="jane.doe@example.com" required>
                                     <label for="email_address">Email *</label>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -42,7 +42,7 @@
                             <!-- /column -->
                             <div class="col-md-12">
                                 <div class="form-floating mb-4">
-                                    <input id="subject" type="text" name="subject" class="form-control" placeholder="..." required>
+                                    <input id="subject" type="text" value="{{old('subject')}}" name="subject" class="form-control" placeholder="..." required>
                                     <label for="subject">Subject *</label>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -55,7 +55,7 @@
                             <!-- /column -->
                             <div class="col-12">
                                 <div class="form-floating mb-4">
-                                    <textarea id="message" name="message" class="form-control" placeholder="Your Message" style="height: 150px" required></textarea>
+                                    <textarea id="message" name="message" class="form-control" placeholder="Your Message" style="height: 150px" required>{{old('message')}}</textarea>
                                     <label for="message">Message *</label>
                                     <div class="valid-feedback">
                                         Looks good!
@@ -84,7 +84,7 @@
     </section>
 @endsection
 @section('js')
-    <script src="https://www.google.com/recaptcha/api.js?render={{env('GOOGLE_RECAPTCHA_V3_SITE_KEY')}}"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         function onSubmit(token) {
             document.getElementById("contact_form").submit();

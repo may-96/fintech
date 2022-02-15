@@ -21,8 +21,9 @@ class ContactController extends Controller
 
         $response = Http::withHeaders([
             'accept' => 'application/json',
+            "Content-Type" => "application/x-www-form-urlencoded"
         ])->post(
-            'https://www.google.com/recaptcha/api/siteverify',
+            'https://www.google.com/recaptcha/api/siteverify?secret='.env('GOOGLE_RECAPTCHA_V3_SECRET_KEY').'&response='.$data['g-recaptcha-response'].'&remoteip='.$request->ip(),
             [
                 'secret' => env('GOOGLE_RECAPTCHA_V3_SECRET_KEY'),
                 'response' => $data['g-recaptcha-response'],
@@ -34,8 +35,9 @@ class ContactController extends Controller
         {
             $response_data = $response->json();
             $success = $response_data['success'];
+                        
             if($success){
-                Mail::to($data['email_address'])->send( new ContactFormReply($data['message'], $data['subject'], $data['full_name'], $data['email_address']) );
+                Mail::to(config('app.settings.contact_email_addr'))->send( new ContactFormReply($data['message'], $data['subject'], $data['full_name'], $data['email_address']) );
                 return redirect()->back()->with('success', 'Message has been sent successfully.');
             }
             else{
