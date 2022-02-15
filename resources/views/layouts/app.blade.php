@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    
     <x-topbar></x-topbar>
     <div class="content-wrapper bg-soft-ash">
         @yield('header')
@@ -26,6 +27,9 @@
     </div>
     <x-footer></x-footer>
     <x-toast></x-toast>
+    <audio id="notification_sound">
+        <source src="{{ asset('audio/notification.mp3') }}">
+    </audio>
     <x-js></x-js>
     @yield('js')
 </body>

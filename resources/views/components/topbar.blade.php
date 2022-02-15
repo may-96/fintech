@@ -43,7 +43,7 @@
                         </li>
                         <li class="nav-item d-block ms-0">
                             <nav class="nav social social-muted justify-content-end text-end">
-                                <a data-toggle="offcanvas-info" class="btn btn-soft-ash btn-circle me-2"><i class="uil uil-bell text-navy"></i> <small class="fs-10 text-navy">3</small></a> {{-- btn-soft-yellow border-warning --}}
+                                <a onclick="renderNotifications()" data-toggle="offcanvas-info" class="btn btn-soft-ash btn-circle me-2"><i class="uil uil-bell text-navy"></i> <small id="notification_count" class="fs-10 text-navy"></small></a> {{-- btn-soft-yellow border-warning --}}
                             </nav>
                         </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
