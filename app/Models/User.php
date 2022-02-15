@@ -17,12 +17,8 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'fname',
-        'lname',
-        'email',
-        'password',
-    ];
+
+    protected $guarded=[];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -80,5 +76,5 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(User::class, 'report_request', 'requested_from', 'user_id')->withTimestamps()->withPivot(['id']);
     }
 
-    
+
 }

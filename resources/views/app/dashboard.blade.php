@@ -116,7 +116,7 @@
                             <p class="display-2 lead fs-14">View all the settings related to your account</p>
                         </div>
                         <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
-                            <a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Open Settings</a>
+                            <a href="{{route('settings')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill">Open Settings</a>
                         </div>
                     </div>
                 </div>
