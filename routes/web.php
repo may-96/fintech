@@ -50,6 +50,16 @@ Route::get('transaction_timeline_2', function () {
     return view('app.transaction_timeline_2');
 })->name('timeline.transaction.2');
 
+Route::get('contact_us', function () {
+    return view('app.contact_us');
+})->name('contact.us');
+Route::get('settings', function () {
+    return view('app.settings');
+})->name('settings');
+
+Route::get('shared_reports', function () {
+    return view('app.shared_reports');
+})->name('shared.reports');
 
 
 Auth::routes(['verify' => true]);
