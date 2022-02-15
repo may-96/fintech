@@ -49,14 +49,14 @@ class SharedTransactions extends Component
     private function load_transactions(){
         
             if($this->notes_shared == 1){
-                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes'];
+                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id','notes',];
             }
             else{
-                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount'];
+                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id'];
             }
-            $transactions = $this->account->transactions()->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date','desc')->get();
+            $transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date','desc')->get();
             if($transactions->count() >= $this->total_transactions){
-                $this->all_loaded = true;
+                $this->emit('allDataLoaded');
             }
             $this->grouped_transactions = $transactions->groupBy('year')->toArray();
             $this->transaction_status = "OK";

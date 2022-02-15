@@ -21,14 +21,14 @@ channel.bind('notification', function(data)
     // this is called when the event notification is received...
     console.log(data);
     notifications.unshift(data.notification);
-    
+
     renderNotifications();
-    document.getElementById("notification_sound").play();
+    document.getElementById("notification_sound")
+        .play();
 });
 
-function updateNotifications(action, id = null)
+async function updateNotifications(action, id = null)
 {
-
     let url = basePath + "/notification/" + action;
     if (id !== null)
     {
@@ -43,7 +43,7 @@ function updateNotifications(action, id = null)
                 .attr('content')
         }
     });
-    $.ajax(
+    await $.ajax(
     {
         url: url,
         type: "POST",
@@ -52,14 +52,10 @@ function updateNotifications(action, id = null)
         {},
         success: function(data, textStatus, jqXHR)
         {
-            console.log(data);
             notifications = data.data;
             renderNotifications();
         },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            console.log(jqXHR);
-        },
+        error: function(jqXHR, textStatus, errorThrown) {},
     });
 }
 
@@ -75,13 +71,20 @@ function renderNotifications()
     {
         let icon = 'uil-file-share-alt';
         let icon_color = 'bg-pale-primary';
-        let action = "open_link";
+        let action = "open_share_link";
         if (element.type == 'request_report')
         {
             action = 'open_modal';
             icon_color = 'bg-pale-green';
             icon = 'uil-suitcase'
         }
+        if (element.type == 'report_share')
+        {
+            action = 'open_report_link';
+            icon_color = 'bg-pale-orange';
+            icon = 'uil-chart'
+        }
+
         let read_unread = "";
         if (element.read == 1)
         {
@@ -93,9 +96,9 @@ function renderNotifications()
             read_unread += `<a href="#" title="Mark Read" onclick="updateNotifications('read',` + element.id + `)" data-id="` + element.id + `"><i class="uil uil-envelope"></i></a>`;
         }
         var newNotificationHtml = `
-            <li class="notification-item p-2 mb-1 bg-soft-ash border-bottom" onclick="notification_action('`+action+`','`+element.data+`')">
+            <li class="notification-item p-2 mb-1 bg-soft-ash border-bottom" >
                 <div class="d-flex lh-1 justify-content-between">
-                    <span class="d-flex pe-1 fs-14" style="white-space: pre-wrap;">
+                    <span class="notification-span d-flex pe-1 fs-14" style="white-space: pre-wrap;" onclick="notification_action('` + action + `','` + element.data + `','` + element.id + `')">
                         <span class="fs-30 avatar ` + icon_color + ` me-2" style="min-width: 45px;height: 45px;">
                             <i class="uil ` + icon + `"></i>
                         </span>
@@ -115,19 +118,43 @@ function renderNotifications()
         notification_list.html(existingNotifications + newNotificationHtml);
 
     });
-    if(unread_count != 0){
+    if (unread_count != 0)
+    {
         notification_count.html(unread_count);
     }
-    
+    if (notifications.length == 0)
+    {
+        let elem = `
+            <p class="p-2 alert alert-secondary">There is No Notification ...</p>
+        `;
+        notification_list.html(elem);
+    }
+
 }
 
-function notification_action(action, data){
-    if(action == 'open_link'){
-        let new_url = basePath + "/shared/transactions/"+data;
+async function notification_action(action, data, id)
+{
+    await updateNotifications('read', id);
+    if (action == 'open_share_link')
+    {
+        let new_url = basePath + "/shared/transactions/" + data;
         window.location.href = new_url;
     }
-    else{
-
+    else if (action == 'open_report_link')
+    {
+        let new_url = basePath + "/report/" + data;
+        window.location.href = new_url;
+    }
+    else
+    {
+        document.getElementById('user_id_notification')
+            .value = data;
+        var myModal = new bootstrap.Modal(document.getElementById('report_shareform_notification'),
+        {
+            keyboard: false,
+            backdrop: 'static',
+        });
+        myModal.show();
     }
 }
 
@@ -166,3 +193,59 @@ function timeSince(date)
 }
 
 updateNotifications('fetch');
+
+$('#addUserBtn_notification')
+    .on('click', () =>
+    {
+        let csn = document.querySelector('#credit_score_notification')
+            .checked;
+        let cfn = document.querySelector('#cash_flow_notification')
+            .checked;
+        let en = document.querySelector('#expenses_notification')
+            .checked;
+        let inn = document.querySelector('#income_notification')
+            .checked;
+        let ecn = document.querySelector('#email_check_notification')
+            .checked;
+        let cn = document.querySelector('#contact_notification')
+            .checked;
+        let uid = document.querySelector('#user_id_notification')
+            .value;
+        let url = basePath + "/report/grant_access";
+
+        $.ajaxSetup(
+        {
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]')
+                    .attr('content')
+            }
+        });
+        $.ajax(
+        {
+            url: url,
+            type: "POST",
+            data:
+            {
+                view_credit_score: csn,
+                view_cash_flow: cfn,
+                view_expense: en,
+                view_income: inn,
+                view_email: ecn,
+                view_contact: cn,
+                shared_with: uid
+            },
+            success: function(data, textStatus, jqXHR)
+            {
+                document.querySelector('#report_notification_share_message')
+                    .innerHTML = data;
+            },
+            error: function(jqXHR, textStatus, errorThrown)
+            {
+                document.querySelector('#report_notification_share_message')
+                    .innerHTML = "Error raised while sharing report.";
+            },
+        });
+
+
+    });

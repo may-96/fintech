@@ -42,11 +42,22 @@
                                                         <div class="px-2 py-2 border-bottom bg-body container-fluid">
                                                             <div class="list-group w-100">
                                                                 <div class="d-flex w-100">
-                                                                    <p class="ficon m-0 w-100 lh1_3 text-start">
-                                                                        {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                                                                        <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['custom_uid'] }}</span>
-                                                                        <small class="w-100 text-start">{{ $transaction['remit_info_unstructured'] }}</small>
-                                                                    </p>
+                                                                    <div class="w-100">
+                                                                        <p class="ficon m-0 w-100 lh1_3 text-start">
+                                                                            {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
+                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['custom_uid'] }}</span>
+                                                                        </p>
+                                                                        <div class="d-flex w-100 justify-content-between">
+                                                                            <div class="dropdown">
+                                                                                <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                    @if(App\Helpers\Functions::is_empty($transaction['category_id'])) Uncategorized @else {{$transaction['category']['name']}}  <small class="ms-2 fs-11 text-capitalize @if($transaction['category']['type'] == 'income') text-green @else text-red @endif">{{$transaction['category']['type']}}</small> @endif
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-start mb-1">
+                                                                            <small class="w-100 text-start">{{ $transaction['remit_info_unstructured'] }}</small>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="d-flex w-25 align-items-end flex-column justify-content-between">
                                                                         <p class="ficon mb-0 text-primary">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
                                                                     </div>
@@ -87,12 +98,12 @@
                     </div>
                 @endif
 
-                @if ($transactions_loading)
+                <template x-if="$store.data.transactions_loading">
                     <div id="loading_bars">
                         <x-loading />
                         Loading Transactions
                     </div>
-                @endif
+                </template>
             </div>
         </section>
     </div>
@@ -100,28 +111,49 @@
 
 @push('scripts')
     <script>
+        document.addEventListener('alpine:init', () =>
+        {
+            Alpine.store('data',
+            {
+                transactions_loading: false,
+                all_loaded: false,
+                toggleTransactionsLoading(){
+                    this.transactions_loading = !this.transactions_loading;
+                },
+                allLoaded(){
+                    this.all_loaded = true;
+                },
+            });
+        });
+
         $(document).ready(function() {
             $("body").on('click', ".year_links", function(e) {
                 let year = e.target.getAttribute("href");
-                
                 $('html,body').animate({
                         scrollTop: ($(year).offset().top - 61)
                     },
-                    'slow');
+                'slow');
             });
         });
+
+        window.livewire.on('allDataLoaded', () => {
+                Alpine.store('data').allLoaded();
+            });
 
         let ticking = false;
         document.addEventListener('scroll', function(e) {
             let win = $(window).scrollTop() + $(window).innerHeight();
             let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
-            if (!@this.all_loaded && !@this.transactions_loading && (win >= elem + 150)) {
+            if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
+            
                 if (!ticking) {
                     ticking = true
-                    @this.set('transactions_loading', true);
-                    setTimeout(() => {
-                        @this.load_more();
-                        @this.set('transactions_loading', false);
+                    Alpine.store('data').toggleTransactionsLoading();
+                    
+                    setTimeout(async () => {
+                        await @this.load_more();
+                        Alpine.store('data').toggleTransactionsLoading();
+                        
                         ticking = false;
                     }, 1000);
                 }

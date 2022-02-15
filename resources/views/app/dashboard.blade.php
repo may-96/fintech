@@ -77,7 +77,8 @@
                             </div>
                             <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
                                 <a href="{{route('request.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="Request Report using Email ID">Request Report</a>
-                                <a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="Generate Your Account Report">Generate Report</a>
+                                <a href="{{route('get.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="Generate Your Account Report">View My Report</a>
+                                <a href="#" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill" title="View Shared Reports">Shared Report</a>
                             </div>
                         </div>
                         <!--/column -->
@@ -97,7 +98,7 @@
                 <p class="display-1 text-center fs-18">View and Manage Your Account Settings and Notifications</p>
             </div>
             <div class="row" style="height: 300px;">
-                <div class="col-12 col-lg-6 pb-4">
+                {{-- <div class="col-12 col-lg-6 pb-4">
                     <div class="card h-100 p-4 justify-content-around d-flex flex-column">
                         <div>
                             <h3 class="fs-36 text-start">Notifications</h3>
@@ -107,8 +108,8 @@
                             <a data-toggle="offcanvas-info" class="btn btn-lg py-0 btn-outline-blue text-indigo rounded-pill">View Notifications</a>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-lg-6 pb-4">
+                </div> --}}
+                <div class="col-12 col-lg-12 pb-4">
                     <div class="card h-100 p-4 bg-purple text-white justify-content-around d-flex flex-column">
                         <div>
                             <h3 class="fs-36 text-start text-white">Settings</h3>

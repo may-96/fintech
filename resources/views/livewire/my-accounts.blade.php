@@ -95,11 +95,11 @@
                             </button>
                         </div>
                         <div class="form-check">
-                            <input wire:model="share_notes" type="checkbox" class="p-1 form-check-input"> 
-                            <label class="form-check-label text-start">Share along with Transaction Notes</label>
+                            <input wire:model="share_notes" type="checkbox" id="share_notes" class="p-1 form-check-input"> 
+                            <label class="form-check-label text-start" for="share_notes">Share along with Transaction Notes</label>
                         </div>
-                        @if(App\Helpers\Functions::not_empty($error))<div class="text-start"><small class="text-danger">{{$error}}</small></div>@endif
-                        @if(App\Helpers\Functions::not_empty($success))<div class="text-start"><small class="text-success">{{$success}}</small></div>@endif
+                        @if(App\Helpers\Functions::not_empty($error))<div class="text-start lh-1"><small class="text-danger">{{$error}}</small></div>@endif
+                        @if(App\Helpers\Functions::not_empty($success))<div class="text-start lh-1"><small class="text-success">{{$success}}</small></div>@endif
                         <p class="text-muted text-start border-bottom fs-11 mt-4">Shared with</p>
                         <div id="listuser" class="d-block">
                             @forelse ($shared_emails as $se)

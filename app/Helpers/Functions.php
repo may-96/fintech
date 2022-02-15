@@ -169,6 +169,10 @@ class Functions
         $total_cash_out = 0;
         $average_cash_in = 0;
         $average_cash_out = 0;
+
+        if(count($accounts) == 0){
+            return 0;
+        }
         
         foreach ($accounts as $account)
         {
@@ -177,6 +181,7 @@ class Functions
             $tci = 0;
             $tco = 0;
             $currency = strtoupper($account->currency);
+            $exchange = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(1)->get();
             while ($i < $months_in_year)
             {
 
@@ -184,19 +189,20 @@ class Functions
                 $cash_in_transactions = $transactions->where('transaction_amount', '>', 0);
                 $cash_in_count = $cash_in_transactions->count();
                 $cis = $cash_in_transactions->sum('transaction_amount');
-                $cash_in_sum = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(abs($cis))->get();
+                $cash_in_sum = $exchange * abs($cis);
 
+                $transactions = $account->transactions()->whereYear('fixed_date',$active_year)->whereMonth('fixed_date',$active_month);
                 $cash_out_transactions = $transactions->where('transaction_amount', '<', 0);
                 $cash_out_count = $cash_out_transactions->count();
                 $cos = $cash_out_transactions->sum('transaction_amount');
-                $cash_out_sum = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(abs($cos))->get();
+                $cash_out_sum = $exchange * abs($cos);
                 
                 $month_name = self::$month_array[(string) $active_month] . ', ' . $active_year;
 
                 --$active_month;
                 if ($active_month === 0)
                 {
-                    $active_year = 12;
+                    $active_month = 12;
                     --$active_year;
                 }
 
@@ -230,8 +236,8 @@ class Functions
                 $average_cash_out += $tco / $total_months;
             }
 
-            $income_data = Functions::get_income_expense_data($account, $income_data, $years, 'income');
-            $expense_data = Functions::get_income_expense_data($account, $expense_data, $years, 'expense');
+            $income_data = Functions::get_income_expense_data($account, $income_data, $years, 'income', $exchange);
+            $expense_data = Functions::get_income_expense_data($account, $expense_data, $years, 'expense', $exchange);
         }
 
         if($accounts->count() > 0){
@@ -254,26 +260,32 @@ class Functions
 
         $credit_score = ($percent + 100) / 2;
         $credit_rating = "Average";
+        $credit_color = "secondary";
         if($credit_score >= 0 && $credit_score < 20){
             $credit_rating = "Horrible";
+            $credit_color = "red";
         }
         else if($credit_score >= 20 && $credit_score < 40){
             $credit_rating = "Poor";
+            $credit_color = "orange";
         }
         else if($credit_score >= 40 && $credit_score < 60){
             $credit_rating = "Average";
+            $credit_color = "secondary";
         }
         else if($credit_score >= 60 && $credit_score < 80){
             $credit_rating = "Good";
+            $credit_color = "primary";
         }
         else{
             $credit_rating = "Outstanding";
+            $credit_color = "green";
         }      
 
-        return [$cash_flow_data, $income_data, $expense_data, $total_cash_in, $total_cash_out, $average_cash_in, $average_cash_out, $accounts->count(), $credit_score, $credit_rating];
+        return [$cash_flow_data, $income_data, $expense_data, $total_cash_in, $total_cash_out, $average_cash_in, $average_cash_out, $accounts->count(), $credit_score, $credit_rating, $credit_color, $diff];
     }
 
-    private static function get_income_expense_data($account, $data, $years, $type){
+    private static function get_income_expense_data($account, $data, $years, $type, $exchange){
         $currency = strtoupper($account->currency);
         $categories = Category::where('type', $type)->get();
         foreach($categories as $category){
@@ -281,7 +293,7 @@ class Functions
             $transactions = $account->transactions()->where('fixed_date','<',Carbon::now())->where('fixed_date','>',Carbon::now()->subYears($years))->where('category_id', $category->id);
             $category_transaction_count = $transactions->count();
             $ctt = $transactions->sum('transaction_amount');
-            $category_transaction_total = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(abs($ctt))->get();
+            $category_transaction_total = $exchange * abs($ctt);
             $category_transaction_average = 0;
             if($category_transaction_count > 0 && abs($category_transaction_total) > 0){
                 $category_transaction_average = $category_transaction_total / $category_transaction_count;
@@ -294,7 +306,7 @@ class Functions
                 }
                 else
                 {
-                    $cash_flow_data[$name] = [$category_transaction_count, abs($category_transaction_total), abs($category_transaction_average)];
+                    $data[$name] = [$category_transaction_count, abs($category_transaction_total), abs($category_transaction_average)];
                 }
             }
         }

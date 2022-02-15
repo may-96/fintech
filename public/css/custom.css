@@ -235,8 +235,12 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px;       /* roundness of the scroll thumb */
     border: 3px solid silver;  /* creates padding around scroll thumb */
 }
-
 .notification-item:hover{
-  background: #f2f2f2 !important;
-  cursor: pointer;
+    background: #f2f2f2 !important;
+    cursor: auto;
+  }
+
+.notification-span:hover{
+    cursor: pointer;
+    color: #000000;
 }

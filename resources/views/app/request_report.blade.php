@@ -21,21 +21,38 @@
 @section('content')
     <div class="content-wrapper ">
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
-            <div id="form_area" class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
+            <div id="form_area" class="container pt-10 pb-10 pt-md-14 text-center">
                 <h2 class="h1 fs-46 mb-10 text-center mb-4">Request Report</h2>
                 <p>Enter the email address of the accounts for which you want to request a Credit Worthiness and Affordibility Report.</p>
                 <small>We will send a notification to the user, after they allow it we will send a report to your email address or you can download it from here.</small>
-                <div class="form-floating">
-                    <textarea id="request_form" class="form-control" placeholder="Enter Email Addresses" style="height: 250px" required></textarea>
-                    <label for="request_form">Please Enter Email Addresses</label>
-                </div>
-                <div class="mb-4">
-                    <small class="text-primary">Enter each email address on new line or with with comma separation.</small>
-                </div>
-                <div>
-                    <a href="#" class="btn btn-soft-primary rounded-pill">Send Requests</a>
-                </div>
+                <form action="{{route('request.report.submit')}}" method="post">
+                    @csrf
+                    <div class="form-floating">
+                        <textarea id="request_form" name="emails" class="form-control" placeholder="Enter Email Addresses" style="height: 250px" required></textarea>
+                        <label for="request_form">Please Enter Email Addresses</label>
+                    </div>
+                    <div class="mb-4">
+                        <small class="text-primary">Enter each email address on new line or with with comma separation.</small>
+                    </div>
+                    <div>
+                        <button class="btn btn-soft-primary rounded-pill" type="submit">Send Requests</button>
+                    </div>
+                </form>
 
+            </div>
+            <div class="container">
+                <div class="row"><h5>Pending Requests</h5></div>
+                <div class="row ps-4">
+                    @forelse ($data as $email)
+                        <div class="col-12 mb-1 p-1 alert alert-primary">
+                            <span class="ps-1">{{$email}}</span>
+                        </div>
+                    @empty
+                        <div>
+                            No pending requests
+                        </div>
+                    @endforelse
+                </div>
             </div>
         </section>
     </div>

@@ -36,15 +36,10 @@ function toggle_class(elem, class_to_remove, class_to_add)
 }
 
 
-
-
-
-
-
-var options = {
+var options1 = {
     series: [44, 55, 41, 17, 15],
     chart: {
-        width: 380,
+        width: 450,
         type: 'donut',
     },
     plotOptions: {
@@ -54,7 +49,7 @@ var options = {
         }
     },
     dataLabels: {
-        enabled: false
+        enabled: true
     },
     fill: {
         type: 'gradient',
@@ -70,9 +65,9 @@ var options = {
     responsive: [{
         breakpoint: 480,
         options: {
-            chart: {
-                width: 200
-            },
+            // chart: {
+            //     width: 200
+            // },
             legend: {
                 position: 'bottom'
             }
@@ -80,14 +75,14 @@ var options = {
     }]
 };
 
-var chart1 = new ApexCharts(document.querySelector("#Incomechart"), options);
+var chart1 = new ApexCharts(document.querySelector("#Incomechart"), options1);
 chart1.render();
 
 
-var options = {
+var options2 = {
     series: [44, 55, 41, 17, 15],
     chart: {
-        width: 380,
+        width: 450,
         type: 'donut',
     },
     plotOptions: {
@@ -97,7 +92,7 @@ var options = {
         }
     },
     dataLabels: {
-        enabled: false
+        enabled: true
     },
     fill: {
         type: 'gradient',
@@ -113,32 +108,29 @@ var options = {
     responsive: [{
         breakpoint: 480,
         options: {
-            chart: {
-                width: 200
-            },
+            // chart: {
+            //     width: 200
+            // },
             legend: {
-                position: 'top'
+                position: 'bottom'
             }
         }
     }]
 };
 
-var chart2 = new ApexCharts(document.querySelector("#Expensechart"), options);
+var chart2 = new ApexCharts(document.querySelector("#Expensechart"), options2);
 chart2.render();
 
 
-
-
-
-var options2 = {
+var options3 = {
     series: [{
         name: 'Cash Out',
-        color: 'red',
         data: [76, 21, 22, 34, 85, 101, 98, 87, 105, 91, 114, 94]
     }, {
         name: 'Cash In',
         data: [35, 41, 36, 26, 43, 65, 56, 45, 48, 52, 53, 41]
     }],
+    colors: ['#6bbea3', '#e2626b'],
     chart: {
         type: 'bar',
         height: 350
@@ -156,7 +148,7 @@ var options2 = {
     stroke: {
         show: true,
         width: 2,
-        colors: ['transparent']
+        colors: ['#6bbea3', '#e2626b'],
     },
     xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -167,16 +159,17 @@ var options2 = {
         }
     },
     fill: {
-        opacity: 1
+        opacity: 1,
+        colors: ['#6bbea3', '#e2626b'],
     },
     tooltip: {
         y: {
             formatter: function (val) {
-                return "$ " + val + " thousands"
+                return "$" + val
             }
         }
     }
 };
 
-var chart3 = new ApexCharts(document.querySelector("#cashflowchart"), options2);
+var chart3 = new ApexCharts(document.querySelector("#cashflowchart"), options3);
 chart3.render();

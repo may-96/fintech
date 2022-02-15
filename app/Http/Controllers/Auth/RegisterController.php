@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\SendNotification;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\Notification;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -77,8 +80,64 @@ class RegisterController extends Controller
         $shares = DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->get();
         foreach($shares as $share){
             $user->shared_accounts()->attach($share->account_id, ['notes_shared' => $share->notes_shared]);
+
+            $account = Account::find($share->account_id);
+            $temp_user = $account->user;
+            $message = $temp_user->fname . ' ' . $temp_user->lname . ' has shared an Account of '. $account->institution->name;
+            $notification = Notification::create([
+                'type' => 'account_share',
+                'data' => $account->account_id,
+                'user_id' => $user->id,
+                'message' => $message,
+                'read' => 0
+            ]);
         }
         DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->delete();
+
+        $shares = DB::table('report_shares_with_unregistered_users')->where('email',$data['email'])->get();
+        foreach($shares as $share){
+            $user->shared_reports_with()->attach($share->user_id, [
+                'view_cash_flow' => $share->view_cash_flow,
+                'view_expense' => $share->view_expense,
+                'view_income' => $share->view_income,
+                'view_email' => $share->view_email,
+                'view_contact' => $share->view_contact,
+                'view_credit_score' => $share->view_credit_score,
+                'token' => $share->token,
+            ]);
+
+            $temp_user = User::find($share->user_id);
+
+            $message = $temp_user->fname . ' ' . $temp_user->lname . ' has shared the Credit Report with you.';
+
+            $notification = Notification::create([
+                'type' => 'report_share',
+                'data' => $share->token,
+                'user_id' => $user->id,
+                'message' => $message,
+                'read' => 0
+            ]);
+        }
+        DB::table('report_shares_with_unregistered_users')->where('email',$data['email'])->delete();
+
+        $shares = DB::table('report_requested_from_unregistered_users')->where('email',$data['email'])->get();
+        foreach($shares as $share){
+            $user->report_requested_from()->attach($share->user_id, []);
+
+            $temp_user = User::find($share->user_id);
+
+            $message = $temp_user->fname . ' ' . $temp_user->lname . ' has requested you to share your Credit Report.';
+
+            $notification = Notification::create([
+                'type' => 'request_report',
+                'data' => $temp_user->id,
+                'user_id' => $user->id,
+                'message' => $message,
+                'read' => 0
+            ]);
+        }
+        DB::table('report_requested_from_unregistered_users')->where('email',$data['email'])->delete();
+
         return $user;
     }
 }

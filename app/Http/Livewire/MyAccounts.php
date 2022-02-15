@@ -90,6 +90,10 @@ class MyAccounts extends Component
         $this->reset_status();
         if ($this->check_email())
         {
+            $authenticated_user = Auth::user();
+            if($this->email == $authenticated_user->email){
+                $this->error = "You cannot share account with yourself.";
+            }
             $user = User::where('email', $this->email)->first();
             if($this->check_already_shared($user)){
                 $this->error = "Account has already been shared with this user";
@@ -100,7 +104,7 @@ class MyAccounts extends Component
                     try{
                         $user->shared_accounts()->attach($this->selected_account_id , ['notes_shared' => $this->share_notes ? 1 : 0]);
 
-                        $authenticated_user = Auth::user();
+                        
                         $message = $authenticated_user->fname . ' ' . $authenticated_user->lname . ' has shared an Account of '. $account->institution->name;
 
                         $notification = Notification::create([

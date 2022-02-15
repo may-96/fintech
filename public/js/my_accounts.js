@@ -34,4 +34,4 @@ function remove(email)
 }
 
 // document.getElementById("some").addEventListener("click", clear);
-document.querySelector("#addUserBtn").addEventListener("click", adduser);
+// document.querySelector("#addUserBtn").addEventListener("click", adduser);

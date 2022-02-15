@@ -51,18 +51,20 @@
                                         </div>
                                         <div class="d-flex w-100 justify-content-between">
                                             <div class="dropdown">
-                                                <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="list_view_category_toggle_{{$transaction->id}}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                   @if(App\Helpers\Functions::is_empty($transaction->category_id)) Uncategorized @else {{$transaction->category->name}}  <small class="ms-2 fs-11 text-capitalize @if($transaction->category->type == 'income') text-green @else text-red @endif">{{$transaction->category->type}}</small> @endif
                                                 </button>
-                                                <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
+                                                <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" aria-labelledby="list_view_category_toggle_{{$transaction->id}}" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
                                                     <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                         <span x-on:click="$store.data.change_category({{$transaction->id}},null)" class="dropdown-item fs-12 lh-1 px-3 py-1 @if(App\Helpers\Functions::is_empty($transaction->category_id)) active @endif">Uncategorized</span>
                                                     </li>
                                                     @foreach ($categories as $category)
+                                                        @if(((float) $transaction->transaction_amount < 0 && $category['type'] == 'expense') || ((float) $transaction->transaction_amount >= 0 && $category['type'] == 'income'))
                                                         <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                             <span x-on:click="$store.data.change_category({{$transaction->id}}, {{$category['id']}})" class="dropdown-item fs-12 lh-1 px-3 py-2 @if($category['id'] == $transaction->category_id) active @endif">{{$category['name']}}</span>
                                                             <small class="text-capitalize badge @if($category['type'] == 'income') bg-green @else bg-red @endif rounded-pill py-1">{{$category['type']}}</small>
                                                         </li>
+                                                        @endif
                                                     @endforeach
                                                 </ul>
 
@@ -154,18 +156,20 @@
                                                                             </p>
                                                                             <div class="d-flex w-100 justify-content-between">
                                                                                 <div class="dropdown">
-                                                                                    <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                    <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline_view_category_toggle_{{$transaction['id']}}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                                                       @if(App\Helpers\Functions::is_empty($transaction['category_id'])) Uncategorized @else {{$transaction['category']['name']}}  <small class="ms-2 fs-11 text-capitalize @if($transaction['category']['type'] == 'income') text-green @else text-red @endif">{{$transaction['category']['type']}}</small> @endif
                                                                                     </button>
-                                                                                    <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
+                                                                                    <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" aria-labelledby="timeline_view_category_toggle_{{$transaction['id']}}" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
                                                                                         <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                                                             <span x-on:click="$store.data.change_category({{$transaction['id']}},null)" class="dropdown-item fs-12 lh-1 px-3 py-1 @if(App\Helpers\Functions::is_empty($transaction['category_id'])) active @endif">Uncategorized</span>
                                                                                         </li>
                                                                                         @foreach ($categories as $category)
+                                                                                            @if(((float) $transaction['transaction_amount'] < 0 && $category['type'] == 'expense') || ((float) $transaction['transaction_amount'] >= 0 && $category['type'] == 'income'))
                                                                                             <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                                                                 <span x-on:click="$store.data.change_category({{$transaction['id']}}, {{$category['id']}})" class="dropdown-item fs-12 lh-1 px-3 py-2 @if($category['id'] == $transaction['category_id']) active @endif">{{$category['name']}}</span>
                                                                                                 <small class="text-capitalize badge @if($category['type'] == 'income') bg-green @else bg-red @endif rounded-pill py-1">{{$category['type']}}</small>
                                                                                             </li>
+                                                                                            @endif
                                                                                         @endforeach
                                                                                     </ul>
                                     
@@ -266,18 +270,20 @@
                                                     </div>
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <div class="dropdown">
-                                                            <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline2_view_category_toggle_{{$transaction->id}}" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                               @if(App\Helpers\Functions::is_empty($transaction->category_id)) Uncategorized @else {{$transaction->category->name}}  <small class="ms-2 fs-11 text-capitalize @if($transaction->category->type == 'income') text-green @else text-red @endif">{{$transaction->category->type}}</small> @endif
                                                             </button>
-                                                            <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
+                                                            <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" aria-labelledby="timeline2_view_category_toggle_{{$transaction->id}}" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
                                                                 <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                                     <span x-on:click="$store.data.change_category({{$transaction->id}},null)" class="dropdown-item fs-12 lh-1 px-3 py-1 @if(App\Helpers\Functions::is_empty($transaction->category_id)) active @endif">Uncategorized</span>
                                                                 </li>
                                                                 @foreach ($categories as $category)
+                                                                    @if(((float) $transaction->transaction_amount < 0 && $category['type'] == 'expense') || ((float) $transaction->transaction_amount >= 0 && $category['type'] == 'income'))
                                                                     <li class="dropdown-list-item d-flex align-items-center justify-content-between">
                                                                         <span x-on:click="$store.data.change_category({{$transaction->id}}, {{$category['id']}})" class="dropdown-item fs-12 lh-1 px-3 py-2 @if($category['id'] == $transaction->category_id) active @endif">{{$category['name']}}</span>
                                                                         <small class="text-capitalize badge @if($category['type'] == 'income') bg-green @else bg-red @endif rounded-pill py-1">{{$category['type']}}</small>
                                                                     </li>
+                                                                    @endif
                                                                 @endforeach
                                                             </ul>
             
@@ -429,14 +435,34 @@
             });
 
             init_tooltips();
+
+            $('body').on('click', 'button.dropdown-toggle', (e) => {
+                let button = e.target.closest('button.dropdown-toggle');
+                let ul = button.nextElementSibling;
+                if(!button.classList.contains('show')){
+                    button.setAttribute('aria-expanded',true);
+                    button.classList.add('show');
+                }
+                if(!ul.classList.contains('show')){
+                    ul.classList.add('show');
+                }
+            });
+
+            
             
         });
+
         function init_tooltips(){
             setTimeout(() => {
+                var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'))
+                var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                    return new bootstrap.Dropdown(dropdownToggleEl)
+                });
+
                 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
                 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                     return new bootstrap.Tooltip(tooltipTriggerEl)
-                });
+                });                
             }, 300);
         }
     </script>

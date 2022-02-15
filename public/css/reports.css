@@ -123,11 +123,7 @@
 
 .report-box table td {
     padding: 5px;
-    vertical-align: top;
-}
-
-.report-box table tr td:nth-child(2) {
-    text-align: center;
+    vertical-align: middle;
 }
 
 .report-box table tr.top table td {
@@ -192,4 +188,17 @@
 
 .invoice-box.rtl table tr td:nth-child(2) {
     text-align: left;
+}
+
+.cash-flow-table td:not(td:first-child){
+  text-align: center;
+}
+.cash-flow-table th:not(th:first-child){
+  text-align: center;
+}
+
+.form-check-input {
+  width: 0.75rem !important;
+  height: 0.75rem !important;
+  margin-top: 0.325rem !important;
 }
