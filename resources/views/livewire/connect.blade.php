@@ -88,8 +88,9 @@
                             </div>
 
                             <div class="col-md-12 form-check">
-                                <input type="checkbox" class="form-check-input" checked="checked" id="transactions" name="transactions" wire:model="transactions_access_scope" required>
+                                <input type="checkbox" class="form-check-input" checked="checked" id="transactions" name="transactions" disabled required>
                                 <label class="form-check-label" for="transaction">Transaction Data</label>
+                                <small class="text-info ms-2">Fetching Transaction Data is Compulsory for Generating Reports</small>
                             </div>
 
                             <div class="col-12 text-center mt-4">

@@ -67,7 +67,8 @@ function renderNotifications()
     notification_count.html('');
     var unread_count = 0;
 
-    if(notifications){
+    if (notifications)
+    {
         notifications.forEach(element =>
         {
             let icon = 'uil-file-share-alt';
@@ -84,6 +85,13 @@ function renderNotifications()
                 action = 'open_report_link';
                 icon_color = 'bg-pale-orange';
                 icon = 'uil-chart'
+            }
+
+            if (element.type == 'account_expired')
+            {
+                action = 'open_my_accounts_page';
+                icon_color = 'bg-pale-red';
+                icon = 'uil-folder-times'
             }
 
             let read_unread = "";
@@ -145,6 +153,11 @@ async function notification_action(action, data, id)
     else if (action == 'open_report_link')
     {
         let new_url = basePath + "/report/" + data;
+        window.location.href = new_url;
+    }
+    else if (action == 'open_my_accounts_page')
+    {
+        let new_url = basePath + "/my_accounts";
         window.location.href = new_url;
     }
     else

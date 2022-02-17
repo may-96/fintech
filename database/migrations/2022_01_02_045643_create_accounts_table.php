@@ -18,8 +18,9 @@ class CreateAccountsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->unsignedBigInteger('institution_id')->nullable(false);
             $table->unsignedBigInteger('requisition_id')->nullable(true);
-            $table->string('account_id',512)->nullable();
+            $table->string('account_id',80)->nullable();
             $table->string('account_name')->nullable();
+            $table->string('account_status',30)->nullable();
             $table->string('display_name')->nullable();
             $table->string('currency')->nullable();
             $table->string('bic')->nullable();
@@ -39,6 +40,9 @@ class CreateAccountsTable extends Migration
             $table->double('credit_score',10,2,true)->nullable(true);
             $table->string('nickname',100)->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id','institution_id','account_id']);
+            
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade')->onUpdate('cascade');
