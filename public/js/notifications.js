@@ -84,6 +84,12 @@ function renderNotifications()
             icon_color = 'bg-pale-orange';
             icon = 'uil-chart'
         }
+        if (element.type == 'account_expired')
+        {
+            action = 'open_my_accounts_page';
+            icon_color = 'bg-pale-red';
+            icon = 'uil-folder-times'
+        }
 
         let read_unread = "";
         if (element.read == 1)
@@ -143,6 +149,10 @@ async function notification_action(action, data, id)
     else if (action == 'open_report_link')
     {
         let new_url = basePath + "/report/" + data;
+        window.location.href = new_url;
+    }
+    else if(action == 'open_my_accounts_page'){
+        let new_url = basePath + "/my_accounts";
         window.location.href = new_url;
     }
     else

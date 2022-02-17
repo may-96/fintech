@@ -17,7 +17,7 @@ class AccountController extends Controller
             /** @var \App\Models\User */
             $user = Auth::user();
             
-            $accounts = $user->accounts()->select(['id','institution_id','requisition_id','account_id','iban','bban','resource_id','owner_name','display_name','account_name','currency','type_string'])->withCount('shared_with')->get()->flatten();
+            $accounts = $user->accounts()->select(['id','institution_id','requisition_id','account_id','iban','bban','resource_id','owner_name','display_name','account_name','currency','type_string','account_status'])->withCount('shared_with')->with('requisition')->get()->flatten();
             return view('app.my_accounts', ["accounts" => $accounts]);
         }
         catch (Exception $e)

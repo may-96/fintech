@@ -39,14 +39,17 @@
                                     <p class="mb-6 text-primary">@if (isset($a['owner_name'])) {{ $a['owner_name'] }} @else {{ $a['display_name'] }} @endif</p>
                                 </div>
                                 <div>
-                                    @if (isset($a['account_name']))<p class="m-0 lh-1 fs-14">{{ $a['account_name'] }}</p>@endif
+                                    @if (isset($a['account_name']) || isset($a['account_status']))<p class="m-0 lh-1 fs-14">{{ $a['account_name'] }} @if (isset($a['account_status']))<span class="@if($a['account_status'] == 'EXPIRED' || ($a['requisition']['status_long'] == 'EXPIRED' || $a['requisition']['status_long'] == 'SUSPENDED')) text-danger @else text-info @endif ">(@if($a['account_status'] == 'EXPIRED' || $a['requisition']['status_long'] == 'EXPIRED') EXPIRED @elseif($a['requisition']['status_long'] == 'SUSPENDED') SUSPENDED @else {{ $a['account_status'] }} @endif)</span>@endif </p>@endif
                                     <div class="clearfix">
                                         <small class="text-muted float-start">Currency: <span class="text-dark">{{ $a['currency'] }}</span></small>
                                         @if (isset($a['type_string']))<small class="text-muted float-end">Type: <span class="text-dark">{{ $a['type_string'] }}</span></small>@endif
                                     </div>
                                     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
-                                        @if(isset($share[$a['id']]) && $share[$a['id']]['count'] > 0)<small class="text-navy float-start">Shared With: <span class="text-share fw-bold">{{ $share[$a['id']]['count'] }} Users</span></small>@else<small></small>@endif
-                                        <a class="btn small btn-sm btn-soft-ash rounded-pill px-4 py-0 float-end" href="{{ route('my.transactions', $a['account_id']) }}">View Transactions</a>
+                                        @if(isset($share[$a['id']]) && $share[$a['id']]['count'] > 0)<small class="text-navy mt-1">Shared With: <span class="text-share fw-bold">{{ $share[$a['id']]['count'] }} Users</span></small>@else<small></small>@endif
+                                        <span class="text-center">
+                                            <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']) }}">View Transactions</a>
+                                            <a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>
+                                        </span> 
                                     </div>
                                 </div>
                             </div>
@@ -76,6 +79,35 @@
                                 <p>Are you sure you want to remove access to this bank</p>
                                 <button id="modal_remove_btn" data-id="" class="btn btn-sm btn-soft-red" onclick="$('#remove_bank_access_'+($('#modal_remove_btn').attr('data-id'))).submit()" type="button">Yes</button>
                                 <button class="btn btn-sm btn-soft-blue" type="button" data-bs-dismiss="modal" aria-label="Close">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div wire:ignore.self class="modal fade" id="reconnect_bank_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="fs-96 lh-1 mb-0">
+                                    <i class="uil uil-question-circle"></i>
+                                </p>
+                                <h5>Reconnect Bank</h5>
+                                <p>You will be redirected to a new page.</p>
+                                <div wire:loading wire:target="reconnect" id="loading_bars" class="d-flex vh-100 align-items-center justify-content-center">
+                                    <x-loading />
+                                    Creating Agreement and Requisition before Redirection. Please wait ...
+                                </div>
+                                @if($reconnect_error != "")
+                                <div class="alert alert-danger alert-icon" role="alert">
+                                    <i class="uil uil-times-circle"></i> {{$reconnect_error}}
+                                </div>
+                                @endif
+                                <button id="modal_reconnect_btn" data-id="" class="btn btn-sm btn-soft-blue" wire:click="reconnect" type="button">Initiate Reconnection</button>
+                                <button class="btn btn-sm btn-soft-red" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -126,5 +158,10 @@
 
 @push('scripts')
     <script>
+        $(document).ready(function() {
+            window.livewire.on('processReconnectLink', (link) => {
+                window.location.href = link;
+            });
+        });
     </script>
 @endpush

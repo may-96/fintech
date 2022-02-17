@@ -11,7 +11,11 @@ use App\Http\Livewire\Login;
 use App\Http\Livewire\Register;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +51,7 @@ Route::get('/transactions/{account_id}', [TransactionController::class, 'my_acco
 Route::get('/shared/transactions/{account_id}', [TransactionController::class, 'shared_account_transactions_view'])->middleware(['auth'])->name('shared.transactions');
 
 Route::get('/connect/status/{reference_id}', [RequisitionController::class, 'redirect'])->middleware(['auth', 'token'])->name('requisition.redirect');
+Route::get('/reconnect/status/{reference_id}', [RequisitionController::class, 'reconnect'])->middleware(['auth', 'token'])->name('requisition.reconnect');
 
 Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['auth', 'token'])->name('my.accounts');
 

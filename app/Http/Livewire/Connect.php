@@ -279,6 +279,8 @@ class Connect extends Component
                 return "GRANTING_ACCESS";
             case 'SA':
                 return "SELECTING_ACCOUNTS";
+            case 'SU':
+                return "SUSPENDED";
             case 'GC':
                 return "GIVING_CONSENT";
             default:
@@ -304,6 +306,8 @@ class Connect extends Component
                 return "End-user is granting access to their account information";
             case 'SA':
                 return "End-user is selecting accounts";
+            case 'SU':
+                return "Requisition is suspended due to numerous consecutive errors that happened while accessing its accounts";
             case 'GC':
                 return "End-user is giving consent at Nordigen's consent screen";
             default:
