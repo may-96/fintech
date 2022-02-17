@@ -11,8 +11,8 @@
                 <div class="widget">
                     <p class="mb-0">© 2021 {{config('app.name')}}. All rights reserved</p>
                     <nav class="nav justify-content-center social social-white" style="">
-                        <a href="#">Terms of Services</a>
-                        <a href="#">Privacy Policy</a>
+                        <a href="{{route('terms')}}">Terms of Services</a>
+                        <a href="{{route('privacy.policy')}}">Privacy Policy</a>
                         <a href="{{route('contact.us')}}">Contact Us</a>
                     </nav>
                 </div>

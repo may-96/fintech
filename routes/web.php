@@ -31,13 +31,10 @@ use Illuminate\Support\Facades\Session;
 Route::get('/', function () {
     return view('app.landing_page');
 })->name('index');
-Route::get('/terms', function () {
-    return view('app.terms_of_service');
-})->name('tof');
 
-Route::get('/privacy_policy', function () {
-    return view('app.privacy_policy');
-})->name('pp');
+Route::get('/terms', function () { return view('app.terms_of_service'); })->name('terms');
+
+Route::get('/privacy_policy', function () { return view('app.privacy_policy'); })->name('privacy.policy');
 
 Route::get('contact_us', function () { return view('app.contact_us'); })->name('contact.us');
 

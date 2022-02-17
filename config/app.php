@@ -237,7 +237,7 @@ return [
         'transaction_fetch_wait_time' => 10, // In Minutes
         'report_currency' => 'USD',
         'report_currency_symbol' => '$',
-        'contact_email_addr' => 'mysterious.may.96@gmail.com'
+        'contact_email_addr' => 'info@nujanas.com'
     ]
 
 ];
