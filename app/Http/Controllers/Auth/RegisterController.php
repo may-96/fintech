@@ -86,7 +86,7 @@ class RegisterController extends Controller
             $message = $temp_user->fname . ' ' . $temp_user->lname . ' has shared an Account of '. $account->institution->name;
             $notification = Notification::create([
                 'type' => 'account_share',
-                'data' => $account->account_id,
+                'data' => $account->account_id.'-'.$account->id,
                 'user_id' => $user->id,
                 'message' => $message,
                 'read' => 0

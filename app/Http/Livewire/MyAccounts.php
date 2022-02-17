@@ -130,7 +130,7 @@ class MyAccounts extends Component
 
                         $notification = Notification::create([
                             'type' => 'account_share',
-                            'data' => $account->account_id,
+                            'data' => $account->account_id.'-'.$account->id,
                             'user_id' => $user->id,
                             'message' => $message,
                             'read' => 0
