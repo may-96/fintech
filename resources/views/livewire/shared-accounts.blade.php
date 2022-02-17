@@ -30,7 +30,7 @@
                                 <small class="text-muted">Currency: <span class="text-dark">{{ $a['currency'] }}</span></small>
                             </div>
                             <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center mt-2">
-                                <a class="btn small btn-sm btn-soft-ash rounded-pill px-4 py-0 float-end" href="{{ route('shared.transactions', $a['account_id']) }}">View Transactions</a>
+                                <a class="btn small btn-sm btn-soft-ash rounded-pill px-4 py-0 float-end" href="{{ route('shared.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
                             </div>
                         </div>
                     </div>

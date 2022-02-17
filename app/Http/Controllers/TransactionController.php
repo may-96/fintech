@@ -15,7 +15,7 @@ class TransactionController extends Controller
             /** @var \App\Models\User */
             $user = Auth::user();
 
-            $account = Account::where('account_id',$account_id)->get()->first();
+            $account = Account::where('account_id',$account_id)->where('user_id',$user->id)->get()->first();
 
             if($account && $user->id == $account->user_id){
                 return view('app.transactions', ["account_id" => $account_id]);
@@ -33,7 +33,10 @@ class TransactionController extends Controller
             /** @var \App\Models\User */
             $user = Auth::user();
 
-            $account = Account::where('account_id',$account_id)->get()->first();        
+            $temp_array = explode('-',$account_id);
+            $aid = $temp_array[count($temp_array)-1];
+
+            $account = Account::where('id',$aid)->where('account_id',$account_id)->get()->first();        
             if($account){
                 $exists = $user->shared_accounts()->newPivotStatementForId($account->id)->exists();
                 if($exists){
