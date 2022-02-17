@@ -27,6 +27,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app.landing_page');
 })->name('index');
+Route::get('/terms', function () {
+    return view('app.terms_of_service');
+})->name('tof');
+
+Route::get('/privacy_policy', function () {
+    return view('app.privacy_policy');
+})->name('pp');
 
 Route::get('contact_us', function () { return view('app.contact_us'); })->name('contact.us');
 
