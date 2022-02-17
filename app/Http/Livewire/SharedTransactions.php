@@ -23,17 +23,19 @@ class SharedTransactions extends Component
     public $account_id;
     public $notes_shared;
     public $account;
+    public $aid;
 
 
-    public function mount($account_id, $notes_shared)
+    public function mount($account_id, $aid, $notes_shared)
     {
         $this->account_id = $account_id;
+        $this->aid = $aid;
         $this->user = Auth::user();
         $this->transactions = collect();
 
         $this->notes_shared = $notes_shared;
         
-        $this->account = Account::where('account_id',$this->account_id)->get()->first();
+        $this->account = Account::where('id',$this->aid)->where('account_id',$this->account_id)->get()->first();
 
         $this->total_transactions = $this->account->transactions()->count();
         

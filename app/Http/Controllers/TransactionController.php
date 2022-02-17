@@ -42,7 +42,7 @@ class TransactionController extends Controller
                 $exists = $user->shared_accounts()->newPivotStatementForId($account->id)->exists();
                 if($exists){
                     $notes = $user->shared_accounts()->newPivotStatementForId($account->id)->get()->first()->notes_shared;
-                    return view('app.shared_transactions', ["account_id" => $aid, 'notes_shared' => $notes]);
+                    return view('app.shared_transactions', ["account_id" => $aid, "aid" => $id, 'notes_shared' => $notes]);
                 }
                 return redirect(route('shared.accounts'))->with('danger', "Access Denied");
             }

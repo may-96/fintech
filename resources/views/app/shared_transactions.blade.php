@@ -134,7 +134,7 @@
     </section>
 @endsection
 @section('content')
-    <livewire:shared-transactions :account_id="$account_id" :notes_shared="$notes_shared" />
+    <livewire:shared-transactions :account_id="$account_id" :aid="$aid" :notes_shared="$notes_shared" />
 @endsection
 
 @section('js')
