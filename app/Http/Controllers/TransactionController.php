@@ -34,14 +34,15 @@ class TransactionController extends Controller
             $user = Auth::user();
 
             $temp_array = explode('-',$account_id);
-            $aid = $temp_array[count($temp_array)-1];
+            $id = $temp_array[count($temp_array)-1];
+            $aid = substr( $account_id, 0, strrpos( $account_id, '-' ) );
 
-            $account = Account::where('id',$aid)->where('account_id',$account_id)->get()->first();        
+            $account = Account::where('id',$id)->where('account_id',$aid)->get()->first();        
             if($account){
                 $exists = $user->shared_accounts()->newPivotStatementForId($account->id)->exists();
                 if($exists){
                     $notes = $user->shared_accounts()->newPivotStatementForId($account->id)->get()->first()->notes_shared;
-                    return view('app.shared_transactions', ["account_id" => $account_id, 'notes_shared' => $notes]);
+                    return view('app.shared_transactions', ["account_id" => $aid, 'notes_shared' => $notes]);
                 }
                 return redirect(route('shared.accounts'))->with('danger', "Access Denied");
             }

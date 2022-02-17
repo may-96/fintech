@@ -124,7 +124,7 @@
                             </div>
 
                             <div id="transactions_area" class="col-12 col-md-11 timeline_content_holder position-relative">
-                                @foreach ($grouped_transactions as $year => $temp_transactions)
+                                @forelse ($grouped_transactions as $year => $temp_transactions)
                                     <div class="timeline_year_wrapper" data-before-content="{{ $year }}" id="{{ $year }}">
                                         <div class="timeline_year border border-secondary my-1">
                                             @foreach ($temp_transactions as $transaction)
@@ -212,7 +212,11 @@
 
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                <div>
+                                    No Transactions Found
+                                </div>
+                                @endforelse
 
                             </div>
                         </div>
@@ -233,7 +237,7 @@
                     @if ($transaction_status == 'OK')
                         <div id="transactions_area" class="timeline">
 
-                            @foreach ($transactions as $transaction)
+                            @forelse ($transactions as $transaction)
 
                                 @if ($loop->first) @php $fdt = $transaction->fixed_date; $on_date_change = true; @endphp @endif
 
@@ -303,8 +307,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                            @empty
+                            <div>
+                                No Transactions Found
+                            </div>
 
-                            @endforeach
+                            
+                            @endforelse
                             </div> {{-- Final Closing for <div class="timeline_transaction position-relative ms-4"> --}}
                         </div>
                     @elseif($transaction_status == 'Processing')
