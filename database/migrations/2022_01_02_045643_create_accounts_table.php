@@ -42,7 +42,6 @@ class CreateAccountsTable extends Migration
             $table->timestamps();
 
             $table->unique(['user_id','institution_id','account_id']);
-            
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade')->onUpdate('cascade');

@@ -26,7 +26,7 @@
             <!-- /.post-header -->
             <div class="row gy-4">
                 @foreach ($account as $a)
-                    @if(App\Helpers\Functions::not_empty($a))
+                    @if(App\Helpers\Functions::not_empty($a) && isset($a['requisition']))
                         <div class="col-sm-12 col-md-6 col-xl-4">
                             <div class="card p-3 w-100">
                                 <div>
