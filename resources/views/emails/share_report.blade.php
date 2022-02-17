@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hi there,
 
-Hope you are doing well. {{ $user->fname }} {{ $user->lname }} has shared his/her account ({{ $account->iban }}) and its transactions with you.
+Hope you are doing well. {{ $user->fname }} {{ $user->lname }} has shared his/her credit report with you.
 
 It seems that you don't have an account on our website. Please create a new account using the link below to access that account.
 

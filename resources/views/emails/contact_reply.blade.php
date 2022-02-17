@@ -1,15 +1,18 @@
 @component('mail::message')
 # Hi there,
 
-Hope you are doing well. {{ $user->fname }} {{ $user->lname }} has shared his/her account ({{ $account->iban }}) and its transactions with you.
+You have received a contact form query. Following are the details:
 
-It seems that you don't have an account on our website. Please create a new account using the link below to access that account.
+# Name : {{ $name }}
 
-@component('mail::button', ['url' => env('APP_URL').'/register'])
-Register an Account
-@endcomponent
+# Email : {{$email}}
 
-If you are not able to access the button then follow this URL [{{ env("APP_URL")."/register" }}]({{ env("APP_URL")."/register" }}). Thanks
+# Subject: {{$subject}}
+
+# Message :
+
+{{$message}}
+
 
 Have a good day.
 @endcomponent
