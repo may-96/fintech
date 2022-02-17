@@ -24,7 +24,7 @@
             <div id="form_area" class="container pt-10 pb-10 pt-md-14 text-center">
                 <h2 class="h1 fs-46 mb-10 text-center mb-4">Request Report</h2>
                 <p>Enter the email address of the accounts for which you want to request a Credit Worthiness and Affordibility Report.</p>
-                <small>We will send a notification to the user, after they allow it we will send a report to your email address or you can download it from here.</small>
+                <small>We will send a notification to the user, after they share the credit report then you can download it by logging into your account.</small>
                 <form action="{{route('request.report.submit')}}" method="post">
                     @csrf
                     <div class="form-floating">
