@@ -52,7 +52,7 @@
                                             <p class="ficon mb-0 me-2" ><span>{{ $transaction->custom_uid }}</span> <span><i id="transaction_list_icon_{{ $transaction->id }}" class="uil uil-arrow-circle-down v-middle text-muted"></i></span></p>
                                             <p class="ficon text-primary mb-0">{{ $transaction->transaction_currency }} {{ $transaction->transaction_amount }}</p>
                                         </div>
-                                        <div class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }} transaction_collapsed">
+                                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }}">
                                             <div class="dropdown">
                                                 <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="list_view_category_toggle_{{ $transaction->id }}" type="button" data-bs-toggle="dropdown"
                                                         aria-expanded="false">
@@ -84,7 +84,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }} transaction_collapsed">
+                                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }}">
                                             <p class="d-flex mb-1 flex-column text-start">
                                                 <small>{{ $transaction->remit_info_unstructured }}</small>
                                                 <small class="text-muted">{{ Carbon\Carbon::parse($transaction->fixed_date)->format('d F, Y') }}</small>
@@ -98,7 +98,7 @@
                                                    data-bs-original-title="Edit Note" aria-label="Edit Note"></i>
                                             </div>
                                         </div>
-                                        <div class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }} transaction_collapsed">
+                                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }}">
                                             <div class="d-flex mt-0 w-100 text-start">
                                                 
                                                 <textarea id="note_textarea_{{ $transaction->id }}" class="w-100 px-1 pt-1 fs-11 rounded note_textarea d-none" spellcheck="true">{{ $transaction->notes }}</textarea>
@@ -176,7 +176,7 @@
                                                                         {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
                                                                         <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['custom_uid'] }} <span><i id="transaction_timeline_icon_{{ $transaction['id'] }}" class="uil uil-arrow-circle-down v-bottom text-muted"></i></span></span>
                                                                     </p>
-                                                                    <div class="d-flex w-100 justify-content-between transaction_timeline_{{ $transaction['id'] }} transaction_collapsed">
+                                                                    <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_{{ $transaction['id'] }}">
                                                                         <div class="dropdown">
                                                                             <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline_view_category_toggle_{{ $transaction['id'] }}"
                                                                                     type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -209,13 +209,13 @@
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="text-start mb-1 transaction_timeline_{{ $transaction['id'] }} transaction_collapsed">
+                                                                    <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="text-start mb-1 transaction_timeline_{{ $transaction['id'] }}">
                                                                         <small class="w-100 text-start">{{ $transaction['remit_info_unstructured'] }}</small>
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex w-25 align-items-end flex-column justify-content-between">
                                                                     <p class="ficon mb-0 text-primary">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
-                                                                    <div class="transaction_timeline_{{ $transaction['id'] }} transaction_collapsed">
+                                                                    <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="transaction_timeline_{{ $transaction['id'] }}">
                                                                         <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'add')"
                                                                            class="uil uil-comment-alt-plus comment_btn @if (App\Helpers\Functions::is_empty($transaction['notes'])) d-block @else d-none @endif" onclick="makevisible({{ $transaction['id'] }})"
                                                                            id="add_note_{{ $transaction['id'] }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Add Note" data-bs-original-title="Add Note"
@@ -228,7 +228,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex w-100 justify-content-between transaction_timeline_{{ $transaction['id'] }} transaction_collapsed">
+                                                        <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_{{ $transaction['id'] }}">
                                                             <div class="d-flex mt-0 w-100 text-start">
                                                                 <textarea id="note_textarea_{{ $transaction['id'] }}" class="w-100 px-1 pt-1 fs-11 rounded note_textarea note_textarea_timeline d-none" spellcheck="true">{{ $transaction['notes'] }}</textarea>
                                                                 <p id="note_display_{{ $transaction['id'] }}" class="fs-12 m-0 mb-1 p-1 pe-2 w-100 alert alert-warning note_para @if (App\Helpers\Functions::is_empty($transaction['notes'])) d-none @endif">{{ $transaction['notes'] }}</p>
@@ -304,11 +304,11 @@
                         <p class="ficon m-0 w-100 text-start pointer t2_para" x-on:click="$store.data.toggleTransaction('timeline_2',{{ $transaction->id }})">
                             {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
                             <span class="d-block fw-bold text-dark fs-14">{{ $transaction->custom_uid }} <span><i id="transaction_timeline_2_icon_{{ $transaction->id }}" class="uil uil-arrow-circle-down v-top text-muted"></i></span></span>
-                            <small class="w-100 text-start transaction_timeline_2_{{ $transaction->id }} transaction_collapsed">{{ $transaction->remit_info_unstructured }}</small>
+                            <small x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="w-100 text-start transaction_timeline_2_{{ $transaction->id }}">{{ $transaction->remit_info_unstructured }}</small>
                         </p>
                         <div class="d-flex w-25 align-items-end flex-column">
                             <p class="ficon mb-0 text-primary">{{ $transaction->transaction_currency }} {{ $transaction->transaction_amount }}</p>
-                            <div class="transaction_timeline_2_{{ $transaction->id }} transaction_collapsed">
+                            <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="transaction_timeline_2_{{ $transaction->id }}">
                                 <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'add')" class="uil uil-comment-alt-plus comment_btn @if (App\Helpers\Functions::is_empty($transaction->notes)) d-block @else d-none @endif"
                                    onclick="makevisible({{ $transaction->id }})" id="add_note_{{ $transaction->id }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Add Note" data-bs-original-title="Add Note"
                                    aria-label="Add Note"></i>
@@ -318,7 +318,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex w-100 justify-content-between transaction_timeline_2_{{ $transaction->id }} transaction_collapsed">
+                    <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
                         <div class="dropdown">
                             <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline2_view_category_toggle_{{ $transaction->id }}" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -351,7 +351,7 @@
 
                 </div>
             </div>
-            <div class="d-flex w-100 pb-3 justify-content-between transaction_timeline_2_{{ $transaction->id }} transaction_collapsed">
+            <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 pb-3 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
                 <div class="d-flex mt-0 w-100 text-start">
                     <textarea id="note_textarea_{{ $transaction->id }}" class="w-100 px-1 pt-1 fs-11 rounded note_textarea note_textarea_timeline d-none" spellcheck="true">{{ $transaction->notes }}</textarea>
                     <p id="note_display_{{ $transaction->id }}" class="fs-12 m-0 mb-1 p-1 pe-2 w-100 alert alert-warning note_para @if (App\Helpers\Functions::is_empty($transaction->notes)) d-none @endif">{{ $transaction->notes }}</p>
@@ -400,11 +400,13 @@
                 all_loaded: false,
                 active_id: null,
                 active_action: null,
+                expanded: [],
 
                 change_view(view_name) {
                     this.view = view_name;
                     this.resetNoteTrigger();
                     init_tooltips();
+                    Livewire.emit('refreshView');
                 },
                 toggleTransactionsLoading() {
                     this.transactions_loading = !this.transactions_loading;
@@ -441,12 +443,17 @@
                         }
                         else{
                             element.classList.add('transaction_collapsed');
+                            let index = this.expanded.indexOf(id);
+                            if (index > -1) {
+                                this.expanded.splice(index, 1);
+                            }
                         }
                         if(element.classList.contains('transaction_expanded')){
                             element.classList.remove('transaction_expanded');
                         }
                         else{
                             element.classList.add('transaction_expanded');
+                            this.expanded.push(id);
                         }
                         
                     });
@@ -465,6 +472,13 @@
                         icon.classList.add('uil-arrow-circle-up');
                     }
                 },
+                is_expanded(id){
+                    let index = this.expanded.indexOf(id);
+                    if (index > -1) {
+                        return true;
+                    }
+                    return false;
+                }
             });
         });
 
@@ -482,7 +496,9 @@
                 Alpine.store('data').allLoaded();
             });
             window.livewire.on('commentSaved', (data) => {
-                document.getElementById("comment_saving_" + data).classList.add('d-none');
+                setTimeout(function(){
+                    document.getElementById("comment_saving_" + data).classList.add('d-none');
+                },150);
             });
 
             document.addEventListener('keydown', function(e) {

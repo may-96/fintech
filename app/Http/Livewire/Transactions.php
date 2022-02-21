@@ -29,6 +29,8 @@ class Transactions extends Component
     public $balances;
     public $balance_status;
 
+    protected $listeners = ['refreshView' => 'refreshing'];
+
     public function mount($aid, $account_id)
     {
         $this->account_id = $account_id;
@@ -45,6 +47,11 @@ class Transactions extends Component
         $this->load_balance();
         $this->load_transactions();
         
+    }
+
+    public function refreshing(){
+        $this->load_transactions();
+        $this->render();
     }
 
     private function load_balance(){
