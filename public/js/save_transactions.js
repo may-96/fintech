@@ -2,6 +2,7 @@
 //function to hide and make visible note or add note section
 async function makevisible(id)
 {
+    
     let add_note = document.getElementById("add_note_" + id);
     // let save_note = document.getElementById("save_note_" + id);
     let edit_note = document.getElementById("edit_note_" + id);
@@ -15,6 +16,7 @@ async function makevisible(id)
         toggle_class(note_display, 'd-block','d-none');
 
         toggle_class(note_textarea, 'd-none', 'd-block');
+        note_textarea.focus();
         // toggle_class(save_note, 'd-none', 'd-block');
     }
     else if(add_note.classList.contains('d-none') || edit_note.classList.contains('d-none')){

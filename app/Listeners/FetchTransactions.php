@@ -33,141 +33,141 @@ class FetchTransactions implements ShouldQueue
         $df = $event->date_from;
         $dt = $event->date_to;
 
-        $requisition = $account->requisition;
+        Functions::fetchTransactions($user, $account, $df, $dt);
 
-        if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED'))
-        {
-            try
-            {
-                $token = Token::where('status', 1)->get()->first();
-                $query = [];
+        // $requisition = $account->requisition;
 
-                $baseURL = 'https://ob.nordigen.com/api/v2/accounts/';
-                if (config('services.nordigen.account') == "premium")
-                {
-                    $baseURL .= 'premium/';
-                }
+        // if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED'))
+        // {
+        //     try
+        //     {
+        //         $token = Token::where('status', 1)->get()->first();
+        //         $query = [];
 
-                if (!is_null($df))
-                {
-                    $query["date_from"] = $df;
-                    $query["date_to"] =  Carbon::now()->toDateString();
-                }
-                if (!is_null($dt))
-                {
-                    if (Carbon::parse($dt) > Carbon::now())
-                    {
-                        $dt = Carbon::now()->toDateString();
-                    }
-                    if (is_null($df))
-                    {
-                        $dt = null;
-                    }
-                    $query["date_to"] = $dt;
-                }
+        //         $baseURL = 'https://ob.nordigen.com/api/v2/accounts/';
+        //         if (config('services.nordigen.account') == "premium")
+        //         {
+        //             $baseURL .= 'premium/';
+        //         }
 
-                $requisition_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    'https://ob.nordigen.com/api/v2/requisitions/' . $requisition->requisition_id . '/'
-                );
+        //         if (!is_null($df))
+        //         {
+        //             $query["date_from"] = $df;
+        //             $query["date_to"] =  Carbon::now()->toDateString();
+        //         }
+        //         if (!is_null($dt))
+        //         {
+        //             if (Carbon::parse($dt) > Carbon::now())
+        //             {
+        //                 $dt = Carbon::now()->toDateString();
+        //             }
+        //             if (is_null($df))
+        //             {
+        //                 $dt = null;
+        //             }
+        //             $query["date_to"] = $dt;
+        //         }
 
-                if ($requisition_response->successful())
-                {
-                    $requisition_data = $requisition_response->json();
-                    $requisition_status = $requisition_data['status'];
-                    Log::debug($requisition_data);
-                    Log::debug($requisition_status);
+        //         $requisition_response = Http::withHeaders([
+        //             'accept' => 'application/json',
+        //             'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+        //         ])->get(
+        //             'https://ob.nordigen.com/api/v2/requisitions/' . $requisition->requisition_id . '/'
+        //         );
 
-                    $requisition->status = $requisition_status;
-                    $requisition->status_long = $this->getRequisitionStatusLong($requisition_status);
-                    $requisition->status_description = $this->getRequisitionStatusDescription($requisition_status);
-                    $requisition->save();
-                }
+        //         if ($requisition_response->successful())
+        //         {
+        //             $requisition_data = $requisition_response->json();
+        //             $requisition_status = $requisition_data['status'];
+
+        //             $requisition->status = $requisition_status;
+        //             $requisition->status_long = $this->getRequisitionStatusLong($requisition_status);
+        //             $requisition->status_description = $this->getRequisitionStatusDescription($requisition_status);
+        //             $requisition->save();
+        //         }
 
 
-                $account_status_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    'https://ob.nordigen.com/api/v2/accounts/' . $account->account_id . '/'
-                );
+        //         $account_status_response = Http::withHeaders([
+        //             'accept' => 'application/json',
+        //             'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+        //         ])->get(
+        //             'https://ob.nordigen.com/api/v2/accounts/' . $account->account_id . '/'
+        //         );
 
-                if ($account_status_response->successful())
-                {
-                    $account_status_data = $account_status_response->json();
-                    $account_status = $account_status_data['status'];
-                    $account->account_status = $account_status;
-                    $account->save();
-                }
+        //         if ($account_status_response->successful())
+        //         {
+        //             $account_status_data = $account_status_response->json();
+        //             $account_status = $account_status_data['status'];
+        //             $account->account_status = $account_status;
+        //             $account->save();
+        //         }
 
-                $balance_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    $baseURL . $account->account_id . '/balances/',
-                    $query
-                );
+        //         $balance_response = Http::withHeaders([
+        //             'accept' => 'application/json',
+        //             'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+        //         ])->get(
+        //             $baseURL . $account->account_id . '/balances/',
+        //             $query
+        //         );
 
-                if ($balance_response->successful())
-                {
-                    $balance_data = $balance_response->json();
-                    Functions::update_account_balance($account, $balance_data);
-                    $user->update_error_code("balance_error_code", 200);
-                }
-                else
-                {
-                    $user->update_error_code("balance_error_code", $balance_response->status());
-                }
+        //         if ($balance_response->successful())
+        //         {
+        //             $balance_data = $balance_response->json();
+        //             Functions::update_account_balance($account, $balance_data);
+        //             $user->update_error_code("balance_error_code", 200);
+        //         }
+        //         else
+        //         {
+        //             $user->update_error_code("balance_error_code", $balance_response->status());
+        //         }
 
-                $transaction_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    $baseURL . $account->account_id . '/transactions/',
-                    $query
-                );
+        //         $transaction_response = Http::withHeaders([
+        //             'accept' => 'application/json',
+        //             'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+        //         ])->get(
+        //             $baseURL . $account->account_id . '/transactions/',
+        //             $query
+        //         );
 
-                if ($transaction_response->successful())
-                {
-                    $transactions_data = $transaction_response->json();
-                    $booked_transactions = $transactions_data["transactions"]["booked"];
-                    $pending_transactions = $transactions_data["transactions"]["pending"];
+        //         if ($transaction_response->successful())
+        //         {
+        //             $transactions_data = $transaction_response->json();
+        //             $booked_transactions = $transactions_data["transactions"]["booked"];
+        //             $pending_transactions = $transactions_data["transactions"]["pending"];
 
-                    foreach ($booked_transactions as $t)
-                    {
-                        Functions::add_or_update_transactions($t, $account, "booked");
-                    }
-                    foreach ($pending_transactions as $t)
-                    {
-                        Functions::add_or_update_transactions($t, $account, "pending");
-                    }
-                    $user->update_error_code("transaction_error_code", 200);
-                }
-                else
-                {
-                    $user->update_error_code("transaction_error_code", $transaction_response->status());
-                }
-            }
-            catch (Exception $e)
-            {
-                Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
-            }
-        }
-        else{
-            $message = 'Link for some of your Accounts has Expired. Reconnect them from My Accounts Page.';
+        //             foreach ($booked_transactions as $t)
+        //             {
+        //                 Functions::add_or_update_transactions($t, $account, "booked");
+        //             }
+        //             foreach ($pending_transactions as $t)
+        //             {
+        //                 Functions::add_or_update_transactions($t, $account, "pending");
+        //             }
+        //             $user->update_error_code("transaction_error_code", 200);
+        //         }
+        //         else
+        //         {
+        //             $user->update_error_code("transaction_error_code", $transaction_response->status());
+        //         }
+        //     }
+        //     catch (Exception $e)
+        //     {
+        //         Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+        //     }
+        // }
+        // else{
+        //     $message = 'Link for some of your Accounts has Expired. Reconnect them from My Accounts Page.';
 
-            $notification = Notification::create([
-                'type' => 'account_expired',
-                'data' => "",
-                'user_id' => $user->id,
-                'message' => $message,
-                'read' => 0
-            ]);
+        //     $notification = Notification::create([
+        //         'type' => 'account_expired',
+        //         'data' => "",
+        //         'user_id' => $user->id,
+        //         'message' => $message,
+        //         'read' => 0
+        //     ]);
 
-            SendNotification::dispatch($user, $notification);
-        }
+        //     SendNotification::dispatch($user, $notification);
+        // }
     }
 
     private function getRequisitionStatusLong($status)

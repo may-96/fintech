@@ -57,6 +57,8 @@ Route::get('/shared/transactions/{account_id}', [TransactionController::class, '
 Route::get('/connect/status/{reference_id}', [RequisitionController::class, 'redirect'])->middleware(['auth', 'token'])->name('requisition.redirect');
 Route::get('/reconnect/status/{reference_id}', [RequisitionController::class, 'reconnect'])->middleware(['auth', 'token'])->name('requisition.reconnect');
 
+Route::get('/overview/{reference_id}',[RequisitionController::class, 'overview'])->middleware(['auth', 'token'])->name('requisition.overview');
+
 Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['auth', 'token'])->name('my.accounts');
 
 Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->middleware(['auth'])->name('shared.accounts');

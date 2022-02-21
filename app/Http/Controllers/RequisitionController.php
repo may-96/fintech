@@ -328,6 +328,12 @@ class RequisitionController extends Controller
         }
     }
 
+    public function overview(Request $request, $reference_id){
+        $requisition = Requisition::where('reference_id', $reference_id)->get()->first();
+        $accounts = $requisition->accounts;
+        return view('auth.account_overview', ['accounts' => $accounts]);
+    }
+
     private function getAccountTypeString($type)
     {
         switch ($type)

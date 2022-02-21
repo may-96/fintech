@@ -15,10 +15,14 @@ class TransactionController extends Controller
             /** @var \App\Models\User */
             $user = Auth::user();
 
-            $account = Account::where('account_id',$account_id)->where('user_id',$user->id)->get()->first();
+            $temp_array = explode('-',$account_id);
+            $id = $temp_array[count($temp_array)-1];
+            $aid = substr( $account_id, 0, strrpos( $account_id, '-' ) );
+
+            $account = Account::where('id',$id)->where('account_id',$aid)->where('user_id',$user->id)->get()->first();
 
             if($account && $user->id == $account->user_id){
-                return view('app.transactions', ["account_id" => $account_id]);
+                return view('app.transactions', ["account_id" => $aid, "aid" => $id]);
             }
             return redirect(route('my.accounts'))->with('danger', "No such Account or Access Denied");
         }

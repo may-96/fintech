@@ -21,6 +21,7 @@ class Transactions extends Component
     public $total_transactions;
 
     public $account_id;
+    public $aid;
     public $account;
 
     public $categories;
@@ -28,15 +29,16 @@ class Transactions extends Component
     public $balances;
     public $balance_status;
 
-    public function mount($account_id)
+    public function mount($aid, $account_id)
     {
         $this->account_id = $account_id;
+        $this->aid = $aid;
         $this->user = Auth::user();
         $this->transactions = collect();
 
         $this->categories = Category::all()->toArray();
         
-        $this->account = Account::where('user_id', $this->user->id)->where('account_id',$this->account_id)->get()->first();
+        $this->account = Account::where('id', $aid)->where('user_id', $this->user->id)->where('account_id',$this->account_id)->get()->first();
 
         $this->total_transactions = $this->account->transactions()->count();
         
@@ -86,6 +88,7 @@ class Transactions extends Component
             'notes' => $value,
         ]);
         $this->load_transactions();
+        $this->emit('commentSaved');
     }
 
     public function load_more(){

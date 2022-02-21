@@ -148,25 +148,58 @@
         .dropdown-list-item:hover > .dropdown-item{
             color: #3f78e0;
         }
+        .transaction_collapsed{
+            height: 0 !important;
+            opacity: 0 !important;
+            /* -webkit-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            -moz-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            -o-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            transition: height 0.05s ease-out, opacity 0.1s ease 0.5s; */
+        }
+        .transaction_expanded{
+            height: auto !important;
+            opacity: 1 !important;
+            /* -webkit-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            -moz-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            -o-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
+            transition: height 0.05s ease-out, opacity 0.1s ease 0.5s; */
+        }
+        .pointer{
+            cursor: pointer;
+        }
+        .t2_para{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.5 !important;
+        }
+        .v-middle{
+            vertical-align: middle;
+        }
+        .v-bottom{
+            vertical-align: text-bottom;
+        }
+        .v-top{
+            vertical-align: text-top;
+        }
 </style>
 @endsection
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{asset('images/background/Polygon_Luminary.svg')}})">
+    <section class="wrapper d-flex align-items-center hero_section_bg pt-16" style="">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
                     <div class="post-header text-capitalize">
-                        <h1 class="display-1 fs-66 mb-4">Link your Bank Account</h1>
-                        <p class="lead fs-23 lh-sm text-indigo animated-caption">We're not a bank. <span>We're </span> better.</p>
+                        <h2 class="display-1 fs-42 mb-4">Transactions</h2>
+                        <p class="lead fs-18 lh-sm text-indigo animated-caption">Here you can view all the account transactions, add notes and categorize them</p>
                     </div>
-                    <a href="#" class="btn btn-navy rounded-pill">Get Started</a>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 @section('content')
-    <livewire:transactions :account_id="$account_id" />
+    <livewire:transactions :aid="$aid" :account_id="$account_id" />
 @endsection
 
 @section('js')

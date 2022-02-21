@@ -68,6 +68,5 @@
     <script src="{{ asset('js/my_accounts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
     @livewireScripts
-    <script src="{{ asset('js/alpine.js') }}"></script>
     @stack('scripts')
 @endsection
