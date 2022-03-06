@@ -204,3 +204,6 @@
         </div>
     </section>
 @endsection
+@section('js')
+<x-particles></x-particles>
+@endsection
