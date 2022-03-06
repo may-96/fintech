@@ -149,15 +149,48 @@
                             @endforelse
                             
                         </div>
+                        
+                        <div>
+                            <p class="text-muted text-start border-bottom fs-11 mt-4">Shareable Link</p>
+                            @if(App\Helpers\Functions::is_empty($shareable_link))
+                            <button wire:click="generate_shareable_link()" class="btn btn-sm btn-soft-orange rounded-pill py-0 px-2" type="button">Generate Shareable Link</button>
+                            @else
+                            <div class="">
+                                
+                                <p class="fs-14 alert alert-info px-2 py-1 mb-1" id="shareable_link">{{route('account.shareable.link', $shareable_link)}}</p>
+                                <div class="d-flex justify-content-between"><a href="javascript:void(0)" onclick="copy_text()" class="btn btn-sm btn-soft-primary p-0 px-1">Copy</a> <a href="javascript:void(0)" class="btn btn-soft-red btn-sm p-0 px-1" wire:click="remove_shareable_link()" title="Remove"><i class="uil uil-trash-alt"></i></a></div>
+                                <strong id="copy_toast" class="d-none">Link Copied !</strong>
+                                <textarea style="display: none;" id="copyTextarea"></textarea>
+                            </div>
+                            @endif
+                        </div>
+                        
                     </div>
                 </div>
             </div>
+            
         </div>
         @endif
+        
 </section>
 
 @push('scripts')
     <script>
+        function copy_text() {
+            var copyText = document.getElementById("shareable_link").innerHTML;
+            var copy = document.getElementById("copyTextarea");
+            copy.value = copyText;
+            copy.select();
+            copy.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            navigator.clipboard.writeText(copyText);
+
+            var copy_text_notify = document.getElementById('copy_toast');
+            copy_text_notify.classList.toggle('d-none');
+            setTimeout(() => {
+                copy_text_notify.classList.toggle('d-none');
+            }, 2000);
+        }
         $(document).ready(function() {
             window.livewire.on('processReconnectLink', (link) => {
                 window.location.href = link;

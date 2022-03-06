@@ -156,7 +156,7 @@ class Connect extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/agreements/enduser/',
             [
-                'institution_id' => $this->sandbox_id,
+                'institution_id' => $this->bank_id,
                 'max_historical_days' => $this->max_historical_days,
                 'access_valid_for_days' => $this->access_valid_for_days,
                 'access_scope' => $this->access_scope
@@ -193,8 +193,8 @@ class Connect extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
-                'redirect' => env('APP_URL') . "/connect/status/" . $this->reference_id,
-                'institution_id' => $this->sandbox_id,
+                'redirect' => "https://nujanas.com/connect/status/" . $this->reference_id, // env('APP_URL') .
+                'institution_id' => $this->bank_id,
                 'reference' => "" . $this->reference_id,
                 'agreement' => $this->agreement_id,
                 'user_language' => 'EN',

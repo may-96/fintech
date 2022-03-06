@@ -47,6 +47,8 @@ class Reports extends Component
     public $expense_data_available = false;
     public $cash_flow_data_available = false;
 
+    public $shareable_link = null;
+
     public function mount($data)
     {
         $this->data = $data;
@@ -107,6 +109,19 @@ class Reports extends Component
         
     }
 
+    public function generate_shareable_link(){
+        $token = Str::orderedUuid();
+        $this->current_user->report_shareable_link = (string)$token;
+        $this->current_user->save();
+        $this->shareable_link = (string)$token;
+    }
+
+    public function remove_shareable_link(){
+        $this->current_user->report_shareable_link = null;
+        $this->current_user->save();
+        $this->shareable_link = null;
+    }
+
     private function reset_status(){
         $this->error = "";
         $this->success = "";
@@ -117,6 +132,8 @@ class Reports extends Component
         if($reset){
             $this->reset_status();
         }
+
+        $this->shareable_link = $this->current_user->report_shareable_link;
         
         $temp_1 = DB::table('report_shares_with_unregistered_users')->selectRaw("id,email,created_at,'other' as type")->where('user_id', $this->current_user->id)->get()->toArray();
         $structured_1 = [];

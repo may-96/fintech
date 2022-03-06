@@ -57,4 +57,19 @@ class TransactionController extends Controller
             return redirect(route('shared.accounts'))->with('danger', $e->getMessage());
         }
     }
+
+    public function shareable_account(Request $request, $token){
+        try{
+            $account = Account::where('shareable_link', $token)->get()->first();
+            if($account){
+                return view('app.shareable_link_transactions', ["account_id" => $account->account_id, "aid" => $account->id, 'notes_shared' => 1]);
+            }
+            return redirect()->back()->with('danger', "No such Account Exist");
+
+        }
+        catch(Exception $e){
+            Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
+    }
 }

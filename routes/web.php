@@ -40,6 +40,9 @@ Route::get('contact_us', function () { return view('app.contact_us'); })->name('
 
 Route::post('contact/query', [ContactController::class, 'queryHandler'])->name('submit.contact.query');
 
+Route::get('report_link/{token}', [ReportController::class, 'shareable_report'])->withoutMiddleware('auth')->name('report.shareable.link');
+Route::get('account_link/{token}', [TransactionController::class, 'shareable_account'])->withoutMiddleware('auth')->name('account.shareable.link');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', function () { return view('app.dashboard'); })->middleware(['auth'])->name('dashboard');
@@ -77,4 +80,5 @@ Route::post('/notification/unread/{notification}', [NotificationController::clas
 Route::post('/notification/destroy/{notification}', [NotificationController::class, 'destroy'])->middleware(['auth'])->name('destroy.notification');
 
 Route::get('/report/{token?}', [ReportController::class, 'fetchReport'])->middleware(['auth'])->name('get.report');
+
 

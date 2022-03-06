@@ -72,7 +72,7 @@ class Transactions extends Component
             $this->transaction_status = "Processing";
         }
         else if($this->user->transaction_error_code == 200){
-            $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes','category_id'];
+            $select_array = ['id','fixed_date','year','custom_uid', 'debator_name', 'debtor_account', 'creditor_name', 'creditor_account', 'additional_information', 'status', 'purpose_code', 'bank_transaction_code', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes','category_id'];
             $this->transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date','desc')->get();
             if($this->transactions->count() >= $this->total_transactions){
                 $this->emit('allDataLoaded');

@@ -30,18 +30,18 @@
                     </div>
                 @endif
 
-
                 {{-- <h2 class="h1 fs-46 text-center">Transactions</h2> --}}
                 <div class="d-inline-block text-center mb-10">
-                    <button title="List View" x-bind:class="$store.data.view == 'list' ? 'btn-soft-primary' : 'btn-soft-ash' " class="btn btn-circle" type="button" x-on:click="$store.data.change_view('list')"><i
-                           class="uil uil-list-ul"></i></button>
                     <button title="Timeline View 1" x-bind:class="$store.data.view == 'timeline' ? 'btn-soft-primary' : 'btn-soft-ash' " class="btn btn-circle" type="button" x-on:click="$store.data.change_view('timeline')"><i
-                           class="uil uil-calendar-alt"></i></button>
+                        class="uil uil-calendar-alt"></i></button>
                     <button title="Timeline View 2" x-bind:class="$store.data.view == 'timeline2' ? 'btn-soft-primary' : 'btn-soft-ash' " class="btn btn-circle" type="button" x-on:click="$store.data.change_view('timeline2')"><i
-                           class="uil uil-chart-bar-alt"></i></button>
+                        class="uil uil-chart-bar-alt"></i></button>
+                    {{-- <button title="List View" x-bind:class="$store.data.view == 'list' ? 'btn-soft-primary' : 'btn-soft-ash' " class="btn btn-circle" type="button" x-on:click="$store.data.change_view('list')"><i
+                           class="uil uil-list-ul"></i></button> --}}
+                    
                 </div>
 
-                <template x-if="$store.data.view == 'list'">
+                {{-- <template x-if="$store.data.view == 'list'">
 
                     @if ($transaction_status == 'OK')
                         <div id="transactions_area">
@@ -49,7 +49,7 @@
                                 <div class="shadow-lg px-3 pt-2 pb-1 mb-2 bg-body rounded container-fluid border-navy big_border_left">
                                     <div class="list-group w-100 mx-1">
                                         <div class="d-flex w-100 justify-content-between fw-bold text-dark pointer" x-on:click="$store.data.toggleTransaction('list',{{ $transaction->id }})">
-                                            <p class="ficon mb-0 me-2" ><span>{{ $transaction->custom_uid }}</span> <span><i id="transaction_list_icon_{{ $transaction->id }}" class="uil uil-arrow-circle-down v-middle text-muted"></i></span></p>
+                                            <p class="ficon mb-0 me-2" ><span>{{ $transaction->custom_uid }}</span> <span><i id="transaction_list_icon_{{ $transaction->id }}" class="uil uil-arrow-down v-middle text-muted"></i></span></p>
                                             <p class="ficon text-primary mb-0">{{ $transaction->transaction_currency }} {{ $transaction->transaction_amount }}</p>
                                         </div>
                                         <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_list_{{ $transaction->id }}">
@@ -126,7 +126,7 @@
                         </div>
                     @endif
 
-                </template>
+                </template> --}}
 
                 <template x-if="$store.data.view == 'timeline'">
 
@@ -165,6 +165,7 @@
                                                         <div class="timeline_date_2 text-start fs-14 py-1">
                                                             <span class="ms-4">{{ Carbon\Carbon::parse($transaction['fixed_date'])->format('d F Y') }}</span>
                                                         </div>
+                                                    </div>
                                                 @endif
 
                                                 <div class="timeline_details">
@@ -174,7 +175,7 @@
                                                                 <div class="w-100">
                                                                     <p class="ficon m-0 w-100 lh1_3 text-start mb-1 pointer" x-on:click="$store.data.toggleTransaction('timeline',{{ $transaction['id'] }})">
                                                                         {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                                                                        <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['custom_uid'] }} <span><i id="transaction_timeline_icon_{{ $transaction['id'] }}" class="uil uil-arrow-circle-down v-bottom text-muted"></i></span></span>
+                                                                        <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['remit_info_unstructured'] }} <span><i id="transaction_timeline_icon_{{ $transaction['id'] }}" class="uil uil-arrow-down v-middle fs-20 text-muted"></i></span></span>
                                                                     </p>
                                                                     <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_{{ $transaction['id'] }}">
                                                                         <div class="dropdown">
@@ -210,11 +211,17 @@
                                                                         </div>
                                                                     </div>
                                                                     <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="text-start mb-1 transaction_timeline_{{ $transaction['id'] }}">
-                                                                        <small class="w-100 text-start">{{ $transaction['remit_info_unstructured'] }}</small>
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Transaction ID:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">{{ $transaction['custom_uid'] }}</div></div>
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['debator_name']) || App\Helpers\Functions::not_empty($transaction['debtor_account']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Debator:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['debator_name'])) {{ $transaction['debator_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['debtor_account'])) (<small>{{ $transaction['debtor_account'] }}</small>) @endif </div> </div>@endif
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['creditor_name']) || App\Helpers\Functions::not_empty($transaction['creditor_account']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Creditor:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['creditor_name'])) {{ $transaction['creditor_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['creditor_account'])) (<small>{{ $transaction['creditor_account'] }}</small>) @endif </div> </div>@endif
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['bank_transaction_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Bank Transaction Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction['bank_transaction_code'] }} </div></div> @endif  
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['purpose_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Purpose Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction['purpose_code'] }} </div></div> @endif
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['status']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Status:</strong> </small></div><div class="col-md-12 col-lg-7 lh1_3 p-0 text-capitalize"> {{ $transaction['status'] }}</div></div>@endif
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['additional_information']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information:</strong> </small></div><div class="col-12 lh1_3 p-0"> {{ $transaction['additional_information'] }}</div></div>@endif
                                                                     </div>
                                                                 </div>
-                                                                <div class="d-flex w-25 align-items-end flex-column justify-content-between">
-                                                                    <p class="ficon mb-0 text-primary">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
+                                                                <div class="d-flex w-20 align-items-end flex-column justify-content-between">
+                                                                    <p class="ficon mb-0 fw-bold fs-14 text-primary">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
                                                                     <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="transaction_timeline_{{ $transaction['id'] }}">
                                                                         <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'add')"
                                                                            class="uil uil-comment-alt-plus comment_btn @if (App\Helpers\Functions::is_empty($transaction['notes'])) d-block @else d-none @endif" onclick="makevisible({{ $transaction['id'] }})"
@@ -244,158 +251,168 @@
 
                                                 @if ($on_date_change)
                                                     @php $on_date_change = false; @endphp
+                                                    {{-- </div> --}}
+                                                @endif
+                                            @endforeach
+
                                         </div>
+                                    </div>
+                                @empty
+                                    <div>
+                                        No Transactions Found
+                                    </div>
+                                @endforelse
+
+                                </div>
+                            </div>
+                    @elseif($transaction_status == 'Processing')
+                        <div>
+                            Fetching Your Account Transactions
+                        </div>
+                    @else
+                        <div>
+                            Error Raised While Fetching or Updating Your Account Transactions
+                        </div>
+                        @endif
+
+                </template>
+
+                <template x-if="$store.data.view == 'timeline2'">
+
+                    @if ($transaction_status == 'OK')
+                        <div id="transactions_area" class="timeline">
+
+                            @forelse ($transactions as $transaction)
+                                @if ($loop->first)
+                                    @php
+                                        $fdt = $transaction->fixed_date;
+                                        $on_date_change = true;
+                                    @endphp
                                 @endif
-                    @endforeach
 
-            </div>
-    </div>
-@empty
-    <div>
-        No Transactions Found
-    </div>
-    @endforelse
-
-    </div>
-    </div>
-@elseif($transaction_status == 'Processing')
-    <div>
-        Fetching Your Account Transactions
-    </div>
-@else
-    <div>
-        Error Raised While Fetching or Updating Your Account Transactions
-    </div>
-    @endif
-
-    </template>
-
-    <template x-if="$store.data.view == 'timeline2'">
-
-        @if ($transaction_status == 'OK')
-            <div id="transactions_area" class="timeline">
-
-                @forelse ($transactions as $transaction)
-                    @if ($loop->first)
-                        @php
-                            $fdt = $transaction->fixed_date;
-                            $on_date_change = true;
-                        @endphp
+                                @if ($fdt != $transaction->fixed_date)
+                                    @php
+                                        $fdt = $transaction->fixed_date;
+                                        $on_date_change = true;
+                                    @endphp
+                        </div> {{-- Closing for <div class="timeline_transaction position-relative ms-4"> --}}
                     @endif
 
-                    @if ($fdt != $transaction->fixed_date)
-                        @php
-                            $fdt = $transaction->fixed_date;
-                            $on_date_change = true;
-                        @endphp
-            </div> {{-- Closing for <div class="timeline_transaction position-relative ms-4"> --}}
-        @endif
+                    @if ($on_date_change)
+                        @php $on_date_change = false; @endphp
+                        <div class="timeline_transaction position-relative ms-4">
+                            <div class="timeline_date text-start fs-14 mb-4 pt-6">{{ Carbon\Carbon::parse($transaction->fixed_date)->format('d F Y') }}</div>
+                    @endif
 
-        @if ($on_date_change)
-            @php $on_date_change = false; @endphp
-            <div class="timeline_transaction position-relative ms-4">
-                <div class="timeline_date text-start fs-14 mb-4 pt-6">{{ Carbon\Carbon::parse($transaction->fixed_date)->format('d F Y') }}</div>
-        @endif
+                    <div class="transaction_neutral timeline_details">
+                        <div class="shadow-lg px-2 py-1 mb-1 bg-body rounded container-fluid">
+                            <div class="list-group w-100">
+                                <div class="d-flex w-100 ">
+                                    <div class="ficon m-0 w-100 text-start t2_para" >
+                                        {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
+                                        <span class="d-block fw-bold text-dark fs-14 pointer" x-on:click="$store.data.toggleTransaction('timeline_2',{{ $transaction->id }})">{{ $transaction->remit_info_unstructured }} <span><i id="transaction_timeline_2_icon_{{ $transaction->id }}" class="uil uil-arrow-down v-middle fs-18 text-muted"></i></span></span>
+                                        
+                                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="text-start my-1 transaction_timeline_2_{{ $transaction->id }}">
+                                            <div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Transaction ID:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">{{ $transaction->custom_uid }}</div></div>
+                                            @if(App\Helpers\Functions::not_empty($transaction->debator_name) || App\Helpers\Functions::not_empty($transaction->debtor_account))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Debator:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction->debator_name)) {{ $transaction->debator_name }} @endif @if(App\Helpers\Functions::not_empty($transaction->debtor_account)) (<small>{{ $transaction->debtor_account }}</small>) @endif </div> </div>@endif
+                                            @if(App\Helpers\Functions::not_empty($transaction->creditor_name) || App\Helpers\Functions::not_empty($transaction->creditor_account))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Creditor:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction->creditor_name)) {{ $transaction->creditor_name }} @endif @if(App\Helpers\Functions::not_empty($transaction->creditor_account)) (<small>{{ $transaction->creditor_account }}</small>) @endif </div> </div>@endif
+                                            @if(App\Helpers\Functions::not_empty($transaction->bank_transaction_code))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Bank Transaction Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction->bank_transaction_code }} </div></div> @endif  
+                                            @if(App\Helpers\Functions::not_empty($transaction->purpose_code))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Purpose Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction->purpose_code }} </div></div> @endif
+                                            @if(App\Helpers\Functions::not_empty($transaction->status))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Status:</strong> </small></div><div class="col-md-12 col-lg-7 lh1_3 p-0 text-capitalize"> {{ $transaction->status }}</div></div>@endif
+                                            @if(App\Helpers\Functions::not_empty($transaction->additional_information))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information:</strong> </small></div><div class="col-12 lh1_3 p-0"> {{ $transaction->additional_information }}</div></div>@endif
+                                        </div>
+                                    </div>
+                                    <div class="d-flex w-20 align-items-end flex-column">
+                                        <p class="ficon mb-0 text-primary fs-14 fw-bold">{{ $transaction->transaction_currency }} {{ $transaction->transaction_amount }}</p>
+                                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="transaction_timeline_2_{{ $transaction->id }}">
+                                            <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'add')" class="uil uil-comment-alt-plus comment_btn @if (App\Helpers\Functions::is_empty($transaction->notes)) d-block @else d-none @endif"
+                                            onclick="makevisible({{ $transaction->id }})" id="add_note_{{ $transaction->id }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Add Note" data-bs-original-title="Add Note"
+                                            aria-label="Add Note"></i>
+                                            <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'edit')" class="uil uil-comment-alt-edit comment_btn @if (App\Helpers\Functions::is_empty($transaction->notes)) d-none @else d-block @endif"
+                                            onclick="makevisible({{ $transaction->id }})" id="edit_note_{{ $transaction->id }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Edit Note" data-bs-original-title="Edit Note"
+                                            aria-label="Edit Note"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
+                                    <div class="dropdown">
+                                        <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline2_view_category_toggle_{{ $transaction->id }}" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            @if (App\Helpers\Functions::is_empty($transaction->category_id))
+                                            Uncategorized @else {{ $transaction->category->name }} <small
+                                                    class="ms-2 fs-11 text-capitalize @if ($transaction->category->type == 'income') text-green @else text-red @endif">{{ $transaction->category->type }}</small>
+                                            @endif
+                                        </button>
+                                        <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" aria-labelledby="timeline2_view_category_toggle_{{ $transaction->id }}" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
+                                            <li class="dropdown-list-item d-flex align-items-center justify-content-between">
+                                                <span x-on:click="$store.data.change_category({{ $transaction->id }},null)" class="dropdown-item fs-12 lh-1 px-3 py-1 @if (App\Helpers\Functions::is_empty($transaction->category_id)) active @endif">Uncategorized</span>
+                                            </li>
+                                            @foreach ($categories as $category)
+                                                @if (((float) $transaction->transaction_amount < 0 && $category['type'] == 'expense') || ((float) $transaction->transaction_amount >= 0 && $category['type'] == 'income'))
+                                                    <li class="dropdown-list-item d-flex align-items-center justify-content-between">
+                                                        <span x-on:click="$store.data.change_category({{ $transaction->id }}, {{ $category['id'] }})"
+                                                            class="dropdown-item fs-12 lh-1 px-3 py-2 @if ($category['id'] == $transaction->category_id) active @endif">{{ $category['name'] }}</span>
+                                                        <small class="text-capitalize badge @if ($category['type'] == 'income') bg-green @else bg-red @endif rounded-pill py-1">{{ $category['type'] }}</small>
+                                                    </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
 
-        <div class="transaction_neutral timeline_details">
-            <div class="shadow-lg px-2 py-1 mb-1 bg-body rounded container-fluid">
-                <div class="list-group w-100">
-                    <div class="d-flex w-100 ">
-                        <p class="ficon m-0 w-100 text-start pointer t2_para" x-on:click="$store.data.toggleTransaction('timeline_2',{{ $transaction->id }})">
-                            {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                            <span class="d-block fw-bold text-dark fs-14">{{ $transaction->custom_uid }} <span><i id="transaction_timeline_2_icon_{{ $transaction->id }}" class="uil uil-arrow-circle-down v-top text-muted"></i></span></span>
-                            <small x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="w-100 text-start transaction_timeline_2_{{ $transaction->id }}">{{ $transaction->remit_info_unstructured }}</small>
-                        </p>
-                        <div class="d-flex w-25 align-items-end flex-column">
-                            <p class="ficon mb-0 text-primary">{{ $transaction->transaction_currency }} {{ $transaction->transaction_amount }}</p>
-                            <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="transaction_timeline_2_{{ $transaction->id }}">
-                                <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'add')" class="uil uil-comment-alt-plus comment_btn @if (App\Helpers\Functions::is_empty($transaction->notes)) d-block @else d-none @endif"
-                                   onclick="makevisible({{ $transaction->id }})" id="add_note_{{ $transaction->id }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Add Note" data-bs-original-title="Add Note"
-                                   aria-label="Add Note"></i>
-                                <i x-on:click="$store.data.noteTrigger({{ $transaction['id'] }},'edit')" class="uil uil-comment-alt-edit comment_btn @if (App\Helpers\Functions::is_empty($transaction->notes)) d-none @else d-block @endif"
-                                   onclick="makevisible({{ $transaction->id }})" id="edit_note_{{ $transaction->id }}" data-bs-toggle="tooltip" data-bs-placement="right" title="Edit Note" data-bs-original-title="Edit Note"
-                                   aria-label="Edit Note"></i>
+                                        <div id="cat_update_loader_{{ $transaction->id }}" class="d-none">
+                                            <x-loading />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 pb-3 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
+                            <div class="d-flex mt-0 w-100 text-start">
+                                <textarea id="note_textarea_{{ $transaction->id }}" class="w-100 px-1 pt-1 fs-11 rounded note_textarea note_textarea_timeline d-none" spellcheck="true">{{ $transaction->notes }}</textarea>
+                                <p id="note_display_{{ $transaction->id }}" class="fs-12 m-0 mb-1 p-1 pe-2 w-100 alert alert-warning note_para @if (App\Helpers\Functions::is_empty($transaction->notes)) d-none @endif">{{ $transaction->notes }}</p>
+                                <div id="comment_saving_{{ $transaction->id }}" class="d-none" >
+                                    <x-saving_animate class="la-sm" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
-                        <div class="dropdown">
-                            <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" id="timeline2_view_category_toggle_{{ $transaction->id }}" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                @if (App\Helpers\Functions::is_empty($transaction->category_id))
-                                Uncategorized @else {{ $transaction->category->name }} <small
-                                           class="ms-2 fs-11 text-capitalize @if ($transaction->category->type == 'income') text-green @else text-red @endif">{{ $transaction->category->type }}</small>
-                                @endif
-                            </button>
-                            <ul class="dropdown-menu border shadow-lg lh-1 px-0 py-1" aria-labelledby="timeline2_view_category_toggle_{{ $transaction->id }}" style="height: 280px; min-width: 230px; overflow-y: auto; overflow-x: hidden;">
-                                <li class="dropdown-list-item d-flex align-items-center justify-content-between">
-                                    <span x-on:click="$store.data.change_category({{ $transaction->id }},null)" class="dropdown-item fs-12 lh-1 px-3 py-1 @if (App\Helpers\Functions::is_empty($transaction->category_id)) active @endif">Uncategorized</span>
-                                </li>
-                                @foreach ($categories as $category)
-                                    @if (((float) $transaction->transaction_amount < 0 && $category['type'] == 'expense') || ((float) $transaction->transaction_amount >= 0 && $category['type'] == 'income'))
-                                        <li class="dropdown-list-item d-flex align-items-center justify-content-between">
-                                            <span x-on:click="$store.data.change_category({{ $transaction->id }}, {{ $category['id'] }})"
-                                                  class="dropdown-item fs-12 lh-1 px-3 py-2 @if ($category['id'] == $transaction->category_id) active @endif">{{ $category['name'] }}</span>
-                                            <small class="text-capitalize badge @if ($category['type'] == 'income') bg-green @else bg-red @endif rounded-pill py-1">{{ $category['type'] }}</small>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            </ul>
-
-                            <div id="cat_update_loader_{{ $transaction->id }}" class="d-none">
-                                <x-loading />
-                            </div>
-
+                    @empty
+                        <div>
+                            No Transactions Found
                         </div>
+                        @endforelse
+                        </div> {{-- Final Closing for <div class="timeline_transaction position-relative ms-4"> --}}
+                        </div>
+                    @elseif($transaction_status == 'Processing')
+                        <div>
+                            Fetching Your Account Transactions
+                        </div>
+                    @else
+                        <div>
+                            Error Raised While Fetching or Updating Your Account Transactions
+                        </div>
+                        @endif
+
+                </template>
+
+                <template x-if="$store.data.transactions_loading">
+                    <div id="loading_bars">
+                        <x-loading />
+                        Loading Transactions
                     </div>
+                </template>
 
-                </div>
             </div>
-            <div x-bind:class="$store.data.is_expanded({{ $transaction->id }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="d-flex w-100 pb-3 justify-content-between transaction_timeline_2_{{ $transaction->id }}">
-                <div class="d-flex mt-0 w-100 text-start">
-                    <textarea id="note_textarea_{{ $transaction->id }}" class="w-100 px-1 pt-1 fs-11 rounded note_textarea note_textarea_timeline d-none" spellcheck="true">{{ $transaction->notes }}</textarea>
-                    <p id="note_display_{{ $transaction->id }}" class="fs-12 m-0 mb-1 p-1 pe-2 w-100 alert alert-warning note_para @if (App\Helpers\Functions::is_empty($transaction->notes)) d-none @endif">{{ $transaction->notes }}</p>
-                    <div id="comment_saving_{{ $transaction->id }}" class="d-none" >
-                        <x-saving_animate class="la-sm" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    @empty
-        <div>
-            No Transactions Found
-        </div>
-        @endforelse
-        </div> {{-- Final Closing for <div class="timeline_transaction position-relative ms-4"> --}}
-        </div>
-    @elseif($transaction_status == 'Processing')
-        <div>
-            Fetching Your Account Transactions
-        </div>
-    @else
-        <div>
-            Error Raised While Fetching or Updating Your Account Transactions
-        </div>
-        @endif
-
-    </template>
-
-    <template x-if="$store.data.transactions_loading">
-        <div id="loading_bars">
-            <x-loading />
-            Loading Transactions
-        </div>
-    </template>
+        </section>
     </div>
-</section>
-</div>
 </section>
 
 @push('scripts')
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.store('data', {
-                view: "list",
+                view: "timeline",
                 transactions_loading: false,
                 all_loaded: false,
                 active_id: null,
@@ -458,18 +475,18 @@
                         
                     });
 
-                    if(icon.classList.contains('uil-arrow-circle-down')){
-                        icon.classList.remove('uil-arrow-circle-down');
+                    if(icon.classList.contains('uil-arrow-down')){
+                        icon.classList.remove('uil-arrow-down');
                     }
                     else{
-                        icon.classList.add('uil-arrow-circle-down');
+                        icon.classList.add('uil-arrow-down');
                     }
 
-                    if(icon.classList.contains('uil-arrow-circle-up')){
-                        icon.classList.remove('uil-arrow-circle-up');
+                    if(icon.classList.contains('uil-arrow-up')){
+                        icon.classList.remove('uil-arrow-up');
                     }
                     else{
-                        icon.classList.add('uil-arrow-circle-up');
+                        icon.classList.add('uil-arrow-up');
                     }
                 },
                 is_expanded(id){

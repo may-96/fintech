@@ -117,84 +117,16 @@
         .big_border_bottom{
             border-bottom: 4px solid;
         }
-        .dropdown-toggle::after{
-            font-size: unset;
-        }
-        .dropdown-item{
-            color: #9499a3;
-        }
-        .navbar-dark:not(.fixed) .dropdown-toggle:after, .navbar-bg-dark .dropdown-toggle:after, .btn.dropdown-toggle:after{
-            color: #3f78e0;
-        }
-        .dropdown-menu{
-            scrollbar-color: #b6b8bd #f7f7f8;
-            scrollbar-width: thin;
-        }
-        .dropdown-menu::-webkit-scrollbar {
-            width: 6px;               /* width of the entire scrollbar */
-        }
-        .dropdown-menu::-webkit-scrollbar-track {
-            background: #f7f7f8;        /* color of the tracking area */
-        }
-        .dropdown-menu::-webkit-scrollbar-thumb {
-            background-color: #b6b8bd;    /* color of the scroll thumb */
-            /* border-radius: 20px; */      /* roundness of the scroll thumb */
-            /* border: 3px solid silver; */  /* creates padding around scroll thumb */
-        }
-        .dropdown-list-item:hover {
-            background: #e7e9ee;
-            cursor: pointer;
-        }
-        .dropdown-list-item:hover > .dropdown-item{
-            color: #3f78e0;
-        }
-        .transaction_collapsed{
-            height: 0 !important;
-            opacity: 0 !important;
-            display: none !important;
-            /* -webkit-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            -moz-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            -o-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            transition: height 0.05s ease-out, opacity 0.1s ease 0.5s; */
-        }
-        .transaction_expanded{
-            height: auto !important;
-            opacity: 1 !important;
-            display: block;
-            /* -webkit-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            -moz-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            -o-transition: height 0.05s ease-out, opacity 0.1s ease 0.5s;
-            transition: height 0.05s ease-out, opacity 0.1s ease 0.5s; */
-        }
-        .pointer{
-            cursor: pointer;
-        }
-        .t2_para{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            line-height: 1.5 !important;
-        }
-        .v-middle{
-            vertical-align: middle;
-        }
-        .v-bottom{
-            vertical-align: text-bottom;
-        }
-        .v-top{
-            vertical-align: text-top;
-        }
-        
 </style>
 @endsection
 @section('header')
-    <section class="wrapper d-flex align-items-center hero_section_bg pt-16" style="">
+    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{asset('images/background/Hexagon.svg')}})">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
                     <div class="post-header text-capitalize">
-                        <h2 class="display-1 fs-42 mb-4">Transactions</h2>
-                        <p class="lead fs-18 lh-sm text-indigo animated-caption">Here you can view all the account transactions, add notes and categorize them</p>
+                        <h1 class="display-1 fs-66 mb-4">View Transaction</h1>
+                        <p class="lead fs-23 lh-sm text-indigo animated-caption"></p>
                     </div>
                 </div>
             </div>
@@ -202,11 +134,12 @@
     </section>
 @endsection
 @section('content')
-    <livewire:transactions :aid="$aid" :account_id="$account_id" />
+    <livewire:shareable-link-transactions :account_id="$account_id" :aid="$aid" :notes_shared="$notes_shared" />
 @endsection
 
 @section('js')
     <script src="{{asset('js/save_transactions.js')}}"></script>
     @livewireScripts
+    <script src="{{ asset('js/alpine.js') }}"></script>
     @stack('scripts')
 @endsection

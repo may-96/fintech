@@ -117,7 +117,6 @@
     $('.expand-collapse').on('click', function(e) {
         let id = e.target.dataset.id;
         e.stopPropagation();
-        console.log(id);
         let elem = document.getElementById('recent_transactions_'+id);
         let icon = document.getElementById('recent_transaction_icon_'+id);
         elem.classList.toggle('show');

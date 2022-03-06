@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -77,6 +78,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $flash_message = "";
+
         $shares = DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->get();
         foreach($shares as $share){
             $user->shared_accounts()->attach($share->account_id, ['notes_shared' => $share->notes_shared]);
@@ -91,6 +95,7 @@ class RegisterController extends Controller
                 'message' => $message,
                 'read' => 0
             ]);
+            $flash_message .= $message;
         }
         DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->delete();
 
@@ -117,6 +122,13 @@ class RegisterController extends Controller
                 'message' => $message,
                 'read' => 0
             ]);
+
+            if($flash_message != ""){
+                $flash_message .= $message;
+            }
+            else{
+                $flash_message .= "\n".$message;
+            }
         }
         DB::table('report_shares_with_unregistered_users')->where('email',$data['email'])->delete();
 
@@ -135,8 +147,20 @@ class RegisterController extends Controller
                 'message' => $message,
                 'read' => 0
             ]);
+
+            if($flash_message != ""){
+                $flash_message .= $message;
+            }
+            else{
+                $flash_message .= "\n".$message;
+            }
         }
         DB::table('report_requested_from_unregistered_users')->where('email',$data['email'])->delete();
+
+        if($flash_message != ""){
+            Session::flash('warning', $flash_message);
+        }
+        
 
         return $user;
     }

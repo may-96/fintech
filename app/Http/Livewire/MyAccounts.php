@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class MyAccounts extends Component
@@ -34,6 +35,7 @@ class MyAccounts extends Component
     public $user;
     public $reconnect_requisition_id;
     public $reconnect_error = "";
+    public $shareable_link = null;
 
     public $shared_emails = [];
 
@@ -57,7 +59,9 @@ class MyAccounts extends Component
             $this->reset_status();
         }
         $this->selected_account_id = $id;
+        $this->shareable_link = null;
         $account = Account::find($id);
+        $this->shareable_link = $account->shareable_link;
 
         $temp_1 = DB::table('account_shares_with_unregistered_users')->selectRaw("id,email,created_at,'other' as type")->where('account_id', $this->selected_account_id)->get()->toArray();
         $structured_1 = [];
@@ -99,6 +103,21 @@ class MyAccounts extends Component
                 return 0;
             }
         });
+    }
+
+    public function generate_shareable_link(){
+        $token = Str::orderedUuid();
+        $account = Account::find($this->selected_account_id);
+        $account->shareable_link = (string)$token;
+        $account->save();
+        $this->shareable_link = (string)$token;
+    }
+
+    public function remove_shareable_link(){
+        $account = Account::find($this->selected_account_id);
+        $account->shareable_link = null;
+        $account->save();
+        $this->shareable_link = null;
     }
 
     public function add_shared_user()
@@ -253,8 +272,8 @@ class MyAccounts extends Component
         $old_requisition = Requisition::find($this->reconnect_requisition_id);
         $old_agreement = $old_requisition->agreement;
         $institution = $old_agreement->institution;
-        // $iid = $institution->institution_id;
-        $iid = "SANDBOXFINANCE_SFIN0000";
+        $iid = $institution->institution_id;
+        // $iid = "SANDBOXFINANCE_SFIN0000";
         $new_agreement = $this->createAgreement($old_agreement, $iid);
         if ($new_agreement != false)
         {
@@ -330,7 +349,7 @@ class MyAccounts extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
-                'redirect' => env('APP_URL') . "/reconnect/status/" . $ref_id,
+                'redirect' => "https://nujanas.com/reconnect/status/" . $ref_id, // env('APP_URL') . 
                 'institution_id' => $iid,
                 'reference' => "" . $ref_id,
                 'agreement' => $aid,

@@ -27,6 +27,5 @@
 
 @section('js')
     @livewireScripts
-    <script src="{{ asset('js/alpine.js') }}"></script>
     @stack('scripts')
 @endsection

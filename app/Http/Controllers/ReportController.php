@@ -246,6 +246,7 @@ class ReportController extends Controller
                 ]);
 
                 SendNotification::dispatch($shared_user, $notification);
+                $user->report_requested_from()->detach($shared_with);
 
                 return "Report Shared Successfully";
             }
@@ -265,5 +266,22 @@ class ReportController extends Controller
         $data = $user->shared_reports_with()->select(['fname', 'lname'])->get()->flatten();
 
         return view('app.shared_reports', ['data' => $data]);
+    }
+
+    public function shareable_report(Request $request, $token){
+        try{
+            $user = User::where('report_shareable_link', $token)->first();
+            if($user){
+                $data = ['shared', $user->id];
+                return view('app.shareable_link_reports', ['data' => $data]);
+            }
+            
+            return redirect()->back()->with('danger', "No such Account Exist");
+
+        }
+        catch(Exception $e){
+            Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+            return redirect()->back()->with('danger', $e->getMessage());
+        }
     }
 }

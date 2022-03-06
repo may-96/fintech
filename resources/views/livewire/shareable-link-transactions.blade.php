@@ -45,7 +45,7 @@
                                                                     <div class="w-100">
                                                                         <p class="ficon m-0 w-100 lh1_3 text-start">
                                                                             {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['remit_info_unstructured'] }}</span>
+                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['custom_uid'] }}</span>
                                                                         </p>
                                                                         <div class="d-flex w-100 justify-content-between">
                                                                             <div class="dropdown">
@@ -55,7 +55,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="text-start mb-1">
-                                                                            <small class="w-100 text-start">{{ $transaction['custom_uid'] }}</small>
+                                                                            <small class="w-100 text-start">{{ $transaction['remit_info_unstructured'] }}</small>
                                                                         </div>
                                                                     </div>
                                                                     <div class="d-flex w-25 align-items-end flex-column justify-content-between">
