@@ -195,6 +195,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="w-100">
+                                <div class="d-flex justify-content-center align-items-center w-100" id="IncomechartPrint"></div>
+                            </div>
                         </div>
                     @endif
 
@@ -221,6 +224,9 @@
 
                                 </tbody>
                             </table>
+                            <div class="w-100">
+                                <div class="d-flex justify-content-center align-items-center w-100" id="ExpensechartPrint"></div>
+                            </div>
                         </div>
                     @endif
                 </div>
@@ -254,6 +260,9 @@
                                     </tr>
                                 </tfoot>
                             </table>
+                            <div class="p-6 w-100">
+                                <div class="d-flex justify-content-center align-items-center w-100" id="cashflowchartprint"></div>
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -277,6 +286,10 @@
                 report_loading: true,
                 toggleReportLoading() {
                     this.report_loading = !this.report_loading;
+                    setTimeout(() => {
+                        $('#report').toggleClass('d-none');
+                    }, 1000)
+                    
                 }
             })
         });
@@ -284,35 +297,24 @@
 
 
         function printReport() {
+            
             $('#report').toggleClass('d-none');
+            
             $('#time_span').html(new Date().toLocaleString());
-            printJS({
-                printable: 'report',
-                type: 'html',
-                scanStyles: false,
-                css: ['{{ asset('css/style.css') }}',
-                    '{{ asset('css/plugins.css') }}',
-                    '{{ asset('css/reports.css') }}'
-                ],
-                documentTitle: 'Report',
-            });
-            $('#report').toggleClass('d-none');
-        }
-
-        function copy_text() {
-            var copyText = document.getElementById("shareable_link").innerHTML;
-            var copy = document.getElementById("copyTextarea");
-            copy.value = copyText;
-            copy.select();
-            copy.setSelectionRange(0, 99999);
-            document.execCommand("copy");
-            navigator.clipboard.writeText(copyText);
-
-            var copy_text_notify = document.getElementById('copy_toast');
-            copy_text_notify.classList.toggle('d-none');
             setTimeout(() => {
-                copy_text_notify.classList.toggle('d-none');
-            }, 2000);
+                printJS({
+                    printable: 'report',
+                    type: 'html',
+                    scanStyles: false,
+                    css: ['{{ asset('css/style.css') }}',
+                        '{{ asset('css/plugins.css') }}',
+                        '{{ asset('css/reports.css') }}'
+                    ],
+                    documentTitle: 'Report',
+                });
+                $('#report').toggleClass('d-none');
+            }, 1000)
+
         }
 
         window.livewire.on('reportLoaded', (graphData) => {
@@ -395,9 +397,61 @@
                 responsive: [{
                     breakpoint: 480,
                     options: {
-                        // chart: {
-                        //     width: 200
-                        // },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+            var options1p = {
+                series: data,
+                labels: cats,
+                chart: {
+                    width: 400,
+                    type: 'donut',
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                name: {
+                                    show: true,
+                                },
+                                value: {
+                                    formatter: function(val, opts) {
+                                        return '$' +
+                                            val;
+                                    }
+                                },
+                                total: {
+                                    show: true,
+                                    color: 'black',
+                                    formatter: function(w) {
+                                        return '$' +
+                                            parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
+                                    }
+                                }
+                            },
+
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                fill: {
+                    type: 'gradient',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    text: ''
+                },
+                responsive: [{
+                    breakpoint: 400,
+                    options: {
                         legend: {
                             position: 'bottom'
                         }
@@ -406,7 +460,9 @@
             };
 
             var chart1 = new ApexCharts(document.querySelector("#Incomechart"), options1);
+            var chart1p = new ApexCharts(document.querySelector("#IncomechartPrint"), options1p);
             chart1.render();
+            chart1p.render();
         }
 
         function generate_expense_graph(gdata) {
@@ -461,9 +517,6 @@
                 },
                 legend: {
                     position: 'right',
-                    // formatter: function(val, opts) {
-                    //     return val + " - $" + opts.w.globals.series[opts.seriesIndex]
-                    // }
                 },
                 title: {
                     text: ''
@@ -471,9 +524,61 @@
                 responsive: [{
                     breakpoint: 480,
                     options: {
-                        // chart: {
-                        //     width: 200
-                        // },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+            var options2p = {
+                series: data,
+                labels: cats,
+                chart: {
+                    width: 400,
+                    type: 'donut',
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                name: {
+                                    show: true,
+                                },
+                                value: {
+                                    formatter: function(val, opts) {
+                                        return '$' +
+                                            val;
+                                    }
+                                },
+                                total: {
+                                    show: true,
+                                    color: 'black',
+                                    formatter: function(w) {
+                                        return '$' +
+                                            parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
+                                    }
+                                }
+                            },
+
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                fill: {
+                    type: 'gradient',
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    text: ''
+                },
+                responsive: [{
+                    breakpoint: 400,
+                    options: {
                         legend: {
                             position: 'bottom'
                         }
@@ -482,7 +587,9 @@
             };
 
             var chart2 = new ApexCharts(document.querySelector("#Expensechart"), options2);
+            var chart2p = new ApexCharts(document.querySelector("#ExpensechartPrint"), options2p);
             chart2.render();
+            chart2p.render();
         }
 
         function generate_cash_flow_graph(gdata) {
@@ -545,9 +652,63 @@
                     }
                 }
             };
+            var options3p = {
+                series: [{
+                    name: 'Cash In',
+                    data: cin
+                }, {
+                    name: 'Cash Out',
+                    data: cout
+                }],
+                colors: ['#6bbea3', '#e2626b'],
+                chart: {
+                    type: 'bar',
+                    width: 500,
+                    height: 300,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '80%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['#6bbea3', '#e2626b'],
+                },
+                xaxis: {
+                    categories: cats,
+                },
+                yaxis: {
+                    title: {
+                        text: 'Amount ($)'
+                    }
+                },
+                fill: {
+                    opacity: 1,
+                    colors: ['#6bbea3', '#e2626b'],
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return "$" + val
+                        }
+                    }
+                }
+            };
 
             var chart3 = new ApexCharts(document.querySelector("#cashflowchart"), options3);
+            var chart3p = new ApexCharts(document.querySelector("#cashflowchartprint"), options3p);
             chart3.render();
+            chart3p.render();
         }
     </script>
 @endpush
