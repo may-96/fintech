@@ -397,7 +397,7 @@
                     documentTitle: 'Report',
                 });
                 $('#report').toggleClass('d-none');
-            }, 1000)
+            }, 1500)
 
         }
 

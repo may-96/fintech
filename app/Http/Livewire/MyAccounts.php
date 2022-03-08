@@ -349,7 +349,7 @@ class MyAccounts extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
-                'redirect' => "https://nujanas.com/reconnect/status/" . $ref_id, // env('APP_URL') . 
+                'redirect' => env('APP_URL') ."/reconnect/status/" . $ref_id, // env('APP_URL') . 
                 'institution_id' => $iid,
                 'reference' => "" . $ref_id,
                 'agreement' => $aid,
