@@ -126,7 +126,7 @@
         </div>
 
         <!-- print report -->
-        <div class="report-box d-none" id="report">
+        <div class="report-box" id="report">
             <div class="row g-3">
                 <div class="col-2 m-auto">
                     <img height="100px" src="{{ asset('images/logo.png') }}">
