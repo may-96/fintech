@@ -39,6 +39,20 @@ class CreateTransactionsTable extends Migration
             $table->string("status",20)->default('pending')->comment("- booked\n- pending");
             $table->string("notes",1024)->nullable()->comment("User Notes");
             $table->unsignedBigInteger('category_id')->nullable()->comment('Our own cateogories');
+            $table->string("additional_information_structured",500)->nullable();
+            $table->string("balance_after_transaction")->nullable();
+            $table->string("check_id")->nullable();
+            $table->string("creditor_agent")->nullable();
+            $table->string("creditor_id")->nullable();
+            $table->string("currency_exchange")->nullable();
+            $table->string("debtor_agent")->nullable();
+            $table->string("mandate_id")->nullable();
+            $table->string("proprietary_bank_transaction_code")->nullable();
+            $table->string("remittance_information_structured")->nullable();
+            $table->string("remittance_information_structured_array")->nullable();
+            $table->string("remittance_information_unstructured_array")->nullable();
+            $table->string("ultimate_creditor")->nullable();
+            $table->string("ultimate_debtor")->nullable();
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');
