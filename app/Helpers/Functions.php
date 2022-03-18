@@ -59,6 +59,7 @@ class Functions
 
     public static function add_or_update_transactions($t, $account, $status)
     {
+        Log::debug($t);
         $custom_uid = Functions::get_transaction_custom_uid($t);
         $transaction = Transaction::updateOrCreate(
             [
@@ -86,6 +87,22 @@ class Functions
                 "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
                 "bank_transaction_code" => isset($t["bankTransactionCode"]) ? $t["bankTransactionCode"] : null,
                 "status" => $status,
+                
+                "additional_information_structured" => isset($t["additionalInformationStructured"]) ? json_encode($t["additionalInformationStructured"]) : null,
+                "balance_after_transaction" => isset($t["balanceAfterTransaction"]) ? json_encode($t["balanceAfterTransaction"]) : null,
+                "check_id" => isset($t["checkId"]) ? $t["checkId"] : null,
+                "creditor_agent" => isset($t["creditorAgent"]) ? $t["creditorAgent"] : null,
+                "creditor_id" => isset($t["creditorId"]) ? $t["creditorId"] : null,
+                "currency_exchange" => isset($t["currencyExchange"]) ? $t["currencyExchange"] : null,
+                "debtor_agent" => isset($t["debtorAgent"]) ? $t["debtorAgent"] : null,
+                "mandate_id" => isset($t["mandateId"]) ? $t["mandateId"] : null,
+                "proprietary_bank_transaction_code" => isset($t["proprietaryBankTransactionCode"]) ? $t["proprietaryBankTransactionCode"] : null,
+                "remittance_information_structured" => isset($t["remittanceInformationStructured"]) ? $t["remittanceInformationStructured"] : null,
+                "remittance_information_structured_array" => isset($t["remittanceInformationStructuredArray"]) ? json_encode($t["remittanceInformationStructuredArray"]) : null,
+                "remittance_information_unstructured_array" => isset($t["remittanceInformationUnstructuredArray"]) ? json_encode($t["remittanceInformationUnstructuredArray"]) : null,
+                "ultimate_creditor" => isset($t["ultimateCreditor"]) ? $t["ultimateCreditor"] : null,
+                "ultimate_debtor" => isset($t["ultimateDebtor"]) ? $t["ultimateDebtor"] : null,
+
             ]
         );
     }

@@ -1,7 +1,17 @@
 <section>
     <div class="content-wrapper ">
+        <section class="wrapper text-center">
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-12 rounded bg-pale-navy py-4">
+                        <div>{{ $institution->name }}</div>
+                        <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
-            <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
+            <div class="container pt-6 pb-19 pt-md-10 pb-md-20 text-center">
 
                 {{-- <h2 class="h1 fs-46 text-center">Transactions</h2> --}}
                 
@@ -45,7 +55,7 @@
                                                                     <div class="w-100">
                                                                         <p class="ficon m-0 w-100 lh1_3 text-start">
                                                                             {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">{{ $transaction['remit_info_unstructured'] }}</span>
+                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($transaction['remit_info_unstructured'])){{ $transaction['remit_info_unstructured'] }} @else {{ $transaction['remittance_information_structured'] }} @endif</span>
                                                                         </p>
                                                                         <div class="d-flex w-100 justify-content-between">
                                                                             <div class="dropdown">

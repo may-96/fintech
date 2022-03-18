@@ -120,12 +120,12 @@
 </style>
 @endsection
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{asset('images/background/Hexagon.svg')}})">
+    <section class="wrapper d-flex align-items-center hero_section_bg pt-16" style="">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
                     <div class="post-header text-capitalize">
-                        <h1 class="display-1 fs-66 mb-4">View Transaction</h1>
+                        <h1 class="display-1 fs-66 mb-4">Transaction</h1>
                         <p class="lead fs-23 lh-sm text-indigo animated-caption"></p>
                     </div>
                 </div>

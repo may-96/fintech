@@ -23,6 +23,7 @@ class SharedTransactions extends Component
     public $account_id;
     public $notes_shared;
     public $account;
+    public $institution;
     public $aid;
 
 
@@ -36,6 +37,7 @@ class SharedTransactions extends Component
         $this->notes_shared = $notes_shared;
         
         $this->account = Account::where('id',$this->aid)->where('account_id',$this->account_id)->get()->first();
+        $this->institution = $this->account->institution;
 
         $this->total_transactions = $this->account->transactions()->count();
         
