@@ -132,7 +132,11 @@
                         </div>
                     @elseif($transaction_status == 'Processing')
                         <div>
-                            Fetching Your Account Transactions
+                            <span>We were unable to fetch all transactions earlier. Fetching Your Account Transactions again. Please wait ... </span>
+                            <div id="loading_bars">
+                                <x-loading />
+                                Fetching Transactions
+                            </div>
                         </div>
                     @else
                         <div>
@@ -304,7 +308,11 @@
                             </div>
                     @elseif($transaction_status == 'Processing')
                         <div>
-                            Fetching Your Account Transactions
+                            <span>We were unable to fetch all transactions earlier. Fetching Your Account Transactions again. Please wait ... </span>
+                            <div id="loading_bars">
+                                <x-loading />
+                                Fetching Transactions
+                            </div>
                         </div>
                     @else
                         <div>
@@ -636,8 +644,8 @@
                     document.getElementById("comment_saving_" + data).classList.add('d-none');
                 },150);
             });
-            window.livewire.on('transactionReFetched', (data) => {
-                window.location.href = window.location.href;
+            window.livewire.on('transactionReFetched', () => {
+                location.reload();
             });
 
             document.addEventListener('keydown', function(e) {

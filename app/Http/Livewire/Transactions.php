@@ -101,8 +101,7 @@ class Transactions extends Component
             $this->user->save();
             $this->transaction_status = "Processing";
             Functions::fetchTransactions($this->user, $this->account, null, null);
-            $req = $this->account->requisition->reference_id;
-            $this->emit('transactionReFetched', $req);
+            $this->emit('transactionReFetched');
         }
         else if ($this->user->transaction_error_code == 200)
         {
