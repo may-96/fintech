@@ -82,10 +82,10 @@
                                 <label class="form-check-label" for="balance">Bank Balance</label>
                             </div>
 
-                            <div class="col-md-12 form-check">
+                            {{-- <div class="col-md-12 form-check">
                                 <input type="checkbox" class="form-check-input" checked="checked" id="details" name="details" wire:model="details_access_scope" required>
                                 <label class="form-check-label" for="details">Account Details</label>
-                            </div>
+                            </div> --}}
 
                             <div class="col-md-12 form-check">
                                 <input type="checkbox" class="form-check-input" checked="checked" id="transactions" name="transactions" disabled required>

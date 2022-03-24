@@ -373,6 +373,7 @@ class Functions
 
     public static function fetchTransactions($user, $account, $df, $dt){
         $requisition = $account->requisition;
+        $agreement = $account->agreement;
 
         if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED'))
         {
@@ -423,39 +424,43 @@ class Functions
                     $requisition->save();
                 }
 
+                if($agreement->details_scope == 1){
 
-                $account_status_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    'https://ob.nordigen.com/api/v2/accounts/' . $account->account_id . '/'
-                );
+                    $account_status_response = Http::withHeaders([
+                        'accept' => 'application/json',
+                        'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+                    ])->get(
+                        'https://ob.nordigen.com/api/v2/accounts/' . $account->account_id . '/'
+                    );
 
-                if ($account_status_response->successful())
-                {
-                    $account_status_data = $account_status_response->json();
-                    $account_status = $account_status_data['status'];
-                    $account->account_status = $account_status;
-                    $account->save();
+                    if ($account_status_response->successful())
+                    {
+                        $account_status_data = $account_status_response->json();
+                        $account_status = $account_status_data['status'];
+                        $account->account_status = $account_status;
+                        $account->save();
+                    }
                 }
 
-                $balance_response = Http::withHeaders([
-                    'accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
-                ])->get(
-                    $baseURL . $account->account_id . '/balances/',
-                    $query
-                );
-
-                if ($balance_response->successful())
-                {
-                    $balance_data = $balance_response->json();
-                    Functions::update_account_balance($account, $balance_data);
-                    $user->update_error_code("balance_error_code", 200);
-                }
-                else
-                {
-                    $user->update_error_code("balance_error_code", $balance_response->status());
+                if($agreement->balances_scope == 1){
+                    $balance_response = Http::withHeaders([
+                        'accept' => 'application/json',
+                        'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+                    ])->get(
+                        $baseURL . $account->account_id . '/balances/',
+                        $query
+                    );
+    
+                    if ($balance_response->successful())
+                    {
+                        $balance_data = $balance_response->json();
+                        Functions::update_account_balance($account, $balance_data);
+                        $user->update_error_code("balance_error_code", 200);
+                    }
+                    else
+                    {
+                        $user->update_error_code("balance_error_code", $balance_response->status());
+                    }
                 }
 
                 $transaction_response = Http::withHeaders([
