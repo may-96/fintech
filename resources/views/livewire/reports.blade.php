@@ -22,13 +22,27 @@
                                 <a class="float-md-end share_icon m-1 py-1 btn btn-sm btn-group-lg btn-soft-primary" wire:click.prevent="get_sharing_info({{ true }})" data-bs-toggle="modal" data-bs-target="#shareform"
                                    data-toggle="tooltip" data-placement="top" title="Share"><i class="uil uil-share-alt"></i></a>
                             @endif
-                            <a class="float-md-end m-1 py-1 btn btn-sm btn-group-lg btn-soft-primary" id="generate" onclick="printReport()">Generate PDF Report</a>
+                            <a class="float-md-end m-1 py-1 btn btn-sm btn-group-lg btn-soft-primary" id="generate" data-bs-toggle="modal" data-bs-target="#printform">Generate PDF Report</a>
                         </div>
 
                         <hr />
 
+                        @if ($data[0] == 'shared' && $amount_check != null && $amount_check > 0 )
+                        <div class="col-12 mb-3 mh-100">
+                            <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
+                                <div class="col-12">
+                                    @if((((float)$report_data[12] * 2.5) > $amount_check))
+                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                    @else
+                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="col-lg-4 col-sm-6 mh-100">
-                            <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
                                     <h3 class="d-flex justify-content-between fs-28 text-navy"><span>{{ $report_data[7] }}</span><i class="uil uil-atm-card fs-20 text-navy bg-white border rounded-full px-2 py-1 "></i></h3>
                                     <p class="fs-14">Total Accounts</p>
@@ -37,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 mh-100">
-                            <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
                                     <h3 class="d-flex justify-content-between fs-28 text-red"><span>{{ config('app.settings.report_currency_symbol') . round($report_data[5], 2) }}</span><i
                                            class="uil uil-bill fs-20 text-red bg-white border rounded-full px-2 py-1"></i></h3>
@@ -46,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 mh-100">
-                            <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
                                     <h3 class="d-flex justify-content-between fs-28 text-navy"><span>{{ config('app.settings.report_currency_symbol') . round($report_data[6], 2) }}</span><i
                                            class="uil uil-briefcase fs-20 text-navy border bg-white rounded-full px-2 py-1"></i></h3>
@@ -55,7 +69,7 @@
                             </div>
                         </div>
                         {{-- <div class="col-lg-3 col-sm-6 mh-100">
-                                <div class="p-3 bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
+                                <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                     <div class="col-12">
                                         <h3 class="d-flex justify-content-between fs-28 text-orange"><span>$5000</span><i class="uil uil-money-bill fs-20 text-orange bg-white border rounded-full px-2 py-1"></i></h3>
                                         <p class="fs-14">Average Income</p>
@@ -129,7 +143,7 @@
         </div>
 
         <!-- print report -->
-        <div class="report-box" id="report">
+        <div class="report-box mb-15" id="report">
             <div class="row g-3">
                 <div class="col-2 m-auto">
                     <img height="100px" src="{{ asset('images/logo.png') }}">
@@ -172,14 +186,31 @@
                         @else
                             <p class="m-0 text-end"><span class="">No Saving neither Over Spent</span></p>
                         @endif
+                        <p class="m-0 text-end"><span class="fw-bold">Accounts Anaylzed:</span> <span>{{ $report_data[7] }}</span></p>
+                        <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ $report_data[12] }}</span></p>
                     </div>
+                </div>
+                <div class="row mb-5">
+                    @if ($data[0] == 'shared' && $amount_check != null && $amount_check > 0)
+                    <div class="col-12 mh-100">
+                        <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
+                            <div class="col-12">
+                                @if((((float)$report_data[12] * 2.5) > $amount_check))
+                                <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                @else
+                                <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="row mb-10">
                     @if (count($report_data[1]) > 0 && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_income'] == 1)))
-                        <div class="col-12">
+                        <div class="col-12 mb-10">
                             <h5>Income</h5>
-                            <table class="table table-striped m-0">
+                            <table class="table table-striped m-0 mb-10">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1">Type</th>
@@ -198,16 +229,16 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="w-100">
+                            <div class="w-100 mb-20 graphical_area">
                                 <div class="d-flex justify-content-center align-items-center w-100" id="IncomechartPrint"></div>
                             </div>
                         </div>
                     @endif
 
                     @if (count($report_data[2]) > 0 && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_expense'] == 1)))
-                        <div class="col-12">
+                        <div class="col-12 mb-10">
                             <h5>Expense</h5>
-                            <table class="table table-striped m-0">
+                            <table class="table table-striped m-0 mb-10">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1">Type</th>
@@ -227,7 +258,7 @@
 
                                 </tbody>
                             </table>
-                            <div class="w-100">
+                            <div class="w-100 mb-20 graphical_area">
                                 <div class="d-flex justify-content-center align-items-center w-100" id="ExpensechartPrint"></div>
                             </div>
                         </div>
@@ -235,10 +266,10 @@
                 </div>
 
                 @if (count($report_data[0]) > 0 && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_cash_flow'] == 1)))
-                    <div class="row">
+                    <div class="row mb-10">
                         <div class="col-12">
                             <h5>Cash Flow</h5>
-                            <table class="table table-striped m-0">
+                            <table class="table table-striped m-0 mb-10">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1">Month</th>
@@ -263,7 +294,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div class="p-6 w-100">
+                            <div class="w-100 mb-20 graphical_area">
                                 <div class="d-flex justify-content-center align-items-center w-100" id="cashflowchartprint"></div>
                             </div>
                         </div>
@@ -288,7 +319,7 @@
                         <button class="btn-close" data-bs-dismiss="modal"></button>
                         <h5 class="text-start">Share Report with</h5>
                         <div class="d-flex mb-5">
-                            <input wire:model="email" name="email" type="email" class="p-1 form-control" placeholder="Email">
+                            <input wire:model.defer="email" name="email" type="email" class="p-1 form-control" placeholder="Email">
                             <button wire:click="add_report_user" id="addUserBtn" type="button" class="btn btn-sm btn-dark border-0 rounded-pill py-0 ms-3">
                                 <i class="uil p-0 uil-user-plus text-white"></i>
                             </button>
@@ -342,7 +373,7 @@
                                 Report is not shared with anyone!
                             @endforelse
                         </div>
-                        <div>
+                        {{-- <div>
                             <p class="text-muted text-start border-bottom fs-11 mt-4">Shareable Link</p>
                             @if (App\Helpers\Functions::is_empty($shareable_link))
                                 <button wire:click="generate_shareable_link()" class="btn btn-sm btn-soft-ash rounded-pill py-0 px-2" type="button">Generate Shareable Link</button>
@@ -355,7 +386,7 @@
                                     <textarea style="display: none;" id="copyTextarea"></textarea>
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -363,26 +394,43 @@
         </div>
     @endif
 
+    <div wire:ignore.self class="modal fade" id="printform">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="text-start">Print Report</h5>
+                    
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <input x-model="$store.data.print_settings" value="graph" name="print_graph" id="print_graph" type="radio" class="p-1 mb-2 form-check-input">
+                            <label class="form-check-label mb-2 fs-14 text-start" for="print_graph">Print with Graphs</label>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input x-model="$store.data.print_settings" value="no_graph" name="print_no_graph" id="print_no_graph" type="radio" class="p-1 mb-2 form-check-input" checked>
+                            <label class="form-check-label mb-2 fs-14 text-start" for="print_no_graph">Print Without Graphs</label>
+                        </div>
+                        <div class="col-12">
+                            <button x-on:click="$store.data.reportPrint()" id="printBtn" type="button" class="btn btn-sm btn-dark border-0 rounded-pill py-0 ms-3">Print</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 
 @push('scripts')
     <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('data', {
-                report_loading: true,
-                toggleReportLoading() {
-                    this.report_loading = !this.report_loading;
-                    setTimeout(() => {
-                        $('#report').toggleClass('d-none');
-                    }, 1000)
-                    
-                }
-            })
-        });
-
-        function printReport() {
+        function printReport(setting = 'graph') {
             
             $('#report').toggleClass('d-none');
+            if(setting == 'no_graph'){
+                $('.graphical_area').addClass('d-none');
+            }
             
             $('#time_span').html(new Date().toLocaleString());
             setTimeout(() => {
@@ -397,9 +445,39 @@
                     documentTitle: 'Report',
                 });
                 $('#report').toggleClass('d-none');
+                if(setting == 'no_graph'){
+                    $('.graphical_area').removeClass('d-none');
+                }
             }, 1500)
 
         }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('data', {
+                report_loading: true,
+                print_settings: 'no_graph',
+                toggleReportLoading() {
+                    this.report_loading = !this.report_loading;
+                    if(this.report_loading == false){
+                        setTimeout(() => {
+                            $('#report').addClass('d-none');
+                        }, 1000);
+                    }                    
+                },
+                hidePrintableReport(){
+                    if(! ($('#report').hasClass('d-none'))){
+                        setTimeout(() => {
+                            $('#report').addClass('d-none');
+                        }, 1000);
+                    }
+                },
+                reportPrint(){
+                    printReport(this.print_settings);
+                }
+            })
+        });
+
+        
 
         function copy_text() {
             var copyText = document.getElementById("shareable_link").innerHTML;
@@ -432,6 +510,10 @@
 
             }, 500);
 
+        });
+
+        window.livewire.on('hidePrintableReport', () => {
+            Alpine.store('data').hidePrintableReport();
         });
 
         $(document).ready(function() {

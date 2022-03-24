@@ -17,6 +17,7 @@ class CreateReportRequestedFromUnregisteredUsers extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->string('email', 128)->nullable(false);
+            $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
             $table->timestamps();
         });
     }

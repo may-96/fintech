@@ -240,7 +240,8 @@
                                                                         @if(App\Helpers\Functions::not_empty($transaction['proprietary_bank_transaction_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Proprietary Bank Transaction Code:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['proprietary_bank_transaction_code'] }}</div></div>@endif
                                                                         @if(App\Helpers\Functions::not_empty($transaction['mandate_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Mandate ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['mandate_id'] }}</div></div>@endif
                                                                         @if(App\Helpers\Functions::not_empty($transaction['check_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Check ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['check_id'] }}</div></div>@endif
-                                                                        
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['end_to_end_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>End to End ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['end_to_end_id'] }}</div></div>@endif
+                                            
                                                                         @if(App\Helpers\Functions::not_empty($transaction['status']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Status:</strong> </small></div><div class="col-md-12 col-lg-7 lh1_3 p-0 text-capitalize"> {{ $transaction['status'] }}</div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['balance_after_transaction']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Balance After Transaction:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['balance_after_transaction'] }}</div></div>@endif
@@ -364,6 +365,7 @@
                                             @if(App\Helpers\Functions::not_empty($transaction['proprietary_bank_transaction_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Proprietary Bank Transaction Code:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['proprietary_bank_transaction_code'] }}</div></div>@endif
                                             @if(App\Helpers\Functions::not_empty($transaction['mandate_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Mandate ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['mandate_id'] }}</div></div>@endif
                                             @if(App\Helpers\Functions::not_empty($transaction['check_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Check ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['check_id'] }}</div></div>@endif
+                                            @if(App\Helpers\Functions::not_empty($transaction['end_to_end_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>End to End ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['end_to_end_id'] }}</div></div>@endif
                                                                         
                                             @if(App\Helpers\Functions::not_empty($transaction['status']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Status:</strong> </small></div><div class="col-md-12 col-lg-7 lh1_3 p-0 text-capitalize"> {{ $transaction['status'] }}</div></div>@endif
                                             
@@ -443,11 +445,15 @@
                         </div>
                     @elseif($transaction_status == 'Processing')
                         <div>
-                            Fetching Your Account Transactions
+                            <span>We were unable to fetch all transactions earlier. Fetching Your Account Transactions again. Please wait ... </span>
+                            <div id="loading_bars">
+                                <x-loading />
+                                Fetching Transactions
+                            </div>
                         </div>
                     @else
                         <div>
-                            Error Raised While Fetching or Updating Your Account Transactions
+                            Server Error Raised While Fetching or Updating Your Account Transactions
                         </div>
                         @endif
 
@@ -629,6 +635,9 @@
                 setTimeout(function(){
                     document.getElementById("comment_saving_" + data).classList.add('d-none');
                 },150);
+            });
+            window.livewire.on('transactionReFetched', (data) => {
+                window.location.href = window.location.href;
             });
 
             document.addEventListener('keydown', function(e) {

@@ -23,6 +23,7 @@ class CreateReportUserTable extends Migration
             $table->unsignedTinyInteger('view_email')->default(1);
             $table->unsignedTinyInteger('view_contact')->default(1);
             $table->unsignedTinyInteger('view_credit_score')->default(1);
+            $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
             $table->string('token')->nullable(false);
             $table->timestamps();
 

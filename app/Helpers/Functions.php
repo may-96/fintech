@@ -87,6 +87,7 @@ class Functions
                 "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
                 "bank_transaction_code" => isset($t["bankTransactionCode"]) ? $t["bankTransactionCode"] : null,
                 "status" => $status,
+                'end_to_end_id' => isset($t["endToEndId"]) ? $t["endToEndId"] : null,
                 
                 "additional_information_structured" => isset($t["additionalInformationStructured"]) ? json_encode($t["additionalInformationStructured"]) : null,
                 "balance_after_transaction" => isset($t["balanceAfterTransaction"]) ? json_encode($t["balanceAfterTransaction"]) : null,
@@ -193,6 +194,8 @@ class Functions
         $average_cash_in = 0;
         $average_cash_out = 0;
 
+        $salary_total = 0;
+
         if(count($accounts) == 0){
             return 0;
         }
@@ -254,6 +257,9 @@ class Functions
                 }                
             }
 
+            $cat_total = Functions::specific_category_total($account,$years,'Salary',$exchange);
+            $salary_total += $cat_total;
+
             if($total_months > 0){
                 $average_cash_in += $tci / $total_months;
                 $average_cash_out += $tco / $total_months;
@@ -262,6 +268,12 @@ class Functions
             $income_data = Functions::get_income_expense_data($account, $income_data, $years, 'income', $exchange);
             $expense_data = Functions::get_income_expense_data($account, $expense_data, $years, 'expense', $exchange);
         }
+
+        $salary_monthly = 0;
+        if(count($cash_flow_data) > 0){
+            $salary_monthly = $salary_total / count($cash_flow_data);
+        }
+        
 
         if($accounts->count() > 0){
             $average_cash_in = $average_cash_in / $accounts->count();
@@ -305,7 +317,21 @@ class Functions
             $credit_color = "green";
         }      
 
-        return [$cash_flow_data, $income_data, $expense_data, $total_cash_in, $total_cash_out, $average_cash_in, $average_cash_out, $accounts->count(), $credit_score, $credit_rating, $credit_color, $diff];
+        return [
+            $cash_flow_data, 
+            $income_data, 
+            $expense_data, 
+            $total_cash_in, 
+            $total_cash_out, 
+            $average_cash_in, 
+            $average_cash_out, 
+            $accounts->count(), 
+            $credit_score, 
+            $credit_rating, 
+            $credit_color, 
+            $diff, 
+            $salary_monthly
+        ];
     }
 
     private static function get_income_expense_data($account, $data, $years, $type, $exchange){
@@ -334,6 +360,15 @@ class Functions
             }
         }
         return $data;
+    }
+
+    private static function specific_category_total($account, $years, $name, $exchange){
+        $category = Category::where('name', $name)->get()->first();
+        $transactions = $account->transactions()->where('fixed_date','<',Carbon::now())->where('fixed_date','>',Carbon::now()->subYears($years))->where('category_id', $category->id);
+        $ctt = $transactions->sum('transaction_amount');
+        $category_transaction_total = $exchange * abs($ctt);
+
+        return $category_transaction_total;
     }
 
     public static function fetchTransactions($user, $account, $df, $dt){

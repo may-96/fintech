@@ -61,8 +61,13 @@ class ReportController extends Controller
 
     public function requestReport(Request $request)
     {
+        $request->validate([
+            'amount' => ['required', 'numeric', 'gte:0'],
+            'emails' => ['required', 'string']
+        ]);
 
         $emails = $request->emails;
+        $amount = $request->amount;
         $emails_formatted = str_replace("\r\n", ",", str_replace(" ", ",", str_replace("  ", ",", $emails)));
         $emails_array = array_values(array_filter(explode(",", $emails_formatted)));
         $invalid_emails = 0;
@@ -96,7 +101,9 @@ class ReportController extends Controller
                         try
                         {
 
-                            $user->report_requested_from()->attach($auth_user->id, []);
+                            $user->report_requested_from()->attach($auth_user->id, [
+                                'amount' => $amount
+                            ]);
 
                             $message = $auth_user->fname . ' ' . $auth_user->lname . ' has requested you to share your Credit Report.';
 
@@ -125,6 +132,7 @@ class ReportController extends Controller
                             DB::table('report_requested_from_unregistered_users')->insert([
                                 'user_id' => $auth_user->id,
                                 'email' => $email,
+                                'amount' => $amount,
                                 "created_at" =>  Carbon::now()->toDateTimeString(),
                                 "updated_at" => Carbon::now()->toDateTimeString()
                             ]);
@@ -224,6 +232,7 @@ class ReportController extends Controller
             $check2 = $user->shared_reports()->wherePivot('shared_with', $shared_with)->count();
             if ($check2 == 0 && $shared_user)
             {
+                $amount = $user->report_requested_from()->wherePivot('user_id', $shared_with)->get()->first()->pivot->amount;
                 $token = (string) Str::orderedUuid();
                 $shared_user->shared_reports_with()->attach($user->id, [
                     'view_cash_flow' => $request->view_cash_flow ? 1 : 0,
@@ -232,6 +241,7 @@ class ReportController extends Controller
                     'view_email' => $request->view_email_check ? 1 : 0,
                     'view_contact' => $request->view_contact ? 1 : 0,
                     'view_credit_score' => $request->view_credit_score ? 1 : 0,
+                    'amount' => $amount,
                     'token' => $token,
                 ]);
 

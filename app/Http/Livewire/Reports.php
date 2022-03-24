@@ -49,6 +49,9 @@ class Reports extends Component
 
     public $shareable_link = null;
 
+    public $first_render = true;
+    public $amount_check = 0;
+
     public function mount($data)
     {
         $this->data = $data;
@@ -61,11 +64,17 @@ class Reports extends Component
         if($this->data[0] == "shared"){
             $sharing_info = $this->data[1];
             $this->fetch_id = $sharing_info->user_id;
+            $this->amount_check = $sharing_info->amount;
         }
+
     }
 
     public function render()
     {
+        if($this->first_render == false){
+            $this->emit('hidePrintableReport');
+        }
+        $this->first_render = false;
         return view('livewire.reports');
     }
 

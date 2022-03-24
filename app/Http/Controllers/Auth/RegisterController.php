@@ -134,7 +134,9 @@ class RegisterController extends Controller
 
         $shares = DB::table('report_requested_from_unregistered_users')->where('email',$data['email'])->get();
         foreach($shares as $share){
-            $user->report_requested_from()->attach($share->user_id, []);
+            $user->report_requested_from()->attach($share->user_id, [
+                'amount' => $share->amount,
+            ]);
 
             $temp_user = User::find($share->user_id);
 

@@ -23,12 +23,18 @@
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
             <div id="form_area" class="container pt-10 pb-10 pt-md-14 text-center">
                 <h2 class="h1 fs-46 mb-10 text-center mb-4">Request Report</h2>
-                <p>Enter the email address of the accounts for which you want to request a Credit Worthiness and Affordibility Report.</p>
+                <p class="mb-0">Enter the email address of the accounts for which you want to request a Credit Worthiness and Affordibility Report.</p>
                 <small>We will send a notification to the user, after they share the credit report then you can download it by logging into your account.</small>
                 <form action="{{route('request.report.submit')}}" method="post">
                     @csrf
+                    <div class="mt-5 mb-3">
+                        <div class="text-start">
+                            <input id="amount" type="number" min="0" value="{{old('amount')}}" name="amount" class="form-control px-2 py-1 @error('amount') is-invalid @enderror" placeholder="Amount (in ($) dollars) to Repay Per Month (Rent Amount, Mortgage Amount etc)" required>
+                            @error('amount')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                        </div>
+                    </div>
                     <div class="form-floating">
-                        <textarea id="request_form" name="emails" class="form-control" placeholder="Enter Email Addresses" style="height: 250px" required></textarea>
+                        <textarea id="request_form" name="emails" class="form-control" placeholder="Enter Email Addresses" style="height: 250px" required>{{old('emails')}}</textarea>
                         <label for="request_form">Please Enter Email Addresses</label>
                     </div>
                     <div class="mb-4">

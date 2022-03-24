@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Events\SendNotification;
 use App\Events\ViewTransactions;
+use App\Helpers\Functions;
 use App\Mail\ShareWithUnregisteredUsers;
 use App\Models\Account;
 use App\Models\Category;
@@ -96,7 +97,12 @@ class Transactions extends Component
     {
         if ($this->user->transaction_error_code == null)
         {
+            $this->user->transaction_error_code = 500;
+            $this->user->save();
             $this->transaction_status = "Processing";
+            Functions::fetchTransactions($this->user, $this->account, null, null);
+            $req = $this->account->requisition->reference_id;
+            $this->emit('transactionReFetched', $req);
         }
         else if ($this->user->transaction_error_code == 200)
         {
@@ -105,6 +111,7 @@ class Transactions extends Component
                 'bank_transaction_code', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes', 'category_id', 'additional_information_structured',
                 'balance_after_transaction', 'check_id', 'creditor_agent', 'creditor_id', 'currency_exchange', 'debtor_agent', 'mandate_id', 'proprietary_bank_transaction_code',
                 'remittance_information_structured', 'remittance_information_structured_array', 'remittance_information_unstructured_array', 'ultimate_creditor', 'ultimate_debtor',
+                'end_to_end_id'
             ];
             $this->transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date', 'desc')->get();
             
