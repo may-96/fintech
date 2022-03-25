@@ -255,7 +255,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                             <div class="w-100 mb-20 graphical_area">
@@ -285,14 +284,12 @@
                                             <td class="text-dark text-center">{{ config('app.settings.report_currency_symbol') . round($value[3], 2) }}</td>
                                         </tr>
                                     @endforeach
-                                </tbody>
-                                <tfoot>
                                     <tr>
                                         <td class="ps-3 fw-bold">Total</td>
                                         <td class="text-dark text-center fw-bold">{{ config('app.settings.report_currency_symbol') . round($report_data[3], 2) }}</td>
                                         <td class="text-dark text-center fw-bold">{{ config('app.settings.report_currency_symbol') . round($report_data[4], 2) }}</td>
                                     </tr>
-                                </tfoot>
+                                </tbody>
                             </table>
                             <div class="w-100 mb-20 graphical_area">
                                 <div class="d-flex justify-content-center align-items-center w-100" id="cashflowchartprint"></div>
