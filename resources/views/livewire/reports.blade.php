@@ -104,7 +104,7 @@
                                 <div class="col-12 mb-10 table-responsive">
                                     <h5>Incoming Consistent Payments</h5>
                                     <h6>More than 6 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -121,9 +121,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] > 6)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -143,7 +145,7 @@
                                         </tbody>
                                     </table>
                                     <h6>3 to 6 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -160,9 +162,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] >= 3 && $streak[0] <= 6)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -182,7 +186,7 @@
                                         </tbody>
                                     </table>
                                     <h6>Less than 3 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -199,9 +203,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] < 3)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -226,7 +232,7 @@
                                 <div class="col-12 mb-10 table-responsive">
                                     <h5>Outgoing Consistency</h5>
                                     <h6>More than 6 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -243,9 +249,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] > 6)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -266,7 +274,7 @@
                                         </tbody>
                                     </table>
                                     <h6>3 to 6 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -283,9 +291,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] >= 3 && $streak[0] <= 6)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -306,7 +316,7 @@
                                         </tbody>
                                     </table>
                                     <h6>Less than 3 months consistent payments</h6>
-                                    <table class="table table-striped m-0 mb-10 consistency">
+                                    <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
@@ -323,9 +333,11 @@
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] < 3)
                                                         @php $streak_found = true; @endphp
+                                                        @if($loop->first)
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
+                                                        @endif
                                                         @php $streak_count += 1; @endphp
                                                         <tr class="streak_details">
                                                             <td colspan="1"></td>
@@ -524,7 +536,7 @@
                         <div class="col-12 mb-10 table-responsive">
                             <h5>Incoming Consistent Payments</h5>
                             <h6>More than 6 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -541,9 +553,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] > 6)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>
@@ -563,7 +577,7 @@
                                 </tbody>
                             </table>
                             <h6>3 to 6 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -580,9 +594,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] >= 3 && $streak[0] <= 6)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>
@@ -602,7 +618,7 @@
                                 </tbody>
                             </table>
                             <h6>Less than 3 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -619,9 +635,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] < 3)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>
@@ -646,7 +664,7 @@
                         <div class="col-12 mb-10 table-responsive">
                             <h5>Outgoing Consistency</h5>
                             <h6>More than 6 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -663,9 +681,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] > 6)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>
@@ -686,7 +706,7 @@
                                 </tbody>
                             </table>
                             <h6>3 to 6 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -703,9 +723,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] >= 3 && $streak[0] <= 6)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>
@@ -726,7 +748,7 @@
                                 </tbody>
                             </table>
                             <h6>Less than 3 months consistent payments</h6>
-                            <table class="table table-striped m-0 mb-10 consistency">
+                            <table class="table m-0 mb-10 consistency">
                                 <thead class="bg-secondary text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
@@ -743,9 +765,11 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] < 3)
                                                 @php $streak_found = true; @endphp
+                                                @if($loop->first)
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
+                                                @endif
                                                 @php $streak_count += 1; @endphp
                                                 <tr class="streak_details">
                                                     <td colspan="1"></td>

@@ -12,6 +12,10 @@
             font-size: 12px
         }
 
+        table.consistency tr.account_title{
+            background-color: #cccccc;
+        }
+
         table.consistency tr.account_title td{
             font-weight: bold;
             font-size: 12px
