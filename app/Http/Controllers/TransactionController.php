@@ -45,8 +45,10 @@ class TransactionController extends Controller
             if($account){
                 $exists = $user->shared_accounts()->newPivotStatementForId($account->id)->exists();
                 if($exists){
-                    $notes = $user->shared_accounts()->newPivotStatementForId($account->id)->get()->first()->notes_shared;
-                    return view('app.shared_transactions', ["account_id" => $aid, "aid" => $id, 'notes_shared' => $notes]);
+                    $shared_acct = $user->shared_accounts()->newPivotStatementForId($account->id)->get()->first();
+                    $notes = $shared_acct->notes_shared;
+                    $balance = $shared_acct->balance_shared;
+                    return view('app.shared_transactions', ["account_id" => $aid, "aid" => $id, 'notes_shared' => $notes, 'balance_shared' => $balance]);
                 }
                 return redirect(route('shared.accounts'))->with('danger', "Access Denied");
             }
@@ -62,7 +64,7 @@ class TransactionController extends Controller
         try{
             $account = Account::where('shareable_link', $token)->get()->first();
             if($account){
-                return view('app.shareable_link_transactions', ["account_id" => $account->account_id, "aid" => $account->id, 'notes_shared' => 1]);
+                return view('app.shareable_link_transactions', ["account_id" => $account->account_id, "aid" => $account->id, 'notes_shared' => 1, 'balance_shared' => 1]);
             }
             return redirect()->back()->with('danger', "No such Account Exist");
 

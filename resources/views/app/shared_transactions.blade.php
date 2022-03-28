@@ -134,12 +134,11 @@
     </section>
 @endsection
 @section('content')
-    <livewire:shared-transactions :account_id="$account_id" :aid="$aid" :notes_shared="$notes_shared" />
+    <livewire:shared-transactions :account_id="$account_id" :aid="$aid" :notes_shared="$notes_shared" :balance_shared="$balance_shared" />
 @endsection
 
 @section('js')
     <script src="{{asset('js/save_transactions.js')}}"></script>
     @livewireScripts
-    <script src="{{ asset('js/alpine.js') }}"></script>
     @stack('scripts')
 @endsection

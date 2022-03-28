@@ -130,6 +130,10 @@
                             <input wire:model="share_notes" type="checkbox" id="share_notes" class="p-1 form-check-input"> 
                             <label class="form-check-label text-start" for="share_notes">Share along with Transaction Notes</label>
                         </div>
+                        <div class="form-check">
+                            <input wire:model="share_balance" type="checkbox" id="share_balance" class="p-1 form-check-input"> 
+                            <label class="form-check-label text-start" for="share_balance">Share along with Account Balance</label>
+                        </div>
                         @if(App\Helpers\Functions::not_empty($error))<div class="text-start lh-1"><small class="text-danger">{{$error}}</small></div>@endif
                         @if(App\Helpers\Functions::not_empty($success))<div class="text-start lh-1"><small class="text-success">{{$success}}</small></div>@endif
                         <p class="text-muted text-start border-bottom fs-11 mt-4">Shared with</p>
@@ -180,10 +184,14 @@
             var copyText = document.getElementById("shareable_link").innerHTML;
             var copy = document.getElementById("copyTextarea");
             copy.value = copyText;
+            copy.focus();
             copy.select();
             copy.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            navigator.clipboard.writeText(copyText);
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyText);
+            }
 
             var copy_text_notify = document.getElementById('copy_toast');
             copy_text_notify.classList.toggle('d-none');

@@ -30,6 +30,7 @@ class MyAccounts extends Component
     public $success = "";
     public $email;
     public $share_notes = 0;
+    public $share_balance = 0;
     protected $ids;
     public $share;
     public $user;
@@ -142,7 +143,7 @@ class MyAccounts extends Component
                 {
                     try
                     {
-                        $user->shared_accounts()->attach($this->selected_account_id, ['notes_shared' => $this->share_notes ? 1 : 0]);
+                        $user->shared_accounts()->attach($this->selected_account_id, ['notes_shared' => $this->share_notes ? 1 : 0, 'balance_shared' => $this->share_balance ? 1 : 0]);
 
 
                         $message = $authenticated_user->fname . ' ' . $authenticated_user->lname . ' has shared an Account of ' . $account->institution->name;
@@ -172,6 +173,7 @@ class MyAccounts extends Component
                             'account_id' => $this->selected_account_id,
                             'email' => $this->email,
                             'notes_shared' => $this->share_notes ? 1 : 0,
+                            'balance_shared' => $this->share_balance ? 1 : 0,
                             "created_at" =>  Carbon::now()->toDateTimeString(),
                             "updated_at" => Carbon::now()->toDateTimeString()
                         ]);

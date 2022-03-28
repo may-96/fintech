@@ -19,6 +19,7 @@ class CreateAccountUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string("nickname")->nullable();
             $table->unsignedTinyInteger("notes_shared")->default(0);
+            $table->unsignedTinyInteger("balance_shared")->default(0);
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');

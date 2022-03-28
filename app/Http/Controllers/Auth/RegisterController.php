@@ -83,7 +83,7 @@ class RegisterController extends Controller
 
         $shares = DB::table('account_shares_with_unregistered_users')->where('email',$data['email'])->get();
         foreach($shares as $share){
-            $user->shared_accounts()->attach($share->account_id, ['notes_shared' => $share->notes_shared]);
+            $user->shared_accounts()->attach($share->account_id, ['notes_shared' => $share->notes_shared, 'balance_shared' => $share->balance_shared]);
 
             $account = Account::find($share->account_id);
             $temp_user = $account->user;

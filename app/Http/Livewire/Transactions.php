@@ -48,6 +48,7 @@ class Transactions extends Component
     public $shared_emails = [];
     public $email = '';
     public $share_notes = 0;
+    public $share_balance = 0;
 
     protected $listeners = ['refreshView' => 'refreshing'];
 
@@ -84,7 +85,7 @@ class Transactions extends Component
         }
         else if ($this->user->balance_error_code == 200)
         {
-            $this->balances = $this->account->balances;
+            $this->balances = $this->account->balances->toArray();
             $this->balance_status = "OK";
         }
         else
@@ -254,7 +255,7 @@ class Transactions extends Component
                 {
                     try
                     {
-                        $user->shared_accounts()->attach($this->account->id, ['notes_shared' => $this->share_notes ? 1 : 0]);
+                        $user->shared_accounts()->attach($this->account->id, ['notes_shared' => $this->share_notes ? 1 : 0, 'balance_shared' => $this->share_balance ? 1 : 0]);
 
 
                         $message = $authenticated_user->fname . ' ' . $authenticated_user->lname . ' has shared an Account of ' . $this->institution->name;
@@ -286,6 +287,7 @@ class Transactions extends Component
                             'account_id' => $this->account->id,
                             'email' => $this->email,
                             'notes_shared' => $this->share_notes ? 1 : 0,
+                            'balance_shared' => $this->share_balance ? 1 : 0,
                             "created_at" =>  Carbon::now()->toDateTimeString(),
                             "updated_at" => Carbon::now()->toDateTimeString()
                         ]);

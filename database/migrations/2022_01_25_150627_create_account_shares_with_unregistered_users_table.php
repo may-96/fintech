@@ -18,6 +18,7 @@ class CreateAccountSharesWithUnregisteredUsersTable extends Migration
             $table->string("email",128);
             $table->unsignedBigInteger('account_id');
             $table->unsignedTinyInteger("notes_shared")->default(0);
+            $table->unsignedTinyInteger("balance_shared")->default(0);
             $table->timestamps();
 
             $table->unique(['email', 'account_id']);

@@ -22,12 +22,15 @@ class SharedTransactions extends Component
 
     public $account_id;
     public $notes_shared;
+    public $balance_shared;
     public $account;
     public $institution;
     public $aid;
 
+    public $balances = [];
 
-    public function mount($account_id, $aid, $notes_shared)
+
+    public function mount($account_id, $aid, $notes_shared, $balance_shared)
     {
         $this->account_id = $account_id;
         $this->aid = $aid;
@@ -35,9 +38,14 @@ class SharedTransactions extends Component
         $this->transactions = collect();
 
         $this->notes_shared = $notes_shared;
+        $this->balance_shared = $balance_shared;
         
         $this->account = Account::where('id',$this->aid)->where('account_id',$this->account_id)->get()->first();
         $this->institution = $this->account->institution;
+
+        if($this->balance_shared == 1){
+            $this->balances = $this->account->balances->toArray();
+        }
 
         $this->total_transactions = $this->account->transactions()->count();
         
@@ -53,10 +61,10 @@ class SharedTransactions extends Component
     private function load_transactions(){
         
             if($this->notes_shared == 1){
-                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id','notes',];
+                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'remittance_information_structured', 'transaction_currency', 'transaction_amount','category_id','notes',];
             }
             else{
-                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id'];
+                $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'remittance_information_structured', 'transaction_currency', 'transaction_amount','category_id'];
             }
             $transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date','desc')->get();
             if($transactions->count() >= $this->total_transactions){
@@ -68,7 +76,7 @@ class SharedTransactions extends Component
     }
 
     public function load_more(){
-        $this->load_amount += 10;
+        $this->load_amount += 15;
         $this->load_transactions();
     }
 }

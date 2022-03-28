@@ -21,19 +21,27 @@ class ShareableLinkTransactions extends Component
 
     public $account_id;
     public $notes_shared;
+    public $balance_shared;
     public $account;
     public $aid;
 
+    public $balances = [];
 
-    public function mount($account_id, $aid, $notes_shared)
+
+    public function mount($account_id, $aid, $notes_shared, $balance_shared)
     {
         $this->account_id = $account_id;
         $this->aid = $aid;
         $this->transactions = collect();
 
         $this->notes_shared = $notes_shared;
+        $this->balance_shared = $balance_shared;
         
         $this->account = Account::where('id',$this->aid)->where('account_id',$this->account_id)->get()->first();
+
+        if($this->balance_shared == 1){
+            $this->balances = $this->account->balances->toArray();
+        }
 
         $this->total_transactions = $this->account->transactions()->count();
         

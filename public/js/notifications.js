@@ -1,4 +1,4 @@
-Pusher.logToConsole = true;
+Pusher.logToConsole = false;
 
 var basePath = window.location.origin;
 var notifications = [];
@@ -9,7 +9,7 @@ var pusher = new Pusher('89723c45f605cf554606',
     cluster: 'us2'
 });
 
-let user_id = document.querySelector("meta[name='user-id']")
+var user_id = document.querySelector("meta[name='user-id']")
     .getAttribute('content');
 
 // Subscribe to the channel we specified in our Laravel Event
@@ -19,12 +19,13 @@ var channel = pusher.subscribe('notification.broadcast.' + user_id);
 channel.bind('notification', function(data)
 {
     // this is called when the event notification is received...
-    console.log(data);
     notifications.unshift(data.notification);
 
     renderNotifications();
-    document.getElementById("notification_sound")
-        .play();
+    if(parseInt(data.notification.user_id) == parseInt(user_id)){
+        document.getElementById("notification_sound").play();
+    }
+    
 });
 
 async function updateNotifications(action, id = null)

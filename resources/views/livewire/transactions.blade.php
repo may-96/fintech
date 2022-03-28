@@ -20,21 +20,21 @@
                 @if (!empty($balances)) 
                     <div class="row mb-6 gy-4 justify-content-center">
                         @foreach ($balances as $balance)
-                            @if ($balance->type == 'expected')
+                            @if ($balance['type'] == 'expected')
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="card card bg-soft-blue border-blue big_border_bottom">
                                         <div class="card-body text-start px-4 py-2">
-                                            <h5 class="card-title">{{ $balance->currency }} {{ $balance->amount }}</h5>
+                                            <h5 class="card-title">{{ $balance['currency'] }} {{ $balance['amount'] }}</h5>
                                             <p class="card-text fs-14">Expected Balance</p>
                                         </div>
                                     </div>
                                 </div>
                             @endif
-                            @if ($balance->type == 'closingBooked')
+                            @if ($balance['type'] == 'closingBooked')
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="card card bg-soft-yellow border-yellow big_border_bottom">
                                         <div class="card-body text-start px-4 py-2">
-                                            <h5 class="card-title">{{ $balance->currency }} {{ $balance->amount }}</h5>
+                                            <h5 class="card-title">{{ $balance['currency'] }} {{ $balance['amount'] }}</h5>
                                             <p class="card-text fs-14">Closing Balance</p>
                                         </div>
                                     </div>
@@ -492,6 +492,10 @@
                         <input wire:model="share_notes" type="checkbox" id="share_notes" class="p-1 form-check-input"> 
                         <label class="form-check-label text-start" for="share_notes">Share along with Transaction Notes</label>
                     </div>
+                    <div class="form-check">
+                        <input wire:model="share_balance" type="checkbox" id="share_balance" class="p-1 form-check-input"> 
+                        <label class="form-check-label text-start" for="share_balance">Share along with Account Balance</label>
+                    </div>
                     @if(App\Helpers\Functions::not_empty($error))<div class="text-start lh-1"><small class="text-danger">{{$error}}</small></div>@endif
                     @if(App\Helpers\Functions::not_empty($success))<div class="text-start lh-1"><small class="text-success">{{$success}}</small></div>@endif
                     <p class="text-muted text-start border-bottom fs-11 mt-4">Shared with</p>
@@ -719,7 +723,10 @@
             copy.select();
             copy.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            navigator.clipboard.writeText(copyText);
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(copyText);
+            }
 
             var copy_text_notify = document.getElementById('copy_toast');
             copy_text_notify.classList.toggle('d-none');

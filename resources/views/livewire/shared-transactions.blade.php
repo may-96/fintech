@@ -13,6 +13,33 @@
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
             <div class="container pt-6 pb-19 pt-md-10 pb-md-20 text-center">
 
+                @if (!empty($balances)) 
+                    <div class="row mb-6 gy-4 justify-content-center">
+                        @foreach ($balances as $balance)
+                            @if ($balance['type'] == 'expected')
+                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                    <div class="card card bg-soft-blue border-blue big_border_bottom">
+                                        <div class="card-body text-start px-4 py-2">
+                                            <h5 class="card-title">{{ $balance['currency'] }} {{ $balance['amount'] }}</h5>
+                                            <p class="card-text fs-14">Expected Balance</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($balance['type'] == 'closingBooked')
+                                <div class="col-sm-6 col-md-6 col-lg-3">
+                                    <div class="card card bg-soft-yellow border-yellow big_border_bottom">
+                                        <div class="card-body text-start px-4 py-2">
+                                            <h5 class="card-title">{{ $balance['currency'] }} {{ $balance['amount'] }}</h5>
+                                            <p class="card-text fs-14">Closing Balance</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+
                 {{-- <h2 class="h1 fs-46 text-center">Transactions</h2> --}}
                 
                 @if ($transaction_status == 'OK')
@@ -53,10 +80,11 @@
                                                             <div class="list-group w-100">
                                                                 <div class="d-flex w-100">
                                                                     <div class="w-100">
-                                                                        <p class="ficon m-0 w-100 lh1_3 text-start">
+                                                                        {{-- <p class="ficon m-0 w-100 lh1_3 text-start"> --}}
                                                                             {{-- <small class="text-muted fw-normal fs-11">12:02:46 PM</small> --}}
-                                                                            <span class="mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($transaction['remit_info_unstructured'])){{ $transaction['remit_info_unstructured'] }} @else {{ $transaction['remittance_information_structured'] }} @endif</span>
-                                                                        </p>
+                                                                            {{-- <span class="mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($transaction['remit_info_unstructured'])){{ $transaction['remit_info_unstructured'] }} @else {{ $transaction['remittance_information_structured'] }} @endif</span>
+                                                                        </p> --}}
+                                                                        <pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($transaction['remit_info_unstructured'])){!! nl2br($transaction['remit_info_unstructured']) !!} @else {!! nl2br($transaction['remittance_information_structured']) !!} @endif</pre>
                                                                         <div class="d-flex w-100 justify-content-between">
                                                                             <div class="dropdown">
                                                                                 <button class="btn border-primary text-primary border-1 btn-sm dropdown-toggle fs-12 py-0 px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +97,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="d-flex w-25 align-items-end flex-column justify-content-between">
-                                                                        <p class="ficon mb-0 text-primary">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
+                                                                        <p class="ficon mb-0 @if((float)$transaction['transaction_amount'] > 0) text-primary @else text-danger @endif">{{ $transaction['transaction_currency'] }} {{ $transaction['transaction_amount'] }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -144,30 +172,29 @@
                     },
                 'slow');
             });
-        });
 
-        window.livewire.on('allDataLoaded', () => {
+            window.livewire.on('allDataLoaded', () => {
                 Alpine.store('data').allLoaded();
             });
 
-        let ticking = false;
-        document.addEventListener('scroll', function(e) {
-            let win = $(window).scrollTop() + $(window).innerHeight();
-            let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
-            if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
-            
-                if (!ticking) {
-                    ticking = true
-                    Alpine.store('data').toggleTransactionsLoading();
-                    
-                    setTimeout(async () => {
-                        await @this.load_more();
+            let ticking = false;
+            document.addEventListener('scroll', function(e) {
+                let win = $(window).scrollTop() + $(window).innerHeight();
+                let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
+                if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
+                    if (!ticking) {
+                        ticking = true
                         Alpine.store('data').toggleTransactionsLoading();
-                        
-                        ticking = false;
-                    }, 1000);
+                        setTimeout(async () => {
+                            await @this.load_more();
+                            Alpine.store('data').toggleTransactionsLoading();
+                            ticking = false;
+                        }, 500);
+                    }
                 }
-            }
+            });
         });
+
+        
     </script>
 @endpush
