@@ -13,7 +13,7 @@
         }
 
         table.consistency tr.account_title{
-            background-color: #cccccc;
+            background-color: #e8e8e8;
         }
 
         table.consistency tr.account_title td{
