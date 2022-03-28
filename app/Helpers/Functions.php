@@ -278,12 +278,13 @@ class Functions
                         }
                         if($consistent_in[$debitor][0] == $active_month || $consistent_in[$debitor][0] == $last_month){
                             if($consistent_in[$debitor][0] != $active_month){
-                                $consistent_in[$debitor][4][0] += 1;
+                                $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][0] += 1;
                             }
                             $consistent_in[$debitor][0] = $active_month;
                             $consistent_in[$debitor][1] += 1;
                             $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
-                            $consistent_in[$debitor][4][] = $cin_transaction;
+                            $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][1] += (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][] = $cin_transaction;
                             
                         }
                         else{
@@ -291,11 +292,11 @@ class Functions
                             $consistent_in[$debitor][1] += 1;
                             $consistent_in[$debitor][2] += 1;
                             $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
-                            $consistent_in[$debitor][4] = [1,$cin_transaction];
+                            $consistent_in[$debitor][4][] = [1,(float)$cin_transaction->transaction_amount,$cin_transaction];
                         }
                     }
                     else{
-                        $consistent_in[$debitor] = [$active_month, 1,1,(float)$cin_transaction->transaction_amount,[1, $cin_transaction]];
+                        $consistent_in[$debitor] = [$active_month, 1,1,(float)$cin_transaction->transaction_amount,[[1, (float)$cin_transaction->transaction_amount, $cin_transaction]]];
                     }
                 }
 
@@ -326,23 +327,24 @@ class Functions
                         }
                         if($consistent_out[$creditor][0] == $active_month || $consistent_out[$creditor][0] == $last_month){
                             if($consistent_out[$creditor][0] != $active_month){
-                                $consistent_out[$creditor][4][0] += 1;
+                                $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][0] += 1;
                             }
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
                             $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
-                            $consistent_out[$creditor][4][] = $cout_transaction;
+                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][1] += (float)$cout_transaction->transaction_amount;
+                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][] = $cout_transaction;
                         }
                         else{
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
                             $consistent_out[$creditor][2] += 1;
                             $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
-                            $consistent_out[$creditor][4] = [1,$cout_transaction];
+                            $consistent_out[$creditor][4][] = [1,(float)$cout_transaction->transaction_amount,$cout_transaction];
                         }
                     }
                     else{
-                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[1,$cout_transaction]];
+                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[1,(float)$cout_transaction->transaction_amount,$cout_transaction]];
                     }
                 }
                 
