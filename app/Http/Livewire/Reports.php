@@ -103,7 +103,7 @@ class Reports extends Component
             $graphData = [];
 
             // logger($this->report_data[14]);
-            // logger($this->report_data[15]);
+            logger($this->report_data[15]);
 
             if((($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 1))){
                 foreach ($this->report_data[13] as $account_name){

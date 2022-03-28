@@ -118,10 +118,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[14] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] > 6)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -159,10 +162,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[14] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] >= 3 && $streak[0] <= 6)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -200,10 +206,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[14] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] < 3)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -246,10 +255,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[15] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] > 6)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -288,10 +300,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[15] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] >= 3 && $streak[0] <= 6)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -330,10 +345,13 @@
                                             @php $streak_found = false; @endphp
                                             @foreach ($report_data[15] as $title => $value)
                                                 @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                                 @foreach($value[4] as $index => $streak)
                                                     @if($streak[0] < 3)
                                                         @php $streak_found = true; @endphp
-                                                        @if($loop->first)
+                                                        
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                         <tr class="account_title">
                                                             <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                         </tr>
@@ -550,10 +568,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[14] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] > 6)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
@@ -591,10 +612,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[14] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] >= 3 && $streak[0] <= 6)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
@@ -632,10 +656,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[14] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] < 3)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
@@ -678,10 +705,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[15] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] > 6)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
@@ -720,10 +750,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[15] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] >= 3 && $streak[0] <= 6)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
@@ -762,10 +795,13 @@
                                     @php $streak_found = false; @endphp
                                     @foreach ($report_data[15] as $title => $value)
                                         @php $streak_count = 0; @endphp
+                                                @php $title_printed = false; @endphp
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] < 3)
                                                 @php $streak_found = true; @endphp
-                                                @if($loop->first)
+                                                
+                                                        @if(!$title_printed)
+                                                        @php $title_printed = true; @endphp
                                                 <tr class="account_title">
                                                     <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
                                                 </tr>
