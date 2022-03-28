@@ -1,5 +1,5 @@
 <section>
-    <div class="content-wrapper ">
+    <div x-data class="content-wrapper ">
         <section class="wrapper text-center">
             <div class="container">
                 <div class="row p-3">
@@ -149,10 +149,8 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('alpine:init', () =>
-        {
-            Alpine.store('data',
-            {
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('data', {
                 transactions_loading: false,
                 all_loaded: false,
                 toggleTransactionsLoading(){

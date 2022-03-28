@@ -1,5 +1,5 @@
 <section>
-    <div class="content-wrapper ">
+    <div x-data class="content-wrapper ">
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
             <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
 
