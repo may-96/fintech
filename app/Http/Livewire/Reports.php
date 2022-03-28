@@ -102,15 +102,20 @@ class Reports extends Component
         if($this->report_data != 0){
             $graphData = [];
 
-            logger($this->report_data[14]);
-            logger($this->report_data[15]);
+            // logger($this->report_data[14]);
+            // logger($this->report_data[15]);
 
-            if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 1))){
+            if((($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 1))){
                 foreach ($this->report_data[13] as $account_name){
                     $this->account_names[] = Functions::getInitials($account_name).'********';
                 }
             }
-            if($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 0){
+            else if($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 0){
+                foreach ($this->report_data[13] as $account_name){
+                    $this->account_names[] = $account_name;
+                }
+            }
+            else{
                 foreach ($this->report_data[13] as $account_name){
                     $this->account_names[] = $account_name;
                 }

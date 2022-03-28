@@ -99,6 +99,255 @@
                             </div>
                         @endif
 
+                        <div class="row mb-10">
+                            @if (count($report_data[14]) > 0)
+                                <div class="col-12 mb-10 table-responsive">
+                                    <h5>Incoming Consistent Payments</h5>
+                                    <h6>More than 6 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[14] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] > 6)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <h6>3 to 6 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[14] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] >= 3 && $streak[0] <= 6)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <h6>Less than 3 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[14] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] < 3)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                            @if (count($report_data[15]) > 0)
+                                <div class="col-12 mb-10 table-responsive">
+                                    <h5>Outgoing Consistency</h5>
+                                    <h6>More than 6 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[15] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] > 6)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <h6>3 to 6 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[15] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] >= 3 && $streak[0] <= 6)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    <h6>Less than 3 months consistent payments</h6>
+                                    <table class="table table-striped m-0 mb-10 consistency">
+                                        <thead class="bg-secondary text-white">
+                                            <tr>
+                                                <th scope="col" class="py-1"></th>
+                                                <th scope="col" class="text-center py-1">Streak</th>
+                                                <th scope="col" class="text-center py-1">Transaction Count</th>
+                                                <th scope="col" class="text-center py-1">Total Amount</th>
+                                                <th scope="col" class="text-center py-1">No. of Months</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $streak_found = false; @endphp
+                                            @foreach ($report_data[15] as $title => $value)
+                                                @php $streak_count = 0; @endphp
+                                                @foreach($value[4] as $index => $streak)
+                                                    @if($streak[0] < 3)
+                                                        @php $streak_found = true; @endphp
+                                                        <tr class="account_title">
+                                                            <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                        </tr>
+                                                        @php $streak_count += 1; @endphp
+                                                        <tr class="streak_details">
+                                                            <td colspan="1"></td>
+                                                            <td class="text-center">{{$streak_count}}</td>
+                                                            <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                            @if(!$streak_found)
+                                                <tr>
+                                                    <td colspan="5">No data found</td>
+                                                </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+
                         @if (count($report_data[0]) > 0 && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_cash_flow'] == 1)))
                             <div id="tabular" class="mb-10">
                                 <div class="col-12 text-center mb-10">
@@ -266,6 +515,255 @@
                             <div class="w-100 mb-20 graphical_area">
                                 <div class="d-flex justify-content-center align-items-center w-100" id="ExpensechartPrint"></div>
                             </div>
+                        </div>
+                    @endif
+                </div>
+
+                <div class="row mb-10">
+                    @if (count($report_data[14]) > 0)
+                        <div class="col-12 mb-10 table-responsive">
+                            <h5>Incoming Consistent Payments</h5>
+                            <h6>More than 6 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[14] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] > 6)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                            <h6>3 to 6 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[14] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] >= 3 && $streak[0] <= 6)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                            <h6>Less than 3 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[14] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] < 3)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                    @if (count($report_data[15]) > 0)
+                        <div class="col-12 mb-10 table-responsive">
+                            <h5>Outgoing Consistency</h5>
+                            <h6>More than 6 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[15] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] > 6)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                        
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                            <h6>3 to 6 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[15] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] >= 3 && $streak[0] <= 6)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                        
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                            <h6>Less than 3 months consistent payments</h6>
+                            <table class="table table-striped m-0 mb-10 consistency">
+                                <thead class="bg-secondary text-white">
+                                    <tr>
+                                        <th scope="col" class="py-1"></th>
+                                        <th scope="col" class="text-center py-1">Streak</th>
+                                        <th scope="col" class="text-center py-1">Transaction Count</th>
+                                        <th scope="col" class="text-center py-1">Total Amount</th>
+                                        <th scope="col" class="text-center py-1">No. of Months</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $streak_found = false; @endphp
+                                    @foreach ($report_data[15] as $title => $value)
+                                        @php $streak_count = 0; @endphp
+                                        @foreach($value[4] as $index => $streak)
+                                            @if($streak[0] < 3)
+                                                @php $streak_found = true; @endphp
+                                                <tr class="account_title">
+                                                    <td colspan="5" class="text-start text-capitalize fw-bold">{{ $title }}</td>
+                                                </tr>
+                                                @php $streak_count += 1; @endphp
+                                                <tr class="streak_details">
+                                                    <td colspan="1"></td>
+                                                    <td class="text-center">{{$streak_count}}</td>
+                                                    <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
+                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    @if(!$streak_found)
+                                        <tr>
+                                            <td colspan="5">No data found</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
                     @endif
                 </div>
