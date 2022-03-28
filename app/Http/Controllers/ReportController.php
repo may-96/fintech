@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\SendNotification;
 use App\Helpers\Functions;
+use App\Mail\RequestReportFromRegisteredUsers;
 use App\Mail\RequestReportFromUnregisteredUsers;
 use App\Mail\SharedReportWithUnregisteredUsers;
 use App\Models\Notification;
@@ -46,9 +47,13 @@ class ReportController extends Controller
         else
         {
             $shared_user = $user->shared_reports_with()->wherePivot('token', $token)->first();
+            $main_user = $user->shared_reports()->wherePivot('token', $token)->first(); 
             if (Functions::not_empty($shared_user))
             {
                 $data = ['shared', $shared_user->pivot];
+            }
+            else if(Functions::not_empty($main_user)){
+                $data = ['self_shared', $main_user->pivot];
             }
             else
             {
@@ -116,6 +121,7 @@ class ReportController extends Controller
                             ]);
 
                             SendNotification::dispatch($user, $notification);
+                            Mail::to($user->email)->send(new RequestReportFromRegisteredUsers($auth_user, $user));
                             // event(new SendNotification($user, $notification));
 
                             $requested_success += 1;
@@ -257,7 +263,18 @@ class ReportController extends Controller
                     'read' => 0
                 ]);
 
+                $message2 = 'Report shared successfully with '.$shared_user->fname . ' ' . $shared_user->lname .'. Click here to view the shared report.';
+
+                $notification2 = Notification::create([
+                    'type' => 'report_share',
+                    'data' => $token,
+                    'user_id' => $user,
+                    'message' => $message2,
+                    'read' => 0
+                ]);
+
                 SendNotification::dispatch($shared_user, $notification);
+                SendNotification::dispatch($user, $notification2);
                 $user->report_requested_from()->detach($shared_with);
 
                 return "Report Shared Successfully";

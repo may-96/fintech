@@ -70,6 +70,11 @@ class Reports extends Component
             $this->fetch_id = $sharing_info->user_id;
             $this->amount_check = $sharing_info->amount;
         }
+        if($this->data[0] == "self_shared"){
+            $sharing_info = $this->data[1];
+            $this->fetch_id = $sharing_info->user_id;
+            $this->amount_check = $sharing_info->amount;
+        }
 
     }
 
@@ -91,10 +96,10 @@ class Reports extends Component
         $this->report_user_name = $temp->fname . " " . $temp->lname;
         $this->report_user_name_initials = Functions::getInitials($this->report_user_name);
         $this->company_name = $temp->company;
-        if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_email'] == 1))){
+        if(($this->data[0] == 'self' || (($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_email'] == 1))){
             $this->email_addr = $temp->email;
         }
-        if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_contact'] == 1))){
+        if(($this->data[0] == 'self' || (($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_contact'] == 1))){
             $this->contact_num = $temp->contact;
         }
         
@@ -105,12 +110,12 @@ class Reports extends Component
             // logger($this->report_data[14]);
             logger($this->report_data[15]);
 
-            if((($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 1))){
+            if(((($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_account_initials_only'] == 1))){
                 foreach ($this->report_data[13] as $account_name){
                     $this->account_names[] = Functions::getInitials($account_name).'********';
                 }
             }
-            else if($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 0){
+            else if(($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_account_initials_only'] == 0){
                 foreach ($this->report_data[13] as $account_name){
                     $this->account_names[] = $account_name;
                 }
