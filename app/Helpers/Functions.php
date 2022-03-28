@@ -344,7 +344,7 @@ class Functions
                         }
                     }
                     else{
-                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[1,(float)$cout_transaction->transaction_amount,$cout_transaction]];
+                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[[1,(float)$cout_transaction->transaction_amount,$cout_transaction]]];
                     }
                 }
                 
