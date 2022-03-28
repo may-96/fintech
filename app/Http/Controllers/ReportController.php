@@ -268,7 +268,7 @@ class ReportController extends Controller
                 $notification2 = Notification::create([
                     'type' => 'report_share',
                     'data' => $token,
-                    'user_id' => $user,
+                    'user_id' => $user->id,
                     'message' => $message2,
                     'read' => 0
                 ]);
