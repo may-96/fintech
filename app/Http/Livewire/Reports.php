@@ -166,7 +166,7 @@ class Reports extends Component
             $this->reset_status();
         }
 
-        $this->shareable_link = $this->current_user->report_shareable_link;
+        // $this->shareable_link = $this->current_user->report_shareable_link;
         
         $temp_1 = DB::table('report_shares_with_unregistered_users')->selectRaw("id,email,created_at,'other' as type")->where('user_id', $this->current_user->id)->get()->toArray();
         $structured_1 = [];
