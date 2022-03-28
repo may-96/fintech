@@ -254,10 +254,10 @@ class Functions
                 foreach($cash_in_transactions->get() as $cin_transaction){
                     $debitor = "";
                     if(Functions::not_empty($cin_transaction->debator_name)){
-                        $debitor = $cin_transaction->debator_name;
+                        $debitor = trim($cin_transaction->debator_name);
                     }
                     else if(Functions::not_empty($cin_transaction->debtor_account)){
-                        $debitor = $cin_transaction->debtor_account;
+                        $debitor = trim($cin_transaction->debtor_account);
                     }
                     else if(Functions::not_empty($cin_transaction->remit_info_unstructured)){
                         $temp_arr = explode('<br>',$cin_transaction->remit_info_unstructured);
@@ -303,10 +303,10 @@ class Functions
                 foreach($cash_out_transactions->get() as $cout_transaction){
                     $creditor = "";
                     if(Functions::not_empty($cout_transaction->creditor_name)){
-                        $creditor = $cout_transaction->creditor_name;
+                        $creditor = trim($cout_transaction->creditor_name);
                     }
                     else if(Functions::not_empty($cout_transaction->creditor_account)){
-                        $creditor = $cout_transaction->creditor_account;
+                        $creditor = trim($cout_transaction->creditor_account);
                     }
                     else if(Functions::not_empty($cout_transaction->remit_info_unstructured)){
                         $temp_arr = explode('<br>',$cout_transaction->remit_info_unstructured);
@@ -331,20 +331,20 @@ class Functions
                             }
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
-                            $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
-                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][1] += (float)$cout_transaction->transaction_amount;
+                            $consistent_out[$creditor][3] += abs((float)$cout_transaction->transaction_amount);
+                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][1] += abs((float)$cout_transaction->transaction_amount);
                             $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][] = $cout_transaction;
                         }
                         else{
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
                             $consistent_out[$creditor][2] += 1;
-                            $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
-                            $consistent_out[$creditor][4][] = [1,(float)$cout_transaction->transaction_amount,$cout_transaction];
+                            $consistent_out[$creditor][3] += abs((float)$cout_transaction->transaction_amount);
+                            $consistent_out[$creditor][4][] = [1,abs((float)$cout_transaction->transaction_amount),$cout_transaction];
                         }
                     }
                     else{
-                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[[1,(float)$cout_transaction->transaction_amount,$cout_transaction]]];
+                        $consistent_out[$creditor] = [$active_month, 1,1,abs((float)$cout_transaction->transaction_amount),[[1,abs((float)$cout_transaction->transaction_amount),$cout_transaction]]];
                     }
                 }
                 

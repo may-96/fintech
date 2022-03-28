@@ -185,7 +185,7 @@
                                             @endif
                                         </tbody>
                                     </table>
-                                    <h6>Less than 3 months consistent payments</h6>
+                                    {{-- <h6>Less than 3 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
@@ -225,7 +225,7 @@
                                                 </tr>
                                             @endif
                                         </tbody>
-                                    </table>
+                                    </table> --}}
                                 </div>
                             @endif
                             @if (count($report_data[15]) > 0)
@@ -315,7 +315,7 @@
                                             @endif
                                         </tbody>
                                     </table>
-                                    <h6>Less than 3 months consistent payments</h6>
+                                    {{-- <h6>Less than 3 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
                                         <thead class="bg-secondary text-white">
                                             <tr>
@@ -355,7 +355,7 @@
                                                 </tr>
                                             @endif
                                         </tbody>
-                                    </table>
+                                    </table> --}}
                                 </div>
                             @endif
                         </div>
