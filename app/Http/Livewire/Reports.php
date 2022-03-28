@@ -21,6 +21,8 @@ class Reports extends Component
     public $data;
 
     public $credit_score = 1;
+    public $initials_only = 0;
+    public $account_initials_only = 1;
     public $cash_flow = 1;
     public $expenses = 1;
     public $income = 1;
@@ -33,7 +35,9 @@ class Reports extends Component
     public $email_addr = "";
     public $contact_num = "";
     public $report_user_name = "";
+    public $report_user_name_initials = "";
     public $company_name = "";
+    public $account_names = [];
 
     public $shared_emails = [];
 
@@ -85,6 +89,7 @@ class Reports extends Component
         }
         
         $this->report_user_name = $temp->fname . " " . $temp->lname;
+        $this->report_user_name_initials = Functions::getInitials($this->report_user_name);
         $this->company_name = $temp->company;
         if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_email'] == 1))){
             $this->email_addr = $temp->email;
@@ -92,10 +97,24 @@ class Reports extends Component
         if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_contact'] == 1))){
             $this->contact_num = $temp->contact;
         }
-
+        
         $this->report_data = Functions::cash_flow_stats($temp);
         if($this->report_data != 0){
             $graphData = [];
+
+            logger($this->report_data[14]);
+            logger($this->report_data[15]);
+
+            if(($this->data[0] == 'self' || ($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 1))){
+                foreach ($this->report_data[13] as $account_name){
+                    $this->account_names[] = Functions::getInitials($account_name).'********';
+                }
+            }
+            if($this->data[0] == 'shared' && $this->access['view_account_initials_only'] == 0){
+                foreach ($this->report_data[13] as $account_name){
+                    $this->account_names[] = $account_name;
+                }
+            }
 
             if(count($this->report_data[0]) > 0){
                 $this->cash_flow_data_available = true;
@@ -204,6 +223,8 @@ class Reports extends Component
                             'view_email' => $this->email_check ? 1 : 0,
                             'view_contact' => $this->contact ? 1 : 0,
                             'view_credit_score' => $this->credit_score ? 1 : 0,
+                            'view_initials_only' => $this->initials_only ? 1 : 0,
+                            'view_account_initials_only' => $this->account_initials_only ? 1 : 0,
                             'token' => $token,
                         ]);
                         
@@ -236,6 +257,8 @@ class Reports extends Component
                             'view_email' => $this->email_check ? 1 : 0,
                             'view_contact' => $this->contact ? 1 : 0,
                             'view_credit_score' => $this->credit_score ? 1 : 0,
+                            'view_initials_only' => $this->initials_only ? 1 : 0,
+                            'view_account_initials_only' => $this->account_initials_only ? 1 : 0,
                             'token' => $token,
                             "created_at" =>  Carbon::now()->toDateTimeString(),
                             "updated_at" => Carbon::now()->toDateTimeString()

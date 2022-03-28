@@ -108,6 +108,8 @@ class RegisterController extends Controller
                 'view_email' => $share->view_email,
                 'view_contact' => $share->view_contact,
                 'view_credit_score' => $share->view_credit_score,
+                'view_initials_only' => $share->view_initials_only,
+                'view_account_initials_only' => $share->view_account_initials_only,
                 'token' => $share->token,
             ]);
 

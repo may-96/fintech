@@ -108,14 +108,18 @@ class Connect extends Component
     public function updateBank()
     {
         $this->bank_selected = true;
-        $this->create_link = false;
-        $this->link_generated = false;
+        $this->createAgreement();
+        $this->createLink();
+        // $this->create_link = false;
+        // $this->link_generated = false;
     }
 
     public function createAgreement()
     {
         $this->create_link = false;
         $this->link_generated = false;
+        
+        $this->max_historical_days = $this->bank_ttd;
 
         $this->agreement_error_message = "";
         if ($this->access_valid_for_days < 30)
@@ -199,7 +203,6 @@ class Connect extends Component
                 'agreement' => $this->agreement_id,
                 'user_language' => 'EN',
             ]
-
         );
 
         if($response->successful()){

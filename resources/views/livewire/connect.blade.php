@@ -51,7 +51,7 @@
                     </div>
                 @endif
 
-                @if ($bank_selected)
+                {{-- @if ($bank_selected)
                     <div x-show="{{ $bank_selected }}" class="col-12 mb-4">
                         <div class="card p-4">
                             <p class="d-block  fs-18 fw-bold">Agreement Details</p>
@@ -81,13 +81,14 @@
                                 <input type="checkbox" class="form-check-input" checked="checked" id="balance" name="balance" wire:model="balances_access_scope" required>
                                 <label class="form-check-label" for="balance">Bank Balance</label>
                             </div>
+                        --}}
 
                             {{-- <div class="col-md-12 form-check">
                                 <input type="checkbox" class="form-check-input" checked="checked" id="details" name="details" wire:model="details_access_scope" required>
                                 <label class="form-check-label" for="details">Account Details</label>
                             </div> --}}
 
-                            <div class="col-md-12 form-check">
+                        {{-- <div class="col-md-12 form-check">
                                 <input type="checkbox" class="form-check-input" checked="checked" id="transactions" name="transactions" disabled required>
                                 <label class="form-check-label" for="transaction">Transaction Data</label>
                                 <small class="text-info ms-2">Fetching Transaction Data is Compulsory for Generating Reports</small>
@@ -103,9 +104,9 @@
                             <x-loading />
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
-                @if ($create_link || $link_generated)
+                {{-- @if ($create_link || $link_generated)
                     <div x-show="{{ $bank_selected }}" class="col-12 mb-4">
                         <div class="card p-4">
                             <p class="d-block  fs-18 fw-bold">Generate Link and Connect Bank</p>
@@ -122,6 +123,21 @@
                         </div>
                     </div>
 
+                @endif --}}
+
+                @if ($link_generated)
+                    <div x-show="{{ $bank_selected }}" class="col-12 mb-4">
+                        <div class="card p-4">
+                            <p class="d-block  fs-18 fw-bold">Process Bank Connection</p>
+
+                            <div class="messages"></div>
+
+                            <div class="col-12 text-center">
+                                <button id="authenticationLink" class="btn btn-primary rounded-pill btn-send" wire:click="redirectToLink"><span wire:loading.remove wire:target="redirectToLink">Connect Bank</span><span wire:loading wire:target="redirectToLink">Redirecting </span><x-loading wire:loading wire:target="redirectToLink" /></button>
+                                <p class="text-muted fs-14">You will be redirected to another page for authentication.</p>
+                            </div>
+                        </div>
+                    </div>
                 @endif
 
             </div>

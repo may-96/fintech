@@ -214,6 +214,10 @@ $('#addUserBtn_notification')
     {
         let csn = document.querySelector('#credit_score_notification')
             .checked;
+        let ion = document.querySelector('#initials_only_notification')
+            .checked;
+        let aion = document.querySelector('#account_initials_only_notification')
+            .checked;
         let cfn = document.querySelector('#cash_flow_notification')
             .checked;
         let en = document.querySelector('#expenses_notification')
@@ -243,6 +247,8 @@ $('#addUserBtn_notification')
             data:
             {
                 view_credit_score: csn,
+                view_initials_only: ion,
+                view_account_initials_only: aion,
                 view_cash_flow: cfn,
                 view_expense: en,
                 view_income: inn,

@@ -156,8 +156,10 @@
                 </div>
                 <div class="row my-10">
                     <div class="col-6">
-                        @if (App\Helpers\Functions::not_empty($report_user_name))
+                        @if (App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_initials_only'] == 0)))
                             <p class="m-0 clearfix"><span class="float-start">Name:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name }}</span></p>
+                        @elseif(App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || ($data[0] == 'shared' && $access['view_initials_only'] == 1)))
+                            <p class="m-0 clearfix"><span class="float-start">Name Initials:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name_initials }}</span></p>
                         @endif
 
                         @if (App\Helpers\Functions::not_empty($company_name))
@@ -186,8 +188,12 @@
                         @else
                             <p class="m-0 text-end"><span class="">No Saving neither Over Spent</span></p>
                         @endif
-                        <p class="m-0 text-end"><span class="fw-bold">Accounts Anaylzed:</span> <span>{{ $report_data[7] }}</span></p>
                         <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ $report_data[12] }}</span></p>
+                        <p class="m-0 text-end"><span class="fw-bold">Accounts Anaylzed:</span> <span>{{ $report_data[7] }}</span></p>
+                        <p class="m-0 text-end"><span class="fw-bold">Account Names</span></p>
+                        @foreach ($account_names as $account_name)
+                            <p class="m-0 text-end"> <span>{{ $account_name }}</span></p>
+                        @endforeach
                     </div>
                 </div>
                 <div class="row mb-5">
@@ -345,6 +351,14 @@
                             <div class="col-12 col-sm-6">
                                 <input name="contact" wire:model.defer="contact" id="contact" type="checkbox" class="p-1 mb-2 form-check-input">
                                 <label class="form-check-label mb-2 fs-14 text-start" for="contact">Can View Contact #</label>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input name="initials_only" wire:model.defer="initials_only" id="initials_only" type="checkbox" class="p-1 mb-2 form-check-input">
+                                <label class="form-check-label mb-2 fs-14 text-start" for="initials_only">Initials of the Name</label>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <input name="account_initials_only" wire:model.defer="account_initials_only" id="account_initials_only" type="checkbox" class="p-1 mb-2 form-check-input">
+                                <label class="form-check-label mb-2 fs-14 text-start" for="account_initials_only">Initials of the Account Name</label>
                             </div>
 
                         </div>

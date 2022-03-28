@@ -57,6 +57,26 @@ class Functions
         return $data;
     }
 
+    public static function getInitials($name){
+        if(empty(trim($name))){
+            return "-";
+        }
+        $name_array = explode(' ',trim($name));
+    
+        $firstWord = $name_array[0];
+        if(count($name_array) > 1){
+            $lastWord = $name_array[count($name_array)-1];
+        }
+        else{
+            if(strlen($firstWord) > 1){
+                $lastWord = $firstWord[1];
+            }
+            $lastWord = $firstWord[0];
+        }
+        
+        return strtoupper($firstWord[0])."".strtoupper($lastWord[0]);
+    }
+
     public static function add_or_update_transactions($t, $account, $status)
     {
         Log::debug($t);
@@ -194,6 +214,11 @@ class Functions
         $average_cash_in = 0;
         $average_cash_out = 0;
 
+        $consistent_in = [];
+        $consistent_out = [];
+
+        $account_names = [];
+
         $salary_total = 0;
 
         if(count($accounts) == 0){
@@ -207,21 +232,119 @@ class Functions
             $tci = 0;
             $tco = 0;
             $currency = strtoupper($account->currency);
+
+            $account_names[] = Functions::not_empty($account->owner_name) ? $account->owner_name : $account->account_name;
+
             $exchange = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(1)->get();
             while ($i < $months_in_year)
             {
 
-                $transactions = $account->transactions()->whereYear('fixed_date',$active_year)->whereMonth('fixed_date',$active_month);
-                $cash_in_transactions = $transactions->where('transaction_amount', '>', 0);
+                $cash_in_transactions = $account->transactions()->whereYear('fixed_date',$active_year)->whereMonth('fixed_date',$active_month)->where('transaction_amount', '>', 0);
+                
                 $cash_in_count = $cash_in_transactions->count();
                 $cis = $cash_in_transactions->sum('transaction_amount');
                 $cash_in_sum = $exchange * abs($cis);
 
-                $transactions = $account->transactions()->whereYear('fixed_date',$active_year)->whereMonth('fixed_date',$active_month);
-                $cash_out_transactions = $transactions->where('transaction_amount', '<', 0);
+                $cash_out_transactions = $account->transactions()->whereYear('fixed_date',$active_year)->whereMonth('fixed_date',$active_month)->where('transaction_amount', '<', 0);
+                
                 $cash_out_count = $cash_out_transactions->count();
                 $cos = $cash_out_transactions->sum('transaction_amount');
                 $cash_out_sum = $exchange * abs($cos);
+
+                foreach($cash_in_transactions->get() as $cin_transaction){
+                    $debitor = "";
+                    if(Functions::not_empty($cin_transaction->debator_name)){
+                        $debitor = $cin_transaction->debator_name;
+                    }
+                    else if(Functions::not_empty($cin_transaction->debtor_account)){
+                        $debitor = $cin_transaction->debtor_account;
+                    }
+                    else if(Functions::not_empty($cin_transaction->remit_info_unstructured)){
+                        $temp_arr = explode('<br>',$cin_transaction->remit_info_unstructured);
+                        $first_sentence = $temp_arr[0];
+                        $first_sentence_arr = explode(' ',$first_sentence);
+                        $first_letter = $first_sentence_arr[0];
+                        $second_letter = "";
+                        if(count($first_sentence_arr) > 1){
+                            $second_letter = $first_sentence_arr[1];
+                        }
+                        $debitor = trim($first_letter . " " . $second_letter);
+                    }
+
+                    if(array_key_exists($debitor, $consistent_in)){
+                        $last_month = $active_month + 1;
+                        if($last_month == 13){
+                            $last_month = 1;
+                        }
+                        if($consistent_in[$debitor][0] == $active_month || $consistent_in[$debitor][0] == $last_month){
+                            if($consistent_in[$debitor][0] != $active_month){
+                                $consistent_in[$debitor][4][0] += 1;
+                            }
+                            $consistent_in[$debitor][0] = $active_month;
+                            $consistent_in[$debitor][1] += 1;
+                            $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][4][] = $cin_transaction;
+                            
+                        }
+                        else{
+                            $consistent_in[$debitor][0] = $active_month;
+                            $consistent_in[$debitor][1] += 1;
+                            $consistent_in[$debitor][2] += 1;
+                            $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][4] = [$cin_transaction];
+                        }
+                    }
+                    else{
+                        $consistent_in[$debitor] = [$active_month, 1,1,(float)$cin_transaction->transaction_amount,[1, $cin_transaction]];
+                    }
+                }
+
+                foreach($cash_out_transactions->get() as $cout_transaction){
+                    $creditor = "";
+                    if(Functions::not_empty($cout_transaction->creditor_name)){
+                        $creditor = $cout_transaction->creditor_name;
+                    }
+                    else if(Functions::not_empty($cout_transaction->creditor_account)){
+                        $creditor = $cout_transaction->creditor_account;
+                    }
+                    else if(Functions::not_empty($cout_transaction->remit_info_unstructured)){
+                        $temp_arr = explode('<br>',$cout_transaction->remit_info_unstructured);
+                        $first_sentence = $temp_arr[0];
+                        $first_sentence_arr = explode(' ',$first_sentence);
+                        $first_letter = $first_sentence_arr[0];
+                        $second_letter = "";
+                        if(count($first_sentence_arr) > 1){
+                            $second_letter = $first_sentence_arr[1];
+                        }
+                        $creditor = trim($first_letter . " " . $second_letter);
+                    }
+
+                    if(array_key_exists($creditor, $consistent_out)){
+                        $last_month = $active_month + 1;
+                        if($last_month == 13){
+                            $last_month = 1;
+                        }
+                        if($consistent_out[$creditor][0] == $active_month || $consistent_out[$creditor][0] == $last_month){
+                            if($consistent_out[$creditor][0] != $active_month){
+                                $consistent_out[$creditor][4][0] += 1;
+                            }
+                            $consistent_out[$creditor][0] = $active_month;
+                            $consistent_out[$creditor][1] += 1;
+                            $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
+                            $consistent_out[$creditor][4][] = $cout_transaction;
+                        }
+                        else{
+                            $consistent_out[$creditor][0] = $active_month;
+                            $consistent_out[$creditor][1] += 1;
+                            $consistent_out[$creditor][2] += 1;
+                            $consistent_out[$creditor][3] += (float)$cout_transaction->transaction_amount;
+                            $consistent_out[$creditor][4] = [$cout_transaction];
+                        }
+                    }
+                    else{
+                        $consistent_out[$creditor] = [$active_month, 1,1,(float)$cout_transaction->transaction_amount,[1,$cout_transaction]];
+                    }
+                }
                 
                 $month_name = self::$month_array[(string) $active_month] . ', ' . $active_year;
 
@@ -330,7 +453,10 @@ class Functions
             $credit_rating, 
             $credit_color, 
             $diff, 
-            $salary_monthly
+            $salary_monthly,
+            $account_names,
+            $consistent_in,
+            $consistent_out
         ];
     }
 

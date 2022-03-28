@@ -59,6 +59,14 @@
                             <input name="contact_notification" id="contact_notification" type="checkbox" class="p-1 mb-2 form-check-input">
                             <label class="form-check-label mb-2 fs-14 text-start" for="contact_notification">Can View Contact #</label>
                         </div>
+                        <div class="col-12 col-sm-6">
+                            <input name="initials_only_notification" id="initials_only_notification" type="checkbox" class="p-1 mb-2 form-check-input">
+                            <label class="form-check-label mb-2 fs-14 text-start" for="initials_only_notification">Initials of the Name</label>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <input name="account_initials_only_notification" id="account_initials_only_notification" type="checkbox" class="p-1 mb-2 form-check-input">
+                            <label class="form-check-label mb-2 fs-14 text-start" for="account_initials_only_notification">Initials of the Account Name</label>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center mt-5">
                         <input name="user_id" type="hidden" id="user_id_notification">
