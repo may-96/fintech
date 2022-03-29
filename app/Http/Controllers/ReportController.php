@@ -244,7 +244,7 @@ class ReportController extends Controller
                     'view_cash_flow' => $request->view_cash_flow ? 1 : 0,
                     'view_expense' => $request->view_expense ? 1 : 0,
                     'view_income' => $request->view_income ? 1 : 0,
-                    'view_email' => $request->view_email_check ? 1 : 0,
+                    'view_email' => $request->view_email ? 1 : 0,
                     'view_contact' => $request->view_contact ? 1 : 0,
                     'view_credit_score' => $request->view_credit_score ? 1 : 0,
                     'view_initials_only' => $request->view_initials_only ? 1 : 0,

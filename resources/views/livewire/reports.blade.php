@@ -54,7 +54,7 @@
                             <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
                                     <h3 class="d-flex justify-content-between fs-28 text-red"><span>{{ config('app.settings.report_currency_symbol') . round($report_data[5], 2) }}</span><i
-                                           class="uil uil-bill fs-20 text-red bg-white border rounded-full px-2 py-1"></i></h3>
+                                           class="uil uil-bill fs-20 text-success bg-white border rounded-full px-2 py-1"></i></h3>
                                     <p class="fs-14">Average Monthly Income</p>
                                 </div>
                             </div>

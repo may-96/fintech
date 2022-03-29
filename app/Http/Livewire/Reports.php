@@ -96,8 +96,7 @@ class Reports extends Component
         $this->report_user_name = $temp->fname . " " . $temp->lname;
         $this->report_user_name_initials = Functions::getInitials($this->report_user_name);
         $this->company_name = $temp->company;
-        logger($this->data);
-        logger($this->access);
+
         if(($this->data[0] == 'self' || (($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_email'] == 1))){
             $this->email_addr = $temp->email;
         }
@@ -108,9 +107,6 @@ class Reports extends Component
         $this->report_data = Functions::cash_flow_stats($temp);
         if($this->report_data != 0){
             $graphData = [];
-
-            // logger($this->report_data[14]);
-            // logger($this->report_data[15]);
 
             if(((($this->data[0] == 'shared' || $this->data[0] == 'self_shared') && $this->access['view_account_initials_only'] == 1))){
                 foreach ($this->report_data[13] as $account_name){
