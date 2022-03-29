@@ -44,9 +44,8 @@ class Functions
         return !Functions::is_empty($var);
     }
 
-    public static function filtered_request_data(Request $request)
+    public static function filtered_request_data($data)
     {
-        $data = $request->all();
         foreach ($data as $i => $d)
         {
             if ($d === "null" || $d === "")

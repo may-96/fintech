@@ -49,9 +49,13 @@
             <div class="container">
                 <div class="row"><h5>Pending Requests</h5></div>
                 <div class="row ps-4">
-                    @forelse ($data as $email)
-                        <div class="col-12 mb-1 p-1 alert alert-primary">
-                            <span class="ps-1">{{$email}}</span>
+                    @forelse ($data as $index => $email)
+                        <div class="col-12 mb-1 p-1 alert alert-primary d-flex justify-content-between">
+                            <span class="ps-1 align-self-center">{{$email}}</span>
+                            <a class="remove_icon ms-2 px-1 text-danger align-self-center" style="cursor: pointer;" data-bs-toggle="modal" onclick="$('#modal_remove_btn').attr('data-id','{{ $index }}')" data-bs-target="#remove_report_request_modal" title="Remove Report Request">
+                                <i class="uil uil-times-circle"></i>
+                            </a>
+                            <form class="d-none" id="remove_report_request_{{ $index }}" action="{{ route('remove.report.request') }}" method="POST">@csrf <input type="hidden" name="email" value="{{$email}}" > </form>
                         </div>
                     @empty
                         <div>
@@ -61,6 +65,25 @@
                 </div>
             </div>
         </section>
+        <div class="modal fade" id="remove_report_request_modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-md">
+                <div class="modal-content text-center">
+                    <div class="modal-body">
+                        <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="fs-96 lh-1 mb-0">
+                                    <i class="uil uil-question-circle"></i>
+                                </p>
+                                <p>Are you sure you want to remove this report request</p>
+                                <button id="modal_remove_btn" data-id="" class="btn btn-sm btn-soft-red" onclick="$('#remove_report_request_'+($('#modal_remove_btn').attr('data-id'))).submit()" type="button">Yes</button>
+                                <button class="btn btn-sm btn-soft-blue" type="button" data-bs-dismiss="modal" aria-label="Close">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

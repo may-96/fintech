@@ -71,9 +71,10 @@
                             <div>
                                 <div class="d-flex align-items-center justify-content-between fs-16 fw-bold lh-1 mb-0">
                                     <span>{{$shared_reports->fname}} {{$shared_reports->lname}}</span>
-                                    <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="" data-bs-target="#remove_report_modal" title="Remove Report">
+                                    <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="$('#modal_remove_btn').attr('data-id','{{ $shared_reports->pivot->token }}')" data-bs-target="#remove_report_modal" title="Remove Report">
                                         <i class="uil uil-times-circle"></i>
                                     </a>
+                                    <form class="d-none" id="remove_report_{{ $shared_reports->pivot->token }}" action="{{ route('remove.report', $shared_reports->pivot->token) }}" method="POST">@csrf</form>
                                 </div>
                             </div>
                             <div>
@@ -93,6 +94,25 @@
             </div>
         </div>
     </section>
+    <div class="modal fade" id="remove_report_modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content text-center">
+                <div class="modal-body">
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="fs-96 lh-1 mb-0">
+                                <i class="uil uil-question-circle"></i>
+                            </p>
+                            <p>Are you sure you want to remove this report</p>
+                            <button id="modal_remove_btn" data-id="" class="btn btn-sm btn-soft-red" onclick="$('#remove_report_'+($('#modal_remove_btn').attr('data-id'))).submit()" type="button">Yes</button>
+                            <button class="btn btn-sm btn-soft-blue" type="button" data-bs-dismiss="modal" aria-label="Close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('js')
     <script src="{{ asset('js/my_accounts.js') }}"></script>

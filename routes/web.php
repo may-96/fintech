@@ -72,6 +72,9 @@ Route::post('report/grant_access', [ReportController::class, 'grantAccess'])->mi
 
 Route::get('shared_reports', [ReportController::class, 'sharedReports'])->middleware(['auth'])->name('shared.reports');
 
+Route::post('report/remove/{token}', [ReportController::class, 'remove_report'])->middleware(['auth'])->name('remove.report');
+Route::post('/remove/report/request_remove', [ReportController::class, 'remove_report_request'])->middleware(['auth'])->name('remove.report.request');
+
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');
 
 Route::post('/notification/fetch', [NotificationController::class, 'index'])->middleware(['auth'])->name('fetch.notifications');

@@ -313,4 +313,42 @@ class ReportController extends Controller
             return redirect()->back()->with('danger', $e->getMessage());
         }
     }
+
+    public function remove_report(Request $request, $token)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        try{
+            DB::table('report_user')->where('shared_with', $user->id)->where('token', $token)->delete();
+            return redirect()->back()->with('success','Report Deleted Successfully.');
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error','Error while Deleting Report');
+        }
+    }
+
+    public function remove_report_request(Request $request)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        $data = $request->validate([
+            'email' => ['required','email', 'string' ],
+        ]);
+        try{
+            $data = Functions::filtered_request_data($data);
+            $requested_from = User::where('email' , $data['email'])->get()->first();
+
+            if(Functions::not_empty($requested_from)){
+                DB::table('report_request')->where('user_id', $user->id)->where('requested_from', $requested_from->id)->delete();
+            }
+            else{
+                DB::table('report_requested_from_unregistered_users')->where('user_id', $user->id)->where('email', $data['email'])->delete();
+            }
+
+            return redirect()->back()->with('success','Report Request Deleted Successfully.');
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error','Error while Deleting Report Request');
+        }
+    }
 }
