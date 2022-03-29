@@ -915,7 +915,7 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <input name="email_check" wire:model.defer="email_check" id="email_check" type="checkbox" class="p-1 mb-2 form-check-input">
-                                <label class="form-check-label mb-2 fs-14 text-start" for="email_check" for="credit_score">Can View Email</label>
+                                <label class="form-check-label mb-2 fs-14 text-start" for="email_check">Can View Email</label>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <input name="contact" wire:model.defer="contact" id="contact" type="checkbox" class="p-1 mb-2 form-check-input">

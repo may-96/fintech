@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <input name="email_check_notification" id="email_check_notification" type="checkbox" class="p-1 mb-2 form-check-input">
-                            <label class="form-check-label mb-2 fs-14 text-start" for="email_check_notification" for="credit_score">Can View Email</label>
+                            <label class="form-check-label mb-2 fs-14 text-start" for="email_check_notification">Can View Email</label>
                         </div>
                         <div class="col-12 col-sm-6">
                             <input name="contact_notification" id="contact_notification" type="checkbox" class="p-1 mb-2 form-check-input">
