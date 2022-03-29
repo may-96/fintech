@@ -281,8 +281,8 @@ class Functions
                             }
                             $consistent_in[$debitor][0] = $active_month;
                             $consistent_in[$debitor][1] += 1;
-                            $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
-                            $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][1] += (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][3] += $exchange * (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][1] += $exchange * (float)$cin_transaction->transaction_amount;
                             $consistent_in[$debitor][4][count($consistent_in[$debitor][4])-1][] = $cin_transaction;
                             
                         }
@@ -290,12 +290,12 @@ class Functions
                             $consistent_in[$debitor][0] = $active_month;
                             $consistent_in[$debitor][1] += 1;
                             $consistent_in[$debitor][2] += 1;
-                            $consistent_in[$debitor][3] += (float)$cin_transaction->transaction_amount;
-                            $consistent_in[$debitor][4][] = [1,(float)$cin_transaction->transaction_amount,$cin_transaction];
+                            $consistent_in[$debitor][3] += $exchange * (float)$cin_transaction->transaction_amount;
+                            $consistent_in[$debitor][4][] = [1,$exchange * (float)$cin_transaction->transaction_amount,$cin_transaction];
                         }
                     }
                     else{
-                        $consistent_in[$debitor] = [$active_month, 1,1,(float)$cin_transaction->transaction_amount,[[1, (float)$cin_transaction->transaction_amount, $cin_transaction]]];
+                        $consistent_in[$debitor] = [$active_month, 1,1,$exchange * (float)$cin_transaction->transaction_amount,[[1, $exchange * (float)$cin_transaction->transaction_amount, $cin_transaction]]];
                     }
                 }
 
@@ -330,20 +330,20 @@ class Functions
                             }
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
-                            $consistent_out[$creditor][3] += abs((float)$cout_transaction->transaction_amount);
-                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][1] += abs((float)$cout_transaction->transaction_amount);
+                            $consistent_out[$creditor][3] += $exchange * abs((float)$cout_transaction->transaction_amount);
+                            $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][1] += $exchange * abs((float)$cout_transaction->transaction_amount);
                             $consistent_out[$creditor][4][count($consistent_out[$creditor][4])-1][] = $cout_transaction;
                         }
                         else{
                             $consistent_out[$creditor][0] = $active_month;
                             $consistent_out[$creditor][1] += 1;
                             $consistent_out[$creditor][2] += 1;
-                            $consistent_out[$creditor][3] += abs((float)$cout_transaction->transaction_amount);
-                            $consistent_out[$creditor][4][] = [1,abs((float)$cout_transaction->transaction_amount),$cout_transaction];
+                            $consistent_out[$creditor][3] += $exchange * abs((float)$cout_transaction->transaction_amount);
+                            $consistent_out[$creditor][4][] = [1,$exchange * abs((float)$cout_transaction->transaction_amount),$cout_transaction];
                         }
                     }
                     else{
-                        $consistent_out[$creditor] = [$active_month, 1,1,abs((float)$cout_transaction->transaction_amount),[[1,abs((float)$cout_transaction->transaction_amount),$cout_transaction]]];
+                        $consistent_out[$creditor] = [$active_month, 1,1,$exchange * abs((float)$cout_transaction->transaction_amount),[[1,$exchange * abs((float)$cout_transaction->transaction_amount),$cout_transaction]]];
                     }
                 }
                 

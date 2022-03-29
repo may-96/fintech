@@ -105,7 +105,8 @@
                                     <h5>Incoming Consistent Payments</h5>
                                     <h6>More than 6 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false; @endphp
+                                        <thead class="bg-aqua text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -149,7 +150,8 @@
                                     </table>
                                     <h6>3 to 6 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false; @endphp
+                                        <thead class="bg-aqua text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -193,7 +195,8 @@
                                     </table>
                                     {{-- <h6>Less than 3 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false; @endphp
+                                        <thead class="bg-aqua text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -242,7 +245,8 @@
                                     <h5>Outgoing Consistency</h5>
                                     <h6>More than 6 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false; @endphp
+                                        <thead class="bg-aqua text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -287,7 +291,8 @@
                                     </table>
                                     <h6>3 to 6 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false; @endphp
+                                        <thead class="bg-aqua text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -332,7 +337,8 @@
                                     </table>
                                     {{-- <h6>Less than 3 months consistent payments</h6>
                                     <table class="table m-0 mb-10 consistency">
-                                        <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                        @php $title_printed = false;
+                                        <thead class="bg-aqua @endphp text-white">
                                             <tr>
                                                 <th scope="col" class="py-1"></th>
                                                 <th scope="col" class="text-center py-1">Streak</th>
@@ -467,7 +473,7 @@
                         @else
                             <p class="m-0 text-end"><span class="">No Saving neither Over Spent</span></p>
                         @endif
-                        <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ $report_data[12] }}</span></p>
+                        <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ config('app.settings.report_currency_symbol') . round($report_data[12], 2) }}</span></p>
                         <p class="m-0 text-end"><span class="fw-bold">Accounts Anaylzed:</span> <span>{{ $report_data[7] }}</span></p>
                         <p class="m-0 text-end"><span class="fw-bold">Account Names</span></p>
                         @foreach ($account_names as $account_name)
@@ -555,7 +561,8 @@
                             <h5>Incoming Consistent Payments</h5>
                             <h6>More than 6 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp 
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
@@ -599,7 +606,8 @@
                             </table>
                             <h6>3 to 6 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
@@ -616,7 +624,6 @@
                                         @foreach($value[4] as $index => $streak)
                                             @if($streak[0] >= 3 && $streak[0] <= 6)
                                                 @php $streak_found = true; @endphp
-                                                
                                                         @if(!$title_printed)
                                                         @php $title_printed = true; @endphp
                                                 <tr class="account_title">
@@ -643,7 +650,8 @@
                             </table>
                             {{-- <h6>Less than 3 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp 
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
@@ -692,7 +700,8 @@
                             <h5>Outgoing Consistency</h5>
                             <h6>More than 6 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp 
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
@@ -737,7 +746,8 @@
                             </table>
                             <h6>3 to 6 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
@@ -782,7 +792,8 @@
                             </table>
                             {{-- <h6>Less than 3 months consistent payments</h6>
                             <table class="table m-0 mb-10 consistency">
-                                <thead class="bg-aqua                                                @php $title_printed = false; @endphp text-white">
+                                @php $title_printed = false; @endphp
+                                <thead class="bg-aqua text-white">
                                     <tr>
                                         <th scope="col" class="py-1"></th>
                                         <th scope="col" class="text-center py-1">Streak</th>
