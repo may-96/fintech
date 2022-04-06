@@ -15,15 +15,20 @@
                     <div class="card p-3 w-100">
                         <div>
                             <div class="d-flex text-primary align-items-center justify-content-between fs-16 fw-bold lh-1 mb-2">
-                                @if (App\Helpers\Functions::not_empty($a['pivot']['nickname']))<span>{{ $a['pivot']['nickname'] }}</span>@endif
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between fs-14 lh-1 mb-0">
-                                <span>@if (isset($a['iban'])) {{ $a['iban'] }} @elseif(isset($a['bban'])) {{ $a['bban'] }} @else {{ $a['resource_id'] }} @endif</span><span>
-                                    <a wire:click.prevent="add_nickname({{ $a['id'] }})" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#nickname_modal" class="share_icon fs-18" title="Add Nickname"><i
-                                           class="uil uil-edit"></i></a>
+                                <span>@if (App\Helpers\Functions::not_empty($a['pivot']['nickname'])){{ $a['pivot']['nickname'] }} @else <small style="font-style: italic;">Account Nickname will appear here</small> @endif</span>
+                                <span>
+                                    <a wire:click.prevent="add_nickname({{ $a['id'] }})" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#nickname_modal" class="share_icon fs-18" title="Add Nickname">
+                                        <i class="uil uil-edit"></i>
+                                    </a>
                                 </span>
                             </div>
-                            <p class="mb-0 fs-14 text-warning">@if (isset($a['owner_name'])) {{ $a['owner_name'] }} @else {{ $a['display_name'] }} @endif</p>
+                            <div class="d-flex align-items-center justify-content-between fs-16 fw-bold lh-1 mb-2">
+                                {{ App\Models\Account::find($a['id'])->institution->name }}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between fs-14 lh-1 mb-0">
+                                <span>@if (isset($a['iban'])) {{ $a['iban'] }} @elseif(isset($a['bban'])) {{ $a['bban'] }} @else {{ $a['resource_id'] }} @endif</span>
+                            </div>
+                            <p class="mb-0 fs-14 text-warning">@if (isset($a['owner_name'])) {{ $a['owner_name'] }} @elseif(isset($a['account_name'])) {{ $a['account_name'] }} @else {{ $a['display_name'] }} @endif</p>
                         </div>
                         <div>
                             <div class="clearfix">

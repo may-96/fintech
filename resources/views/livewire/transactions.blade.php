@@ -6,10 +6,15 @@
                     <div class="col-12 rounded bg-pale-navy py-4">
                         <div>{{ $institution->name }}</div>
                         <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
-                        
+                        @if(App\Helpers\Functions::not_empty($account->currency))
+                        <div>
+                            Currency: <strong>{{ $account->currency }}</strong>
+                        </div>
+                        @endif
                         <div>
                             <button class="btn btn-circle btn-soft-yellow" title="Share" data-bs-toggle="modal" data-bs-target="#shareform"><i class="uil uil-share-alt"></i></button>
                         </div>
+                        
                     </div>
                 </div>
             </div>

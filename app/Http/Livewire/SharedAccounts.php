@@ -27,7 +27,7 @@ class SharedAccounts extends Component
     }
 
     private function load_shared_account(){
-        $this->accounts = $this->user->shared_accounts()->select(['accounts.id','accounts.account_id','iban','bban','resource_id','owner_name','display_name','currency'])->get()->flatten()->toArray();
+        $this->accounts = $this->user->shared_accounts()->select(['accounts.id','accounts.account_id','iban','bban','resource_id','owner_name','display_name','account_name','currency'])->get()->flatten()->toArray();
     }
 
     public function add_nickname($id)

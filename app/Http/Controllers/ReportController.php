@@ -57,7 +57,18 @@ class ReportController extends Controller
             }
             else
             {
-                abort(404);
+                $user = User::where('report_shareable_link', $token)->first();
+                $report_data = DB::table('report_user')->where('shareable_link', $token)->get()->flatten()->first();
+
+                if($user){
+                    $data = ['link_shared', $user->id];
+                }
+                else if(Functions::not_empty($report_data)){
+                    $data = ['link_shared', $report_data->user_id, $report_data];
+                }
+                else{
+                    abort(404);
+                }
             }
         }
 
@@ -273,6 +284,8 @@ class ReportController extends Controller
                     'read' => 0
                 ]);
 
+                $del_notification = Notification::where('type','request_report')->where('data',$shared_with)->where('user_id',$user->id)->delete();
+
                 SendNotification::dispatch($shared_user, $notification);
                 SendNotification::dispatch($user, $notification2);
                 $user->report_requested_from()->detach($shared_with);
@@ -303,6 +316,9 @@ class ReportController extends Controller
             if($user){
                 $data = ['shared', $user->id];
                 return view('app.shareable_link_reports', ['data' => $data]);
+            }
+            else{
+
             }
             
             return redirect()->back()->with('danger', "No such Account Exist");

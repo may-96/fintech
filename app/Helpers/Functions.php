@@ -231,10 +231,21 @@ class Functions
             $tci = 0;
             $tco = 0;
             $currency = strtoupper($account->currency);
+            if(Functions::is_empty($currency)){
+                $currency = 'EUR';
+            }
+
+            // $to_currency = config('app.settings.report_currency');
+            $to_currency = strtoupper($account->currency);
+            if(Functions::is_empty($to_currency)){
+                $to_currency = 'EUR';
+            }
 
             $account_names[] = Functions::not_empty($account->owner_name) ? $account->owner_name : $account->account_name;
 
-            $exchange = Currency::convert()->from($currency)->to(config('app.settings.report_currency'))->amount(1)->get();
+            // $exchange = Currency::convert()->from($currency)->to($currency)->amount(1)->get();
+            
+            $exchange = 1;
             while ($i < $months_in_year)
             {
 
@@ -457,7 +468,8 @@ class Functions
             $salary_monthly,
             $account_names,
             $consistent_in,
-            $consistent_out
+            $consistent_out,
+            $to_currency,
         ];
     }
 

@@ -21,7 +21,7 @@ class Reports extends Component
     public $data;
 
     public $credit_score = 1;
-    public $initials_only = 0;
+    public $initials_only = 1;
     public $account_initials_only = 1;
     public $cash_flow = 1;
     public $expenses = 1;
@@ -75,6 +75,11 @@ class Reports extends Component
             $this->fetch_id = $sharing_info->user_id;
             $this->amount_check = $sharing_info->amount;
         }
+        if($this->data[0] == 'link_shared'){
+            $sharing_info = $this->data[2];
+            $this->fetch_id = $this->data[1];
+            $this->amount_check = $this->data[2]->amount;
+        }
 
     }
 
@@ -91,6 +96,12 @@ class Reports extends Component
         $temp = User::find($this->fetch_id);
         if($this->data[0] == "shared" || $this->data[0] == "self_shared"){
             $this->access = $this->data[1];
+        }
+        if($this->data[0] == 'link_shared'){
+            foreach($this->data[2] as $key => $val){
+                $this->access[$key] = $val;
+            }
+            
         }
         
         $this->report_user_name = $temp->fname . " " . $temp->lname;
@@ -147,14 +158,26 @@ class Reports extends Component
 
     public function generate_shareable_link(){
         $token = Str::orderedUuid();
-        $this->current_user->report_shareable_link = (string)$token;
-        $this->current_user->save();
+        if($this->data[0] == 'self'){
+            $this->current_user->report_shareable_link = (string)$token;
+            $this->current_user->save();
+        }
+        if($this->data[0] == 'self_shared'){
+            DB::table('report_user')->where('id', $this->access['id'])->update(['shareable_link' => $token]);
+        }
+        
         $this->shareable_link = (string)$token;
     }
 
     public function remove_shareable_link(){
-        $this->current_user->report_shareable_link = null;
-        $this->current_user->save();
+        
+        if($this->data[0] == 'self'){
+            $this->current_user->report_shareable_link = null;
+            $this->current_user->save();
+        }
+        if($this->data[0] == 'self_shared'){
+            DB::table('report_user')->where('id', $this->access['id'])->update(['shareable_link' => null]);
+        }
         $this->shareable_link = null;
     }
 
@@ -169,7 +192,12 @@ class Reports extends Component
             $this->reset_status();
         }
 
-        // $this->shareable_link = $this->current_user->report_shareable_link;
+        if($this->data[0] == 'self'){
+            $this->shareable_link = $this->current_user->report_shareable_link;
+        }
+        if($this->data[0] == 'self_shared'){
+            $this->shareable_link = $this->access['shareable_link'];
+        }
         
         $temp_1 = DB::table('report_shares_with_unregistered_users')->selectRaw("id,email,created_at,'other' as type")->where('user_id', $this->current_user->id)->get()->toArray();
         $structured_1 = [];

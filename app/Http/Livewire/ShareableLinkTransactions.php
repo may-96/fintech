@@ -24,6 +24,7 @@ class ShareableLinkTransactions extends Component
     public $balance_shared;
     public $account;
     public $aid;
+    public $institution;
 
     public $balances = [];
 
@@ -38,6 +39,7 @@ class ShareableLinkTransactions extends Component
         $this->balance_shared = $balance_shared;
         
         $this->account = Account::where('id',$this->aid)->where('account_id',$this->account_id)->get()->first();
+        $this->institution = $this->account->institution;
 
         if($this->balance_shared == 1){
             $this->balances = $this->account->balances->toArray();

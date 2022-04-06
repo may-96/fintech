@@ -61,11 +61,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function shared_reports_with(){
-        return $this->belongsToMany(User::class, 'report_user', 'shared_with', 'user_id')->withTimestamps()->withPivot(['id','view_cash_flow','view_expense','view_income','view_email','view_contact','view_credit_score','view_initials_only','view_account_initials_only','amount','token']);
+        return $this->belongsToMany(User::class, 'report_user', 'shared_with', 'user_id')->withTimestamps()->withPivot(['id','view_cash_flow','view_expense','view_income','view_email','view_contact','view_credit_score','view_initials_only','view_account_initials_only','amount','token','shareable_link']);
     }
 
     public function shared_reports(){
-        return $this->belongsToMany(User::class, 'report_user', 'user_id', 'shared_with')->withTimestamps()->withPivot(['id','view_cash_flow','view_expense','view_income','view_email','view_contact','view_credit_score','view_initials_only','view_account_initials_only','amount','token']);
+        return $this->belongsToMany(User::class, 'report_user', 'user_id', 'shared_with')->withTimestamps()->withPivot(['id','view_cash_flow','view_expense','view_income','view_email','view_contact','view_credit_score','view_initials_only','view_account_initials_only','amount','token','shareable_link']);
     }
 
     public function report_requests(){

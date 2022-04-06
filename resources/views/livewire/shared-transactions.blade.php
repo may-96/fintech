@@ -6,6 +6,11 @@
                     <div class="col-12 rounded bg-pale-navy py-4">
                         <div>{{ $institution->name }}</div>
                         <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
+                        @if(App\Helpers\Functions::not_empty($account->currency))
+                        <div>
+                            Currency: <strong>{{ $account->currency }}</strong>
+                        </div>
+                        @endif 
                     </div>
                 </div>
             </div>
@@ -180,19 +185,20 @@
                 let win = $(window).scrollTop() + $(window).innerHeight();
                 let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
                 if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
+
                     if (!ticking) {
                         ticking = true
                         Alpine.store('data').toggleTransactionsLoading();
+
                         setTimeout(async () => {
                             await @this.load_more();
                             Alpine.store('data').toggleTransactionsLoading();
+
                             ticking = false;
                         }, 500);
                     }
                 }
             });
         });
-
-        
     </script>
 @endpush

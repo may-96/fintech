@@ -1,5 +1,20 @@
 <section>
     <div x-data class="content-wrapper ">
+        <section class="wrapper text-center">
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-12 rounded bg-pale-navy py-4">
+                        <div>{{ $institution->name }}</div>
+                        <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
+                        @if(App\Helpers\Functions::not_empty($account->currency))
+                        <div>
+                            Currency: <strong>{{ $account->currency }}</strong>
+                        </div>
+                        @endif 
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
             <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
 
@@ -162,30 +177,30 @@
                     },
                 'slow');
             });
-        });
 
-        window.livewire.on('allDataLoaded', () => {
+            window.livewire.on('allDataLoaded', () => {
                 Alpine.store('data').allLoaded();
             });
 
-        let ticking = false;
-        document.addEventListener('scroll', function(e) {
-            let win = $(window).scrollTop() + $(window).innerHeight();
-            let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
-            if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
-            
-                if (!ticking) {
-                    ticking = true
-                    Alpine.store('data').toggleTransactionsLoading();
-                    
-                    setTimeout(async () => {
-                        await @this.load_more();
+            let ticking = false;
+            document.addEventListener('scroll', function(e) {
+                let win = $(window).scrollTop() + $(window).innerHeight();
+                let elem = $('#transactions_area').offset().top + $('#transactions_area').innerHeight();
+                if (!Alpine.store('data').all_loaded && !Alpine.store('data').transactions_loading && (win >= elem + 50)) {
+                
+                    if (!ticking) {
+                        ticking = true
                         Alpine.store('data').toggleTransactionsLoading();
                         
-                        ticking = false;
-                    }, 500);
+                        setTimeout(async () => {
+                            await @this.load_more();
+                            Alpine.store('data').toggleTransactionsLoading();
+                            
+                            ticking = false;
+                        }, 500);
+                    }
                 }
-            }
-        });
+            });
+        });        
     </script>
 @endpush

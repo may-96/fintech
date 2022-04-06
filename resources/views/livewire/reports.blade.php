@@ -12,13 +12,13 @@
                             <p>Credit Score based on the analysis of your last 24 months</p>
                         </div>
                         <div class="col-12 col-md-4 mb-md-auto mb-2 m-auto text-center text-md-start">
-                            @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_credit_score'] == 1))
+                            @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_credit_score'] == 1))
                                 <p class="fs-16 mb-0 fw-bold text-dark">Credit Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[10] }} text-{{ $report_data[10] }}">{{ round($report_data[8], 0) }}</span> <span
                                           class="fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</span></p>
                             @endif
                         </div>
                         <div class="col-12 col-md-8 text-center">
-                            @if ($data[0] != 'shared')
+                            @if ($data[0] != 'shared' && $data[0] != 'link_shared')
                                 <a class="float-md-end share_icon m-1 py-1 btn btn-sm btn-group-lg btn-soft-primary" wire:click.prevent="get_sharing_info({{ true }})" data-bs-toggle="modal" data-bs-target="#shareform"
                                    data-toggle="tooltip" data-placement="top" title="Share"><i class="uil uil-share-alt"></i></a>
                             @endif
@@ -27,7 +27,7 @@
 
                         <hr />
 
-                        @if (($data[0] == 'shared' || $data[0] == 'self_shared') && $amount_check != null && $amount_check > 0 )
+                        @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $amount_check != null && $amount_check > 0 )
                         <div class="col-12 mb-3 mh-100">
                             <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
@@ -53,7 +53,7 @@
                         <div class="col-lg-4 col-sm-6 mh-100">
                             <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
-                                    <h3 class="d-flex justify-content-between fs-28 text-success"><span>{{ config('app.settings.report_currency_symbol') . round($report_data[5], 2) }}</span><i
+                                    <h3 class="d-flex justify-content-between fs-28 text-success"><span>{{ $report_data[16] . ' ' . round($report_data[5], 2) }}</span><i
                                            class="uil uil-bill fs-20 text-success bg-white border rounded-full px-2 py-1"></i></h3>
                                     <p class="fs-14">Average Monthly Income</p>
                                 </div>
@@ -62,7 +62,7 @@
                         <div class="col-lg-4 col-md-12 mh-100">
                             <div class="p-3 border bg-gradient-dark shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
-                                    <h3 class="d-flex justify-content-between fs-28 text-navy"><span>{{ config('app.settings.report_currency_symbol') . round($report_data[6], 2) }}</span><i
+                                    <h3 class="d-flex justify-content-between fs-28 text-navy"><span>{{ $report_data[16] . ' ' . round($report_data[6], 2) }}</span><i
                                            class="uil uil-briefcase fs-20 text-navy border bg-white rounded-full px-2 py-1"></i></h3>
                                     <p class="fs-14">Average Monthly Expense</p>
                                 </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="row gy-3">
 
-                        @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_income'] == 1)))
+                        @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_income'] == 1)))
                             <div class="col-12 col-lg-6 mb-10 d-block">
                                 <div class="text-center">
                                     <h1>Income</h1>
@@ -89,7 +89,7 @@
                             </div>
                         @endif
 
-                        @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_expense'] == 1)))
+                        @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_expense'] == 1)))
                             <div class="col-12 col-lg-6 mb-10 d-block">
                                 <div class="text-center">
                                     <h1>Expense</h1>
@@ -135,8 +135,20 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                                <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $streak[0] }}</div>
+                                                                <div>
+                                                                    @php
+                                                                        $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                        $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                                    @endphp
+                                                                    <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -180,8 +192,20 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                                <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $streak[0] }}</div>
+                                                                <div>
+                                                                    @php
+                                                                        $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                        $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                                    @endphp
+                                                                    <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -225,7 +249,7 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $report_data[16] . ' ' . round($streak[1],2) }}</td>
                                                             <td class="text-center text-capitalize">{{ $streak[0] }}</td>
                                                         </tr>
                                                     @endif
@@ -275,8 +299,20 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                                <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $streak[0] }}</div>
+                                                                <div>
+                                                                    @php
+                                                                        $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                        $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                                    @endphp
+                                                                    <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -321,8 +357,20 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                            <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                                <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                <div>{{ $streak[0] }}</div>
+                                                                <div>
+                                                                    @php
+                                                                        $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                        $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                                    @endphp
+                                                                    <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -367,7 +415,7 @@
                                                             <td colspan="1"></td>
                                                             <td class="text-center">{{$streak_count}}</td>
                                                             <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                            <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                            <td class="text-center text-capitalize">{{ $report_data[16] . ' ' . round($streak[1],2) }}</td>
                                                             <td class="text-center text-capitalize">{{ $streak[0] }}</td>
                                                         </tr>
                                                     @endif
@@ -384,7 +432,7 @@
                             @endif
                         </div>
 
-                        @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_cash_flow'] == 1)))
+                        @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_cash_flow'] == 1)))
                             <div id="tabular" class="mb-10">
                                 <div class="col-12 text-center mb-10">
                                     <h1>Monthly Flow Of Cash</h1>
@@ -405,18 +453,16 @@
                                         @foreach ($report_data[0] as $month => $value)
                                             <tr>
                                                 <td>{{ $month }}</td>
-                                                <td class="text-green">{{ config('app.settings.report_currency_symbol') . round($value[1], 2) }}</td>
-                                                <td class="text-danger">{{ config('app.settings.report_currency_symbol') . round($value[3], 2) }}</td>
+                                                <td class="text-green">{{ $report_data[16] . ' ' . round($value[1], 2) }}</td>
+                                                <td class="text-danger">{{ $report_data[16] . ' ' . round($value[3], 2) }}</td>
                                             </tr>
                                         @endforeach
-                                    </tbody>
-                                    <tfoot>
                                         <tr>
-                                            <td class="fw-bold">Total</td>
-                                            <td class="fw-bold text-green">{{ round($report_data[3], 2) }}</td>
-                                            <td class="fw-bold text-danger">{{ round($report_data[4], 2) }}</td>
+                                            <th class="fw-bold">Total</th>
+                                            <th class="fw-bold text-green">{{ $report_data[16] . ' ' . round($report_data[3], 2) }}</th>
+                                            <th class="fw-bold text-danger">{{ $report_data[16] . ' ' . round($report_data[4], 2) }}</th>
                                         </tr>
-                                    </tfoot>
+                                    </tbody>
                                 </table>
                             </div>
                         @endif
@@ -441,9 +487,9 @@
                 </div>
                 <div class="row my-10">
                     <div class="col-6">
-                        @if (App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_initials_only'] == 0)))
+                        @if (App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_initials_only'] == 0)))
                             <p class="m-0 clearfix"><span class="float-start">Name:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name }}</span></p>
-                        @elseif(App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_initials_only'] == 1)))
+                        @elseif(App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_initials_only'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Name Initials:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name_initials }}</span></p>
                         @endif
 
@@ -451,29 +497,29 @@
                             <p class="m-0 clearfix"><span class="float-start">Company:</span> <span class="float-end fw-bold text-dark">{{ $company_name }}</span></p>
                         @endif
 
-                        @if (App\Helpers\Functions::not_empty($email_addr) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_email'] == 1)))
+                        @if (App\Helpers\Functions::not_empty($email_addr) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_email'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Email:</span> <span class="float-end fw-bold text-dark">{{ $email_addr }}</span></p>
                         @endif
 
-                        @if (App\Helpers\Functions::not_empty($contact_num) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_contact'] == 1)))
+                        @if (App\Helpers\Functions::not_empty($contact_num) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_contact'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Contact #:</span> <span class="float-end fw-bold text-dark">{{ $contact_num }}</span></p>
                         @endif
 
                         <p class="m-0 clearfix"><span class="float-start">Generated At:</span> <span class="float-end fw-bold text-dark" id="time_span"></span></p>
                     </div>
                     <div class="col-6">
-                        @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_credit_score'] == 1))
+                        @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_credit_score'] == 1))
                             <p class="m-0 text-end"><span class="fw-bold">Credit Score:</span> <span class="text-muted fs-20">{{ round($report_data[8], 0) }}</span></p>
                             <p class="text-end fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</p>
                         @endif
                         @if ($report_data[11] > 0)
-                            <p class="m-0 text-end"><span class="">Saving per Month:</span> <span>{{ config('app.settings.report_currency_symbol') . round($report_data[11], 2) }}</span></p>
+                            <p class="m-0 text-end"><span class="">Saving per Month:</span> <span>{{ $report_data[16] . ' ' . round($report_data[11], 2) }}</span></p>
                         @elseif($report_data[11] < 0)
-                            <p class="m-0 text-end"><span class="">Over Spent per Month:</span> <span>{{ config('app.settings.report_currency_symbol') . round($report_data[11], 2) }}</span></p>
+                            <p class="m-0 text-end"><span class="">Over Spent per Month:</span> <span>{{ $report_data[16] . ' ' . round($report_data[11], 2) }}</span></p>
                         @else
                             <p class="m-0 text-end"><span class="">No Saving neither Over Spent</span></p>
                         @endif
-                        <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ config('app.settings.report_currency_symbol') . round($report_data[12], 2) }}</span></p>
+                        <p class="m-0 text-end"><span class="fw-bold">Monthly Salary:</span> <span>{{ $report_data[16] . ' ' . round($report_data[12], 2) }}</span></p>
                         <p class="m-0 text-end"><span class="fw-bold">Accounts Anaylzed:</span> <span>{{ $report_data[7] }}</span></p>
                         <p class="m-0 text-end"><span class="fw-bold">Account Names</span></p>
                         @foreach ($account_names as $account_name)
@@ -482,7 +528,7 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    @if (($data[0] == 'shared' || $data[0] == 'self_shared') && $amount_check != null && $amount_check > 0)
+                    @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $amount_check != null && $amount_check > 0)
                     <div class="col-12 mh-100">
                         <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
@@ -498,7 +544,7 @@
                 </div>
 
                 <div class="row mb-10">
-                    @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_income'] == 1)))
+                    @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_income'] == 1)))
                         <div class="col-12 mb-10">
                             <h5>Income</h5>
                             <table class="table table-striped m-0 mb-10">
@@ -513,8 +559,8 @@
                                         <tr>
                                             <td class="ps-3 text-capitalize">{{ $category }}</td>
                                             <td class="text-dark">
-                                                <p class="m-0"><span>{{ config('app.settings.report_currency_symbol') . round($value[1], 2) }}</span><span class="ms-1 fw-bold fs-13">(Total)</span></p>
-                                                <p class="m-0"><span>{{ config('app.settings.report_currency_symbol') . round($value[2], 2) }}</span><span class="ms-1 fw-bold fs-13">(Average)</span></p>
+                                                <p class="m-0"><span>{{ $report_data[16] . ' ' . round($value[1], 2) }}</span><span class="ms-1 fw-bold fs-13">(Total)</span></p>
+                                                <p class="m-0"><span>{{ $report_data[16] . ' ' . round($value[2], 2) }}</span><span class="ms-1 fw-bold fs-13">(Average)</span></p>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -526,7 +572,7 @@
                         </div>
                     @endif
 
-                    @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_expense'] == 1)))
+                    @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_expense'] == 1)))
                         <div class="col-12 mb-10">
                             <h5>Expense</h5>
                             <table class="table table-striped m-0 mb-10">
@@ -541,8 +587,8 @@
                                         <tr>
                                             <td class="ps-3">{{ $category }}</td>
                                             <td class="text-dark">
-                                                <p class="m-0"><span>{{ config('app.settings.report_currency_symbol') . round($value[1], 2) }}</span><span class="ms-1 fw-bold fs-13">(Total)</span></p>
-                                                <p class="m-0"><span>{{ config('app.settings.report_currency_symbol') . round($value[2], 2) }}</span><span class="ms-1 fw-bold fs-13">(Average)</span></p>
+                                                <p class="m-0"><span>{{ $report_data[16] . ' ' . round($value[1], 2) }}</span><span class="ms-1 fw-bold fs-13">(Total)</span></p>
+                                                <p class="m-0"><span>{{ $report_data[16] . ' ' . round($value[2], 2) }}</span><span class="ms-1 fw-bold fs-13">(Average)</span></p>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -591,8 +637,20 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                        <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                    </td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $streak[0] }}</div>
+                                                        <div>
+                                                            @php
+                                                                $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                            @endphp
+                                                            <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -635,8 +693,20 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                        <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                    </td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $streak[0] }}</div>
+                                                        <div>
+                                                            @php
+                                                                $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                            @endphp
+                                                            <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -680,7 +750,7 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $report_data[16] . ' ' . round($streak[1],2) }}</td>
                                                     <td class="text-center text-capitalize">{{ $streak[0] }}</td>
                                                 </tr>
                                             @endif
@@ -730,8 +800,20 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                        <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                    </td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $streak[0] }}</div>
+                                                        <div>
+                                                            @php
+                                                                $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                            @endphp
+                                                            <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -776,8 +858,20 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
-                                                    <td class="text-center text-capitalize">{{ $streak[0] }}</td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $report_data[16] . ' ' . round($streak[1],2) }}</div>
+                                                        <div><small>(Avg. Monthly Amount: {{ $report_data[16] . ' ' . round(($streak[1]/$streak[0]),2) }})</small></div>
+                                                    </td>
+                                                    <td class="text-center text-capitalize">
+                                                        <div>{{ $streak[0] }}</div>
+                                                        <div>
+                                                            @php
+                                                                $start_date = Carbon\Carbon::parse($streak[2]['fixed_date']);
+                                                                $end_date = Carbon\Carbon::parse($streak[count($streak) - 1]['fixed_date']);
+                                                            @endphp
+                                                            <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -822,7 +916,7 @@
                                                     <td colspan="1"></td>
                                                     <td class="text-center">{{$streak_count}}</td>
                                                     <td class="text-center text-capitalize">{{ count($streak) - 2 }}</td>
-                                                    <td class="text-center text-capitalize">{{ config('app.settings.report_currency_symbol') . round($streak[1],2) }}</td>
+                                                    <td class="text-center text-capitalize">{{ $report_data[16] . ' ' . round($streak[1],2) }}</td>
                                                     <td class="text-center text-capitalize">{{ $streak[0] }}</td>
                                                 </tr>
                                             @endif
@@ -839,7 +933,7 @@
                     @endif
                 </div>
 
-                @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared') && $access['view_cash_flow'] == 1)))
+                @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_cash_flow'] == 1)))
                     <div class="row mb-10">
                         <div class="col-12">
                             <h5>Cash Flow</h5>
@@ -855,14 +949,14 @@
                                     @foreach ($report_data[0] as $month => $value)
                                         <tr>
                                             <td class="ps-3">{{ $month }}</td>
-                                            <td class="text-dark text-center">{{ config('app.settings.report_currency_symbol') . round($value[1], 2) }}</td>
-                                            <td class="text-dark text-center">{{ config('app.settings.report_currency_symbol') . round($value[3], 2) }}</td>
+                                            <td class="text-dark text-center">{{ $report_data[16] . ' ' . round($value[1], 2) }}</td>
+                                            <td class="text-dark text-center">{{ $report_data[16] . ' ' . round($value[3], 2) }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td class="ps-3 fw-bold">Total</td>
-                                        <td class="text-dark text-center fw-bold">{{ config('app.settings.report_currency_symbol') . round($report_data[3], 2) }}</td>
-                                        <td class="text-dark text-center fw-bold">{{ config('app.settings.report_currency_symbol') . round($report_data[4], 2) }}</td>
+                                        <td class="text-dark text-center fw-bold">{{ $report_data[16] . ' ' . round($report_data[3], 2) }}</td>
+                                        <td class="text-dark text-center fw-bold">{{ $report_data[16] . ' ' . round($report_data[4], 2) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -883,7 +977,7 @@
         </div>
     </template>
 
-    @if (App\Helpers\Functions::not_empty($report_data) && $data[0] != 'shared')
+    @if (App\Helpers\Functions::not_empty($report_data) && $data[0] != 'shared' && $data[0] != 'link_shared')
         <div wire:ignore.self class="modal fade" id="shareform">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -953,20 +1047,20 @@
                                 Report is not shared with anyone!
                             @endforelse
                         </div>
-                        {{-- <div>
+                        <div>
                             <p class="text-muted text-start border-bottom fs-11 mt-4">Shareable Link</p>
                             @if (App\Helpers\Functions::is_empty($shareable_link))
                                 <button wire:click="generate_shareable_link()" class="btn btn-sm btn-soft-ash rounded-pill py-0 px-2" type="button">Generate Shareable Link</button>
                             @else
                                 <div class="">
-                                    <p class="fs-14 alert alert-info px-2 py-1 mb-1" id="shareable_link">{{ route('report.shareable.link', $shareable_link) }}</p>
+                                    <p class="fs-14 alert alert-info px-2 py-1 mb-1" id="shareable_link">{{ route('get.report', $shareable_link) }}</p>
                                     <div class="d-flex justify-content-between"><a href="javascript:void(0)" onclick="copy_text()" class="btn btn-sm btn-soft-primary p-0 px-1">Copy</a> <a href="javascript:void(0)"
                                            class="btn btn-soft-red btn-sm p-0 px-1" wire:click="remove_shareable_link()" title="Remove"><i class="uil uil-trash-alt"></i></a></div>
                                     <strong id="copy_toast" class="d-none">Link Copied !</strong>
                                     <textarea style="display: none;" id="copyTextarea"></textarea>
                                 </div>
                             @endif
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1127,7 +1221,7 @@
                                 },
                                 value: {
                                     formatter: function(val, opts) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             val;
                                     }
                                 },
@@ -1135,7 +1229,7 @@
                                     show: true,
                                     color: 'black',
                                     formatter: function(w) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
                                     }
                                 }
@@ -1182,7 +1276,7 @@
                                 },
                                 value: {
                                     formatter: function(val, opts) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             val;
                                     }
                                 },
@@ -1190,7 +1284,7 @@
                                     show: true,
                                     color: 'black',
                                     formatter: function(w) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
                                     }
                                 }
@@ -1254,7 +1348,7 @@
                                 },
                                 value: {
                                     formatter: function(val, opts) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             val;
                                     }
                                 },
@@ -1262,7 +1356,7 @@
                                     show: true,
                                     color: 'black',
                                     formatter: function(w) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
                                     }
                                 }
@@ -1309,7 +1403,7 @@
                                 },
                                 value: {
                                     formatter: function(val, opts) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             val;
                                     }
                                 },
@@ -1317,7 +1411,7 @@
                                     show: true,
                                     color: 'black',
                                     formatter: function(w) {
-                                        return '$' +
+                                        return @this.report_data[16] + " " +
                                             parseFloat(w.globals.series.reduce((a, b) => a + b, 0)).toFixed(2);
                                     }
                                 }
@@ -1399,7 +1493,7 @@
                 },
                 yaxis: {
                     title: {
-                        text: 'Amount ($)'
+                        text: 'Amount ' + @this.report_data[16]
                     }
                 },
                 fill: {
@@ -1409,7 +1503,7 @@
                 tooltip: {
                     y: {
                         formatter: function(val) {
-                            return "$" + val
+                            return @this.report_data[16] + " " + val
                         }
                     }
                 }
@@ -1451,7 +1545,7 @@
                 },
                 yaxis: {
                     title: {
-                        text: 'Amount ($)'
+                        text: 'Amount '+ @this.report_data[16]
                     }
                 },
                 fill: {
@@ -1461,7 +1555,7 @@
                 tooltip: {
                     y: {
                         formatter: function(val) {
-                            return "$" + val
+                            return @this.report_data[16] + " " + val
                         }
                     }
                 }
