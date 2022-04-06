@@ -150,6 +150,19 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td colspan="5" class="bg-white">
+                                                            @foreach ($streak as $streak_index => $val)
+                                                                @if($streak_index > 1)
+                                                                    @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                                    <div class="d-flex justify-content-between border-bottom p-1">
+                                                                        <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                        <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                            </td>
+                                                        </tr>
                                                     @endif
                                                 @endforeach
                                             @endforeach
@@ -205,6 +218,19 @@
                                                                     @endphp
                                                                     <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5" class="bg-white">
+                                                            @foreach ($streak as $streak_index => $val)
+                                                                @if($streak_index > 1)
+                                                                    @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                                    <div class="d-flex justify-content-between border-bottom p-1">
+                                                                        <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                        <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
                                                             </td>
                                                         </tr>
                                                     @endif
@@ -314,6 +340,19 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td colspan="5" class="bg-white">
+                                                            @foreach ($streak as $streak_index => $val)
+                                                                @if($streak_index > 1)
+                                                                    @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                                    <div class="d-flex justify-content-between border-bottom p-1">
+                                                                        <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                        <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
+                                                            </td>
+                                                        </tr>
                                                     @endif
                                                 @endforeach
                                                 
@@ -370,6 +409,19 @@
                                                                     @endphp
                                                                     <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="5" class="bg-white">
+                                                            @foreach ($streak as $streak_index => $val)
+                                                                @if($streak_index > 1)
+                                                                    @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                                    <div class="d-flex justify-content-between border-bottom p-1">
+                                                                        <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                        <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
                                                             </td>
                                                         </tr>
                                                     @endif
@@ -652,6 +704,19 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td colspan="5" class="bg-white">
+                                                    @foreach ($streak as $streak_index => $val)
+                                                        @if($streak_index > 1)
+                                                            @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                            <div class="d-flex justify-content-between border-bottom p-1">
+                                                                <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                    </td>
+                                                </tr>
                                             @endif
                                         @endforeach
                                     @endforeach
@@ -706,6 +771,19 @@
                                                             @endphp
                                                             <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
                                                         </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" class="bg-white">
+                                                    @foreach ($streak as $streak_index => $val)
+                                                        @if($streak_index > 1)
+                                                            @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                            <div class="d-flex justify-content-between border-bottom p-1">
+                                                                <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
                                                     </td>
                                                 </tr>
                                             @endif
@@ -815,6 +893,19 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td colspan="5" class="bg-white">
+                                                    @foreach ($streak as $streak_index => $val)
+                                                        @if($streak_index > 1)
+                                                            @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                            <div class="d-flex justify-content-between border-bottom p-1">
+                                                                <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                    </td>
+                                                </tr>
                                             @endif
                                         @endforeach
                                         
@@ -871,6 +962,19 @@
                                                             @endphp
                                                             <small>{{$start_date->format('M') .', '. $start_date->year . ' - ' . $end_date->format('M') .', '. $end_date->year }}</small>
                                                         </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" class="bg-white">
+                                                    @foreach ($streak as $streak_index => $val)
+                                                        @if($streak_index > 1)
+                                                            @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
+                                                            <div class="d-flex justify-content-between border-bottom p-1">
+                                                                <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
+                                                                <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
                                                     </td>
                                                 </tr>
                                             @endif
