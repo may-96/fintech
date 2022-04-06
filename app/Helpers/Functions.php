@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Notification;
 use App\Models\Token;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 
@@ -223,6 +224,23 @@ class Functions
         if(count($accounts) == 0){
             return 0;
         }
+
+        $temp_curr = "";
+        foreach($accounts as $account){
+            if($temp_curr == ""){
+                $temp_curr = strtoupper($account->currency);
+            }
+            if($temp_curr !== strtoupper($account->currency)){
+                $to_currency = $user->currency;
+                break;
+            }
+            $to_currency = $temp_curr;
+        }
+
+        // $to_currency = config('app.settings.report_currency');
+        if(Functions::is_empty($to_currency)){
+            $to_currency = 'EUR';
+        }
         
         foreach ($accounts as $account)
         {
@@ -230,22 +248,20 @@ class Functions
             $total_months = 0;
             $tci = 0;
             $tco = 0;
+            
             $currency = strtoupper($account->currency);
+            
             if(Functions::is_empty($currency)){
                 $currency = 'EUR';
             }
-
-            // $to_currency = config('app.settings.report_currency');
-            $to_currency = strtoupper($account->currency);
-            if(Functions::is_empty($to_currency)){
-                $to_currency = 'EUR';
-            }
-
+            
             $account_names[] = Functions::not_empty($account->owner_name) ? $account->owner_name : $account->account_name;
 
-            // $exchange = Currency::convert()->from($currency)->to($currency)->amount(1)->get();
-            
             $exchange = 1;
+            if($to_currency != $currency){
+                $exchange = Currency::convert()->from($currency)->to($to_currency)->amount(1)->get();
+            }
+            
             while ($i < $months_in_year)
             {
 

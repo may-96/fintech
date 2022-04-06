@@ -20,7 +20,8 @@ class UserController extends Controller
             'lname' => ['required', 'string', 'max:255'],
             'company' => ['nullable'],
             'dob' => ['nullable'],
-            'gender' => ['nullable','in:male,female,other', 'sometimes']
+            'gender' => ['nullable','in:male,female,other', 'sometimes'],
+            'currency' => ['exists:currencies,code'],
         ]);
 
         $user = Auth::user();

@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('contact',50)->nullable();
             $table->string('company',100)->nullable();
             $table->string('gender',10)->nullable();
+            $table->string('currency',10)->default('EUR');
             $table->string('address')->nullable();
             $table->unsignedTinyInteger('status')->default(1);
             $table->timestamp('last_transaction_fetch_time')->nullable();

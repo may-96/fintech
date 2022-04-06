@@ -48,7 +48,7 @@
                                         <li class="list-group-item row ps-0">
                                             <span class="col-4 m-auto">Company</span>
                                             <div class="col-8 form-floating d-inline-block">
-                                                <input id="company" type="text" value="{{old('company', $user->company)}}" name="company" class="form-control px-2 py-1 border border-secondary @error('company') is-invalid @enderror" placeholder="Doe" required="">
+                                                <input id="company" type="text" value="{{old('company', $user->company)}}" name="company" class="form-control px-2 py-1 border border-secondary @error('company') is-invalid @enderror" placeholder="Doe">
                                                 @error('company')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                                             </div>
                                         </li>
@@ -71,6 +71,24 @@
                                                 <div><input class="form-check-input" type="radio" name="gender" id="other" value="other" @if(old('gender', $user->gender) == 'other') checked @endif>
                                                 <label class="form-check-label" for="other">Other</label></div>
                                                 @error('gender')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                                            </div>
+                                        </li>
+
+                                        <hr class="my-0" />
+                                        <li class="list-group-item row ps-0">
+                                            <span class="col-4 m-auto">Default Currency</span>
+                                            <div class="col-8 d-inline-block">
+                                                <div class="form-select-wrapper">
+                                                    @php $currencies = DB::table('currencies')->select('currency','code')->distinct()->orderBy('code','asc')->get()->flatten(); @endphp
+                                                    <select name="currency" class="form-select" placeholder="Select Currency">
+                                                        <option disabled value="">Select Currency</option>
+
+                                                        @foreach($currencies as $index => $currency)
+                                                        <option value="{{$currency->code}}" @if(old('currency', $user->currency) == $currency->code) selected @endif>{{ucwords($currency->currency)}} - {{$currency->code}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                @error('currency')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                                             </div>
                                         </li>
                                     </ul>
