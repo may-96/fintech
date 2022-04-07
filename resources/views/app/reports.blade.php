@@ -5,8 +5,9 @@
     @livewireStyles
     <style>
         table.consistency td{
-            font-size: 11px;
+            font-size: 12px;
             padding: 0.1rem 0.2rem;
+            vertical-align: middle
         }
         table.consistency th{
             font-size: 12px

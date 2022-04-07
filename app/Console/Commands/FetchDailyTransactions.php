@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Events\AccountConnected;
+use App\Helpers\Functions;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -29,7 +30,9 @@ class FetchDailyTransactions extends Command
             foreach($users as $user){
                 $accounts = $user->accounts;
                 foreach($accounts as $account){
-                    event(new AccountConnected($user, $account, $date_from, $date_to));
+                    Functions::fetchTransactions($user, $account, $date_from, $date_to);
+                    
+                    // event(new AccountConnected($user, $account, $date_from, $date_to));
                 }
             }
             return 1;
