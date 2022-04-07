@@ -79,7 +79,7 @@ class Functions
 
     public static function add_or_update_transactions($t, $account, $status)
     {
-        Log::debug($t);
+        // Log::debug($t);
         $custom_uid = Functions::get_transaction_custom_uid($t);
         $transaction = Transaction::updateOrCreate(
             [
