@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('command:delete.empty.agreements')->daily()->withoutOverlapping()->runInBackground();
         $schedule->command('command:delete.empty.requisitions')->daily()->withoutOverlapping()->runInBackground();
-        $schedule->command('command:fetch.daily.transactions')->daily()->withoutOverlapping()->runInBackground();
+        $schedule->command('command:fetch.daily.transactions')->everyFiveMinutes()->withoutOverlapping()->runInBackground();
     }
 
     protected function commands()
