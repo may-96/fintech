@@ -528,7 +528,7 @@ class Functions
 
     public static function fetchTransactions($user, $account, $df, $dt){
         $requisition = $account->requisition;
-        $agreement = $account->agreement;
+        $agreement = $requisition->agreement;
 
         if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED'))
         {
