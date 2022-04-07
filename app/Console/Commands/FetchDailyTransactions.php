@@ -30,6 +30,7 @@ class FetchDailyTransactions extends Command
             foreach($users as $user){
                 $accounts = $user->accounts;
                 foreach($accounts as $account){
+                    logger($account->iban);
                     Functions::fetchTransactions($user, $account, $date_from, $date_to);
                     
                     // event(new AccountConnected($user, $account, $date_from, $date_to));
