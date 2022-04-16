@@ -120,7 +120,7 @@
 </style>
 @endsection
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{asset('images/background/Hexagon.svg')}})">
+    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg pt-16" style="">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
