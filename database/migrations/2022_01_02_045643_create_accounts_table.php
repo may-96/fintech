@@ -39,6 +39,9 @@ class CreateAccountsTable extends Migration
             $table->string('details',512)->nullable();
             $table->double('credit_score',10,2,true)->nullable(true);
             $table->string('nickname',100)->nullable();
+            $table->string('shareable_link',128)->nullable();
+            $table->timestamp('first_load')->nullable();
+            $table->timestamp('last_load_time')->nullable();
             $table->timestamps();
 
             $table->unique(['user_id','institution_id','account_id']);

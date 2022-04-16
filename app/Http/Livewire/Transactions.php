@@ -96,15 +96,29 @@ class Transactions extends Component
 
     private function load_transactions()
     {
-        if ($this->user->transaction_error_code == null)
+        if ($this->account->first_load == null)
         {
             $this->user->transaction_error_code = 500;
             $this->user->save();
             $this->transaction_status = "Processing";
             Functions::fetchTransactions($this->user, $this->account, null, null);
+            $this->account->first_load = Carbon::now()->toDateTimeString();
+            $this->account->last_load_time = Carbon::now()->toDateTimeString();
+            $this->account->save();
             $this->emit('transactionReFetched');
         }
-        else if ($this->user->transaction_error_code == 200)
+        
+        $llt = Carbon::parse($this->account->last_load_time);
+        $now = Carbon::now();
+        if($now->diffInHours($llt) > 22){
+            $this->transaction_status = "Processing";
+            Functions::fetchTransactions($this->user, $this->account, $llt->toDateString(), null);
+            $this->account->last_load_time = Carbon::now()->toDateTimeString();
+            $this->account->save();
+            $this->emit('transactionReFetched');
+        }
+        
+        if ($this->user->transaction_error_code == 200)
         {
             $select_array = [
                 'id', 'fixed_date', 'year', 'custom_uid', 'debator_name', 'debtor_account', 'creditor_name', 'creditor_account', 'additional_information', 'status', 'purpose_code',

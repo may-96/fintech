@@ -79,7 +79,7 @@ class Functions
 
     public static function add_or_update_transactions($t, $account, $status)
     {
-        // Log::debug($t);
+        logger($t);
         $custom_uid = Functions::get_transaction_custom_uid($t);
         $transaction = Transaction::updateOrCreate(
             [
@@ -126,6 +126,7 @@ class Functions
 
             ]
         );
+        logger($transaction);
     }
 
     public static function get_transaction_custom_uid($transaction)
@@ -602,8 +603,7 @@ class Functions
                         'accept' => 'application/json',
                         'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
                     ])->get(
-                        $baseURL . $account->account_id . '/balances/',
-                        $query
+                        $baseURL . $account->account_id . '/balances/'
                     );
     
                     if ($balance_response->successful())
@@ -628,7 +628,11 @@ class Functions
 
                 if ($transaction_response->successful())
                 {
+                    $account->last_load_time = Carbon::now()->toDateTimeString();
+                    $account->save();
+                    
                     $transactions_data = $transaction_response->json();
+
                     $booked_transactions = $transactions_data["transactions"]["booked"];
                     $pending_transactions = $transactions_data["transactions"]["pending"];
 
