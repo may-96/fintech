@@ -10,6 +10,9 @@
                         <div>
                             Currency: <strong>{{ $account->currency }}</strong>
                         </div>
+                        <div>
+                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @endif
+                        </div>
                         @endif 
                     </div>
                 </div>

@@ -12,6 +12,9 @@
                         </div>
                         @endif
                         <div>
+                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @endif
+                        </div>
+                        <div>
                             <button class="btn btn-circle btn-soft-yellow" title="Share" data-bs-toggle="modal" data-bs-target="#shareform"><i class="uil uil-share-alt"></i></button>
                         </div>
                         
