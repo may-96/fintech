@@ -58,7 +58,7 @@ class ShareableLinkTransactions extends Component
 
     private function load_transactions(){
         
-        $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id','notes','remittance_information_structured'];
+        $select_array = ['id','fixed_date','year','custom_uid', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount','category_id','notes','remittance_information_structured', 'remittance_information_unstructured_array'];
 
         $transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date','desc')->get();
         if($transactions->count() >= $this->total_transactions){
