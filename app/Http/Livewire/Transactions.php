@@ -117,8 +117,8 @@ class Transactions extends Component
             $this->emit('transactionReFetched');
         }
         
-        if ($this->user->transaction_error_code == 200)
-        {
+        // if ($this->user->transaction_error_code == 200)
+        // {
             $select_array = [
                 'id', 'fixed_date', 'year', 'custom_uid', 'debator_name', 'debtor_account', 'creditor_name', 'creditor_account', 'additional_information', 'status', 'purpose_code',
                 'bank_transaction_code', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes', 'category_id', 'additional_information_structured',
@@ -136,11 +136,11 @@ class Transactions extends Component
             $this->grouped_transactions = $this->transactions->groupBy('year')->toArray();
             $this->transactions = $this->transactions->toArray();
             $this->transaction_status = "OK";
-        }
-        else
-        {
-            $this->transaction_status = "Error";
-        }
+        // }
+        // else
+        // {
+        //     $this->transaction_status = "Error";
+        // }
     }
 
     public function render()
