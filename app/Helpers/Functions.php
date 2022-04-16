@@ -79,54 +79,61 @@ class Functions
 
     public static function add_or_update_transactions($t, $account, $status)
     {
-        logger($t);
-        $custom_uid = Functions::get_transaction_custom_uid($t);
-        $transaction = Transaction::updateOrCreate(
-            [
-                'account_id' => $account->id,
-                'custom_uid' => $custom_uid,
-                'transaction_amount' => $t["transactionAmount"]["amount"],
-                'fixed_date' => (isset($t["valueDate"]) ? $t["valueDate"] : $t["bookingDate"]),
-            ],
-            [
-                "year" => isset($t["valueDate"]) ? Carbon::parse($t["valueDate"])->format("Y") : Carbon::parse($t["bookingDate"])->format("Y"),
-                "transaction_id" => isset($t["transactionId"]) ? $t["transactionId"] : null,
-                "transaction_currency" => isset($t["transactionAmount"]["currency"]) ? $t["transactionAmount"]["currency"] : null,
-                "booking_date" => isset($t["bookingDate"]) ? $t["bookingDate"] : null,
-                "value_date" => isset($t["valueDate"]) ? $t["valueDate"] : null,
-                "remit_info_unstructured" => isset($t["remittanceInformationUnstructured"]) ? $t["remittanceInformationUnstructured"] : null,
-                "debator_name" => isset($t["debtorName"]) ? $t["debtorName"] : null,
-                "debtor_account" => isset($t["debtorAccount"]["iban"]) ? $t["debtorAccount"]["iban"] : (isset($t["debtorAccount"]["bban"]) ? $t["debtorAccount"]["bban"] : (isset($t["debtorAccount"]["resourceId"]) ? $t["debtorAccount"]["resourceId"] : null)),
-                "creditor_name" => isset($t["creditorName"]) ? $t["creditorName"] : null,
-                "creditor_account" => isset($t["creditorAccount"]["iban"]) ? $t["creditorAccount"]["iban"] : (isset($t["creditorAccount"]["bban"]) ? $t["creditorAccount"]["bban"] : (isset($t["creditorAccount"]["resourceId"]) ? $t["creditorAccount"]["resourceId"] : null)),
-                "additional_information" => isset($t["additionalInformation"]) ? $t["additionalInformation"] : null,
-                "entry_reference" => isset($t["entryReference"]) ? $t["entryReference"] : null,
-                "category" => isset($t["categorisation"]) ? $t["categorisation"]["categoryTitle"] : null,
-                "merchant_name" => isset($t["cleaning"]) ? $t["cleaning"]["merchantName"] : null,
-                "transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
-                "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
-                "bank_transaction_code" => isset($t["bankTransactionCode"]) ? $t["bankTransactionCode"] : null,
-                "status" => $status,
-                'end_to_end_id' => isset($t["endToEndId"]) ? $t["endToEndId"] : null,
-                
-                "additional_information_structured" => isset($t["additionalInformationStructured"]) ? json_encode($t["additionalInformationStructured"]) : null,
-                "balance_after_transaction" => isset($t["balanceAfterTransaction"]) ? json_encode($t["balanceAfterTransaction"]) : null,
-                "check_id" => isset($t["checkId"]) ? $t["checkId"] : null,
-                "creditor_agent" => isset($t["creditorAgent"]) ? $t["creditorAgent"] : null,
-                "creditor_id" => isset($t["creditorId"]) ? $t["creditorId"] : null,
-                "currency_exchange" => isset($t["currencyExchange"]) ? $t["currencyExchange"] : null,
-                "debtor_agent" => isset($t["debtorAgent"]) ? $t["debtorAgent"] : null,
-                "mandate_id" => isset($t["mandateId"]) ? $t["mandateId"] : null,
-                "proprietary_bank_transaction_code" => isset($t["proprietaryBankTransactionCode"]) ? $t["proprietaryBankTransactionCode"] : null,
-                "remittance_information_structured" => isset($t["remittanceInformationStructured"]) ? $t["remittanceInformationStructured"] : null,
-                "remittance_information_structured_array" => isset($t["remittanceInformationStructuredArray"]) ? json_encode($t["remittanceInformationStructuredArray"]) : null,
-                "remittance_information_unstructured_array" => isset($t["remittanceInformationUnstructuredArray"]) ? json_encode($t["remittanceInformationUnstructuredArray"]) : null,
-                "ultimate_creditor" => isset($t["ultimateCreditor"]) ? $t["ultimateCreditor"] : null,
-                "ultimate_debtor" => isset($t["ultimateDebtor"]) ? $t["ultimateDebtor"] : null,
+        try{
 
-            ]
-        );
-        logger($transaction);
+            
+            logger($t);
+            $custom_uid = Functions::get_transaction_custom_uid($t);
+            $transaction = Transaction::updateOrCreate(
+                [
+                    'account_id' => $account->id,
+                    'custom_uid' => $custom_uid,
+                    'transaction_amount' => $t["transactionAmount"]["amount"],
+                    'fixed_date' => (isset($t["valueDate"]) ? $t["valueDate"] : $t["bookingDate"]),
+                ],
+                [
+                    "year" => isset($t["valueDate"]) ? Carbon::parse($t["valueDate"])->format("Y") : Carbon::parse($t["bookingDate"])->format("Y"),
+                    "transaction_id" => isset($t["transactionId"]) ? $t["transactionId"] : null,
+                    "transaction_currency" => isset($t["transactionAmount"]["currency"]) ? $t["transactionAmount"]["currency"] : null,
+                    "booking_date" => isset($t["bookingDate"]) ? $t["bookingDate"] : null,
+                    "value_date" => isset($t["valueDate"]) ? $t["valueDate"] : null,
+                    "remit_info_unstructured" => isset($t["remittanceInformationUnstructured"]) ? $t["remittanceInformationUnstructured"] : null,
+                    "debator_name" => isset($t["debtorName"]) ? $t["debtorName"] : null,
+                    "debtor_account" => isset($t["debtorAccount"]["iban"]) ? $t["debtorAccount"]["iban"] : (isset($t["debtorAccount"]["bban"]) ? $t["debtorAccount"]["bban"] : (isset($t["debtorAccount"]["resourceId"]) ? $t["debtorAccount"]["resourceId"] : null)),
+                    "creditor_name" => isset($t["creditorName"]) ? $t["creditorName"] : null,
+                    "creditor_account" => isset($t["creditorAccount"]["iban"]) ? $t["creditorAccount"]["iban"] : (isset($t["creditorAccount"]["bban"]) ? $t["creditorAccount"]["bban"] : (isset($t["creditorAccount"]["resourceId"]) ? $t["creditorAccount"]["resourceId"] : null)),
+                    "additional_information" => isset($t["additionalInformation"]) ? $t["additionalInformation"] : null,
+                    "entry_reference" => isset($t["entryReference"]) ? $t["entryReference"] : null,
+                    "category" => isset($t["categorisation"]) ? $t["categorisation"]["categoryTitle"] : null,
+                    "merchant_name" => isset($t["cleaning"]) ? $t["cleaning"]["merchantName"] : null,
+                    "transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
+                    "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
+                    "bank_transaction_code" => isset($t["bankTransactionCode"]) ? $t["bankTransactionCode"] : null,
+                    "status" => $status,
+                    'end_to_end_id' => isset($t["endToEndId"]) ? $t["endToEndId"] : null,
+                    
+                    "additional_information_structured" => isset($t["additionalInformationStructured"]) ? json_encode($t["additionalInformationStructured"]) : null,
+                    "balance_after_transaction" => isset($t["balanceAfterTransaction"]) ? json_encode($t["balanceAfterTransaction"]) : null,
+                    "check_id" => isset($t["checkId"]) ? $t["checkId"] : null,
+                    "creditor_agent" => isset($t["creditorAgent"]) ? $t["creditorAgent"] : null,
+                    "creditor_id" => isset($t["creditorId"]) ? $t["creditorId"] : null,
+                    "currency_exchange" => isset($t["currencyExchange"]) ? $t["currencyExchange"] : null,
+                    "debtor_agent" => isset($t["debtorAgent"]) ? $t["debtorAgent"] : null,
+                    "mandate_id" => isset($t["mandateId"]) ? $t["mandateId"] : null,
+                    "proprietary_bank_transaction_code" => isset($t["proprietaryBankTransactionCode"]) ? $t["proprietaryBankTransactionCode"] : null,
+                    "remittance_information_structured" => isset($t["remittanceInformationStructured"]) ? $t["remittanceInformationStructured"] : null,
+                    "remittance_information_structured_array" => isset($t["remittanceInformationStructuredArray"]) ? json_encode($t["remittanceInformationStructuredArray"]) : null,
+                    "remittance_information_unstructured_array" => isset($t["remittanceInformationUnstructuredArray"]) ? json_encode($t["remittanceInformationUnstructuredArray"]) : null,
+                    "ultimate_creditor" => isset($t["ultimateCreditor"]) ? $t["ultimateCreditor"] : null,
+                    "ultimate_debtor" => isset($t["ultimateDebtor"]) ? $t["ultimateDebtor"] : null,
+
+                ]
+            );
+            logger($transaction);
+        }
+        catch(Exception $e){
+            Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine());
+        }
     }
 
     public static function get_transaction_custom_uid($transaction)
