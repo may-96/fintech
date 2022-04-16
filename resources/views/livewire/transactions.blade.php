@@ -458,9 +458,13 @@
                         @endforelse
                         </div> {{-- Final Closing for <div class="timeline_transaction position-relative ms-4"> --}}
                         </div>
-                    @elseif($transaction_status == 'Processing')
+                    @elseif($transaction_status == 'Processing' || $transaction_status == 'Processing and Refreshing' )
                         <div>
+                            @if($transaction_status == 'Processing')
                             <span>We were unable to fetch all transactions earlier. Fetching Your Account Transactions again. Please wait ... </span>
+                            @else
+                            <span>Refreshing Your Account Transactions. Please wait ... </span>
+                            @endif
                             <div id="loading_bars">
                                 <x-loading />
                                 Fetching Transactions
@@ -656,6 +660,7 @@
                 },150);
             });
             window.livewire.on('transactionReFetched', () => {
+                window.location.href = window.location.href;
                 location.reload();
             });
 
@@ -665,7 +670,6 @@
                         document.getElementById("comment_saving_" + Alpine.store('data').active_id).classList.remove('d-none');
                         @this.save_note(Alpine.store('data').active_id, e.target.value);
                         Alpine.store('data').resetNoteTrigger();
-                        
                     }
                 }
             });
