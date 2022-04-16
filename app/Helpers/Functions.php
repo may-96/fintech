@@ -117,7 +117,7 @@ class Functions
                     "check_id" => isset($t["checkId"]) ? $t["checkId"] : null,
                     "creditor_agent" => isset($t["creditorAgent"]) ? $t["creditorAgent"] : null,
                     "creditor_id" => isset($t["creditorId"]) ? $t["creditorId"] : null,
-                    "currency_exchange" => isset($t["currencyExchange"]) ? $t["currencyExchange"] : null,
+                    "currency_exchange" => isset($t["currencyExchange"]) ? json_encode($t["currencyExchange"]) : null,
                     "debtor_agent" => isset($t["debtorAgent"]) ? $t["debtorAgent"] : null,
                     "mandate_id" => isset($t["mandateId"]) ? $t["mandateId"] : null,
                     "proprietary_bank_transaction_code" => isset($t["proprietaryBankTransactionCode"]) ? $t["proprietaryBankTransactionCode"] : null,
@@ -129,7 +129,6 @@ class Functions
 
                 ]
             );
-            logger($transaction);
         }
         catch(Exception $e){
             Log::error($e->getCode() . ' - ' . $e->getMessage() . ' - ' . $e->getFile() . ' - ' . $e->getLine() . ' - ' . $e->getTraceAsString());
