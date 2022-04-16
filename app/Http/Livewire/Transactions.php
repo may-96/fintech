@@ -98,8 +98,7 @@ class Transactions extends Component
     {
         if ($this->account->first_load == null)
         {
-            $this->user->transaction_error_code = 500;
-            $this->user->save();
+            
             $this->transaction_status = "Processing";
             Functions::fetchTransactions($this->user, $this->account, null, null);
             $this->account->first_load = Carbon::now()->toDateTimeString();
