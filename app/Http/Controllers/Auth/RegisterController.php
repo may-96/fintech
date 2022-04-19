@@ -138,6 +138,7 @@ class RegisterController extends Controller
         foreach($shares as $share){
             $user->report_requested_from()->attach($share->user_id, [
                 'amount' => $share->amount,
+                'currency' => $share->currency,
             ]);
 
             $temp_user = User::find($share->user_id);

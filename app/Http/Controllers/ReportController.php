@@ -35,6 +35,21 @@ class ReportController extends Controller
         return view('app.request_report', ['data' => $merge_data]);
     }
 
+    public function request_report_by_link(Request $request)
+    {
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        $data = $user->report_requests()->select('email')->get()->flatten()->pluck('email')->toArray();
+        $data_unregistered = DB::table('report_requested_from_unregistered_users')->select('email')->where('user_id', $user->id)->get()->flatten()->pluck('email')->toArray();
+
+        $merge_data = array_merge($data, $data_unregistered);
+        sort($merge_data);
+
+        return view('app.request_report_by_link', ['data' => $merge_data]);
+    }
+
     public function fetchReport(Request $request, $token = null)
     {
         /** @var \App\Models\User */
@@ -79,11 +94,14 @@ class ReportController extends Controller
     {
         $request->validate([
             'amount' => ['required', 'numeric', 'gte:0'],
+            'currency' => ['required', 'string', 'exists:currencies,code'],
             'emails' => ['required', 'string']
         ]);
 
         $emails = $request->emails;
         $amount = $request->amount;
+        $currency = $request->currency;
+
         $emails_formatted = str_replace("\r\n", ",", str_replace(" ", ",", str_replace("  ", ",", $emails)));
         $emails_array = array_values(array_filter(explode(",", $emails_formatted)));
         $invalid_emails = 0;
@@ -118,7 +136,8 @@ class ReportController extends Controller
                         {
 
                             $user->report_requested_from()->attach($auth_user->id, [
-                                'amount' => $amount
+                                'amount' => $amount,
+                                'currency' => $currency,
                             ]);
 
                             $message = $auth_user->fname . ' ' . $auth_user->lname . ' has requested you to share your Credit Report.';
@@ -150,6 +169,7 @@ class ReportController extends Controller
                                 'user_id' => $auth_user->id,
                                 'email' => $email,
                                 'amount' => $amount,
+                                'currency' => $currency,
                                 "created_at" =>  Carbon::now()->toDateTimeString(),
                                 "updated_at" => Carbon::now()->toDateTimeString()
                             ]);

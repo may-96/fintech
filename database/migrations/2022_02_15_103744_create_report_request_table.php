@@ -18,6 +18,7 @@ class CreateReportRequestTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->unsignedBigInteger('requested_from')->nullable(false);
             $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
+            $table->string('currency')->default('EUR');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -105,6 +105,7 @@ class Functions
                     "additional_information" => isset($t["additionalInformation"]) ? $t["additionalInformation"] : null,
                     "entry_reference" => isset($t["entryReference"]) ? $t["entryReference"] : null,
                     "category" => isset($t["categorisation"]) ? $t["categorisation"]["categoryTitle"] : null,
+                    "category_id" => isset($t["categorisation"]) ? $t["categorisation"]["categoryId"] : null,
                     "merchant_name" => isset($t["cleaning"]) ? $t["cleaning"]["merchantName"] : null,
                     "transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
                     "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
@@ -203,7 +204,7 @@ class Functions
      *
      * @param  \App\Models\User   $user
      */
-    public static function cash_flow_stats($user, $years = 2)
+    public static function cash_flow_stats($user, $report_curr = 'EUR', $years = 2)
     {
         $active_month = Carbon::today()->month;
         $active_year = Carbon::today()->year;
@@ -244,6 +245,11 @@ class Functions
             $to_currency = $temp_curr;
         }
 
+        $report_curr_exchange = 1;
+        if($to_currency != $report_curr){
+            $report_curr_exchange = Currency::convert()->from($to_currency)->to($report_curr)->amount(1)->get();
+        }
+        
         // $to_currency = config('app.settings.report_currency');
         if(Functions::is_empty($to_currency)){
             $to_currency = 'EUR';
@@ -493,6 +499,7 @@ class Functions
             $consistent_in,
             $consistent_out,
             $to_currency,
+            $report_curr_exchange,
         ];
     }
 
@@ -588,15 +595,31 @@ class Functions
 
                 if($agreement->details_scope == 1){
 
+                    $account_data_response = Http::withHeaders([
+                        'accept' => 'application/json',
+                        'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
+                    ])->get(
+                        $baseURL . $account->account_id . '/details/'
+                    );
+
+                    if ($account_data_response->successful())
+                    {
+                        $account_data = $account_data_response->json();
+                        $credit_score = isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null;
+                        $status = $account_data['account']['status'];
+                        $account->status = $status;
+                        $account->credit_score = $credit_score;
+                        $account->save();
+                    }
+
                     $account_status_response = Http::withHeaders([
                         'accept' => 'application/json',
                         'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
                     ])->get(
-                        'https://ob.nordigen.com/api/v2/accounts/' . $account->account_id . '/'
+                        $baseURL . $account->account_id . '/'
                     );
-
-                    if ($account_status_response->successful())
-                    {
+                
+                    if($account_status_response->successful()){
                         $account_status_data = $account_status_response->json();
                         $account_status = $account_status_data['status'];
                         $account->account_status = $account_status;

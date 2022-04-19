@@ -60,6 +60,8 @@ Route::get('/shared/transactions/{account_id}', [TransactionController::class, '
 Route::get('/connect/status/{reference_id}', [RequisitionController::class, 'redirect'])->middleware(['auth', 'token'])->name('requisition.redirect');
 Route::get('/reconnect/status/{reference_id}', [RequisitionController::class, 'reconnect'])->middleware(['auth', 'token'])->name('requisition.reconnect');
 
+Route::get('/reconnect/account/{requisition_id}', [RequisitionController::class, 'reconnect_account'])->middleware(['auth', 'token'])->name('reconnect.account');
+
 Route::get('/overview/{reference_id}',[RequisitionController::class, 'overview'])->middleware(['auth', 'token'])->name('requisition.overview');
 
 Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['auth', 'token'])->name('my.accounts');
@@ -67,6 +69,7 @@ Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['au
 Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->middleware(['auth'])->name('shared.accounts');
 
 Route::get('request_report', [ReportController::class, 'show'])->middleware(['auth'])->name('request.report');
+Route::get('request_report_link', [ReportController::class, 'request_report_by_link'])->middleware(['auth'])->name('request.report.link');
 Route::post('request_report', [ReportController::class, 'requestReport'])->middleware(['auth'])->name('request.report.submit');
 Route::post('report/grant_access', [ReportController::class, 'grantAccess'])->middleware(['auth'])->name('report.grant.access');
 

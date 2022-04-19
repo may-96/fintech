@@ -95,6 +95,13 @@ function renderNotifications()
                 icon = 'uil-folder-times'
             }
 
+            if (element.type == 'reconnect')
+            {
+                action = 'reconnect_account';
+                icon_color = 'bg-pale-blue';
+                icon = 'uil-exclamation-circle'
+            }
+
             let read_unread = "";
             if (element.read == 1)
             {
@@ -159,6 +166,11 @@ async function notification_action(action, data, id)
     else if (action == 'open_my_accounts_page')
     {
         let new_url = basePath + "/my_accounts";
+        window.location.href = new_url;
+    }
+    else if (action == 'reconnect_account')
+    {
+        let new_url = basePath + "/reconnect/account/"+data;
         window.location.href = new_url;
     }
     else

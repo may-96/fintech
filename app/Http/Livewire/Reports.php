@@ -55,6 +55,7 @@ class Reports extends Component
 
     public $first_render = true;
     public $amount_check = 0;
+    public $currency;
 
     public function mount($data)
     {
@@ -69,16 +70,19 @@ class Reports extends Component
             $sharing_info = $this->data[1];
             $this->fetch_id = $sharing_info->user_id;
             $this->amount_check = $sharing_info->amount;
+            $this->currency = $sharing_info->currency;
         }
         if($this->data[0] == "self_shared"){
             $sharing_info = $this->data[1];
             $this->fetch_id = $sharing_info->user_id;
             $this->amount_check = $sharing_info->amount;
+            $this->currency = $sharing_info->currency;
         }
         if($this->data[0] == 'link_shared'){
             $sharing_info = $this->data[2];
             $this->fetch_id = $this->data[1];
             $this->amount_check = $this->data[2]->amount;
+            $this->currency = $this->data[2]->currency;
         }
 
     }
@@ -115,7 +119,7 @@ class Reports extends Component
             $this->contact_num = $temp->contact;
         }
         
-        $this->report_data = Functions::cash_flow_stats($temp);
+        $this->report_data = Functions::cash_flow_stats($temp, strtoupper($this->currency));
         if($this->report_data != 0){
             $graphData = [];
 

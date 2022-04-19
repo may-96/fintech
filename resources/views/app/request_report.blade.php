@@ -28,9 +28,19 @@
                 <form action="{{route('request.report.submit')}}" method="post">
                     @csrf
                     <div class="mt-5 mb-3">
-                        <div class="text-start">
-                            <input id="amount" type="number" min="0" value="{{old('amount')}}" name="amount" class="form-control px-2 py-1 @error('amount') is-invalid @enderror" placeholder="Amount (in ($) dollars) to Repay Per Month (Rent Amount, Mortgage Amount etc)" required>
+                        
+                        <div class="text-start input-group">
+                            <input id="amount" type="number" min="0" value="{{old('amount')}}" name="amount" class="form-control rounded-0 px-2 py-1 @error('amount') is-invalid @enderror" placeholder="Amount to be Paid Per Month (Rent Amount, Mortgage Amount etc)" required>
+                            @php $currencies = DB::table('currencies')->select('currency','code')->distinct()->orderBy('code','asc')->get()->flatten(); @endphp
+                            <select name="currency" class="form-select rounded-0" placeholder="Select Currency" required>
+                                <option disabled value="">Select Currency</option>
+    
+                                @foreach($currencies as $index => $currency)
+                                <option value="{{$currency->code}}" @if(old('currency') == $currency->code) selected @endif>{{ucwords($currency->currency)}} - {{$currency->code}}</option>
+                                @endforeach
+                            </select>
                             @error('amount')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            @error('currency')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                     </div>
                     <div class="form-floating">

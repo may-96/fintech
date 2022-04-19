@@ -76,7 +76,8 @@
                                 <p class="display-2 lead fs-14">Put your request to get credit score based on your bank transactions for last one year.</p>
                             </div>
                             <div class="animated-caption" data-anim="animate__slideInUp" data-anim-delay="1000">
-                                <a href="{{route('request.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill my-1" title="Request Report using Email ID">Request Report</a>
+                                <a href="{{route('request.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill my-1" title="Request Report using Email ID">Request Report with Email</a>
+                                <a href="{{route('request.report.link')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill my-1" title="Request Report using Shareable Link">Request Report with Link</a>
                                 <a href="{{route('get.report')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill my-1" title="Generate Your Account Report">View My Report</a>
                                 <a href="{{route('shared.reports')}}" class="btn btn-lg py-0 btn-outline-white text-indigo rounded-pill my-1" title="View Shared Reports">Shared Report</a>
                             </div>

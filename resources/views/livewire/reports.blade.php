@@ -31,10 +31,11 @@
                         <div class="col-12 mb-3 mh-100">
                             <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
-                                    @if((((float)$report_data[12] * 2.5) > $amount_check))
-                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                    {{-- Average Gross Income * Exchange > 2.5 * Amount to Loan --}}
+                                    @if( ((float)$report_data[5] * (float)$report_data[17]) > (2.5 * $amount_check) )
+                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{$amount_check}}</strong></p>
                                     @else
-                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{$amount_check}}</strong></p>
                                     @endif
                                 </div>
                             </div>

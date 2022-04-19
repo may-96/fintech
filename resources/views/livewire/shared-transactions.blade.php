@@ -13,11 +13,27 @@
                         <div>
                             @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @endif
                         </div>
-                        @endif 
+                        @endif
                     </div>
                 </div>
             </div>
         </section>
+
+        @auth
+        <section class="wrapper text-center">
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-12 rounded bg-pale-blue py-4">
+                        <div>Share Your Transactions</div>
+                        <div>
+                            <button class="btn btn-circle btn-blue" wire:click="reset_msg()"  title="Share" data-bs-toggle="modal" data-bs-target="#shareform"><i class="uil uil-file-share-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endauth
+
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
             <div class="container pt-6 pb-19 pt-md-10 pb-md-20 text-center">
 
@@ -153,6 +169,37 @@
             </div>
         </section>
     </div>
+    @auth
+    <div wire:ignore.self class="modal fade" id="shareform">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="text-start">Share Your Account Transactions</h5>
+                    <div class="d-flex flex-column">
+                        <p class="mb-0">List of Accounts</p>
+                        <small class="mb-2 text-primary">Checked accounts are already shared with this user.</small>
+                    </div>
+                    @foreach ($authenticated_user_accounts as $index => $aua)
+                        <div class="form-check">
+                            <input wire:model.defer="account_shares.{{$aua['id']}}" value="{{$aua['id']}}" type="checkbox" id="account_{{$aua['id']}}" class="p-1 form-check-input"> 
+                            <label class="form-check-label text-start" for="account_{{$aua['id']}}">{{$aua['iban'] . "(" . $aua['account_name'] . ") - " . $aua['institution']['name']}}</label>
+                        </div>
+                    @endforeach
+                    
+                    @if(App\Helpers\Functions::not_empty($error))<div class="text-start lh-1"><small class="text-danger">{{$error}}</small></div>@endif
+                    @if(App\Helpers\Functions::not_empty($success))<div class="text-start lh-1"><small class="text-success">{{$success}}</small></div>@endif
+                    
+                    <div class="text-center mt-3">
+                        <button wire:click="share_transactions()" class="btn btn-soft-blue rounded-pill py-0 px-2" type="button">Share Transactions</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    @endauth
 </section>
 
 @push('scripts')

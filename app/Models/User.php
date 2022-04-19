@@ -69,12 +69,15 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function report_requests(){
-        return $this->belongsToMany(User::class, 'report_request', 'user_id', 'requested_from')->withTimestamps()->withPivot(['id','amount']);
+        return $this->belongsToMany(User::class, 'report_request', 'user_id', 'requested_from')->withTimestamps()->withPivot(['id','amount','currency']);
     }
 
     public function report_requested_from(){
-        return $this->belongsToMany(User::class, 'report_request', 'requested_from', 'user_id')->withTimestamps()->withPivot(['id','amount']);
+        return $this->belongsToMany(User::class, 'report_request', 'requested_from', 'user_id')->withTimestamps()->withPivot(['id','amount','currency']);
     }
 
+    public function request_links(){
+        return $this->belongsToMany(User::class, 'request_report_by_link', 'user_id')->withTimestamps()->withPivot(['id','amount','currency','details','link']);
+    }
 
 }
