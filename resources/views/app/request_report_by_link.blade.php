@@ -64,14 +64,8 @@
 
     var toolbar = editor.getModule('toolbar');
     toolbar.addHandler('link', linkHandler);
+    var hidden = document.getElementById('details')
 
-    // $("#form_link_btn").click(function(e) {
-    //     let form = e.target.getAttribute("href");
-    //     $('html,body').animate({
-    //             scrollTop: ($(form).offset().top - 61)
-    //         },
-    //         'slow');
-    // });
 </script>
 @livewireScripts
 @stack('scripts')

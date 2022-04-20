@@ -43,13 +43,13 @@
     </style>
 @endsection
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero-section-bg" style="background-image: url({{ asset('images/background/Animated_Shape.svg') }})">
+    <section class="wrapper d-flex align-items-center hero-section-bg pt-16" style="">
         <div class="container pb-19 pt-md-14 pb-md-20 text-center">
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
-                        <h1 class="display-1 fs-66 mb-4">All Bank accounts, at <br> one place</h1>
-                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">create an account and manage all your Cash flow efficiently</p>
+                        <h1 class="display-1 fs-66 mb-4">My Shared Reports</h1>
+                        <p class="lead fs-23 lh-sm mb-7 text-indigo animated-caption">All the reports that I shared with others</p>
                     </div>
                 </div>
             </div>
@@ -59,13 +59,11 @@
 @section('content')
     <section class="wrapper bg-soft-ash mb-2 mb-sm-20">
         <div class="container">
-            <div class="col-lg-12 mb-15 align-items-center">
-                <h2 class="fs-15 text-uppercase text-muted text-center mt-15 mb-3">Shared Reports</h2>
-                <h3 class="display-4 text-center">List of all the Shared Reports.</h3>
-            </div>
             <!-- /.post-header -->
             <div class="row gy-4">
+                
                 @forelse ($data as $shared_reports)
+                
                     <div class="col-sm-12 col-md-6 col-xl-4">
                         <div class="card p-3 w-100">
                             <div>
@@ -74,7 +72,7 @@
                                     <a class="remove_icon ms-2 px-1 text-danger" data-bs-toggle="modal" onclick="$('#modal_remove_btn').attr('data-id','{{ $shared_reports->pivot->token }}')" data-bs-target="#remove_report_modal" title="Remove Report">
                                         <i class="uil uil-times-circle"></i>
                                     </a>
-                                    <form class="d-none" id="remove_report_{{ $shared_reports->pivot->token }}" action="{{ route('remove.report', $shared_reports->pivot->token) }}" method="POST">@csrf</form>
+                                    <form class="d-none" id="remove_report_{{ $shared_reports->pivot->token }}" action="{{ route('remove.my.shared.report', $shared_reports->pivot->token) }}" method="POST">@csrf</form>
                                 </div>
                             </div>
                             <div class="mt-3">
@@ -96,7 +94,7 @@
                     </div>
                 @empty
                     <div class="col-12">
-                        No Credit Reports has been shared with you! Shared Reports will appear here.
+                        You haven't shared your credit report with anyone.
                     </div>
                 @endforelse
             </div>

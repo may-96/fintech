@@ -26,11 +26,13 @@ class CreateReportUserTable extends Migration
             $table->unsignedTinyInteger('view_initials_only')->default(0);
             $table->unsignedTinyInteger('view_account_initials_only')->default(0);
             $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
+            $table->string('currency',100)->default('EUR')->nullable(false);
             $table->string('token')->nullable(false);
             $table->string('shareable_link')->nullable(true);
+            $table->string('reference',128)->nullable(true);
             $table->timestamps();
 
-            $table->unique(['user_id','shared_with']);
+            // $table->unique(['user_id','shared_with']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('shared_with')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });

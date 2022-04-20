@@ -19,7 +19,7 @@ class CreateRequestReportByLinkTable extends Migration
             $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
             $table->string('currency')->default('EUR');
             $table->text('details')->nullable();
-            $table->string('link')->nullable(false);
+            $table->string('link',128)->nullable(false)->unique();
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportRequestByLinkController;
 use App\Http\Controllers\RequisitionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -69,13 +70,14 @@ Route::get('/my_accounts', [AccountController::class, 'index'])->middleware(['au
 Route::get('/shared_accounts', [AccountController::class, 'shared_index'])->middleware(['auth'])->name('shared.accounts');
 
 Route::get('request_report', [ReportController::class, 'show'])->middleware(['auth'])->name('request.report');
-Route::get('request_report_link', [ReportController::class, 'request_report_by_link'])->middleware(['auth'])->name('request.report.link');
 Route::post('request_report', [ReportController::class, 'requestReport'])->middleware(['auth'])->name('request.report.submit');
 Route::post('report/grant_access', [ReportController::class, 'grantAccess'])->middleware(['auth'])->name('report.grant.access');
 
 Route::get('shared_reports', [ReportController::class, 'sharedReports'])->middleware(['auth'])->name('shared.reports');
+Route::get('my_shared_reports', [ReportController::class, 'reportsIShared'])->middleware(['auth'])->name('reports.i.shared');
 
 Route::post('report/remove/{token}', [ReportController::class, 'remove_report'])->middleware(['auth'])->name('remove.report');
+Route::post('my/report/remove/{token}', [ReportController::class, 'remove_my_shared_report'])->middleware(['auth'])->name('remove.my.shared.report');
 Route::post('/remove/report/request_remove', [ReportController::class, 'remove_report_request'])->middleware(['auth'])->name('remove.report.request');
 
 Route::post('/account/remove/{requisition}', [RequisitionController::class, 'destroy'])->middleware(['auth', 'token'])->name('remove.bank');
@@ -87,4 +89,7 @@ Route::post('/notification/destroy/{notification}', [NotificationController::cla
 
 Route::get('/report/{token?}', [ReportController::class, 'fetchReport'])->middleware(['auth'])->name('get.report');
 
+Route::get('request_report_link', [ReportRequestByLinkController::class, 'request_report_by_link'])->middleware(['auth'])->name('request.report.link');
+Route::get('/report/request/{token}', [ReportRequestByLinkController::class, 'fetchRequestLinkData'])->middleware([])->name('fetch.request.link.data');
+Route::post('report/grant_access/link', [ReportRequestByLinkController::class, 'grantAccess'])->middleware(['auth'])->name('report.grant.access.link');
 

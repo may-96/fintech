@@ -35,21 +35,6 @@ class ReportController extends Controller
         return view('app.request_report', ['data' => $merge_data]);
     }
 
-    public function request_report_by_link(Request $request)
-    {
-
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
-        $data = $user->report_requests()->select('email')->get()->flatten()->pluck('email')->toArray();
-        $data_unregistered = DB::table('report_requested_from_unregistered_users')->select('email')->where('user_id', $user->id)->get()->flatten()->pluck('email')->toArray();
-
-        $merge_data = array_merge($data, $data_unregistered);
-        sort($merge_data);
-
-        return view('app.request_report_by_link', ['data' => $merge_data]);
-    }
-
     public function fetchReport(Request $request, $token = null)
     {
         /** @var \App\Models\User */
@@ -270,7 +255,9 @@ class ReportController extends Controller
             if ($check2 == 0 && $shared_user)
             {
                 $amount = $user->report_requested_from()->wherePivot('user_id', $shared_with)->get()->first()->pivot->amount;
+                $currency = $user->report_requested_from()->wherePivot('user_id', $shared_with)->get()->first()->pivot->currency;
                 $token = (string) Str::orderedUuid();
+                
                 $shared_user->shared_reports_with()->attach($user->id, [
                     'view_cash_flow' => $request->view_cash_flow ? 1 : 0,
                     'view_expense' => $request->view_expense ? 1 : 0,
@@ -281,6 +268,7 @@ class ReportController extends Controller
                     'view_initials_only' => $request->view_initials_only ? 1 : 0,
                     'view_account_initials_only' => $request->view_account_initials_only ? 1 : 0,
                     'amount' => $amount,
+                    'currency' => $currency,
                     'token' => $token,
                 ]);
 
@@ -330,6 +318,14 @@ class ReportController extends Controller
         return view('app.shared_reports', ['data' => $data]);
     }
 
+    public function reportsIShared(Request $request){
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        $data = $user->shared_reports()->get()->flatten();
+
+        return view('app.my_shared_reports', ['data' => $data]);
+    }
+
     public function shareable_report(Request $request, $token){
         try{
             $user = User::where('report_shareable_link', $token)->first();
@@ -356,6 +352,19 @@ class ReportController extends Controller
         $user = Auth::user();
         try{
             DB::table('report_user')->where('shared_with', $user->id)->where('token', $token)->delete();
+            return redirect()->back()->with('success','Report Deleted Successfully.');
+        }
+        catch(Exception $e){
+            return redirect()->back()->with('error','Error while Deleting Report');
+        }
+    }
+
+    public function remove_my_shared_report(Request $request, $token)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        try{
+            DB::table('report_user')->where('user_id', $user->id)->where('token', $token)->delete();
             return redirect()->back()->with('success','Report Deleted Successfully.');
         }
         catch(Exception $e){

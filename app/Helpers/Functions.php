@@ -245,6 +245,10 @@ class Functions
             $to_currency = $temp_curr;
         }
 
+        if(Functions::is_empty($report_curr)){
+            $report_curr = "EUR";
+        }
+        
         $report_curr_exchange = 1;
         if($to_currency != $report_curr){
             $report_curr_exchange = Currency::convert()->from($to_currency)->to($report_curr)->amount(1)->get();
