@@ -640,10 +640,8 @@ class Functions
                     if ($account_data_response->successful())
                     {
                         $account_data = $account_data_response->json();
-                        logger($account_data);
-                        logger($account_data['account']);
                         $credit_score = isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null;
-                        $status = $account_data['account']['status'];
+                        $status = isset($account_data['account']['status']) ? $account_data['account']['status'] : null;                        
                         $account->status = $status;
                         $account->credit_score = $credit_score;
                         $account->save();
@@ -659,9 +657,12 @@ class Functions
                     if($account_status_response->successful()){
                         $account_status_data = $account_status_response->json();
                         logger($account_status_data);
-                        $account_status = $account_status_data['status'];
-                        $account->account_status = $account_status;
-                        $account->save();
+                        $account_status = isset($account_status_data['status']) ? $account_status_data['status'] : null;
+                        if($account_status !== null){
+                            $account->account_status = $account_status;
+                            $account->save();
+                        }
+                        
                     }
                 }
 
