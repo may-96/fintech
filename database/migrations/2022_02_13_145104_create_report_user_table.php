@@ -27,7 +27,7 @@ class CreateReportUserTable extends Migration
             $table->unsignedTinyInteger('view_account_initials_only')->default(0);
             $table->unsignedDouble('amount',10,2)->default(0)->nullable(false);
             $table->string('currency',100)->default('EUR')->nullable(false);
-            $table->string('token')->nullable(false);
+            $table->string('token')->nullable(false)->unique();
             $table->string('shareable_link')->nullable(true);
             $table->string('reference',128)->nullable(true);
             $table->timestamps();
