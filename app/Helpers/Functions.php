@@ -81,8 +81,6 @@ class Functions
     {
         try{
 
-            
-            logger($t);
             $custom_uid = Functions::get_transaction_custom_uid($t);
             $transaction = Transaction::updateOrCreate(
                 [
@@ -656,7 +654,6 @@ class Functions
                 
                     if($account_status_response->successful()){
                         $account_status_data = $account_status_response->json();
-                        logger($account_status_data);
                         $account_status = isset($account_status_data['status']) ? $account_status_data['status'] : null;
                         if($account_status !== null){
                             $account->account_status = $account_status;
