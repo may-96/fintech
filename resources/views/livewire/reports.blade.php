@@ -727,7 +727,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow: visible;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -797,7 +797,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow: visible;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -918,7 +918,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow: visible;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -990,7 +990,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow: visible;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
