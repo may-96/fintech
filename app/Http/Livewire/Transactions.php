@@ -111,7 +111,8 @@ class Transactions extends Component
         $now = Carbon::now();
         if($now->diffInHours($llt) > 22){
             $this->transaction_status = "Processing and Refreshing";
-            Functions::fetchTransactions($this->user, $this->account, $llt->toDateString(), null);
+            // Functions::fetchTransactions($this->user, $this->account, $llt->toDateString(), null);
+            Functions::fetchTransactions($this->user, $this->account, null, null);
             $this->account->last_load_time = Carbon::now()->toDateTimeString();
             $this->account->save();
             $this->emit('transactionReFetched');
