@@ -258,6 +258,8 @@ class Functions
         if(Functions::is_empty($to_currency)){
             $to_currency = 'EUR';
         }
+
+        $account_credit_score = 0;
         
         foreach ($accounts as $account)
         {
@@ -265,6 +267,8 @@ class Functions
             $total_months = 0;
             $tci = 0;
             $tco = 0;
+
+            $account_credit_score += $account->credit_score;
             
             $currency = strtoupper($account->currency);
             
@@ -446,6 +450,7 @@ class Functions
         if($accounts->count() > 0){
             $average_cash_in = $average_cash_in / $accounts->count();
             $average_cash_out = $average_cash_out / $accounts->count();
+            $account_credit_score = ($account_credit_score / $accounts->count()) * 100;
         }
 
         $diff = $average_cash_in - $average_cash_out;
@@ -462,29 +467,12 @@ class Functions
         }
 
         $credit_score = ($percent + 100) / 2;
-        $credit_rating = "Average";
-        $credit_color = "secondary";
-        if($credit_score >= 0 && $credit_score < 20){
-            $credit_rating = "Horrible";
-            $credit_color = "red";
-        }
-        else if($credit_score >= 20 && $credit_score < 40){
-            $credit_rating = "Poor";
-            $credit_color = "orange";
-        }
-        else if($credit_score >= 40 && $credit_score < 60){
-            $credit_rating = "Average";
-            $credit_color = "secondary";
-        }
-        else if($credit_score >= 60 && $credit_score < 80){
-            $credit_rating = "Good";
-            $credit_color = "primary";
-        }
-        else{
-            $credit_rating = "Outstanding";
-            $credit_color = "green";
-        }      
+        $credit_rating = Functions::score_text($credit_score);
+        $credit_color = Functions::score_styles($credit_score);
 
+        $account_credit_rating = Functions::score_text($account_credit_score);
+        $account_credit_color = Functions::score_styles($account_credit_score);
+             
         return [
             $cash_flow_data, 
             $income_data, 
@@ -504,7 +492,50 @@ class Functions
             $consistent_out,
             $to_currency,
             $report_curr_exchange,
+            $account_credit_score,
+            $account_credit_rating,
+            $account_credit_color,
         ];
+    }
+
+    private static function score_styles($value){
+        $credit_color = "secondary";
+        if($value >= 0 && $value < 20){
+            $credit_color = "red";
+        }
+        else if($value >= 20 && $value < 40){
+            $credit_color = "orange";
+        }
+        else if($value >= 40 && $value < 60){
+            $credit_color = "secondary";
+        }
+        else if($value >= 60 && $value < 80){
+            $credit_color = "primary";
+        }
+        else{
+            $credit_color = "green";
+        }
+        return $credit_color;
+    }
+
+    private static function score_text($value){
+        $credit_rating = "Average";
+        if($value >= 0 && $value < 20){
+            $credit_rating = "Horrible";
+        }
+        else if($value >= 20 && $value < 40){
+            $credit_rating = "Poor";
+        }
+        else if($value >= 40 && $value < 60){
+            $credit_rating = "Average";
+        }
+        else if($value >= 60 && $value < 80){
+            $credit_rating = "Good";
+        }
+        else{
+            $credit_rating = "Outstanding";
+        }
+        return $credit_rating;
     }
 
     private static function get_income_expense_data($account, $data, $years, $type, $exchange){
