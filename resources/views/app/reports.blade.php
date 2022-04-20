@@ -25,6 +25,9 @@
         table.consistency tr.streak_details{
             text-align: center
         }
+        .simple_underline{
+            text-decoration: underline;
+        }
     </style>
 @endsection
 

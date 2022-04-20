@@ -31,12 +31,17 @@
                         <div class="col-12 mb-3 mh-100">
                             <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
+                                    <p>
+                                        Affordability for the purpose of this screening is calculated based on the formula <strong>[ 2.5 * Amount Under Consideration ]</strong>, Amount Under Consideration is <strong>{{$currency}} {{round($amount_check,2)}}</strong>.<br>Based on the bank account transactions you submitted your average gross income is <strong>{{$currency}} {{ round(($report_data[5]  * (float)$report_data[17]), 2) }}</strong> per month.<br>Your affordable monthly expenses would be based on this formula be <strong>{{$currency}} {{ round((((float)$report_data[5] * (float)$report_data[17])/2.5), 2) }}</strong>.<br>The expected expense for the purpose of this screening are <strong>{{$currency}} {{round((2.5 * $amount_check),2)}}</strong>.<br>
                                     {{-- Average Gross Income * Exchange > 2.5 * Amount to Loan --}}
                                     @if( ((float)$report_data[5] * (float)$report_data[17]) > (2.5 * $amount_check) )
-                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{$amount_check}}</strong></p>
+                                    Therefore we except you <strong class="text-green simple_underline">will be able to afford</strong> the expenses for the which the screening is intended for
+                                    {{-- <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{round($amount_check,2)}}</strong></p> --}}
                                     @else
-                                    <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{$amount_check}}</strong></p>
+                                    Therefore we except you <strong class="text-red simple_underline">won’t be able to afford</strong> the expenses for the which the screening is intended for
+                                    {{-- <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{round($amount_check,2)}}</strong></p> --}}
                                     @endif
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +163,7 @@
                                                                     @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                                     <div class="d-flex justify-content-between border-bottom p-1">
                                                                         <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                         <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                                     </div>
                                                                 @endif
@@ -229,7 +234,7 @@
                                                                     @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                                     <div class="d-flex justify-content-between border-bottom p-1">
                                                                         <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                         <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                                     </div>
                                                                 @endif
@@ -350,7 +355,7 @@
                                                                     @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                                     <div class="d-flex justify-content-between border-bottom p-1">
                                                                         <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                         <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                                     </div>
                                                                 @endif
@@ -422,7 +427,7 @@
                                                                     @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                                     <div class="d-flex justify-content-between border-bottom p-1">
                                                                         <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                        <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                         <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                                     </div>
                                                                 @endif
@@ -589,11 +594,17 @@
                     <div class="col-12 mh-100">
                         <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
-                                @if((((float)$report_data[12] * 2.5) > $amount_check))
-                                <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                <p>
+                                    Affordability for the purpose of this screening is calculated based on the formula <strong>[ 2.5 * Amount Under Consideration ]</strong>, Amount Under Consideration is <strong>{{$currency}} {{round($amount_check,2)}}</strong>.<br>Based on the bank account transactions you submitted your average gross income is <strong>{{$currency}} {{ round(($report_data[5]  * (float)$report_data[17]), 2) }}</strong> per month.<br>Your affordable monthly expenses would be based on this formula be <strong>{{$currency}} {{ round((((float)$report_data[5] * (float)$report_data[17])/2.5), 2) }}</strong>.<br>The expected expense for the purpose of this screening are <strong>{{$currency}} {{round((2.5 * $amount_check),2)}}</strong>.<br>
+                                {{-- Average Gross Income * Exchange > 2.5 * Amount to Loan --}}
+                                @if( ((float)$report_data[5] * (float)$report_data[17]) > (2.5 * $amount_check) )
+                                Therefore we except you <strong class="text-green simple_underline">will be able to afford</strong> the expenses for the which the screening is intended for
+                                {{-- <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-green">WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{round($amount_check,2)}}</strong></p> --}}
                                 @else
-                                <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>${{$amount_check}}</strong></p>
+                                Therefore we except you <strong class="text-red simple_underline">won’t be able to afford</strong> the expenses for the which the screening is intended for
+                                {{-- <p class="fs-14 m-0">After analyzing the account(s) of this user we find the user <strong class="text-red">NOT WORTHY</strong> enough to loan the amount / rent the house of amount <strong>{{$currency}} {{round($amount_check,2)}}</strong></p> --}}
                                 @endif
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -716,7 +727,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -786,7 +797,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -907,7 +918,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
@@ -979,7 +990,7 @@
                                                             @php $transaction_date = Carbon\Carbon::parse($val['fixed_date']); @endphp
                                                             <div class="d-flex justify-content-between border-bottom p-1">
                                                                 <span>{{$transaction_date->day . ' ' . $transaction_date->format('M') .', '. $transaction_date->year}}</span>
-                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
+                                                                <span><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;word-break: break-word; overflow-wrap: break-word; line-break: anywhere; overflow:hidden;" class="p-0 ficon m-0 w-100 lh1_3 text-start pointer mb-1 fw-bold text-dark d-block fs-14">@if(App\Helpers\Functions::not_empty($val['remit_info_unstructured'])){!! nl2br($val['remit_info_unstructured']) !!} @else {!! nl2br($val['remittance_information_structured']) !!} @endif</pre></span>
                                                                 <span>{{$report_data[16] . ' ' . abs(round($val['transaction_amount'],2))}}</span>
                                                             </div>
                                                         @endif
