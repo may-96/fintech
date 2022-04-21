@@ -65,6 +65,10 @@ class ReportRequestByLinkController extends Controller
         $shared_with = $request_link->user_id;
         $shared_user = User::find($shared_with);
 
+        if($shared_with == $user->id){
+            return redirect()->back()->with('warning',"You cannot share report with yourself.");
+        }
+
         $check = $request_link_query->count();
         if ($check == 1)
         {
