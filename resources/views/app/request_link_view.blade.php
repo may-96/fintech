@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="post-header text-capitalize">
-                        <h1 class="display-1 fs-66 mb-4">Share Your Credit Report</h1>
+                        <h1 class="display-1 fs-52 mb-4">Share Your Credit Report</h1>
                     </div>
                     <a href="#form_area" id="form_link_btn" class="btn btn-navy rounded-pill">Navigate to End</a>
                 </div>
