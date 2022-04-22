@@ -4,7 +4,7 @@
     </style>
 @endsection
 @section('header')
-    <section class="wrapper vh-100 d-flex align-items-center hero_section_bg" style="background-image: url({{ asset('images/background/Polygon_Luminary.svg') }})">
+    <section class="wrapper d-flex align-items-center hero_section_bg pt-16" style="">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
@@ -19,19 +19,7 @@
 @endsection
 @section('content')
     <div class="content-wrapper ">
-        <section class="wrapper">
-            <div class="container pt-10 pb-10 pt-md-14">
-                <div class="card">
-                    <div class="card-header px-5 p-3 fw-bold fs-18">Details</div>
-                    <div class="card-body px-5 p-3">
-                        <p>
-                            Amount to be paid per Month: <strong>{{ $data->currency }} {{ $data->amount }}</strong>
-                        </p>
-                        <pre style="white-space: pre-wrap; font-family: Manrope, sans-serif; padding: 0; line-height: 1.3;">{!! nl2br($data->details) !!}</pre>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <section class="wrapper">
             <div class="container pt-10 pb-10 pt-md-14">
                 <div class="card py-12 bg-white">
@@ -67,6 +55,21 @@
                 </div>
             </div>
         </section>
+        
+        <section class="wrapper">
+            <div class="container pt-10 pb-10 pt-md-14">
+                <div class="card">
+                    <div class="card-header px-5 p-3 fw-bold fs-18">Details</div>
+                    <div class="card-body px-5 p-3">
+                        <p>
+                            Amount to be paid per Month: <strong>{{ $data->currency }} {{ $data->amount }}</strong>
+                        </p>
+                        <pre style="white-space: pre-wrap; font-family: Manrope, sans-serif; padding: 0; line-height: 1.3;">{!! nl2br($data->details) !!}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
 
         @guest
             <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
