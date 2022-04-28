@@ -16,4 +16,8 @@ class ReportRequestByLink extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function user_notified_by_email(){
+        return $this->belongsToMany(User::class, 'report_link_email_user', 'report_request_link_id', 'user_id');
+    }
 }

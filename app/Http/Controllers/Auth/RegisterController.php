@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Mail\ReportShareLinkMail;
 use App\Models\Account;
 use App\Models\Notification;
+use App\Models\ReportRequestByLink;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Psr\Container\NotFoundExceptionInterface;
+use Psr\Container\ContainerExceptionInterface;
 
 class RegisterController extends Controller
 {
@@ -49,10 +53,49 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * 
+     * @param Request $request 
+     * @param User $user 
+     * @return mixed 
+     * @throws BindingResolutionException 
+     * @throws NotFoundExceptionInterface 
+     * @throws ContainerExceptionInterface 
+     */
     protected function registered(Request $request, $user)
     {
         if(session()->has('intended')){
-            Mail::to($user->email)->send( new ReportShareLinkMail(session()->get('intended')));
+            $email = true;
+            $path = session()->get('intended');
+            $token = explode('#',end(explode('/', $path)))[0];
+            $request_link_query = ReportRequestByLink::where('link',$token)->get();
+            $request_link = $request_link_query->first();
+            $shared_with = $request_link->user_id;
+            
+            if($shared_with == $user->id){
+                $email = false;
+            }
+
+            $check = $request_link_query->count();
+            if ($check == 0){
+                $email = false;
+            }
+
+            $check2 = $user->shared_reports()->wherePivotNotNull('reference')->where('user_id', $user->id)->wherePivot('reference',$token)->count();
+            if($check2 !== 0){
+                $email = false;
+            }
+
+            $check3 = $user->link_notify_email_sent()->count();
+            if($check3 !== 0){
+                $email = false;
+            }
+
+            if($email){
+                Mail::to($user->email)->send( new ReportShareLinkMail($path));
+                $user->link_notify_email_sent()->attach($request_link_query->id);
+                $user->save();
+            }
         }
         return redirect(session()->pull('intended',$this->redirectTo));
     }

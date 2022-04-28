@@ -80,4 +80,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(ReportRequestByLink::class);
     }
 
+    public function link_notify_email_sent(){
+        return $this->belongsToMany(ReportRequestByLink::class, 'report_link_email_user', 'user_id', 'report_request_link_id');
+    }
+
 }
