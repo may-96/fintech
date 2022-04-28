@@ -37,6 +37,14 @@ class AccountPreview extends Component
             $req = $account->requisition->reference_id;
         }
         $this->accounts = $temp;
-        $this->emit('transactionFetched', $req);
+        $redirect_path = session()->pull('intended_report_share_redirect',"");
+        
+        if(Functions::not_empty(trim($redirect_path))){
+            $this->emit('transactionFetchRedirectReportShare', $redirect_path);
+        }
+        else{
+            $this->emit('transactionFetched', $req);
+        }
+        
     }
 }

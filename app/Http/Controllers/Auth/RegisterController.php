@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Events\SendNotification;
 use App\Http\Controllers\Controller;
+use App\Mail\ReportShareLinkMail;
 use App\Models\Account;
 use App\Models\Notification;
 use App\Providers\RouteServiceProvider;
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -44,6 +47,14 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        if(session()->has('intended')){
+            Mail::to($user->email)->send( new ReportShareLinkMail(session()->get('intended')));
+        }
+        return redirect(session()->pull('intended',$this->redirectTo));
     }
 
     /**

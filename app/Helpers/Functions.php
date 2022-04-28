@@ -266,6 +266,23 @@ class Functions
             $tci = 0;
             $tco = 0;
 
+            if ($account->first_load == null)
+            {
+                Functions::fetchTransactions($user, $account, null, null);
+                $account->first_load = Carbon::now()->toDateTimeString();
+                $account->last_load_time = Carbon::now()->toDateTimeString();
+                $account->save();
+            }
+            
+            $llt = Carbon::parse($account->last_load_time);
+            $now = Carbon::now();
+            
+            if($now->diffInHours($llt) > 22){
+                Functions::fetchTransactions($user, $account, null, null);
+                $account->last_load_time = Carbon::now()->toDateTimeString();
+                $account->save();
+            }
+
             $account_credit_score += $account->credit_score;
             
             $currency = strtoupper($account->currency);

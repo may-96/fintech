@@ -80,7 +80,7 @@
     <script src="{{ asset('js/select2.js') }}"></script>
 
     @livewireScripts
-    <script src="{{ asset('js/alpine.js') }}"></script>
+    
     @stack('scripts')
     <script>
         $("#connect_form_btn").click(function() {

@@ -53,6 +53,17 @@
                 basePath += "/overview/"+data;
                 window.location.href = basePath;
             });
+
+            window.livewire.on('transactionFetchRedirectReportShare', (data) => {
+                let msg_div = document.getElementById('import_msg');
+                msg_div.innerHTML = "";
+                msg_div.innerHTML = "Import Complete. Redirecting to Report Share Page ..."
+                var basePath = window.location.origin;
+                basePath += "/"+data;
+                window.location.href = basePath;
+
+            });
+            
             @this.fetch_transactions();
         });
     </script>
