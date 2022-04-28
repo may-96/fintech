@@ -67,7 +67,8 @@ class RegisterController extends Controller
         if(session()->has('intended')){
             $email = true;
             $path = session()->get('intended');
-            $token = explode('#',end(explode('/', $path)))[0];
+            $path_array = explode('/', $path);
+            $token = explode('#',end($path_array))[0];
             $request_link_query = ReportRequestByLink::where('link',$token)->get();
             $request_link = $request_link_query->first();
             $shared_with = $request_link->user_id;
@@ -93,7 +94,7 @@ class RegisterController extends Controller
 
             if($email){
                 Mail::to($user->email)->send( new ReportShareLinkMail($path));
-                $user->link_notify_email_sent()->attach($request_link_query->id);
+                $user->link_notify_email_sent()->attach($request_link->id);
                 $user->save();
             }
         }
