@@ -87,7 +87,7 @@ class LoginController extends Controller
             }
 
             if($email){
-                // Mail::to($user->email)->send( new ReportShareLinkMail($path));
+                Mail::to($user->email)->send( new ReportShareLinkMail($path));
                 $user->link_notify_email_sent()->attach($request_link->id);
                 $user->save();
             }
