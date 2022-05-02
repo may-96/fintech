@@ -77,11 +77,7 @@ class RequestLinkView extends Component
         if(Functions::not_empty($this->user) && Functions::not_empty($ip)){
             try{
                 $position = Location::get($ip);
-                logger($ip);
-                logger($position);
                 if(Functions::not_empty($position)){
-                    logger($position->countryCode);
-                    logger($position->countryName);
                     $this->country_code = $position->countryCode;
                     $this->country_name = $position->countryName;
                     $this->country_selected = true;
