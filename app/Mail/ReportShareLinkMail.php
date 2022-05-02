@@ -19,7 +19,7 @@ class ReportShareLinkMail extends Mailable implements ShouldQueue
     {
         $this->queue = "mail_queue";
 
-        $this->message = $token;
+        $this->token = $token;
     }
 
     public function build()
