@@ -35,7 +35,7 @@
 
 
         <div class="align-self-end text-center">
-            <p class="m-0">© {{config('app.name')}} 2021</p>
+            <p class="m-0">© {{config('app.name')}} 2022</p>
             <small>All Rights Reserved</small>
         </div>
     </div>

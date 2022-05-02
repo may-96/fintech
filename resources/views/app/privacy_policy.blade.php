@@ -9,7 +9,7 @@
                 <div class="col-lg-8 col-12 ">
                     <h1 class="fs-70 bold">Privacy Policy</h1>
                         <p class="fs-25">Of Nujanas’s website and services</p>
-                        <p class="fs-25">Last Updated on 1st December, 2021</p>
+                        <p class="fs-25">Last Updated on 1st January, 2022</p>
                         <p>This privacy policy explains how Nujanas uses the personal data that is collected from You once You access or use website <a href="#">www.nujanas.com</a> and services available on this website and all related subdomains.</p>
                     <h2 class="mt-10">DEFINITIONS OF TERMS USED IN THIS PRIVACY POLICY</h2>
                         <p><span class="fw-bold">"Applicable data privacy laws"</span> means the Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data,

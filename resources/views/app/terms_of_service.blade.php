@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-8 col-12 ">
                     <h1 class="fs-70">Conditions of Nujanas services</h1>
-                    <h3 class="font-monospace">Dated 1st December 2021</h3>
+                    <h3 class="font-monospace">Dated 1st January 2022</h3>
                     <p>These terms and conditions apply when SIA “Nujanas” (registration No.40103982535), a limited liability company registered under laws of the Republic of Latvia (hereinafter - Nujanas) performs account information service, aggregating account information from financial institutions, in accordance with an end user instructions, and provides account information to a third party (hereinafter - You or Partner) designated by such end user (hereinafter - Services).
                     </p>
                     <p>In order to access and use the Services it is required to register and create a user account on Nujanas’s website. By registering to access and use the Services You:</p>

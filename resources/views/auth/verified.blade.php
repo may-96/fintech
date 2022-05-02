@@ -25,7 +25,7 @@
                 <div class="text-center"><a href="{{route('index')}}" class="btn btn-purple">Go to Homepage</a></div>
             </div>
             <div class="align-self-end text-center">
-                <p class="m-0">&copy; {{ config('app.name') }} 2021</p>
+                <p class="m-0">&copy; {{ config('app.name') }} 2022</p>
                 <small>All Rights Reserved</small>
             </div>
         </div>
