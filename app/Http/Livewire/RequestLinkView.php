@@ -76,7 +76,7 @@ class RequestLinkView extends Component
 
         if(Functions::not_empty($this->user) && Functions::not_empty($ip)){
             try{
-                $position = Location::get('37.62.183.0');
+                $position = Location::get($ip);
                 if(Functions::not_empty($position)){
                     $this->country_code = $position->countryCode;
                     $this->country_name = $position->countryName;
