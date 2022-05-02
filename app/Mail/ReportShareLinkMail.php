@@ -24,7 +24,7 @@ class ReportShareLinkMail extends Mailable implements ShouldQueue
 
     public function build()
     {
-        return $this->subject("Share Report Instructions")
+        return $this->subject("Instructions for Sharing Report with Link")
         ->markdown('emails.report_share_link', [
             'token'=> $this->token,
         ]);

@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        Stevebauman\Location\LocationServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

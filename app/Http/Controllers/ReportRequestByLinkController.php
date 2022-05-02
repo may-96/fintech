@@ -31,7 +31,8 @@ class ReportRequestByLinkController extends Controller
     public function fetchRequestLinkData(Request $request, $token){
         $request_link = ReportRequestByLink::where('link',$token)->get()->first();
         if(Functions::not_empty($request_link)){
-            return view('app.request_link_view', ['data' => $request_link]);
+            $ip = $request->ip();
+            return view('app.request_link_view', ['data' => $request_link, 'ip' => $ip]);
         }
         abort(404);
     }

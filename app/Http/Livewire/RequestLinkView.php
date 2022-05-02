@@ -7,14 +7,17 @@ use App\Models\Agreement;
 use App\Models\Country;
 use App\Models\Institution;
 use App\Models\Requisition;
+use Exception;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Stevebauman\Location\Facades\Location;
 
 use Livewire\Component;
+use phpDocumentor\Reflection\Location as ReflectionLocation;
 
 class RequestLinkView extends Component
 {
@@ -58,11 +61,11 @@ class RequestLinkView extends Component
     public $requisition_link;
 
     public $link_generated = false;
+    public $ip_based = false;
     
-    public function mount($data){
+    public function mount($data, $ip){
         $this->data = $data;
         $this->curr_uri = Request::path() . "#form_area";
-        logger($this->curr_uri);
         if(Auth::check()){
             $this->user = Auth::user();
         }
@@ -70,7 +73,26 @@ class RequestLinkView extends Component
             session()->put('intended',$this->curr_uri);
             $this->user = null;
         }
+
+        if(Functions::not_empty($this->user) && Functions::not_empty($ip)){
+            try{
+                $position = Location::get('37.62.183.0');
+                if(Functions::not_empty($position)){
+                    $this->country_code = $position->countryCode;
+                    $this->country_name = $position->countryName;
+                    $this->country_selected = true;
+                    $this->updateCountry();
+                    $this->ip_based = true;
+                }
+            }
+            catch(Exception $e){
+
+            }
+        }
+        
         $this->countries = Country::all();
+
+
     }
 
     public function render()
@@ -80,13 +102,13 @@ class RequestLinkView extends Component
 
     public function updateCountry()
     {
-        $this->country_code = strtolower($this->country_code);
+        $country_code = strtolower($this->country_code);
         $response = Http::withHeaders([
             'accept' => 'application/json',
             'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
         ])->get(
             'https://ob.nordigen.com/api/v2/institutions/',
-            ['country' => $this->country_code,]
+            ['country' => $country_code,]
         );
 
         if ($response->successful())

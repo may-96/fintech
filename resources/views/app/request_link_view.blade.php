@@ -58,7 +58,7 @@
     </style>
 @endsection
 @section('header')
-    <section class="wrapper d-flex align-items-center hero_section_bg pt-16" style="">
+    <section class="wrapper d-flex align-items-center hero_section_bg pt-16 pb-10" style="">
         <div class="container text-center">
             <div class="row">
                 <div class="col-12">
@@ -72,7 +72,7 @@
     </section>
 @endsection
 @section('content')
-    <livewire:request-link-view :data="$data" />
+    <livewire:request-link-view :data="$data" :ip="$ip" />
 @endsection
 
 @section('js')

@@ -3,7 +3,7 @@
     
     
     <section class="wrapper">
-        <div class="container pt-10 pb-10 pt-md-14">
+        <div class="container pb-10">
             <div class="card">
                 <div class="card-header px-5 p-3 fw-bold fs-18">Details</div>
                 <div class="card-body px-5 p-3">
@@ -17,7 +17,7 @@
     </section>
 
     <section class="wrapper">
-        <div class="container pt-10 pb-10 pt-md-14">
+        <div class="container pb-10">
             <div class="card py-12 bg-white">
                 <div class="row text-center">
                     <div class="col-md-10 mx-auto">
@@ -54,61 +54,20 @@
     
     @guest
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30">
-            <div id="form_area" class="container pt-10 pb-10 pt-md-14 text-center">
+            <div id="form_area" class="container pb-10 text-center">
                 <h2 class="h1 fs-36 mb-3 text-center mb-4">Login/Register</h2>
                 <p>Please login or register your account to share the report. After registration you have to connect your bank account as well.</p>
                 <div>
                     <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login" aria-selected="true">Login</button>
+                            <button class="nav-link active" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab" aria-controls="pills-register" aria-selected="true">Register</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab" aria-controls="pills-register" aria-selected="false">Register</button>
+                            <button class="nav-link" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login" aria-selected="false">Login</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
-                            <div class="col-12 align-self-center">
-                                <form class="m-auto" style="max-width: 25rem;" id="login_form" method="POST" action="{{route('login')}}">
-                                    @csrf
-                                    <!-- Email input -->
-                                    <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Access Your Account</div>
-                                    <div class="form-outline mb-4">
-                                        <input type="email" id="email" name="email" required value="{{ old('email') }}" placeholder="Email Address" autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
-                                        @error('email')
-                                            <span class="invalid-feedback text-start" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                
-                                    <!-- Password input -->
-                                    <div class="form-outline mb-4">
-                                        <input type="password" id="password" name="password" required placeholder="Password" autocomplete="password" class="form-control @error('password') is-invalid @enderror" />
-                                        @error('password')
-                                            <span class="invalid-feedback text-start" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <!-- Checkbox -->
-                                        <div class="form-check">
-                                            <input type="checkbox" id="remember" name="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }} />
-                                            <label class="form-check-label" for="remember">Remember Me</label>
-                                        </div>
-                
-                                    </div>
-                
-                                    <!-- Submit button -->
-                                    <button type="submit" id="action_btn" class="btn btn-purple col-12">Login <x-loading id="login_loader" class="d-none" /></button>
-                
-                                    <div class="text-end mt-2"><a href="{{route('password.request')}}">Forgot password?</a></div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
+                        <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">
                             <div class="col-12 align-self-center">
                                 <form method="POST" id="register_form" action="{{ route('register') }}" class="m-auto" style="max-width: 25rem;">
                                     @csrf
@@ -171,6 +130,48 @@
                                 </form>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+                            <div class="col-12 align-self-center">
+                                <form class="m-auto" style="max-width: 25rem;" id="login_form" method="POST" action="{{route('login')}}">
+                                    @csrf
+                                    <!-- Email input -->
+                                    <div class="text-dark fs-24 lh-1 fw-bold text-upper text-center mb-6">Access Your Account</div>
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="email" name="email" required value="{{ old('email') }}" placeholder="Email Address" autocomplete="email" class="form-control @error('email') is-invalid @enderror" />
+                                        @error('email')
+                                            <span class="invalid-feedback text-start" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                
+                                    <!-- Password input -->
+                                    <div class="form-outline mb-4">
+                                        <input type="password" id="password" name="password" required placeholder="Password" autocomplete="password" class="form-control @error('password') is-invalid @enderror" />
+                                        @error('password')
+                                            <span class="invalid-feedback text-start" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <!-- Checkbox -->
+                                        <div class="form-check">
+                                            <input type="checkbox" id="remember" name="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }} />
+                                            <label class="form-check-label" for="remember">Remember Me</label>
+                                        </div>
+                
+                                    </div>
+                
+                                    <!-- Submit button -->
+                                    <button type="submit" id="action_btn" class="btn btn-purple col-12">Login <x-loading id="login_loader" class="d-none" /></button>
+                
+                                    <div class="text-end mt-2"><a href="{{route('password.request')}}">Forgot password?</a></div>
+                                </form>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -181,7 +182,7 @@
     @auth
         @if(auth()->user()->accounts()->count() > 0)
         <section class="wrapper pb-lg-15 pb-md-20 pb-sm-30 ">
-            <div id="form_area" class="container pt-10 pb-10 pt-md-14">
+            <div id="form_area" class="container pb-10">
                 <h2 class="h1 fs-36 mb-3 text-center mb-4">Share Report</h2>
                 <p class="mb-4 text-center">Select things you want to share in the report.</p>
                 <form action="{{route('report.grant.access.link')}}" method="post">
@@ -230,7 +231,7 @@
         </section>
         @else
         <section class="wrapper text-center pb-lg-15 pb-md-20 pb-sm-30">
-            <div id="form_area" class="container pt-10 pb-10 pt-md-14 text-center">
+            <div id="form_area" class="container pb-10 text-center">
                 <h2 class="h1 fs-36 mb-3 text-center mb-4">Connect Bank</h2>
                 <p>Please connect your bank account to share your credit report.</p>
                 
@@ -342,6 +343,39 @@
             return $elem;
         };
 
+        function updateBanks(){
+            let bank_elem = $('#bank_select');
+            if (bank_elem.hasClass('.select2-offscreen')) {
+                bank_elem.select2('destroy');
+            }
+
+            bank_elem.empty();
+            bank_elem.off('change');
+            bank_elem.append($("<option></option>").attr("data-placeholder", true).text("Please Select a Bank"));
+            
+            let bank_data = @this.banks;
+            $.each(bank_data, function(index, value) {
+                bank_elem.append($("<option></option>").attr("value", value.id).attr("data-logo", value.logo).attr("data-bic", value.bic).attr("data-ttd", value.transaction_total_days).text(value.name));
+            });
+            
+            bank_elem.select2({
+                width: '100%',
+                templateResult: formatSelect,
+                templateSelection: formatSelect,
+            });
+
+            bank_elem.on('change', () => {
+                let data = bank_elem.select2("val");
+                let selected = bank_elem.select2("data");
+                @this.set('bank_id', data);
+                @this.set('bank_name', selected[0].text);
+                @this.set('bank_logo', selected[0].element.dataset.logo);
+                @this.set('bank_ttd', selected[0].element.dataset.ttd);
+                @this.set('bank_bic', selected[0].element.dataset.bic);
+                @this.updateBank();
+            });
+        }
+
         function init_country_select2() {
             $('#country_select').select2({
                 width: '100%',
@@ -356,44 +390,25 @@
                 @this.set('country_name', selected[0].text);
                 await @this.updateCountry();
 
-                let bank_elem = $('#bank_select');
-                if (bank_elem.hasClass('.select2-offscreen')) {
-                    bank_elem.select2('destroy');
-                }
-                bank_elem.empty();
-                bank_elem.off('change');
-                bank_elem.append($("<option></option>").attr("data-placeholder", true).text("Please Select a Bank"));
-                let bank_data = @this.banks;
-                $.each(bank_data, function(index, value) {
-                    bank_elem.append($("<option></option>").attr("value", value.id).attr("data-logo", value.logo).attr("data-bic", value.bic).attr("data-ttd", value.transaction_total_days).text(value.name));
-                });
-                bank_elem.select2({
-                    width: '100%',
-                    templateResult: formatSelect,
-                    templateSelection: formatSelect,
-                });
-                bank_elem.on('change', () => {
-                    let data = bank_elem.select2("val");
-                    let selected = bank_elem.select2("data");
-                    @this.set('bank_id', data);
-                    @this.set('bank_name', selected[0].text);
-                    @this.set('bank_logo', selected[0].element.dataset.logo);
-                    @this.set('bank_ttd', selected[0].element.dataset.ttd);
-                    @this.set('bank_bic', selected[0].element.dataset.bic);
-                    @this.updateBank();
-                });
+                updateBanks();
             });
+        }
+
+        function ip_based(){
+            let ip_based = @this.ip_based;
+            if(ip_based){
+                updateBanks();
+            }
         }
 
         $(document).ready(function() {
             init_country_select2();
+            ip_based();
+            
             window.livewire.on('processConnectLink', () => {
                 window.location.href = @this.requisition_link;
             });
 
-            window.livewire.on('', () => {
-                
-            });            
         });
         
     </script>
