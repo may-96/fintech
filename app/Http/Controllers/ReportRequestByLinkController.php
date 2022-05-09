@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\SendNotification;
 use App\Helpers\Functions;
+use App\Mail\SharedReportMail;
 use App\Models\Notification;
 use App\Models\ReportRequestByLink;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ReportRequestByLinkController extends Controller
@@ -104,6 +106,8 @@ class ReportRequestByLinkController extends Controller
                     'message' => $message,
                     'read' => 0
                 ]);
+
+                Mail::to($shared_user->email)->send( new SharedReportMail($user, $shared_user, $token) );
 
                 $message2 = 'Report shared successfully with '.$shared_user->fname . ' ' . $shared_user->lname .'. Click here to view the shared report.';
 

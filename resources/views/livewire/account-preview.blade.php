@@ -1,7 +1,7 @@
 <div class="container-fluid px-10 d-flex justify-content-center bg-gray vh-100">
     <div class="row d-flex justify-content-center align-content-between" style="width: 80rem;">
         <div class="mt-6">
-            <p class="text-primary fs-28 fw-bold"><a href="{{route('index')}}">Revolut</a></p>
+            <p class="text-primary fs-28 fw-bold"><a href="{{route('index')}}">{{ config('app.name') }}</a></p>
         </div>
         <div wire:ignore class="row gy-4 justify-content-center">
             <div class="text-center display-6">Following @if(count($accounts) > 1) Accounts have @else Account has @endif been Linked</div>
