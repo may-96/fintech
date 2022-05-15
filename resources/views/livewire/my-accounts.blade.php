@@ -47,8 +47,29 @@
                                     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
                                         @if(isset($share[$a['id']]) && $share[$a['id']]['count'] > 0)<small class="text-navy mt-1">Shared With: <span class="text-share fw-bold">{{ $share[$a['id']]['count'] }} Users</span></small>@else<small></small>@endif
                                         <span class="text-center">
-                                            <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
-                                            @if($a['account_status'] == 'EXPIRED' || ($a['requisition']['status_long'] == 'EXPIRED' || $a['requisition']['status_long'] == 'SUSPENDED'))<a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>@endif
+                                            @if($a['account_status'] == 'EXPIRED' || ($a['requisition']['status_long'] == 'EXPIRED' || $a['requisition']['status_long'] == 'SUSPENDED'))
+                                                <a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>
+                                            @else
+                                                @php
+                                                    $agreement = App\Models\Agreement::find($a['requisition']['id']);
+                                                    $reconnect = false;
+                                                    if(App\Helpers\Functions::not_empty($agreement)){
+                                                        $ag_date = Carbon::parse($agreement->agreement_date);
+                                                        $now = Carbon::now();
+                                                        $valid_for = (int) $agreement->access_valid_for_days;
+                                                        if($now->diffInDays($ag_date) > ($valid_for - 4)){
+                                                            $reconnect = true;
+                                                        }
+                                                    }
+                                                @endphp
+
+                                                @if($reconnect == true)
+                                                    <a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>
+                                                @else
+                                                    <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
+                                                @endif
+
+                                            @endif                                            
                                         </span> 
                                     </div>
                                 </div>
