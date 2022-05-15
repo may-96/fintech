@@ -7,6 +7,7 @@ use App\Helpers\Functions;
 use App\Models\Account;
 use App\Models\Agreement;
 use App\Models\Institution;
+use App\Models\Notification;
 use App\Models\Requisition;
 use Exception;
 use Illuminate\Http\Request;
@@ -437,6 +438,7 @@ class RequisitionController extends Controller
             {
                 $link = $this->redirectToLink($old_agreement, $new_agreement, $institution, $old_requisition, $new_requisition, $reference_id, $user);
                 if($link != false){
+                    $notification = Notification::where('data', $requisition_id)->where('type','reconnect')->where('user_id',$user->id)->delete();
                     header("Location: ".$link);
                     exit();
                 }
