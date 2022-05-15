@@ -23,7 +23,6 @@ class ReconnectAccount extends Command
 
     public function handle()
     {
-        return 0;
         $accounts = Account::all();
         $requisitions_processed = [];
         $required_requisitions = [];
@@ -80,5 +79,7 @@ class ReconnectAccount extends Command
                 SendNotification::dispatch($user, $notification);
             }
         }
+
+        return 1;
     }
 }
