@@ -120,7 +120,7 @@
                                 <p>You will be redirected to a new page.</p>
                                 
                                 @if($reconnect_status == 0)
-                                <div wire:loading wire:target="reconnect" id="loading_bars" class="d-flex mb-4 align-items-center justify-content-center">
+                                <div id="loading_bars" class="d-flex mb-4 align-items-center justify-content-center">
                                     <x-loading />
                                     Creating Agreement and Requisition before Redirection. Please wait ...
                                 </div>
