@@ -118,17 +118,24 @@
                                 </p>
                                 <h5>Reconnect Bank</h5>
                                 <p>You will be redirected to a new page.</p>
-                                <div wire:loading wire:target="reconnect" id="loading_bars" class="d-flex vh-100 align-items-center justify-content-center">
+                                
+                                @if($reconnect_status == 0)
+                                <div wire:loading wire:target="reconnect" id="loading_bars" class="d-flex mb-4 align-items-center justify-content-center">
                                     <x-loading />
                                     Creating Agreement and Requisition before Redirection. Please wait ...
                                 </div>
-                                @if($reconnect_error != "")
+                                @endif
+
+                                @if($reconnect_error != "" && $reconnect_status == -1)
                                 <div class="alert alert-danger alert-icon" role="alert">
                                     <i class="uil uil-times-circle"></i> {{$reconnect_error}}
                                 </div>
                                 @endif
-                                <button id="modal_reconnect_btn" data-id="" class="btn btn-sm btn-soft-blue" wire:click="reconnect" type="button">Initiate Reconnection</button>
-                                <button class="btn btn-sm btn-soft-red" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+
+                                @if($reconnect_status != 0)
+                                <button id="modal_reconnect_btn" data-id="" class="btn btn-sm btn-soft-blue mt-2" wire:click="reconnect" type="button">Initiate Reconnection</button>
+                                <button class="btn btn-sm btn-soft-red mt-2" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -37,6 +37,7 @@ class MyAccounts extends Component
     public $reconnect_requisition_id;
     public $reconnect_error = "";
     public $shareable_link = null;
+    public $reconnect_status = -1;
 
     public $shared_emails = [];
 
@@ -270,6 +271,7 @@ class MyAccounts extends Component
 
     public function reconnect()
     {
+        $this->reconnect_status = 0;
         $this->reconnect_error = "";
         $old_requisition = Requisition::find($this->reconnect_requisition_id);
         $old_agreement = $old_requisition->agreement;
@@ -283,15 +285,18 @@ class MyAccounts extends Component
             $new_requisition = $this->createLink($reference_id, $iid, $new_agreement['id']);
             if ($new_requisition != false)
             {
+                $this->reconnect_status = 1;
                 $this->redirectToLink($old_agreement, $new_agreement, $institution, $old_requisition, $new_requisition, $reference_id);
             }
             else
             {
+                $this->reconnect_status = -1;
                 $this->reconnect_error = "There was an error while reconnecting your account.";
             }
         }
         else
         {
+            $this->reconnect_status = -1;
             $this->reconnect_error = "There was an error while reconnecting your account.";
         }
         
