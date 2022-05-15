@@ -65,10 +65,10 @@
 
                                                 @if($reconnect_cond == true)
                                                     <a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>
-                                                @else
-                                                    <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
                                                 @endif
-
+                                                
+                                                <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
+                                                
                                             @endif                                            
                                         </span> 
                                     </div>

@@ -594,7 +594,15 @@ class Functions
         $requisition = $account->requisition;
         $agreement = $requisition->agreement;
 
-        if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED'))
+        $reconnect_cond = false;
+        $ag_date = Carbon::parse($agreement->agreement_date);
+        $now = Carbon::now();
+        $valid_for = (int) $agreement->access_valid_for_days;
+        if($now->diffInDays($ag_date) > $valid_for){
+            $reconnect_cond = true;
+        }
+
+        if ($account->account_status != 'EXPIRED' && ($requisition->status_long != 'EXPIRED' || $requisition->status_long != 'SUSPENDED') && $reconnect_cond !== true)
         {
             try
             {
