@@ -52,18 +52,18 @@
                                             @else
                                                 @php
                                                     $agreement = App\Models\Agreement::find($a['requisition']['id']);
-                                                    $reconnect = false;
+                                                    $reconnect_cond = false;
                                                     if(App\Helpers\Functions::not_empty($agreement)){
-                                                        $ag_date = Carbon::parse($agreement->agreement_date);
-                                                        $now = Carbon::now();
+                                                        $ag_date = Carbon\Carbon::parse($agreement->agreement_date);
+                                                        $now = Carbon\Carbon::now();
                                                         $valid_for = (int) $agreement->access_valid_for_days;
                                                         if($now->diffInDays($ag_date) > ($valid_for - 4)){
-                                                            $reconnect = true;
+                                                            $reconnect_cond = true;
                                                         }
                                                     }
                                                 @endphp
 
-                                                @if($reconnect == true)
+                                                @if($reconnect_cond == true)
                                                     <a class="btn small btn-sm btn-soft-red rounded-pill px-2 py-0 mt-1" data-bs-toggle="modal" onclick="@this.set('reconnect_requisition_id',{{ $a['requisition']['id'] }}); @this.set('reconnect_error','')" data-bs-target="#reconnect_bank_modal" title="Reconnect Account">Reconnect</a>
                                                 @else
                                                     <a class="btn small btn-sm btn-soft-ash rounded-pill px-2 py-0 mt-1" href="{{ route('my.transactions', $a['account_id']).'-'.$a['id'] }}">View Transactions</a>
