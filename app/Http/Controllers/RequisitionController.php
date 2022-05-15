@@ -431,7 +431,7 @@ class RequisitionController extends Controller
         $new_agreement = $this->createAgreement($old_agreement, $iid, $user);
         if ($new_agreement != false)
         {
-            $reference_id = uniqid("" . $this->user->id, true);
+            $reference_id = uniqid("" . $user->id, true);
             $new_requisition = $this->createLink($reference_id, $iid, $new_agreement['id'], $user);
             if ($new_requisition != false)
             {
