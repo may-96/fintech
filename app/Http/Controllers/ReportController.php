@@ -38,7 +38,10 @@ class ReportController extends Controller
     public function fetchReport(Request $request, $token = null)
     {
         /** @var \App\Models\User */
-        $user = Auth::user();
+
+        // $user = Auth::user();
+        
+        $user = Auth::guard('web')->user();
 
         if (Functions::is_empty($token))
         {
@@ -46,22 +49,27 @@ class ReportController extends Controller
         }
         else
         {
-            $shared_user = $user->shared_reports_with()->wherePivot('token', $token)->first();
-            $main_user = $user->shared_reports()->wherePivot('token', $token)->first(); 
-            if (Functions::not_empty($shared_user))
-            {
-                $data = ['shared', $shared_user->pivot];
-            }
-            else if(Functions::not_empty($main_user)){
-                $data = ['self_shared', $main_user->pivot];
+            if(Functions::not_empty($user)){
+                $shared_user = $user->shared_reports_with()->wherePivot('token', $token)->first();
+                $main_user = $user->shared_reports()->wherePivot('token', $token)->first(); 
+                if (Functions::not_empty($shared_user))
+                {
+                    $data = ['shared', $shared_user->pivot];
+                }
+                else if(Functions::not_empty($main_user)){
+                    $data = ['self_shared', $main_user->pivot];
+                }
+                else{
+                    abort(404);
+                }
             }
             else
             {
                 $user = User::where('report_shareable_link', $token)->first();
                 $report_data = DB::table('report_user')->where('shareable_link', $token)->get()->flatten()->first();
 
-                if($user){
-                    $data = ['link_shared', $user->id];
+                if($user && Functions::not_empty($report_data)){
+                    $data = ['link_shared', $user->id, $report_data];
                 }
                 else if(Functions::not_empty($report_data)){
                     $data = ['link_shared', $report_data->user_id, $report_data];

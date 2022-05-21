@@ -9,13 +9,13 @@
                     <div class="row mb-15">
                         <div class="col-12 my-10 text-center">
                             <h1>Credit Worthiness Analysis</h1>
-                            <p>Credit Score based on the analysis of your last 24 months</p>
+                            <p>Analysis based on your last 24 months transactions</p>
                         </div>
                         <div class="col-12 col-md-4 mb-md-auto mb-2 m-auto text-center text-md-start">
                             @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_credit_score'] == 1))
-                                <p class="fs-16 mb-0 fw-bold text-dark">Cash Flow Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[10] }} text-{{ $report_data[10] }}">{{ round($report_data[8], 0) }}</span> 
+                                {{-- <p class="fs-16 mb-0 fw-bold text-dark">Cash Flow Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[10] }} text-{{ $report_data[10] }}">{{ round($report_data[8], 0) }}</span> 
                                     <span class="fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</span>
-                                </p>
+                                </p> --}}
                                 @if($report_data[18] > 0)<p class="fs-16 mb-0 fw-bold text-dark">Credit Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[20] }} text-{{ $report_data[20] }}">{{ round($report_data[18] , 1) }}</span> 
                                 <span class="fw-bold text-{{ $report_data[20] }}">{{ $report_data[19] }}</span>
 

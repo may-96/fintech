@@ -87,7 +87,7 @@ Route::post('/notification/read/{notification}', [NotificationController::class,
 Route::post('/notification/unread/{notification}', [NotificationController::class, 'unread'])->middleware(['auth'])->name('unread.notification');
 Route::post('/notification/destroy/{notification}', [NotificationController::class, 'destroy'])->middleware(['auth'])->name('destroy.notification');
 
-Route::get('/report/{token?}', [ReportController::class, 'fetchReport'])->middleware(['auth'])->name('get.report');
+Route::get('/report/{token?}', [ReportController::class, 'fetchReport'])->withoutMiddleware(['auth'])->name('get.report');
 
 Route::get('request_report_link', [ReportRequestByLinkController::class, 'request_report_by_link'])->middleware(['auth'])->name('request.report.link');
 Route::get('/report/request/{token}', [ReportRequestByLinkController::class, 'fetchRequestLinkData'])->middleware(['token'])->name('fetch.request.link.data');

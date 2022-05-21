@@ -9,7 +9,7 @@
                     <div class="row mb-15">
                         <div class="col-12 my-10 text-center">
                             <h1>Credit Worthiness Analysis</h1>
-                            <p>Credit Score based on the analysis of your last 24 months</p>
+                            <p>Analysis based on your last 24 months transactions</p>
                         </div>
                         <div class="col-12 col-md-4 mb-md-auto mb-2 m-auto text-center text-md-start">
                             
