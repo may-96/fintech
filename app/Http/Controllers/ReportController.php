@@ -60,7 +60,18 @@ class ReportController extends Controller
                     $data = ['self_shared', $main_user->pivot];
                 }
                 else{
-                    abort(404);
+                    $report_user = User::where('report_shareable_link', $token)->first();
+                    $report_data = DB::table('report_user')->where('shareable_link', $token)->get()->flatten()->first();
+
+                    if($report_user && Functions::not_empty($report_data)){
+                        $data = ['link_shared', $report_user->id, $report_data];
+                    }
+                    else if(Functions::not_empty($report_data)){
+                        $data = ['link_shared', $report_data->user_id, $report_data];
+                    }
+                    else{
+                        abort(404);
+                    }
                 }
             }
             else
