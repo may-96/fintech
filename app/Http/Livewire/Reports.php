@@ -84,6 +84,11 @@ class Reports extends Component
             $this->amount_check = $this->data[2]->amount;
             $this->currency = $this->data[2]->currency;
         }
+        if($this->data[0] == 'link_shared_everyone'){
+            $sharing_info = $this->data[1];
+            $this->fetch_id = $sharing_info;
+            $this->currency = $this->data[2]["currency"];
+        }
 
     }
 
@@ -105,7 +110,9 @@ class Reports extends Component
             foreach($this->data[2] as $key => $val){
                 $this->access[$key] = $val;
             }
-            
+        }
+        if($this->data[0] == 'link_shared_everyone'){
+            $this->access = $this->data[2];
         }
         
         $this->report_user_name = $temp->fname . " " . $temp->lname;

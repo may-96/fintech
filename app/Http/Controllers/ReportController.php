@@ -63,20 +63,24 @@ class ReportController extends Controller
                     $report_user = User::where('report_shareable_link', $token)->first();
                     $report_data = DB::table('report_user')->where('shareable_link', $token)->get()->flatten()->first();
 
-                    if($report_user && Functions::not_empty($report_data)){
-                        $data = ['link_shared', $report_user->id, $report_data];
+                    if($report_user){
+                        $access = [
+                            "view_expense" => 1,
+                            "view_cash_flow" => 1,
+                            "view_income" => 1,
+                            "view_email" => 1,
+                            "view_contact" => 1,
+                            "view_credit_score" => 1,
+                            "view_initials_only" => 1,
+                            "view_account_initials_only" => 1,
+                            "currency" => $report_user->currency,
+                        ];
+                        $data = ['link_shared_everyone', $report_user->id, $access];
                     }
                     else if(Functions::not_empty($report_data)){
                         $data = ['link_shared', $report_data->user_id, $report_data];
                     }
                     else{
-                        logger("---------- 1 ------------");
-                        logger($shared_user);
-                        logger($main_user);
-                        logger($report_user);
-                        logger($report_data);
-                        logger($user);
-                        logger("---------- 1 ------------");
                         abort(404);
                     }
                 }
@@ -86,17 +90,24 @@ class ReportController extends Controller
                 $user = User::where('report_shareable_link', $token)->first();
                 $report_data = DB::table('report_user')->where('shareable_link', $token)->get()->flatten()->first();
 
-                if($user && Functions::not_empty($report_data)){
-                    $data = ['link_shared', $user->id, $report_data];
+                if($user){
+                    $access = [
+                        "view_expense" => 1,
+                        "view_cash_flow" => 1,
+                        "view_income" => 1,
+                        "view_email" => 1,
+                        "view_contact" => 1,
+                        "view_credit_score" => 1,
+                        "view_initials_only" => 1,
+                        "view_account_initials_only" => 1,
+                        "currency" => $user->currency,
+                    ];
+                    $data = ['link_shared_everyone', $user->id, $access];
                 }
                 else if(Functions::not_empty($report_data)){
                     $data = ['link_shared', $report_data->user_id, $report_data];
                 }
                 else{
-                    logger("---------- 2 ------------");
-                    logger($report_data);
-                    logger($user);
-                    logger("---------- 2 ------------");
                     abort(404);
                 }
             }

@@ -12,7 +12,7 @@
                             <p>Analysis based on your last 24 months transactions</p>
                         </div>
                         <div class="col-12 col-md-4 mb-md-auto mb-2 m-auto text-center text-md-start">
-                            @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_credit_score'] == 1))
+                            @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_credit_score'] == 1))
                                 {{-- <p class="fs-16 mb-0 fw-bold text-dark">Cash Flow Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[10] }} text-{{ $report_data[10] }}">{{ round($report_data[8], 0) }}</span> 
                                     <span class="fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</span>
                                 </p> --}}
@@ -23,7 +23,7 @@
                             @endif
                         </div>
                         <div class="col-12 col-md-8 text-center">
-                            @if ($data[0] != 'shared' && $data[0] != 'link_shared')
+                            @if ($data[0] != 'shared' && $data[0] != 'link_shared' && $data[0] != 'link_shared_everyone')
                                 <a class="float-md-end share_icon m-1 py-1 btn btn-sm btn-group-lg btn-soft-primary" wire:click.prevent="get_sharing_info({{ true }})" data-bs-toggle="modal" data-bs-target="#shareform"
                                    data-toggle="tooltip" data-placement="top" title="Share"><i class="uil uil-share-alt"></i></a>
                             @endif
@@ -32,7 +32,7 @@
 
                         <hr />
 
-                        @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $amount_check != null && $amount_check > 0 )
+                        @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $amount_check != null && $amount_check > 0 )
                         <div class="col-12 mb-3 mh-100">
                             <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                                 <div class="col-12">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="row gy-3">
 
-                        @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_income'] == 1)))
+                        @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_income'] == 1)))
                             <div class="col-12 col-lg-6 mb-10 d-block">
                                 <div class="text-center">
                                     <h1>Income</h1>
@@ -100,7 +100,7 @@
                             </div>
                         @endif
 
-                        @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_expense'] == 1)))
+                        @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_expense'] == 1)))
                             <div class="col-12 col-lg-6 mb-10 d-block">
                                 <div class="text-center">
                                     <h1>Expense</h1>
@@ -499,7 +499,7 @@
                             @endif
                         </div>
 
-                        @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_cash_flow'] == 1)))
+                        @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared'|| $data[0] == 'link_shared_everyone') && $access['view_cash_flow'] == 1)))
                             <div id="tabular" class="mb-10">
                                 <div class="col-12 text-center mb-10">
                                     <h1>Monthly Flow Of Cash</h1>
@@ -554,9 +554,9 @@
                 </div>
                 <div class="row my-10">
                     <div class="col-6">
-                        @if (App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_initials_only'] == 0)))
+                        @if (App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_initials_only'] == 0)))
                             <p class="m-0 clearfix"><span class="float-start">Name:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name }}</span></p>
-                        @elseif(App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_initials_only'] == 1)))
+                        @elseif(App\Helpers\Functions::not_empty($report_user_name) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_initials_only'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Name Initials:</span> <span class="float-end fw-bold text-dark">{{ $report_user_name_initials }}</span></p>
                         @endif
 
@@ -564,18 +564,18 @@
                             <p class="m-0 clearfix"><span class="float-start">Company:</span> <span class="float-end fw-bold text-dark">{{ $company_name }}</span></p>
                         @endif
 
-                        @if (App\Helpers\Functions::not_empty($email_addr) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_email'] == 1)))
+                        @if (App\Helpers\Functions::not_empty($email_addr) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_email'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Email:</span> <span class="float-end fw-bold text-dark">{{ $email_addr }}</span></p>
                         @endif
 
-                        @if (App\Helpers\Functions::not_empty($contact_num) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_contact'] == 1)))
+                        @if (App\Helpers\Functions::not_empty($contact_num) && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_contact'] == 1)))
                             <p class="m-0 clearfix"><span class="float-start">Contact #:</span> <span class="float-end fw-bold text-dark">{{ $contact_num }}</span></p>
                         @endif
 
                         <p class="m-0 clearfix"><span class="float-start">Generated At:</span> <span class="float-end fw-bold text-dark" id="time_span"></span></p>
                     </div>
                     <div class="col-6">
-                        @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_credit_score'] == 1))
+                        @if ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_credit_score'] == 1))
                             <p class="m-0 text-end"><span class="fw-bold">Cash Flow Score:</span> <span class="text-muted fs-20">{{ round($report_data[8], 0) }}</span></p>
                             <p class="text-end fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</p>
                             @if($report_data[18] > 0)<p class="m-0 text-end"><span class="fw-bold">Credit Score:</span> <span class="text-muted fs-20">{{ round($report_data[18], 1) }}</span></p>
@@ -597,7 +597,7 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $amount_check != null && $amount_check > 0)
+                    @if (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $amount_check != null && $amount_check > 0)
                     <div class="col-12 mh-100">
                         <div class="p-3 bg-soft-green border shadow-lg d-flex justify-content-around align-items-center rounded">
                             <div class="col-12">
@@ -619,7 +619,7 @@
                 </div>
 
                 <div class="row mb-10">
-                    @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_income'] == 1)))
+                    @if (count($report_data[1]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_income'] == 1)))
                         <div class="col-12 mb-10">
                             <h5>Income</h5>
                             <table class="table table-striped m-0 mb-10">
@@ -647,7 +647,7 @@
                         </div>
                     @endif
 
-                    @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_expense'] == 1)))
+                    @if (count($report_data[2]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_expense'] == 1)))
                         <div class="col-12 mb-10">
                             <h5>Expense</h5>
                             <table class="table table-striped m-0 mb-10">
@@ -1064,7 +1064,7 @@
                     @endif
                 </div>
 
-                @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared') && $access['view_cash_flow'] == 1)))
+                @if (count($report_data[0]) > 0 && ($data[0] == 'self' || (($data[0] == 'shared' || $data[0] == 'self_shared' || $data[0] == 'link_shared' || $data[0] == 'link_shared_everyone') && $access['view_cash_flow'] == 1)))
                     <div class="row mb-10">
                         <div class="col-12">
                             <h5>Cash Flow</h5>
@@ -1108,7 +1108,7 @@
         </div>
     </template>
 
-    @if (App\Helpers\Functions::not_empty($report_data) && $data[0] != 'shared' && $data[0] != 'link_shared')
+    @if (App\Helpers\Functions::not_empty($report_data) && $data[0] != 'shared' && $data[0] != 'link_shared' && $data[0] != 'link_shared_everyone')
         <div wire:ignore.self class="modal fade" id="shareform">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
