@@ -70,6 +70,13 @@ class ReportController extends Controller
                         $data = ['link_shared', $report_data->user_id, $report_data];
                     }
                     else{
+                        logger("---------- 1 ------------");
+                        logger($shared_user);
+                        logger($main_user);
+                        logger($report_user);
+                        logger($report_data);
+                        logger($user);
+                        logger("---------- 1 ------------");
                         abort(404);
                     }
                 }
@@ -86,6 +93,10 @@ class ReportController extends Controller
                     $data = ['link_shared', $report_data->user_id, $report_data];
                 }
                 else{
+                    logger("---------- 2 ------------");
+                    logger($report_data);
+                    logger($user);
+                    logger("---------- 2 ------------");
                     abort(404);
                 }
             }
