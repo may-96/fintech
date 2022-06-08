@@ -49,9 +49,15 @@ class RequestReportByLink extends Component
         $this->reset_msg();
         if(Functions::is_empty($this->amount) || (float) $this->amount <= 0){
             $this->error = "Amount cannot be empty or less than or equal to zero";
+            return;
         }
         if(Functions::is_empty($this->currency)){
             $this->error = "Currency cannot be empty";
+            return;
+        }
+        if(Functions::is_empty($this->details)){
+            $this->error = "Please enter details.";
+            return;
         }
 
         if(Functions::is_empty($this->link)){
