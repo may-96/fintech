@@ -41,7 +41,7 @@ Route::get('contact_us', function () { return view('app.contact_us'); })->name('
 
 Route::post('contact/query', [ContactController::class, 'queryHandler'])->name('submit.contact.query');
 
-Route::get('report_link/{token}', [ReportController::class, 'shareable_report'])->withoutMiddleware('auth')->name('report.shareable.link');
+// Route::get('report_link/{token}', [ReportController::class, 'shareable_report'])->withoutMiddleware('auth')->name('report.shareable.link');
 Route::get('account_link/{token}', [TransactionController::class, 'shareable_account'])->withoutMiddleware('auth')->name('account.shareable.link');
 
 Auth::routes(['verify' => true]);
