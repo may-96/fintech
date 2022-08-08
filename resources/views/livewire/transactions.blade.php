@@ -4,16 +4,19 @@
             <div class="container">
                 <div class="row p-3">
                     <div class="col-12 rounded bg-pale-navy py-4">
-                        <div>{{ $institution->name }}</div>
+
+                        <div class="text-primary">{{ $institution->name }}</div>
                         <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
-                        @if(App\Helpers\Functions::not_empty($account->currency))
-                        <div>
-                            Currency: <strong>{{ $account->currency }}</strong>
+
+                        <div class="mt-2 row">
+                            @if(App\Helpers\Functions::not_empty($account->credit_score))<div class="col-md-6 text-end">Credit Score: <strong>{{ $account->credit_score }}</strong></div>@endif
+                            @if(App\Helpers\Functions::not_empty($account->currency))<div class="col-md-6 text-start">Currency: <strong>{{ $account->currency }}</strong></div>@endif
                         </div>
-                        @endif
-                        <div>
-                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @endif
+                        
+                        <div class="mb-2">
+                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @if(App\Helpers\Functions::not_empty($account->full_name)) <small class="text-primary">({{ $account->full_name }})</small> @endif @endif
                         </div>
+
                         <div>
                             <button class="btn btn-circle btn-soft-yellow" title="Share" data-bs-toggle="modal" data-bs-target="#shareform"><i class="uil uil-share-alt"></i></button>
                         </div>
@@ -237,35 +240,109 @@
                                                                         </div>
                                                                     </div>
                                                                     <div x-bind:class="$store.data.is_expanded({{ $transaction['id'] }}) ? 'transaction_expanded' : 'transaction_collapsed'" class="text-start mb-1 transaction_timeline_{{ $transaction['id'] }}">
-                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Transaction ID:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">{{ $transaction['custom_uid'] }}</div></div>
-                                                                        @if(App\Helpers\Functions::not_empty($transaction['debator_name']) || App\Helpers\Functions::not_empty($transaction['debtor_account']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Debitor:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['debator_name'])) {{ $transaction['debator_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['debtor_account'])) (<small>{{ $transaction['debtor_account'] }}</small>) @endif </div> </div>@endif
-                                                                        @if(App\Helpers\Functions::not_empty($transaction['debtor_agent']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Debtor Agent:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['debtor_agent'] }}</div></div>@endif
+                                                                        
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0">
+                                                                            <div class="col-md-12 col-lg-5 lh1_3 p-0">
+                                                                                <small>
+                                                                                    <strong>Transaction ID:</strong>
+                                                                                </small>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-lg-7 lh1_3 p-0">{{ $transaction['custom_uid'] }}</div>
+                                                                        </div>
+                                                                        
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['debator_name']) || App\Helpers\Functions::not_empty($transaction['debtor_account']))
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0">
+                                                                            <div class="col-md-12 col-lg-5 lh1_3 p-0">
+                                                                                <small>
+                                                                                    <strong>Debitor:</strong>
+                                                                                </small>
+                                                                            </div> 
+                                                                            <div class="col-md-12 col-lg-7 lh1_3 p-0">
+                                                                                @if(App\Helpers\Functions::not_empty($transaction['debator_name'])) {{ $transaction['debator_name'] }} @endif 
+                                                                                @if(App\Helpers\Functions::not_empty($transaction['debtor_account'])) (<small>{{ $transaction['debtor_account'] }}</small>) @endif 
+                                                                            </div> 
+                                                                        </div>
+                                                                        @endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['debtor_agent']))
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1">
+                                                                            <div class="col-12 col-lg-5 lh1_3 p-0">
+                                                                                <small>
+                                                                                    <strong>Debtor Agent:</strong> 
+                                                                                </small>
+                                                                            </div>
+                                                                            <div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['debtor_agent'] }}</div>
+                                                                        </div>
+                                                                        @endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['ultimate_debtor']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Ultimate Debtor:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['ultimate_debtor'] }}</div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['creditor_name']) || App\Helpers\Functions::not_empty($transaction['creditor_account']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Creditor:</strong></small></div> <div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['creditor_name'])) {{ $transaction['creditor_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['creditor_account'])) (<small>{{ $transaction['creditor_account'] }}</small>) @endif </div> </div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['creditor_agent']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Creditor Agent:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['creditor_agent'] }}</div></div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['creditor_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Creditor ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['creditor_id'] }}</div></div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['ultimate_creditor']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Ultimate Creditor:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['ultimate_creditor'] }}</div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['bank_transaction_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Bank Transaction Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction['bank_transaction_code'] }} </div></div> @endif  
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['purpose_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Purpose Code:</strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0"> {{ $transaction['purpose_code'] }} </div></div> @endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['proprietary_bank_transaction_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Proprietary Bank Transaction Code:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['proprietary_bank_transaction_code'] }}</div></div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['mandate_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Mandate ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['mandate_id'] }}</div></div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['check_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Check ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['check_id'] }}</div></div>@endif
+                                                                        
                                                                         @if(App\Helpers\Functions::not_empty($transaction['end_to_end_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>End to End ID:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['end_to_end_id'] }}</div></div>@endif
                                             
                                                                         @if(App\Helpers\Functions::not_empty($transaction['status']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Status:</strong> </small></div><div class="col-md-12 col-lg-7 lh1_3 p-0 text-capitalize"> {{ $transaction['status'] }}</div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['balance_after_transaction']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Balance After Transaction:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['balance_after_transaction'] }}</div></div>@endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['currency_exchange']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Currency Exchange:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['currency_exchange'] }}</div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['remittance_information_structured']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Remittance Information Structured:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0">{{ $transaction['remittance_information_structured'] }}</pre></div></div>@endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['remittance_information_structured_array']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Remittance Information Structured Array:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0">{!! nl2br($transaction['remittance_information_structured_array']) !!}</pre></div></div>@endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['remit_info_unstructured']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Remittance Information Unstructured:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0">{!! nl2br($transaction['remit_info_unstructured']) !!}</pre></div></div>@endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['remittance_information_unstructured_array']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Remittance Information Unstructured Array:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"><pre style="font-family: 'Manrope', sans-serif;white-space: pre-wrap;" class="p-0">{!! nl2br($transaction['remittance_information_unstructured_array']) !!}</pre></div></div>@endif
                                                                         
                                                                         @if(App\Helpers\Functions::not_empty($transaction['additional_information']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['additional_information'] }}</div></div>@endif
+
                                                                         @if(App\Helpers\Functions::not_empty($transaction['additional_information_structured']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information Structured:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['additional_information_structured'] }}</div></div>@endif
+
+                                                                        <div class="my-2">Data From Premium EndPoint</div>
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['transaction_type']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Transaction Type: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['transaction_type'] }}</div></div>@endif
+                                                                        
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['invoice_number']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Invoice Number: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['invoice_number'] }}</div></div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['merchant_name']) || App\Helpers\Functions::not_empty($transaction['merchant_category_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['merchant_name'])) {{ $transaction['merchant_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['merchant_category_code'])) (<small>{{ $transaction['merchant_category_code'] }}</small>) @endif </div> </div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_title']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Title: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_title'] }}</div></div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_website']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Website: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_website'] }}</div></div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_name']) || App\Helpers\Functions::not_empty($transaction['enriched_logo']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Logo: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['enriched_logo'])) <img style="max-width: 32px; max-height: 32px;" src="{{ $transaction['enriched_logo'] }}" alt="Logo"> @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_name'])) <span>{{ $transaction['enriched_name'] }}</span> @endif </div> </div>@endif
+                                                                        
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_address']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Address: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_address'] }}</div></div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_phone']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Phone: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_phone'] }}</div></div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle']) || App\Helpers\Functions::not_empty($transaction['enriched_summary']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Details: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle'])) {{ $transaction['enriched_subtitle'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle']) && App\Helpers\Functions::not_empty($transaction['enriched_summary'])) <br /> @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_summary'])) <small>{{ $transaction['enriched_summary'] }}</small> @endif </div> </div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_value']) || App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Regular Transaction: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_value'])) True @endif @if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_id'])) (<small>{{ $transaction['pattern_regular_transaction_id'] }}</small>) @endif </div> </div>@endif
+
+                                                                        @if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_value']) || App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Opposite Match Transaction: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_value'])) True @endif @if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_id'])) (<small>{{ $transaction['pattern_opposite_match_id'] }}</small>) @endif </div> </div>@endif
+
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Is Anomaly: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_anomaly'])) True @else False @endif</div></div>
+
+                                                                        <div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Is Outlier: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_outlier'])) True @else False @endif</div></div>
+
                                                                         
                                                                     </div>
                                                                 </div>
@@ -394,6 +471,36 @@
 
                                             @if(App\Helpers\Functions::not_empty($transaction['additional_information']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['additional_information'] }}</div></div>@endif
                                             @if(App\Helpers\Functions::not_empty($transaction['additional_information_structured']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Additional Information Structured:</strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['additional_information_structured'] }}</div></div>@endif
+
+                                            <div class="my-2">Data From Premium EndPoint</div>
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['transaction_type']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Transaction Type: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['transaction_type'] }}</div></div>@endif
+                                            
+                                            @if(App\Helpers\Functions::not_empty($transaction['invoice_number']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Invoice Number: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['invoice_number'] }}</div></div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['merchant_name']) || App\Helpers\Functions::not_empty($transaction['merchant_category_code']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['merchant_name'])) {{ $transaction['merchant_name'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['merchant_category_code'])) (<small>{{ $transaction['merchant_category_code'] }}</small>) @endif </div> </div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_title']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Title: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_title'] }}</div></div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_website']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Website: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_website'] }}</div></div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_name']) || App\Helpers\Functions::not_empty($transaction['enriched_logo']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Logo: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['enriched_logo'])) <img style="max-width: 32px; max-height: 32px;" src="{{ $transaction['enriched_logo'] }}" alt="Logo"> @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_name'])) <span>{{ $transaction['enriched_name'] }}</span> @endif </div> </div>@endif
+                                            
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_address']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Address: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_address'] }}</div></div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_contact_phone']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Phone: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0"> {{ $transaction['enriched_contact_phone'] }}</div></div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle']) || App\Helpers\Functions::not_empty($transaction['enriched_summary']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Merchant Details: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle'])) {{ $transaction['enriched_subtitle'] }} @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_subtitle']) && App\Helpers\Functions::not_empty($transaction['enriched_summary'])) <br /> @endif @if(App\Helpers\Functions::not_empty($transaction['enriched_summary'])) <small>{{ $transaction['enriched_summary'] }}</small> @endif </div> </div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_value']) || App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Regular Transaction: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_value'])) True @endif @if(App\Helpers\Functions::not_empty($transaction['pattern_regular_transaction_id'])) (<small>{{ $transaction['pattern_regular_transaction_id'] }}</small>) @endif </div> </div>@endif
+
+                                            @if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_value']) || App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_id']))<div class="w-100 text-dark fs-14 text-start row m-0 mb-1 mb-lg-0"><div class="col-md-12 col-lg-5 lh1_3 p-0"><small><strong>Opposite Match Transaction: </strong></small></div><div class="col-md-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_value'])) True @endif @if(App\Helpers\Functions::not_empty($transaction['pattern_opposite_match_id'])) (<small>{{ $transaction['pattern_opposite_match_id'] }}</small>) @endif </div> </div>@endif
+
+                                            <div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Is Anomaly: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_anomaly'])) True @else False @endif</div></div>
+
+                                            <div class="w-100 text-dark fs-14 text-start row m-0 mb-1"><div class="col-12 col-lg-5 lh1_3 p-0"><small><strong>Is Outlier: </strong> </small></div><div class="col-12 col-lg-7 lh1_3 p-0">@if(App\Helpers\Functions::not_empty($transaction['pattern_outlier'])) True @else False @endif</div></div>
+
+
                                         </div>
                                     </div>
                                     <div class="d-flex w-20 align-items-end flex-column">

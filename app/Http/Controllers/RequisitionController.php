@@ -46,13 +46,19 @@ class RequisitionController extends Controller
                 $data = $response->json();
                 $accounts = $data['accounts'];
 
+                $baseURL = 'https://ob.nordigen.com/api/v2/accounts/';
+                if (config('services.nordigen.account') == "premium")
+                {
+                    $baseURL .= 'premium/';
+                }
+
                 foreach ($accounts as $account_id)
                 {
                     $account_response = Http::withHeaders([
                         'accept' => 'application/json',
                         'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
                     ])->get(
-                        'https://ob.nordigen.com/api/v2/accounts/' . $account_id . '/details/'
+                        $baseURL . $account_id . '/details/'
                     );
 
                     if ($account_response->successful())
@@ -85,6 +91,9 @@ class RequisitionController extends Controller
                                 'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
                                 'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
                                 'credit_score' => isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null,
+                                'full_name' => isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null,
+                                'first_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null,
+                                'last_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null,
                             ]
                         );
 
@@ -156,13 +165,19 @@ class RequisitionController extends Controller
                 $data = $response->json();
                 $accounts = $data['accounts'];
 
+                $baseURL = 'https://ob.nordigen.com/api/v2/accounts/';
+                if (config('services.nordigen.account') == "premium")
+                {
+                    $baseURL .= 'premium/';
+                }
+
                 foreach ($accounts as $account_id)
                 {
                     $account_response = Http::withHeaders([
                         'accept' => 'application/json',
                         'Authorization' => 'Bearer ' . Crypt::decryptString(Session::get('access_token')),
                     ])->get(
-                        'https://ob.nordigen.com/api/v2/accounts/' . $account_id . '/details/'
+                        $baseURL . $account_id . '/details/'
                     );
 
                     if ($account_response->successful())
@@ -196,6 +211,10 @@ class RequisitionController extends Controller
                                 'resource_id' => isset($account_data["account"]['resourceId']) ? $account_data["account"]['resourceId'] : null,
                                 'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
                                 'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
+                                'credit_score' => isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null,
+                                'full_name' => isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null,
+                                'first_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null,
+                                'last_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null,
                             ];
                         }
                         else{
@@ -224,6 +243,10 @@ class RequisitionController extends Controller
                                     'resource_id' => isset($account_data["account"]['resourceId']) ? $account_data["account"]['resourceId'] : null,
                                     'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
                                     'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
+                                    'credit_score' => isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null,
+                                    'full_name' => isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null,
+                                    'first_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null,
+                                    'last_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null,
                                 ];
                             }
                             else if(isset($account_data["account"]['bban'])){
@@ -251,6 +274,10 @@ class RequisitionController extends Controller
                                     'resource_id' => isset($account_data["account"]['resourceId']) ? $account_data["account"]['resourceId'] : null,
                                     'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
                                     'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
+                                    'credit_score' => isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null,
+                                    'full_name' => isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null,
+                                    'first_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null,
+                                    'last_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null,
                                 ];
                             }
                             else if(isset($account_data["account"]['resourceId'])){
@@ -278,6 +305,10 @@ class RequisitionController extends Controller
                                     'linked_accounts' => isset($account_data["account"]['linkedAccounts']) ? $account_data["account"]['linkedAccounts'] : null,
                                     'product_name' => isset($account_data["account"]['product']) ? $account_data["account"]['product'] : null,
                                     'details' => isset($account_data["account"]['details']) ? $account_data["account"]['details'] : null,
+                                    'credit_score' => isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null,
+                                    'full_name' => isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null,
+                                    'first_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null,
+                                    'last_name' => (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null,
                                 ];
                             }
                         }

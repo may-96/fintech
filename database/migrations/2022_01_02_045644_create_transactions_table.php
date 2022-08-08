@@ -54,6 +54,26 @@ class CreateTransactionsTable extends Migration
             $table->string("remittance_information_unstructured_array",1024)->nullable();
             $table->string("ultimate_creditor")->nullable();
             $table->string("ultimate_debtor")->nullable();
+            
+            $table->integer("merchant_category_code")->nullable()->comment("Premium");            
+            $table->string("invoice_number")->nullable()->comment("Premium");
+
+            $table->string("enriched_contact_address")->nullable()->comment("Premium");
+            $table->string("enriched_contact_phone")->nullable()->comment("Premium");
+            $table->string("enriched_contact_title")->nullable()->comment("Premium");
+            $table->string("enriched_subtitle")->nullable()->comment("Premium");
+            $table->string("enriched_summary")->nullable()->comment("Premium");
+            $table->string("enriched_logo")->nullable()->comment("Premium");
+            $table->string("enriched_name")->nullable()->comment("Premium");
+            $table->string("enriched_website")->nullable()->comment("Premium");
+
+            $table->integer("pattern_regular_transaction_value")->nullable()->comment("Premium");
+            $table->integer("pattern_regular_transaction_id")->nullable()->comment("Premium");
+            $table->integer("pattern_opposite_match_value")->nullable()->comment("Premium");
+            $table->integer("pattern_opposite_match_id")->nullable()->comment("Premium");
+            $table->integer("pattern_anomaly")->nullable()->comment("Premium");
+            $table->integer("pattern_outlier")->nullable()->comment("Premium");
+
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade')->onUpdate('cascade');

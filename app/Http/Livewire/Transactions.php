@@ -27,7 +27,7 @@ class Transactions extends Component
     public $transactions;
     public $grouped_transactions;
     public $transaction_status;
-    public $load_amount = 30;
+    public $load_amount = 70;
     public $total_transactions;
 
     public $account_id;
@@ -160,7 +160,7 @@ class Transactions extends Component
 
     public function load_more()
     {
-        $this->load_amount += 15;
+        $this->load_amount += 20;
         $this->load_transactions();
     }
 

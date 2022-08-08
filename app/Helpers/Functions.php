@@ -82,6 +82,36 @@ class Functions
         try{
 
             $custom_uid = Functions::get_transaction_custom_uid($t);
+            
+            $transaction_type = "credit";
+            if((float) $t["transactionAmount"]["amount"] < 0){
+                $transaction_type = "debit";
+            }
+
+            $category = isset($t["categorisation"]) ? $t["categorisation"]["categoryTitle"] : null;
+            if(Functions::not_empty($category)){
+                if($transaction_type == "debit"){
+                    $cat_count = Category::where('name',$category)->where('type','expense')->get()->count();
+                    if($cat_count == 0){
+                        Category::create([
+                            'id'=> ((int) $t["categorisation"]["categoryId"]),
+                            'name' => $category,
+                            'type' => 'expense',
+                        ]);
+                    }
+                }
+                else{
+                    $cat_count = Category::where('name',$category)->where('type','income')->get()->count();
+                    if($cat_count == 0){
+                        Category::create([
+                            'id'=> (((int) $t["categorisation"]["categoryId"]) + 100),
+                            'name' => $category,
+                            'type' => 'income',
+                        ]);
+                    }
+                }
+            }
+
             $transaction = Transaction::updateOrCreate(
                 [
                     'account_id' => $account->id,
@@ -102,10 +132,35 @@ class Functions
                     "creditor_account" => isset($t["creditorAccount"]["iban"]) ? $t["creditorAccount"]["iban"] : (isset($t["creditorAccount"]["bban"]) ? $t["creditorAccount"]["bban"] : (isset($t["creditorAccount"]["resourceId"]) ? $t["creditorAccount"]["resourceId"] : null)),
                     "additional_information" => isset($t["additionalInformation"]) ? $t["additionalInformation"] : null,
                     "entry_reference" => isset($t["entryReference"]) ? $t["entryReference"] : null,
+                    
                     "category" => isset($t["categorisation"]) ? $t["categorisation"]["categoryTitle"] : null,
-                    "category_id" => isset($t["categorisation"]) ? $t["categorisation"]["categoryId"] : null,
+                    "category_id" => isset($t["categorisation"]) ? ( $transaction_type == 'debit' ? $t["categorisation"]["categoryId"] : (int)$t["categorisation"]["categoryId"] + 100) : null,
+
                     "merchant_name" => isset($t["cleaning"]) ? $t["cleaning"]["merchantName"] : null,
-                    "transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
+                    "cleaning_transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
+                    "merchant_category_code" => (isset($t["cleaning"]) && isset($t["cleaning"]["merchantCategoryCode"])) ? $t["cleaning"]["merchantCategoryCode"] : null,
+                    "invoice_number" => (isset($t["cleaning"]) && isset($t["cleaning"]["invoiceNumber"])) ? $t["cleaning"]["invoiceNumber"] : null,
+
+                    "enriched_contact_address" => (isset($t["enrichment"]) && isset($t["enrichment"]['contacts'])) ? $t["enrichment"]["contacts"]["addressUnstructured"] : null,
+                    "enriched_contact_phone" => (isset($t["enrichment"]) && isset($t["enrichment"]['contacts'])) ? $t["enrichment"]["contacts"]["phone"] : null,
+                    "enriched_contact_title" => (isset($t["enrichment"]) && isset($t["enrichment"]['contacts'])) ? $t["enrichment"]["contacts"]["title"] : null,
+                    
+                    "enriched_subtitle" => (isset($t["enrichment"]) && isset($t["enrichment"]['description'])) ? $t["enrichment"]["description"]["subtitle"] : null,
+                    "enriched_summary" => (isset($t["enrichment"]) && isset($t["enrichment"]['description'])) ? $t["enrichment"]["description"]["summary"] : null,
+
+                    "enriched_logo" => (isset($t["enrichment"]) && isset($t["enrichment"]['logo'])) ? $t["enrichment"]["logo"] : null,
+                    "enriched_name" => (isset($t["enrichment"]) && isset($t["enrichment"]['name'])) ? $t["enrichment"]["name"] : null,
+                    "enriched_website" => (isset($t["enrichment"]) && isset($t["enrichment"]['website'])) ? $t["enrichment"]["website"] : null,
+
+                    "pattern_regular_transaction_value" => (isset($t["patterns"]) && isset($t["patterns"]['regularTransaction'])) ? $t["patterns"]["regularTransaction"]["value"] : null,
+                    "pattern_regular_transaction_id" => (isset($t["patterns"]) && isset($t["patterns"]['regularTransaction'])) ? $t["patterns"]["regularTransaction"]["ID"] : null,
+
+                    "pattern_opposite_match_value" => (isset($t["patterns"]) && isset($t["patterns"]['oppositeMatch'])) ? $t["patterns"]["oppositeMatch"]["value"] : null,
+                    "pattern_opposite_match_id" => (isset($t["patterns"]) && isset($t["patterns"]['oppositeMatch'])) ? $t["patterns"]["oppositeMatch"]["ID"] : null,
+
+                    "pattern_anomaly" => (isset($t["patterns"]) && isset($t["patterns"]['anomaly'])) ? $t["patterns"]["anomaly"] : null,
+                    "pattern_outlier" => (isset($t["patterns"]) && isset($t["patterns"]['outlier'])) ? $t["patterns"]["outlier"] : null,
+
                     "purpose_code" => isset($t["purposeCode"]) ? $t["purposeCode"] : null,
                     "bank_transaction_code" => isset($t["bankTransactionCode"]) ? $t["bankTransactionCode"] : null,
                     "status" => $status,
@@ -663,10 +718,20 @@ class Functions
                     if ($account_data_response->successful())
                     {
                         $account_data = $account_data_response->json();
+                        
                         $credit_score = isset($account_data["account"]["scoring"]) ? $account_data["account"]['scoring']['value'] : null;
+                        $fullName = isset($account_data["account"]["verification"]) ? $account_data["account"]['verification']['fullName'] : null;
+                        $firstName = (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['firstName'])) ? $account_data["account"]['verification']['firstName'] : null;
+                        $lastName = (isset($account_data["account"]["verification"]) && isset($account_data["account"]["verification"]['lastName'])) ? $account_data["account"]['verification']['lastName'] : null;
+                        
                         $status = isset($account_data['account']['status']) ? $account_data['account']['status'] : null;                        
+                        
                         $account->status = $status;
                         $account->credit_score = $credit_score;
+                        $account->full_name = $fullName;
+                        $account->first_name = $firstName;
+                        $account->last_name = $lastName;
+                        
                         $account->save();
                     }
 

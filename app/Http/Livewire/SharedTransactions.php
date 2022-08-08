@@ -18,7 +18,7 @@ class SharedTransactions extends Component
 
     public $grouped_transactions;
     public $transaction_status;
-    public $load_amount = 20;
+    public $load_amount = 50;
     public $transactions_loading = false;
     public $total_transactions;
     public $all_loaded = false;
@@ -107,7 +107,7 @@ class SharedTransactions extends Component
     }
 
     public function load_more(){
-        $this->load_amount += 15;
+        $this->load_amount += 20;
         $this->load_transactions();
     }
 

@@ -36,7 +36,8 @@
                                             <a wire:click.prevent="get_sharing_info({{$a['id']}})" data-bs-toggle="modal" data-bs-target="#shareform" data-toggle="tooltip" data-placement="top" title="Share" class="share_icon fs-18"><i class="uil uil-share-alt"></i></a>
                                         </span>
                                     </div>
-                                    <p class="mb-6 text-primary">@if (isset($a['owner_name'])) {{ $a['owner_name'] }} @else {{ $a['display_name'] }} @endif</p>
+                                    <p class="mb-0 text-primary">@if (isset($a['owner_name'])) {{ $a['owner_name'] }} @else {{ $a['display_name'] }} @endif</p>
+                                    <small class="mb-6 d-block text-muted"> @if (isset($a['full_name'])) {{ $a['full_name'] }} @endif </small>
                                 </div>
                                 <div>
                                     @if (isset($a['account_name']) || isset($a['account_status']))<p class="m-0 lh-1 fs-14">{{ $a['account_name'] }} @if (isset($a['account_status']))<span class="@if($a['account_status'] == 'EXPIRED' || ($a['requisition']['status_long'] == 'EXPIRED' || $a['requisition']['status_long'] == 'SUSPENDED')) text-danger @else text-info @endif ">(@if($a['account_status'] == 'EXPIRED' || $a['requisition']['status_long'] == 'EXPIRED') EXPIRED @elseif($a['requisition']['status_long'] == 'SUSPENDED') SUSPENDED @else {{ $a['account_status'] }} @endif)</span>@endif </p>@endif
@@ -44,6 +45,11 @@
                                         <small class="text-muted float-start">Currency: <span class="text-dark">{{ $a['currency'] }}</span></small>
                                         @if (isset($a['type_string']))<small class="text-muted float-end">Type: <span class="text-dark">{{ $a['type_string'] }}</span></small>@endif
                                     </div>
+                                    @if (isset($a['credit_score']) && App\Helpers\Functions::not_empty($a['credit_score']))
+                                    <div class="clearfix fw-bold my-1">
+                                        <small class="text-muted float-start">Credit Score: <span class="text-dark ">{{ $a['credit_score'] }}</span></small>
+                                    </div>
+                                    @endif
                                     <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-2">
                                         @if(isset($share[$a['id']]) && $share[$a['id']]['count'] > 0)<small class="text-navy mt-1">Shared With: <span class="text-share fw-bold">{{ $share[$a['id']]['count'] }} Users</span></small>@else<small></small>@endif
                                         <span class="text-center">

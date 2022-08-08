@@ -4,16 +4,19 @@
             <div class="container">
                 <div class="row p-3">
                     <div class="col-12 rounded bg-pale-navy py-4">
-                        <div>{{ $institution->name }}</div>
+                        
+                        <div class="text-primary">{{ $institution->name }}</div>
                         <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
-                        @if(App\Helpers\Functions::not_empty($account->currency))
-                        <div>
-                            Currency: <strong>{{ $account->currency }}</strong>
+
+                        <div class="mt-2 row">
+                            @if(App\Helpers\Functions::not_empty($account->credit_score))<div class="col-md-6 text-end">Credit Score: <strong>{{ $account->credit_score }}</strong></div>@endif
+                            @if(App\Helpers\Functions::not_empty($account->currency))<div class="col-md-6 text-start">Currency: <strong>{{ $account->currency }}</strong></div>@endif
                         </div>
-                        <div>
-                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @endif
+                        
+                        <div class="mb-2">
+                            @if(App\Helpers\Functions::not_empty($account->account_name)) {{ $account->account_name }} @endif @if(App\Helpers\Functions::not_empty($account->account_name) && App\Helpers\Functions::not_empty($account->owner_name)) - @endif @if(App\Helpers\Functions::not_empty($account->owner_name)) {{ $account->owner_name }} @if(App\Helpers\Functions::not_empty($account->full_name)) <small class="text-primary">({{ $account->full_name }})</small> @endif @endif
                         </div>
-                        @endif
+                        
                     </div>
                 </div>
             </div>

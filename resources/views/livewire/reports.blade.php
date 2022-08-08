@@ -16,10 +16,10 @@
                                 {{-- <p class="fs-16 mb-0 fw-bold text-dark">Cash Flow Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[10] }} text-{{ $report_data[10] }}">{{ round($report_data[8], 0) }}</span> 
                                     <span class="fw-bold text-{{ $report_data[10] }}">{{ $report_data[9] }}</span>
                                 </p> --}}
-                                @if($report_data[18] > 0)<p class="fs-16 mb-0 fw-bold text-dark">Credit Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[20] }} text-{{ $report_data[20] }}">{{ round($report_data[18] , 1) }}</span> 
-                                <span class="fw-bold text-{{ $report_data[20] }}">{{ $report_data[19] }}</span>
+                                @if($report_data[18] > 0)<p class="fs-16 mb-0 fw-bold text-dark">Overall Credit Score: <span class="px-3 py-0 fs-18 rounded border border-{{ $report_data[20] }} text-{{ $report_data[20] }}">{{ round($report_data[18] , 1) }}</span> 
+                                {{-- <span class="fw-bold text-{{ $report_data[20] }}">{{ $report_data[19] }}</span> --}}
 
-                                </p>@endif
+                                </p><small class="text-dark lh-1">* This Score is Calculated by <a href="https://nordigen.com/en/docs/account-information/premium/scoring/" target="_blank" class="underline">Nordigen API</a></small>@endif
                             @endif
                         </div>
                         <div class="col-12 col-md-8 text-center">

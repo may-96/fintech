@@ -37,11 +37,17 @@ class CreateAccountsTable extends Migration
             $table->string('resource_id')->nullable()->comment("The account id of the given account in the financial institution");
             $table->string('product_name')->nullable()->comment("Product Name of the Bank for this account, proprietary definition");
             $table->string('details',512)->nullable();
-            $table->double('credit_score',10,2,true)->nullable(true);
+            $table->double('credit_score',10,2,true)->nullable(true)->comment("Premium");
+
+            $table->string('full_name')->nullable(true)->comment("Premium");
+            $table->string('first_name')->nullable(true)->comment("Premium");
+            $table->string('last_name')->nullable(true)->comment("Premium");
+            
             $table->string('nickname',100)->nullable();
             $table->string('shareable_link',128)->nullable();
             $table->timestamp('first_load')->nullable();
             $table->timestamp('last_load_time')->nullable();
+            
             $table->timestamps();
 
             $table->unique(['user_id','institution_id','account_id']);

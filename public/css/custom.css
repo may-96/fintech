@@ -459,3 +459,6 @@ body::-webkit-scrollbar-thumb {
     color: #000000;
 }
 
+.underline:after{
+    height: 20% !important;
+}
