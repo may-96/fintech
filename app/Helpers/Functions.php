@@ -137,7 +137,7 @@ class Functions
                     "category_id" => isset($t["categorisation"]) ? ( $transaction_type == 'debit' ? $t["categorisation"]["categoryId"] : (int)$t["categorisation"]["categoryId"] + 100) : null,
 
                     "merchant_name" => isset($t["cleaning"]) ? $t["cleaning"]["merchantName"] : null,
-                    "cleaning_transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
+                    "transaction_type" => isset($t["cleaning"]) ? $t["cleaning"]["transactionType"] : null,
                     "merchant_category_code" => (isset($t["cleaning"]) && isset($t["cleaning"]["merchantCategoryCode"])) ? $t["cleaning"]["merchantCategoryCode"] : null,
                     "invoice_number" => (isset($t["cleaning"]) && isset($t["cleaning"]["invoiceNumber"])) ? $t["cleaning"]["invoiceNumber"] : null,
 

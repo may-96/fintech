@@ -9,8 +9,8 @@
                         <div class="fw-bold text-dark fs-18">{{ $account->iban }}</div>
 
                         <div class="mt-2 row">
-                            @if(App\Helpers\Functions::not_empty($account->credit_score))<div class="col-md-6 text-end">Credit Score: <strong>{{ $account->credit_score }}</strong></div>@endif
-                            @if(App\Helpers\Functions::not_empty($account->currency))<div class="col-md-6 text-start">Currency: <strong>{{ $account->currency }}</strong></div>@endif
+                            @if(App\Helpers\Functions::not_empty($account->credit_score))<div @if(App\Helpers\Functions::not_empty($account->credit_score) && App\Helpers\Functions::not_empty($account->currency)) class="col-md-6 text-end" @else class="col-md-12 text-center" @endif>Credit Score: <strong>{{ $account->credit_score }}</strong></div>@endif
+                            @if(App\Helpers\Functions::not_empty($account->currency))<div @if(App\Helpers\Functions::not_empty($account->credit_score) && App\Helpers\Functions::not_empty($account->currency)) class="col-md-6 text-start" @else class="col-md-12 text-center" @endif>Currency: <strong>{{ $account->currency }}</strong></div>@endif
                         </div>
                         
                         <div class="mb-2">
