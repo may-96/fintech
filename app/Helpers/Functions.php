@@ -156,10 +156,10 @@ class Functions
                     "enriched_website" => (isset($t["enrichment"]) && isset($t["enrichment"]['website'])) ? $t["enrichment"]["website"] : null,
 
                     "pattern_regular_transaction_value" => (isset($t["patterns"]) && isset($t["patterns"]['regularTransaction'])) ? $t["patterns"]["regularTransaction"]["value"] : null,
-                    "pattern_regular_transaction_id" => (isset($t["patterns"]) && isset($t["patterns"]['regularTransaction'])) ? $t["patterns"]["regularTransaction"]["ID"] : null,
+                    "pattern_regular_transaction_id" => (isset($t["patterns"]) && isset($t["patterns"]['regularTransaction'])) ? $t["patterns"]["regularTransaction"]["id"] : null,
 
                     "pattern_opposite_match_value" => (isset($t["patterns"]) && isset($t["patterns"]['oppositeMatch'])) ? $t["patterns"]["oppositeMatch"]["value"] : null,
-                    "pattern_opposite_match_id" => (isset($t["patterns"]) && isset($t["patterns"]['oppositeMatch'])) ? $t["patterns"]["oppositeMatch"]["ID"] : null,
+                    "pattern_opposite_match_id" => (isset($t["patterns"]) && isset($t["patterns"]['oppositeMatch'])) ? $t["patterns"]["oppositeMatch"]["id"] : null,
 
                     "pattern_anomaly" => (isset($t["patterns"]) && isset($t["patterns"]['anomaly'])) ? $t["patterns"]["anomaly"] : null,
                     "pattern_outlier" => (isset($t["patterns"]) && isset($t["patterns"]['outlier'])) ? $t["patterns"]["outlier"] : null,
