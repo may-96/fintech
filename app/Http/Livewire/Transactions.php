@@ -125,7 +125,7 @@ class Transactions extends Component
                 'bank_transaction_code', 'remit_info_unstructured', 'transaction_currency', 'transaction_amount', 'notes', 'category_id', 'additional_information_structured',
                 'balance_after_transaction', 'check_id', 'creditor_agent', 'creditor_id', 'currency_exchange', 'debtor_agent', 'mandate_id', 'proprietary_bank_transaction_code',
                 'remittance_information_structured', 'remittance_information_structured_array', 'remittance_information_unstructured_array', 'ultimate_creditor', 'ultimate_debtor',
-                'end_to_end_id', 'transaction_type','invoice_number','merchant_name','merchant_category_code','enriched_contact_title','enriched_website','enriched_name','enriched_contact_address','enriched_contact_phone','enriched_subtitle','pattern_regular_transaction_value','pattern_opposite_match_value','enriched_logo','enriched_summary','merchant_category_code','pattern_opposite_match_id','pattern_anomaly','pattern_outlier'
+                'end_to_end_id', 'transaction_type','invoice_number','merchant_name','merchant_category_code','enriched_contact_title','enriched_website','enriched_name','enriched_contact_address','enriched_contact_phone','enriched_subtitle','pattern_regular_transaction_value','pattern_opposite_match_value','enriched_logo','enriched_summary','merchant_category_code','pattern_opposite_match_id','pattern_anomaly','pattern_outlier','pattern_regular_transaction_id'
             ];
             $this->transactions = $this->account->transactions()->with('category')->select($select_array)->skip(0)->take($this->load_amount)->orderBy('fixed_date', 'desc')->get();
             
