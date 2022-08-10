@@ -197,8 +197,9 @@ class RequestLinkView extends Component
             'https://ob.nordigen.com/api/v2/agreements/enduser/',
             [
                 // 'institution_id' => $this->bank_id,
+                // 'max_historical_days' => $this->max_historical_days,
                 'institution_id' => $this->sandbox_id,
-                'max_historical_days' => $this->max_historical_days,
+                'max_historical_days' => 90,
                 'access_valid_for_days' => $this->access_valid_for_days,
                 'access_scope' => $this->access_scope
             ]
@@ -282,11 +283,11 @@ class RequestLinkView extends Component
             'balances_scope' => $this->balances_access_scope,
             'details_scope' => $this->details_access_scope,
             'transactions_scope' => $this->transactions_access_scope,
-            'max_historical_days' => $this->max_historical_days,
+            // 'max_historical_days' => $this->max_historical_days,
+            'max_historical_days' => 90,
             'access_valid_for_days' => $this->access_valid_for_days,
             'accepted' => $this->agreement_accepted,
-            'institution_id' => $this->sandbox_id,
-            // 'institution_id' => $institution->id,
+            'institution_id' => $institution->id,
             'ip_address' => request()->ip(),
         ]);
         $agreement->save();

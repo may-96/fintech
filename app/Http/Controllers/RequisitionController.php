@@ -190,8 +190,7 @@ class RequisitionController extends Controller
                             $array1 = [
                                 'account_id' => $account_id,
                                 'user_id' => $user->id,
-                                // 'institution_id' => $institution->id,
-                                'institution_id' => "SANDBOXFINANCE_SFIN0000",
+                                'institution_id' => $institution->id,
                             ];
                             $array2 = [
                                 'requisition_id' => $requisition->id,
@@ -223,8 +222,7 @@ class RequisitionController extends Controller
                                 $array1 = [
                                     'iban' => $account_data["account"]['iban'],
                                     'user_id' => $user->id,
-                                    // 'institution_id' => $institution->id,
-                                    'institution_id' => "SANDBOXFINANCE_SFIN0000",
+                                    'institution_id' => $institution->id,
                                 ];
                                 $array2 = [
                                     'account_id' => $account_id,
@@ -255,8 +253,7 @@ class RequisitionController extends Controller
                                 $array1 = [
                                     'bban' => $account_data["account"]['bban'],
                                     'user_id' => $user->id,
-                                    // 'institution_id' => $institution->id,
-                                    'institution_id' => "SANDBOXFINANCE_SFIN0000",
+                                    'institution_id' => $institution->id,
                                 ];
                                 $array2 = [
                                     'account_id' => $account_id,
@@ -287,8 +284,7 @@ class RequisitionController extends Controller
                                 $array1 = [
                                     'resource_id' => $account_data["account"]['resourceId'],
                                     'user_id' => $user->id,
-                                    // 'institution_id' => $institution->id,
-                                    'institution_id' => "SANDBOXFINANCE_SFIN0000",
+                                    'institution_id' => $institution->id,
                                 ];
                                 $array2 = [
                                     'account_id' => $account_id,
@@ -603,8 +599,7 @@ class RequisitionController extends Controller
                 'max_historical_days' => $old_agree->max_historical_days,
                 'access_valid_for_days' => $old_agree->access_valid_for_days,
                 'accepted' => $new_agree['accepted'],
-                // 'institution_id' => $institution->id,
-                'institution_id' => "SANDBOXFINANCE_SFIN0000",
+                'institution_id' => $institution->id,
                 'ip_address' => request()->ip(),
             ]);
             $agreement->save();

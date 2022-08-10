@@ -255,9 +255,8 @@ class Connect extends Component
             'access_valid_for_days' => $this->access_valid_for_days,
             'accepted' => $this->agreement_accepted,
             // 'max_historical_days' => $this->max_historical_days,
-            // 'institution_id' => $institution->id,
             'max_historical_days' => 90,
-            'institution_id' => $this->sandbox_id,
+            'institution_id' => $institution->id,
             'ip_address' => request()->ip(),
         ]);
         $agreement->save();

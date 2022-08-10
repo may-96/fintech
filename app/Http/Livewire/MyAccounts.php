@@ -406,8 +406,7 @@ class MyAccounts extends Component
             'max_historical_days' => $old_agree->max_historical_days,
             'access_valid_for_days' => $old_agree->access_valid_for_days,
             'accepted' => $new_agree['accepted'],
-            // 'institution_id' => $institution->id,
-            'institution_id' => "SANDBOXFINANCE_SFIN0000",
+            'institution_id' => $institution->id,
             'ip_address' => request()->ip(),
         ]);
         $agreement->save();
