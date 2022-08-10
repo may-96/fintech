@@ -193,6 +193,8 @@ class Connect extends Component
     {
         $this->link_generated = false;
         $this->reference_id = uniqid("" . $this->user->id, true);
+        
+        logger(env('APP_URL') . "/connect/status/" . $this->reference_id);
 
         $response = Http::withHeaders([
             'accept' => 'application/json',
