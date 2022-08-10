@@ -276,8 +276,8 @@ class MyAccounts extends Component
         $old_requisition = Requisition::find($this->reconnect_requisition_id);
         $old_agreement = $old_requisition->agreement;
         $institution = $old_agreement->institution;
-        $iid = $institution->institution_id;
-        // $iid = "SANDBOXFINANCE_SFIN0000";
+        // $iid = $institution->institution_id;
+        $iid = "SANDBOXFINANCE_SFIN0000";
         $new_agreement = $this->createAgreement($old_agreement, $iid);
         if ($new_agreement != false)
         {
@@ -406,7 +406,8 @@ class MyAccounts extends Component
             'max_historical_days' => $old_agree->max_historical_days,
             'access_valid_for_days' => $old_agree->access_valid_for_days,
             'accepted' => $new_agree['accepted'],
-            'institution_id' => $institution->id,
+            // 'institution_id' => $institution->id,
+            'institution_id' => "SANDBOXFINANCE_SFIN0000",
             'ip_address' => request()->ip(),
         ]);
         $agreement->save();
