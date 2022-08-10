@@ -100,6 +100,7 @@ class Connect extends Component
         }
         else
         {
+            logger($response->json());
             $this->user->update_error_code("institution_error_code", $response->status());
             
         }
@@ -182,6 +183,7 @@ class Connect extends Component
             $this->user->update_error_code("agreement_error_code", null);
         }
         else{
+            logger($response->json());
             $this->user->update_error_code("agreement_error_code", $response->status());
         }
     }
@@ -219,6 +221,7 @@ class Connect extends Component
             $this->user->update_error_code("requisition_create_error_code", null);
         }
         else{
+            logger($response->json());
             $this->user->update_error_code("requisition_create_error_code", $response->status());
         }
     }
