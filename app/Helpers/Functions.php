@@ -111,6 +111,9 @@ class Functions
                     }
                 }
             }
+            logger($t);
+            logger($category);
+            logger($transaction_type);
 
             $transaction = Transaction::updateOrCreate(
                 [
