@@ -24,14 +24,18 @@ class FetchDailyTransactions extends Command
     public function handle()
     {
         try{
-            $date_from = Carbon::now()->subDay()->toDateString();
+            $date_from = Carbon::now()->subDays(7)->toDateString();
             $date_to = Carbon::now()->toDateString();
             $users = User::has('accounts')->get();
             foreach($users as $user){
                 $accounts = $user->accounts;
                 foreach($accounts as $account){
-                    Functions::fetchTransactions($user, $account, null, null);
-                    // Functions::fetchTransactions($user, $account, $date_from, $date_to);
+                    // Functions::fetchTransactions($user, $account, null, null);
+                    
+                    Functions::fetchTransactions($user, $account, $date_from, $date_to);
+
+                    $account->last_load_time = Carbon::now()->toDateTimeString();
+                    $account->save();
                     
                     // event(new AccountConnected($user, $account, $date_from, $date_to));
                 }
