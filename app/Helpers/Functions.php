@@ -112,6 +112,8 @@ class Functions
                 }
             }
 
+            logger($t);
+
             $transaction = Transaction::updateOrCreate(
                 [
                     'account_id' => $account->id,
