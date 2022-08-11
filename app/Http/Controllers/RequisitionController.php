@@ -456,8 +456,8 @@ class RequisitionController extends Controller
         $old_requisition = Requisition::find($requisition_id);
         $old_agreement = $old_requisition->agreement;
         $institution = $old_agreement->institution;
-        // $iid = $institution->institution_id;
-        $iid = "SANDBOXFINANCE_SFIN0000";
+        $iid = $institution->institution_id;
+        // $iid = "SANDBOXFINANCE_SFIN0000";
         $user = Auth::user();
         $flash_message = "";
         $new_agreement = $this->createAgreement($old_agreement, $iid, $user);

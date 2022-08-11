@@ -161,10 +161,10 @@ class Connect extends Component
         ])->post(
             'https://ob.nordigen.com/api/v2/agreements/enduser/',
             [
-                // 'institution_id' => $this->bank_id,
-                // 'max_historical_days' => $this->max_historical_days,
-                'institution_id' => $this->sandbox_id,
-                'max_historical_days' => 90,
+                'institution_id' => $this->bank_id,
+                'max_historical_days' => $this->max_historical_days,
+                // 'institution_id' => $this->sandbox_id,
+                // 'max_historical_days' => 90,
                 'access_valid_for_days' => $this->access_valid_for_days,
                 'access_scope' => $this->access_scope
             ]
@@ -204,8 +204,8 @@ class Connect extends Component
             'https://ob.nordigen.com/api/v2/requisitions/',
             [
                 'redirect' => env('APP_URL') . "/connect/status/" . $this->reference_id,
-                // 'institution_id' => $this->bank_id,
-                'institution_id' => $this->sandbox_id,
+                'institution_id' => $this->bank_id,
+                // 'institution_id' => $this->sandbox_id,
                 'reference' => "" . $this->reference_id,
                 'agreement' => $this->agreement_id,
                 'user_language' => 'EN',
@@ -234,8 +234,8 @@ class Connect extends Component
 
         $institution = Institution::firstOrCreate(
             [
-                // 'institution_id' => $this->bank_id,
-                'institution_id' => $this->sandbox_id
+                'institution_id' => $this->bank_id,
+                // 'institution_id' => $this->sandbox_id
             ],
             [
                 'name' => $this->bank_name,
@@ -254,8 +254,8 @@ class Connect extends Component
             'transactions_scope' => $this->transactions_access_scope,
             'access_valid_for_days' => $this->access_valid_for_days,
             'accepted' => $this->agreement_accepted,
-            // 'max_historical_days' => $this->max_historical_days,
-            'max_historical_days' => 90,
+            'max_historical_days' => $this->max_historical_days,
+            // 'max_historical_days' => 90,
             'institution_id' => $institution->id,
             'ip_address' => request()->ip(),
         ]);
