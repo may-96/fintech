@@ -773,6 +773,8 @@ class Functions
                     }
                 }
 
+                logger($query);
+
                 $transaction_response = Http::withHeaders([
                     'accept' => 'application/json',
                     'Authorization' => 'Bearer ' . Crypt::decryptString($token->access),
@@ -783,6 +785,8 @@ class Functions
 
                 if ($transaction_response->successful())
                 {
+                    logger($transaction_response->effectiveUri());
+                    logger($transaction_response->headers());
                     $account->last_load_time = Carbon::now()->toDateTimeString();
                     $account->save();
                     
