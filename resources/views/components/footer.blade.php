@@ -4,7 +4,7 @@
             <div class="col-12 py-8 text-center">
                 <div class="widget lh-1">
                     <h4 class="widget-title text-white mb-3">About</h4>
-                    <small class="">info@nujanas.com</small>
+                    <small class="">fintech@itsuzair.xyz</small>
                 </div>
             </div>
             <div class="col-12 py-2 text-center">

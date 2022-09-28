@@ -547,7 +547,7 @@
                     <img height="100px" src="{{ asset('images/logo.png') }}">
                 </div>
                 <div class="col-10 m-auto">
-                    <h2 class="m-0">Nujanas Open Banking</h2>
+                    <h2 class="m-0">Fintech Open Banking</h2>
                     <p class="text-muted m-0">
                         this is the company header add your content here.
                     </p>
